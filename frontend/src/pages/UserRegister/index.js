@@ -48,6 +48,7 @@ const UserRegister = () => {
     return (
         <div>
             <img src = "/images/RegisterImage.PNG"  alt = "사진입니다."/><br/>
+            <br/>
             <form onSubmit={onSubmitHandler}>
                 <input value ={ email } type ="text"  placeholder="이메일" onChange={onEmailHandler}/><br/>
                 <input value ={ name } type ="text"  placeholder="이름" onChange={onNameHandler}/><br/>
