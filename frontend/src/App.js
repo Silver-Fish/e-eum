@@ -1,6 +1,6 @@
 import { Route } from 'react-router-dom';
 import { 
-  Category , Login
+  Category , Login, UserRegister
 } from './pages';
 
 import './App.css';
@@ -10,6 +10,7 @@ function App() {
     <div className="App">
       <Route path="/category" component={ Category } />
       <Route path="/login" component={ Login } />
+      <Route path="/userRegister" component={ UserRegister } />
     </div>
   )
 }

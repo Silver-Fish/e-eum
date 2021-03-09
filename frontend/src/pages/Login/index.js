@@ -1,4 +1,5 @@
 import React , {useState} from 'react';
+import styles from './index.module.css';
 //import { Redirect, useHistory } from 'react-router-dom';
 
 
@@ -50,8 +51,8 @@ const Login = () => {
         <div>
             <img src = "/images/loginImage.PNG"  alt = "사진입니다."/>
             <form onSubmit={onSubmitHandler}>
-                <input value={email} placeholder="ID" type="text"  onChange={onEmailHandler} />
-                <input value={password} placeholder="PW" type="password"  onChange={onPasswordHandler} />
+                <input className={styles.login__input} value={email} placeholder="ID" type="text"  onChange={onEmailHandler} /><br/>
+                <input className={styles.login__input} value={password} placeholder="PW" type="password"  onChange={onPasswordHandler} /><br/>
                 <button type ="submit">로그인</button>
             </form>
         </div>
