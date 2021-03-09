@@ -33,7 +33,7 @@ const UserRegister = () => {
             console.log('Password', password);
         }
         else{
-            console.log("가입실패")
+            console.log("가입실패2")
         }
 
       };
