@@ -1,5 +1,7 @@
 import React , {useState} from 'react';
 import styles from './index.module.css';
+//import { useHistory } from "react-router-dom";
+import UserButtonComp from '../../components/ButtonComp/UserButtonComp';
 //import { Redirect, useHistory } from 'react-router-dom';
 
 
@@ -54,6 +56,7 @@ const Login = () => {
                 <input className={styles.login__input} value={email} placeholder="ID" type="text"  onChange={onEmailHandler} /><br/>
                 <input className={styles.login__input} value={password} placeholder="PW" type="password"  onChange={onPasswordHandler} /><br/>
                 <button type ="submit">로그인</button>
+                <UserButtonComp textValue ="회원가입" handleClickPath='./userRegister'></UserButtonComp>
             </form>
         </div>
     );
