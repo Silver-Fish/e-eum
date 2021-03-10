@@ -1,0 +1,11 @@
+.button {
+  flex: auto;
+  background-color: white;
+  border: 0px;
+}
+
+.buttonimage {
+  height: 100%;
+  width: 100%;
+  margin: auto;
+}
