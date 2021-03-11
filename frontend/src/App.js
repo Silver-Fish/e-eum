@@ -1,6 +1,6 @@
 import { Route } from 'react-router-dom';
 import { 
-  Category , Login, UserRegister, MyPage, Main
+  Category , Login, UserRegister, MyPage, Main, Confirm
 } from './pages';
 
 import './App.css';
@@ -13,6 +13,7 @@ function App() {
       <Route path="/login" component={ Login } />
       <Route path="/userRegister" component={ UserRegister } />
       <Route path="/myPage" component={ MyPage } />
+      <Route path="/confirm" component={ Confirm } />
     </div>
   )
 }
