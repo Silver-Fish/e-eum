@@ -23,6 +23,10 @@ const Category = () => {
       <div className={styles.category_card_box}>
         { categoryList }
       </div>
+      <div className={styles.button_box}>
+        <button className={styles.add_button}>추가</button>
+        <button className={styles.update_button}>수정</button>
+      </div>
     </>
   );
 }

@@ -14,3 +14,26 @@ div {
 .category_card_box .item {
   flex-grow: 1;
 }
+
+.button_box {
+  display: flex;
+
+}
+
+button {
+  width: 50vw;
+}
+
+.add_button {
+  background-color:  white;
+  font-size: inherit;
+  border: #8A9C3A solid 1px;
+  border-radius: 3px;
+}
+.update_button {
+  color: white;
+  background-color:  #8A9C3A;
+  font-size: inherit;
+  border: #8A9C3A solid 1px;
+  border-radius: 3px;
+}
