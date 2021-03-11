@@ -14,13 +14,13 @@ const Confirm = () => {
     const onPressEnter = (e) =>{
         //비밀번호가 일치하다면
         if(e.key === 'Enter'){
-            history.push('./deleteUser') 
+            history.push('./userDelete') 
         }
     }
 
     const buttonClick = () =>{
         //비밀번호가 일치하면 회원삭제페이지 ㄱ
-        history.push('./deleteUser') 
+        history.push('./userDelete') 
     }
 
     return (

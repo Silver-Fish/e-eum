@@ -14,7 +14,7 @@ const MyPage = () => {
             <p>이메일</p>
             <input readOnly value={email} placeholder={email}></input><br/>
             <UserButtonComp textValue = "정보 수정" handleClickPath ='./userUpdate'></UserButtonComp><br/>
-            <UserButtonComp textValue = "회원 탈퇴" handleClickPath ='./userDelete'></UserButtonComp><br/>
+            <UserButtonComp textValue = "회원 탈퇴" handleClickPath ='./confirm'></UserButtonComp><br/>
         </div>
     );
 };
