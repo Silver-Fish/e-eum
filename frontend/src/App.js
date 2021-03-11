@@ -1,6 +1,8 @@
 import { Route } from 'react-router-dom';
 import { 
-  Category , Login, UserRegister, MyPage, Main, Confirm,UserUpdate
+  Category , Login, UserRegister, 
+  MyPage, Main, Confirm,UserUpdate,
+  UserDelete
 } from './pages';
 
 import './App.css';
@@ -15,6 +17,7 @@ function App() {
       <Route path="/myPage" component={ MyPage } />
       <Route path="/confirm" component={ Confirm } />
       <Route path="/userUpdate" component={ UserUpdate } />
+      <Route path="/userDelete" component={ UserDelete } />
     </div>
   )
 }
