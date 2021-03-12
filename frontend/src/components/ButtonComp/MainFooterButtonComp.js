@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './MainFooterButtonComp.module.css'
 import { useHistory } from "react-router-dom";
 
+
 const MainFooterButton = (props) => {
   const history = useHistory();
   const buttonImg = props.buttonImg

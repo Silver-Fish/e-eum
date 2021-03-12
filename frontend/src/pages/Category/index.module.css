@@ -1,0 +1,16 @@
+div {
+  font-size: 18px;
+}
+
+.category_card_box {
+  display: flex;
+  /* justify-content: space-between; */
+  align-content: flex-start;
+  margin: auto;
+  height: 80vh;
+  flex-wrap: wrap;
+}
+
+.category_card_box .item {
+  flex-grow: 1;
+}
