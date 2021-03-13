@@ -47,13 +47,14 @@ const UserUpdate = () => {
         <div>
              <img src = "/images/updateImage.PNG"  alt = "사진입니다."/>
              <form onSubmit={onSubmitHandler}>
-                 이름<input value = { name } type = "text" placeholder={name} onChange={onNameHandler} /> <br/>
-                 이메일<input readOnly value ={ email } type ="text"  placeholder={email} /><br/>
+                이메일<input readOnly value ={ email } type ="text"  placeholder={email} /><br/>
+                이름<input value = { name } type = "text" placeholder={name} onChange={onNameHandler} /> <br/>
                 비밀번호<input value ={ password } type ="password"  placeholder={password} onChange={onPasswordHandler}/><br/>                
                 비밀번호 확인<input value ={ passwordcheck } type ="password"  placeholder="비밀번호 확인" onChange={onPasswordCheckHandler} onKeyUp={onMessageController}/><br/>
                 <p style ={ {color : "red"} }>{ message }</p><br/>
                 <button type ="submit">수정하기</button>
              </form>
+             
         </div>
     );
 };

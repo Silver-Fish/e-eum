@@ -2,7 +2,7 @@ import { Route } from 'react-router-dom';
 import { 
   Category , Login, UserRegister, 
   MyPage, Main, Confirm,UserUpdate,
-  UserDelete
+  UserDelete,FindPassword
 } from './pages';
 
 import './App.css';
@@ -18,6 +18,7 @@ function App() {
       <Route path="/confirm" component={ Confirm } />
       <Route path="/userUpdate" component={ UserUpdate } />
       <Route path="/userDelete" component={ UserDelete } />
+      <Route path="/findPassword" component={ FindPassword } />
     </div>
   )
 }
