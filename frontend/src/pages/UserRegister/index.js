@@ -1,5 +1,5 @@
 import React , {useState} from 'react';
-
+import Imgbox from '../../components/Image/Imgbox';
 const UserRegister = () => {
 
     const [name,setName] = useState("");
@@ -47,7 +47,7 @@ const UserRegister = () => {
 
     return (
         <div>
-            <img src = "/images/RegisterImage.PNG"  alt = "사진입니다."/><br/>
+            <Imgbox src = "/images/RegisterImage.PNG"/><br/>
             <br/>
             <form onSubmit={onSubmitHandler}>
                 <input value ={ email } type ="text"  placeholder="이메일" onChange={onEmailHandler}/><br/>

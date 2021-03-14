@@ -1,10 +1,10 @@
 import React ,{useState} from 'react';
-import { useHistory } from "react-router-dom";
+import Imgbox from '../../components/Image/Imgbox';
 
-const FindPassword = () => {
+import UserButtonComp from '../../components/ButtonComp/UserButtonComp';
 
-    
-    const history = useHistory();
+const FindPassword = () => {    
+   
     const [name, setName] = useState("");
     const [email,setEmail] = useState("");
 
@@ -22,18 +22,14 @@ const FindPassword = () => {
         //있다면 비밀번호 찾는 모달창
     }
 
-    const goLogin = () => {
-        history.push('./login')
-    }
-
     return (
         <div>
-            <img src = "/images/findPasswordImage.PNG"  alt = "사진입니다."/><br/>
+            <Imgbox src='/images/findPasswordImage.PNG'/>
             <from onSubmit={onSubmitHandler}>
                 이메일<input  value ={ email } type ="text"  placeholder={email} onChange={onEmailHandler} /><br/>
                 이름<input value = { name } type = "text" placeholder={name} onChange={onNameHandler} /> <br/>
                 <button type="submit"> 찾기 </button><br/>
-                <button style ={ {color : "red"} } onClick={goLogin}>로그인하러 가기</button><br/>
+                <UserButtonComp textValue ="로그인하러가기" handleClick ="login"></UserButtonComp>
             </from>
             
         </div>

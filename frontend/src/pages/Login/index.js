@@ -1,13 +1,12 @@
 import React , {useState} from 'react';
-//import styles from './index.module.css';
-//import { useHistory } from "react-router-dom";
+
 import UserButtonComp from '../../components/ButtonComp/UserButtonComp';
-//import { Redirect, useHistory } from 'react-router-dom';
+import Imgbox from '../../components/Image/Imgbox';
+import InputComp from '../../components/InputComp/InputComp';
 
 
 const Login = () => {
 
-    //const history = useHistory()
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -51,13 +50,13 @@ const Login = () => {
 
     return (
         <div>
-            <img src = "/images/loginImage.PNG"  alt = "사진입니다."/>
+            <Imgbox src='/images/loginImage.PNG'/>
             <form onSubmit={onSubmitHandler}>
-                <input  value={email} placeholder="ID" type="text"  onChange={onEmailHandler} /><br/>
+                <InputComp type="email" placeholder="Email" onChange ={onEmailHandler}></InputComp><br/>
                 <input  value={password} placeholder="PW" type="password"  onChange={onPasswordHandler} /><br/>
                 <button type ="submit">로그인</button>
-                <UserButtonComp textValue ="회원가입" handleClickPath='./userRegister'></UserButtonComp>
             </form>
+            <UserButtonComp textValue ="회원가입" handleClick='register'></UserButtonComp>
         </div>
     );
 };
