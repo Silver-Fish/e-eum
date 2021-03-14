@@ -1,8 +1,7 @@
 import React from 'react';
-import styles from './CategoryCard.module.css';
+import styles from './SpeechBoxCard.module.css'
 
-
-const CategoryCard = (props) => {
+const SpeechBox = (props) => {
   const textValue = props.textValue
   return(
     <button className={styles.card}>
@@ -12,4 +11,4 @@ const CategoryCard = (props) => {
   )
 }
 
-export default CategoryCard;
+export default SpeechBox;

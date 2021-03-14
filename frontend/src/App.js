@@ -1,6 +1,6 @@
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { 
-  Main, Category 
+  Main, Category, CategoryCard
 } from './pages';
 
 import './App.css';
@@ -9,7 +9,10 @@ function App() {
   return (
     <div className="App">
       <Route exact path="/" component={ Main } />
-      <Route path="/category" component={ Category } />
+      <Switch>
+        <Route path="/category/:situation" component={ CategoryCard } />
+        <Route path="/category" component={ Category } />
+      </Switch>
     </div>
   )
 }
