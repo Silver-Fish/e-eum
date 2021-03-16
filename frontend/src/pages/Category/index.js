@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React, {useState} from 'react'
 import styles from './index.module.css'
 import HeaderComp from '../../components/HeaderComp/HeaderComp'
