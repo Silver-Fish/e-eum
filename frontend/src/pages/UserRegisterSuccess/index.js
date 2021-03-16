@@ -1,5 +1,5 @@
 import React from 'react';
-import Imgbox from '../../components/Image/Imgbox';
+import ImgboxTitle from '../../components/Image/ImgboxTitle';
 import UserButtonComp from '../../components/ButtonComp/UserButtonComp';
 
 const UserRegisterSuccess = () => {
@@ -7,7 +7,7 @@ const UserRegisterSuccess = () => {
   
     return (
         <div>
-            <Imgbox src = "/images/userRegisterSuccess.PNG" /><br/>
+            <ImgboxTitle src = "/images/userRegisterSuccess.PNG" /><br/>
             <UserButtonComp textValue ="로그인하러가기" handleClick ="login"></UserButtonComp>
         </div>
     );

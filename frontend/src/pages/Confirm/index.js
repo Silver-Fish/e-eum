@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import Imgbox from '../../components/Image/Imgbox';
+import ImgboxTitle from '../../components/Image/ImgboxTitle';
    
 import UserButtonComp from '../../components/ButtonComp/UserButtonComp';
 
@@ -20,7 +20,7 @@ const Confirm = () => {
 
     return (
         <div>
-            <Imgbox src='/images/confirmImage.PNG'/>            
+            <ImgboxTitle src='/images/confirmImage.PNG'/>            
             비밀번호
             <input type ="password" placeholder="비밀번호 확인" value ={password} onChange={onPasswordHandler} /><br/>
             <UserButtonComp textValue ="확인" handleClick ="goDelete" data={password}></UserButtonComp>         

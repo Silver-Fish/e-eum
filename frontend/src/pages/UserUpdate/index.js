@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { useHistory } from "react-router-dom";
-import Imgbox from '../../components/Image/Imgbox';
+import ImgboxTitle from '../../components/Image/ImgboxTitle';
 const UserUpdate = () => {
 
     const history = useHistory();
@@ -45,7 +45,7 @@ const UserUpdate = () => {
 
     return (
         <div>
-             <Imgbox src = "/images/updateImage.PNG" />
+             <ImgboxTitle src = "/images/updateImage.PNG" />
              <form onSubmit={onSubmitHandler}>
                 이메일<input readOnly value ={ email } type ="text"  placeholder={email} /><br/>
                 이름<input value = { name } type = "text" placeholder={name} onChange={onNameHandler} /> <br/>
