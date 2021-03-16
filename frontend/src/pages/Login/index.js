@@ -12,11 +12,11 @@ const Login = () => {
     const [password, setPassword] = useState("");
     
     const onEmailHandler = (e) => {
-        setEmail(e.currentTarget.value);
+        setEmail(e);
       };
 
     const onPasswordHandler = (e) => {
-        setPassword(e.currentTarget.value);
+        setPassword(e);
       };
     
 
@@ -52,8 +52,8 @@ const Login = () => {
         <div>
             <Imgbox src='/images/loginImage.PNG'/>
             <form onSubmit={onSubmitHandler}>
-                <InputComp type="email" placeholder="Email" onChange ={onEmailHandler}></InputComp><br/>
-                <input  value={password} placeholder="PW" type="password"  onChange={onPasswordHandler} /><br/>
+                <InputComp type="email" placeholder="Email" InputChange={onEmailHandler} /><br/>
+                <InputComp type="password" placeholder="PW" InputChange={onPasswordHandler} /><br/>
                 <button type ="submit">로그인</button>
             </form>
             <UserButtonComp textValue ="회원가입" handleClick='register'></UserButtonComp>
