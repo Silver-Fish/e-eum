@@ -1,6 +1,6 @@
 import { Route } from 'react-router-dom';
 import { 
-  Main, Category 
+  Main, Category, OwnEeum 
 } from './pages';
 
 import './App.css';
@@ -10,6 +10,7 @@ function App() {
     <div className="App">
       <Route exact path="/" component={ Main } />
       <Route path="/category" component={ Category } />
+      <Route path="/owneeum" component={ OwnEeum } />
     </div>
   )
 }
