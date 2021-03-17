@@ -16,7 +16,7 @@ import javax.validation.constraints.NotBlank;
 public class CategoryRequest {
     @ApiModelProperty(value = "단어")
     @NotBlank
-    @Length(max = 10, message = "단어의 최대 길이는 10자 입니다.")
+    @Length(max = 10, message = "카테고리 이름의 최대 길이는 10자 입니다.")
     private String word;
 
     @ApiModelProperty(value = "이미지")
