@@ -1,0 +1,16 @@
+.card {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  /* width: 30vw; */
+  width: 90%;
+  height: 30vw;
+  margin: 1vh auto;
+}
+
+.card_image {
+  font-size: inherit;  
+  border: 1px solid black;
+  height: 70%;
+  width: 100%;
+}

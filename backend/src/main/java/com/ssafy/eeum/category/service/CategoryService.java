@@ -1,13 +1,12 @@
 package com.ssafy.eeum.category.service;
 
+import com.ssafy.eeum.category.exception.CategoryNotFound;
 import com.ssafy.eeum.category.domain.Category;
 import com.ssafy.eeum.category.dto.request.CategoryRequest;
 import com.ssafy.eeum.category.dto.request.CategoryUpdateRequest;
-import com.ssafy.eeum.category.dto.response.CategoriesResponse;
 import com.ssafy.eeum.category.dto.response.CategoryResponse;
 import com.ssafy.eeum.category.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
