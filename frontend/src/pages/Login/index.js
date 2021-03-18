@@ -59,8 +59,8 @@ const Login = () => {
                 <InputComp type="password" placeholder="PW" InputChange={onPasswordHandler} /><br/>
                 <span>자동로그인</span>
                 <div className={styles.labelForm}>
-                    <LabelComp textValue ="회원가입" handleClcikPath="./register"/>
-                    <LabelComp textValue ="비밀번호 찾기" handleClcikPath="./findPassword"/>                
+                    <LabelComp textValue ="회원가입" handleClickPath="./userRegister"/>
+                    <LabelComp textValue ="비밀번호 찾기" handleClickPath="./findPassword"/>                
                 </div>
                 <button className={styles.button} type ="submit">로그인</button>
             </form>
