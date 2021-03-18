@@ -22,7 +22,6 @@ import javax.validation.Valid;
  **/
 
 @Api(tags = {"1. Account"})
-@CrossOrigin(origins = {"*"})
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/accounts")
@@ -37,4 +36,5 @@ public class AccountController {
         accountService.createAccount(singup);
         return new ResponseEntity<String>("Created", HttpStatus.CREATED);
     }
+
 }
