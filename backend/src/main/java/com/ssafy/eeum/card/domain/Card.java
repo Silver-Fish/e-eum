@@ -30,7 +30,8 @@ import java.util.List;
 public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long no;
+    @Column(name="card_id")
+    private Long id;
 
     private String word;
 
