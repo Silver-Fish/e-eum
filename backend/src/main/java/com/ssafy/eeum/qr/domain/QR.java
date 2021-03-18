@@ -17,8 +17,9 @@ import java.time.LocalDateTime;
 @Table(name="qr")
 public class QR {
     @Id
-    @GeneratedValue
-    private Long no;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="qr_id")
+    private Long id;
 
     private String title;
 
