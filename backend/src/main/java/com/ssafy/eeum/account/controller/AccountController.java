@@ -39,9 +39,9 @@ public class AccountController {
 
     @ApiOperation(value = "이메일 중복 확인")
     @GetMapping("/check-dup")
-    public ResponseEntity<String> checkDuplicateEmail(@RequestParam String email) {
-        accountService.checkDuplicateEmail(email);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Boolean> checkDuplicateEmail(@RequestParam String email) {
+        boolean result = accountService.checkDuplicateEmail(email);
+        return new ResponseEntity<Boolean>(result, HttpStatus.OK);
     }
 
 
