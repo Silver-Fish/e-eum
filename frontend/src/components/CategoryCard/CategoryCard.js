@@ -25,9 +25,6 @@ const CategoryCard = (props) => {
   const categoryCardEditClick = (e) => {
     
     props.categoryCardEdit({state:!isCategoryCardEdit, url:imgUrl, name: {categoryName}['categoryName']})
-    
-    
-    // console.log(URL.createOb.buttonjectURL(e.target.src))
   }
   
   return(
