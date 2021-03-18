@@ -1,8 +1,9 @@
 import { Route, Switch } from 'react-router-dom';
 import { 
-  OwnEeum,
+  OwnEeum, UserDelete, FindPassword,
   Category , Login, UserRegister, 
   MyPage, Main, Confirm,UserUpdate,
+  UserRegisterSuccess
 
 } from './pages';
 
