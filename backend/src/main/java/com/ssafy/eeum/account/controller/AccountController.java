@@ -37,4 +37,12 @@ public class AccountController {
         return new ResponseEntity<String>("Created", HttpStatus.CREATED);
     }
 
+    @ApiOperation(value = "이메일 중복 확인")
+    @GetMapping("/check-dup")
+    public ResponseEntity<String> checkDuplicateEmail(@RequestParam String email) {
+        accountService.checkDuplicateEmail(email);
+        return ResponseEntity.ok().build();
+    }
+
+
 }

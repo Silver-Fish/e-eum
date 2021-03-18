@@ -4,6 +4,8 @@ import com.ssafy.eeum.account.domain.Account;
 import com.ssafy.eeum.account.domain.UserRole;
 import com.ssafy.eeum.account.dto.request.SingupRequest;
 import com.ssafy.eeum.account.repository.AccountRepository;
+import com.ssafy.eeum.common.exception.DuplicateException;
+import com.ssafy.eeum.common.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -32,6 +34,12 @@ public class AccountService {
                 .role(UserRole.ROLE_USER)
                 .build();
         return this.accountRepository.save(account);
+    }
+
+    public void checkDuplicateEmail(String email) {
+        accountRepository.findByEmail(email).ifPresent(account -> {
+            throw new DuplicateException(ErrorCode.DUPLICATED_EMAIL);
+        });
     }
 
 }
