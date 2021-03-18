@@ -2,15 +2,13 @@ import React, { useState } from 'react';
 import styles from './CategoryEdit.module.css'
 
 const CategoryEdit = (props) => {
-  console.log(props)
+
   const [situationImg, setImg] = useState(props['categoryUrl'])
   const [categoryName, setCategoryName] = useState(props['categoryName'])
   
   
   const onImageChange = function (e) {
     
-    console.log(situationImg)
-    console.log(e.target.value)
     setImg(e.target.value)
     setImg(URL.createObjectURL(e.target.files[0]))
   }
@@ -39,8 +37,8 @@ const CategoryEdit = (props) => {
       </div>
 
       <div className={styles.button_box}>
-          <button className={styles.close_button} onClick={props.addStateChange}>취소</button>
-          <button className={styles.add_button} onClick={props.addStateChange} >등록</button>
+          <button className={styles.close_button} onClick={props.categoryEditStateChange}>취소</button>
+          <button className={styles.add_button} onClick={props.categoryEditStateChange} >등록</button>
       </div>
     </>
   )
