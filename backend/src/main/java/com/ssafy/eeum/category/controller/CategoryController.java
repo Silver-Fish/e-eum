@@ -11,12 +11,17 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
 
 @ApiResponses(value = {
         @ApiResponse(code = 401, message = "Unauthorized", response = Response.class),
@@ -28,6 +33,7 @@ import javax.validation.Valid;
 @RequestMapping("category")
 @RequiredArgsConstructor
 public class CategoryController {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final CategoryService categoryService;
 
@@ -35,8 +41,12 @@ public class CategoryController {
     @ApiOperation(value = "카테고리 등록",
             notes = "카테고리 정보를 전달받아 새 카테고리 등록",
             response = Response.class)
-    public ResponseEntity<String> category(@Valid @RequestBody CategoryRequest categoryRequest) {
-        categoryService.save(categoryRequest);
+    public ResponseEntity<String> category(Authentication authentication, @RequestParam(value = "word") String word, @RequestParam(value = "file", required = false) MultipartFile image) {
+        try {
+            categoryService.save((String) authentication.getPrincipal(), word, image);
+        }catch (IOException e){
+            logger.error(e.getMessage());
+        }
         return new ResponseEntity<String>("Created", HttpStatus.CREATED);
     }
 
@@ -56,6 +66,14 @@ public class CategoryController {
         }
 
         return response;
+    }
+
+    @GetMapping("/test")
+    @ApiOperation(value = "카테고리 조회 - 주희")
+    public ResponseEntity<?> searchCategory(Authentication authentication) {
+        CategoriesResponse categoriesResponse = categoryService.searchCategory((String) authentication.getPrincipal());
+        final Response result = new Response("success", "카테고리 목록 조회에 성공하였습니다.", categoriesResponse);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")

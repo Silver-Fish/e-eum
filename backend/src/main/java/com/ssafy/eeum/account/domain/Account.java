@@ -1,6 +1,7 @@
 package com.ssafy.eeum.account.domain;
 
 import com.ssafy.eeum.card.domain.AccountCard;
+import com.ssafy.eeum.category.domain.Category;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -42,6 +43,9 @@ public class Account {
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval=true)
     private List<AccountCard> accountCards = new ArrayList<>();
 
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval=true)
+    private List<Category> categories = new ArrayList<>();
+
     public Account() {}
 
     @Builder
@@ -54,5 +58,10 @@ public class Account {
 
     public void addAccountCard(AccountCard accountCard){
         accountCards.add(accountCard);
+    }
+
+    public void addCategory(Category category) {
+        categories.add(category);
+        category.setAccount(this);
     }
 }
