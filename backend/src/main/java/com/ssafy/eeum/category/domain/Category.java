@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 //@Table(name="category")
 public class Category {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
 //    @ManyToOne  :  유저
