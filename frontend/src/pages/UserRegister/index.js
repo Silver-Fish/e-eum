@@ -3,8 +3,8 @@ import ImgboxTitle from '../../components/Image/ImgboxTitle';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import HeaderComp from '../../components/HeaderComp/HeaderComp';
-
 import styles from './index.module.css';
+
 const UserRegister = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
