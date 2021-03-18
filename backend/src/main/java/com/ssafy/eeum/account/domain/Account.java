@@ -1,11 +1,14 @@
 package com.ssafy.eeum.account.domain;
 
+import com.ssafy.eeum.card.domain.AccountCard;
 import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * com.ssafy.eeum.account.domain
@@ -36,6 +39,8 @@ public class Account {
     @Enumerated(EnumType.STRING)
     private UserRole role = UserRole.ROLE_GUEST;
 
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval=true)
+    private List<AccountCard> accountCards = new ArrayList<>();
 
     public Account() {}
 
@@ -45,5 +50,9 @@ public class Account {
         this.password = password;
         this.name = name;
         this.role = role;
+    }
+
+    public void addAccountCard(AccountCard accountCard){
+        accountCards.add(accountCard);
     }
 }
