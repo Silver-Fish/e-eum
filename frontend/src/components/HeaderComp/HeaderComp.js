@@ -10,8 +10,8 @@ const HeaderComp = (props) => {
     history.push('/');
   };
   const mypageClick = (e) => {
-    if (sessionStorage.getItem('jwt') !== null) history.push('/mypage');
-    else history.push('./login');
+    if (sessionStorage.getItem('jwt') !== null) history.push('/myPage');
+    else setModal(false);
   };
   const myEeumClick = (e) => {
     history.push('/setting');
@@ -21,7 +21,7 @@ const HeaderComp = (props) => {
   };
   const qrEeumClick = (e) => {
     if (sessionStorage.getItem('jwt') !== null) history.push('/setting');
-    else history.push('./login');
+    else setModal(false);
   };
   const settingClick = (e) => {
     history.push('/setting');

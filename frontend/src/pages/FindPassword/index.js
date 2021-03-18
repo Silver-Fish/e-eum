@@ -1,39 +1,110 @@
-import React ,{useState} from 'react';
+import React, { useState } from 'react';
 import ImgboxTitle from '../../components/Image/ImgboxTitle';
+import { useHistory } from 'react-router-dom';
+import styles from './index.module.css';
+import axios from 'axios';
 
-import UserButtonComp from '../../components/ButtonComp/UserButtonComp';
+const FindPassword = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [isModal, setModal] = useState(false);
+  const [password, setPassword] = useState('');
+  const [checkpassword, setCheckPassword] = useState('');
+  const history = useHistory();
 
-const FindPassword = () => {    
-   
-    const [name, setName] = useState("");
-    const [email,setEmail] = useState("");
+  const onNameHandler = (e) => {
+    setName(e.currentTarget.value);
+  };
 
-    const onNameHandler = (e) =>{
-        setName(e.currentTarget.value);
+  const onEmailHandler = (e) => {
+    setEmail(e.currentTarget.value);
+  };
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    axios
+      .get('http://localhost:8080/api/accouts/find?email=' + email + '&name=' + name)
+      .then((res) => {
+        if (res.data) {
+          setModal(true);
+        } else {
+          alert('이메일 또는 이름 오류');
+        }
+      })
+      .catch((err) => {
+        alert('오류발생');
+      });
+  };
+  const onPasswordHandler = (e) => {
+    setPassword(e.currentTarget.value);
+  };
+
+  const onPasswordCheckHandler = (e) => {
+    setCheckPassword(e.currentTarget.value);
+  };
+
+  const changePassword = (e) => {
+    e.preventDefault();
+    if (password === checkpassword) {
+      axios
+        .put('http://localhost:8080/api/accouts', password)
+        .then((res) => {
+          alert('변경완료');
+          setTimeout(function () {
+            history.push('/login');
+          });
+        })
+        .catch((err) => {
+          alert('변경실패');
+        });
     }
+  };
 
-    const onEmailHandler = (e) =>{
-        setEmail(e.currentTarget.value);
-    }
-
-    const onSubmitHandler= (e) =>{
-        e.preventDefault();
-        //이메일 이름으로 유저 찾기
-        //있다면 비밀번호 찾는 모달창
-    }
-
-    return (
+  return (
+    <>
+      {!isModal ? (
         <div>
-            <ImgboxTitle src='/images/findPasswordImage.PNG'/>
-            <from onSubmit={onSubmitHandler}>
-                이메일<input  value ={ email } type ="text"  placeholder={email} onChange={onEmailHandler} /><br/>
-                이름<input value = { name } type = "text" placeholder={name} onChange={onNameHandler} /> <br/>
-                <button type="submit"> 찾기 </button><br/>
-                <UserButtonComp textValue ="로그인하러가기" handleClick ="login"></UserButtonComp>
-            </from>
-            
+          <ImgboxTitle src="/images/findPasswordImage.PNG" />
+          <form onSubmit={onSubmitHandler}>
+            <input value={email} type="text" placeholder="이메일" onChange={onEmailHandler} />
+            <br />
+            <input value={name} type="text" placeholder="이름" onChange={onNameHandler} /> <br />
+            <button type="submit"> 확인 </button>
+            <br />
+          </form>
+          <button
+            className={styles.Button_Cancel}
+            onClick={(e) => {
+              history.push('/login');
+            }}
+          >
+            취소
+          </button>
         </div>
-    );
+      ) : (
+        <div className={styles.onModal}>
+          <form className={styles.onModalForm} onSubmit={changePassword}>
+            <h1>비밀번호 변경</h1>
+            <input
+              value={password}
+              type="password"
+              placeholder="비밀번호"
+              onChange={onPasswordHandler}
+            />
+            <br />
+            <input
+              value={checkpassword}
+              type="password"
+              placeholder="비밀번호 확인"
+              onChange={onPasswordCheckHandler}
+            />
+            <br />
+            <button type="submit">확인</button>
+          </form>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default FindPassword;
