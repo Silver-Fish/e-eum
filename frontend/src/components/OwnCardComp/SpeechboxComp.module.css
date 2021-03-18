@@ -1,7 +1,7 @@
-.speacharea {
+.speech_area {
   display: flex;
 }
-.speachbox {
+.speech_box {
   background-color: white;
   border: 1px solid white;
   border-radius: 10px;
@@ -12,7 +12,7 @@
   flex-grow: 0.9;
 
 }
-.speachcancel {
+.speech_cancel {
   background-color: white;
   border: 1px solid white;
   border-radius: 10px;
