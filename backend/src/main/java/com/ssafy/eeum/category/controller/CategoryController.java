@@ -40,14 +40,23 @@ public class CategoryController {
         return new ResponseEntity<String>("Created", HttpStatus.CREATED);
     }
 
-//    @GetMapping("/{cursorId}")
-//    @ApiOperation(value = "카테고리 조회",
-//            notes = "카테고리 목록을 조회한다.",
-//            response = Response.class)
-//    public Object getCategory(@PathVariable @NotNull Long cursorId) {
-//        CategoriesResponse categoriesResponse = categoryService.getCategory(@PathVariable @NotNull Long cursorId);
-//        final Response result = new Response("success", "카테고리 목록 조회에 성공하였습니다.", categoriesResponse);
-//    }
+    @GetMapping("")
+    @ApiOperation(value = "카테고리 조회",
+            notes = "카테고리 목록을 조회한다.",
+            response = Response.class)
+    public Object getCategory() {
+        ResponseEntity response = null;
+        try {
+            CategoriesResponse categoriesResponse = categoryService.getCategoryList();
+            final Response result = new Response("success", "카테고리 목록 조회에 성공하였습니다.", categoriesResponse);
+            response = new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            final Response result = new Response("error", "카테고리 목록 조회 실패", null);
+            response = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
+
+        return response;
+    }
 
     @PutMapping("/{id}")
     @ApiOperation(value = "카테고리 수정",
