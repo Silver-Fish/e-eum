@@ -6,12 +6,13 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name="category")
+//@ToString
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
+//@Table(name="category")
 public class Category {
     @Id
     @GeneratedValue
@@ -26,13 +27,13 @@ public class Category {
 //    @ColumnDefault("") : 이미지 디폴트값 설정용 어노테이션
     private String categoryImageUrl;
 
-    @Temporal(TemporalType.DATE)
     @CreationTimestamp
-    private Date createDate;
-//
-    @Temporal(TemporalType.DATE)
+    private LocalDateTime createDate;
+
     @UpdateTimestamp
-    private Date updateDate;
+    private LocalDateTime updateDate;
+
+    public Category() {}
 
     @Builder
     public Category(String word, String categoryImageUrl) {
