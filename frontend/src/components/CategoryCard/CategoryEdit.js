@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import styles from './CategoryAdd.module.css'
+import styles from './CategoryEdit.module.css'
 
-const CategoryAdd = (props) => {
-  const [situationImg, setImg] = useState()
+const CategoryEdit = (props) => {
+  console.log(props)
+  const [situationImg, setImg] = useState(props['categoryUrl'])
+  const [categoryName, setCategoryName] = useState(props['categoryName'])
+  
+  
   const onImageChange = function (e) {
     
     console.log(situationImg)
     console.log(e.target.value)
     setImg(e.target.value)
-    
     setImg(URL.createObjectURL(e.target.files[0]))
   }
 
@@ -22,7 +25,7 @@ const CategoryAdd = (props) => {
           <label  
             className={styles.image_button}
             >
-            <img  src="/images/photo-camera.svg" alt="대체이미지" />
+            <img  src='/images/photo-camera.svg' alt="대체이미지" />
             <input type="file" className={styles.image_input} onChange={onImageChange}/>
               
           </label>
@@ -31,6 +34,7 @@ const CategoryAdd = (props) => {
         <input 
           type='text' 
           className={styles.situation_input}
+          defaultValue={categoryName}
           placeholder='상황 이름'/>
       </div>
 
@@ -42,4 +46,4 @@ const CategoryAdd = (props) => {
   )
 }
 
-export default CategoryAdd;
+export default CategoryEdit;

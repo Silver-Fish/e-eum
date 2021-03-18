@@ -1,0 +1,87 @@
+.add_box {
+  height: 80vh;
+  background-color: #fff;
+  display: flex;
+  flex-wrap: wrap;  
+  justify-content: center;
+  align-content: flex-start;
+}
+
+
+.image_box {
+  width: 55vw;
+  height: 55vw;
+  border-radius: 5px;
+  background-color: #fff;
+  margin: 5vh auto;
+  position: relative;
+  border: 1px solid #000;
+  
+}
+
+.image_box img{
+  width: 100%;
+  height: 100%;
+}
+
+
+.image_button {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  width: 10vw;
+  height: 10vw;
+  background-color: #fff;
+  border: 0px;
+  padding: 0px;
+  border: 1px solid #8A9C3A;
+  border-radius: 30px;
+}
+
+.image_input {
+  width: 100%;
+  display: none;
+}
+
+
+.image_button img {
+  width: 60%;
+  height: 60%;  
+  margin-top: 15%;
+}
+
+
+.situation_input {
+  width: 55vw;
+  margin: 0;
+  border: 0px;
+  border-bottom: 1px solid #000;
+}
+
+
+
+.button_box {
+  height: 5vh;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.close_button {
+  width: 50vw;
+  padding: 0;
+  background-color:  white;
+  box-sizing: border-box;
+  font-size: inherit;
+  border: #8A9C3A solid 1px;
+  border-radius: 3px;
+}
+.add_button {
+  width: 50vw;
+  padding: 0;
+  color: white;
+  background-color:  #8A9C3A;
+  box-sizing: border-box;
+  font-size: inherit;
+  border: #8A9C3A solid 1px;
+  border-radius: 3px;
+}
