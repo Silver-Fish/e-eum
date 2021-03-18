@@ -1,0 +1,33 @@
+.button {
+  
+  font-size: inherit;
+  text-align: center;
+  width: 50%;
+  height: 50%;
+  background-color: #8A9C3A;
+  border: 2px solid #8A9C3A;
+  border-radius: 5px; 
+  
+  
+}
+
+div {
+  font-size : 18px;
+}
+
+.labelForm {
+  display: flex;
+  justify-content: space-between;
+  margin: 0px 30px;
+}
+
+span {
+  display: inline-block;
+  font-size: 14px;
+  margin: 5px 0px;
+}
+
+.MainForm{
+  display: inline-block;
+  margin-top: 50px;
+}

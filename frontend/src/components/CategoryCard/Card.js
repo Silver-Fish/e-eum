@@ -5,11 +5,10 @@ import { useHistory } from "react-router-dom";
 
 
   
-const CategoryCard = (props) => {
-  const textValue = props.textValue
+const Card = (props) => {
+  const textValue = props.textValue 
   const handleClick = (e) => {    
     props.categoryState(false)
-    console.log('백이랑 통신이 필요함')
   }
   return(
     <button className={styles.card} onClick={handleClick}>
@@ -19,4 +18,4 @@ const CategoryCard = (props) => {
   )
 }
 
-export default CategoryCard;
+export default Card;

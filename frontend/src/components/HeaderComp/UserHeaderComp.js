@@ -3,31 +3,19 @@ import { useHistory } from 'react-router-dom'
 import styles from './HeaderComp.module.css'
 
 
-
-const HeaderComp = (props) => {
+const HeaderComp = () => {
   const [isModal, setModal] = useState(false);
   const history = useHistory();
-  const heardertitle = props.heardertitle;
+ 
   const homeClick = (e) => {
-    history.push('/')
+    history.push('./')
   }
   const mypageClick = (e) => {
-    history.push('/mypage')
-  }
-  const myEeumClick = (e) => {
-    history.push('/setting')
-  }
-  const situationEeumClick = (e) => {
-    history.push('/category')
-  }
-  const qrEeumClick = (e) => {
-    history.push('/setting')
+    history.push('./myPage')
   }
   const settingClick = (e) => {
-    history.push('/setting')
+    history.push('./setting')
   }
-
-
 
   return(
     <>
@@ -35,7 +23,7 @@ const HeaderComp = (props) => {
       ?
         <div className={styles.header_box} >
           <img className={styles.header_image} src="/favicon.png" alt="이미지" onClick={homeClick} />
-          <span className={styles.header_title} >{heardertitle}</span>
+          <span className={styles.header_title} ></span>
           <button 
             className={styles.header_button} 
             onClick = {
@@ -47,8 +35,7 @@ const HeaderComp = (props) => {
           </button>
         </div>
       :
-        <div className={styles.modal_box}>
-            
+        <div className={styles.modal_box}>            
             <div className={styles.modal_header_box}>
               <button  className={styles.modal_header_button} >
                 <img className={styles.modal_header_button_image} src="/images/hamburger.svg" alt="이미지"/>
@@ -61,15 +48,10 @@ const HeaderComp = (props) => {
                 <img className={styles.modal_header_button_image} src="/images/close.svg" alt="이미지"/>
               </button>      
             </div>
-            
-            {/* 검색 아직 구현 안함 */}
-            <div className={ styles.modal_main_box }>
-              <input className={styles.modal_search} type="text" placeholder="검색"/>
+
+            <div className={ styles.modal_main_box }>             
               <ul className={styles.modal_list}>
                 <li className={styles.modal_list_line} ><button className={styles.modal_button} onClick={mypageClick}>마이 페이지</button></li>
-                <li className={styles.modal_list_line} ><button className={styles.modal_button} onClick={myEeumClick} >나만의 이음</button></li>
-                <li className={styles.modal_list_line} ><button className={styles.modal_button} onClick={situationEeumClick} >상황별 이음</button></li>
-                <li className={styles.modal_list_line} ><button className={styles.modal_button} onClick={qrEeumClick} >QR로 이음</button></li>
                 <li className={styles.modal_list_line} ><button className={styles.modal_button} onClick={settingClick} >설정</button></li>
               </ul>
             </div>
