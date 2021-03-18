@@ -30,6 +30,7 @@ const HeaderComp = (props) => {
 
 
   return(
+    
     <>
       { isModal !== true 
       ?

@@ -1,4 +1,4 @@
-import { Route, Switch } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { 
   OwnEeum, UserDelete, FindPassword,
   Category , Login, UserRegister, 

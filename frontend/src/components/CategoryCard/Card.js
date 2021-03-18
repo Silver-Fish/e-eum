@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './CategoryCard.module.css';
-import { useHistory } from "react-router-dom";
 
 
 
