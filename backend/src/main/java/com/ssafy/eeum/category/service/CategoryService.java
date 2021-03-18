@@ -41,4 +41,7 @@ public class CategoryService {
         return categoryRepository.findById(id)
                 .orElseThrow(() -> new CategoryNotFound());
     }
+
+    @Transactional
+    public void deleteCategory(Long id) { categoryRepository.deleteById(id); }
 }
