@@ -32,7 +32,9 @@ const UserButtonComp = (props) => {
       }
     } else if (props.handleClick === 'register') {
       console.log('회원가입');
-      history.push('./userRegister');
+      history.push('/userRegister');
+    } else if (props.handleClick === 'ok') {
+      history.push('/');
     }
   };
   return (

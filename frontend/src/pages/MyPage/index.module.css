@@ -1,0 +1,29 @@
+.Buttons {
+  margin-top: 20px;
+}
+
+.labelForm {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 30px;
+}
+
+div {
+  box-sizing: border-box;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.MainForm {
+  margin-top: 10vh;
+}
+
+span {
+  font-size: inherit;
+  margin-right: 5px;
+  width: 20%;
+}
+
+input {
+  padding: 0px;
+  width: 50%;
+}
