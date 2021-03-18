@@ -23,7 +23,7 @@ import javax.validation.Valid;
 public class CategoryController {
     private CategoryService categoryService;
 
-    @PostMapping("/category")
+    @PostMapping("")
     @ApiOperation(value = "카테고리 등록",
             notes = "카테고리 정보를 전달받아 새 카테고리 등록",
             response = Response.class)

@@ -7,5 +7,5 @@ import java.awt.print.Pageable;
 import java.util.List;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
-    List<Category> findByOrderByIdDesc(Pageable page);
+//    List<Category> findById(Pageable page);
 }
