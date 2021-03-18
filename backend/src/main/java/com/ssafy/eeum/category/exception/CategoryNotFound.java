@@ -5,6 +5,6 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class CategoryNotFound {
+public class CategoryNotFound extends RuntimeException {
     public final String value = "카테고리를 찾을 수 없습니다.";
 }

@@ -9,9 +9,9 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name="category")
+//@ToString
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
+//@Table(name="category")
 public class Category {
     @Id
     @GeneratedValue
@@ -31,6 +31,8 @@ public class Category {
 
     @UpdateTimestamp
     private LocalDateTime updateDate;
+
+    public Category() {}
 
     @Builder
     public Category(String word, String categoryImageUrl) {
