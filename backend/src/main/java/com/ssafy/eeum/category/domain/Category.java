@@ -5,7 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -26,13 +26,11 @@ public class Category {
 //    @ColumnDefault("") : 이미지 디폴트값 설정용 어노테이션
     private String categoryImageUrl;
 
-    @Temporal(TemporalType.DATE)
     @CreationTimestamp
-    private Date createDate;
-//
-    @Temporal(TemporalType.DATE)
+    private LocalDateTime createDate;
+
     @UpdateTimestamp
-    private Date updateDate;
+    private LocalDateTime updateDate;
 
     @Builder
     public Category(String word, String categoryImageUrl) {
