@@ -1,10 +1,11 @@
 .card {
   background-color: white;
   border: 1px solid black;
-  border-radius: 10px;
-  width: 22vw;
-  height: 20vw;
-  margin: 5px;
+  border-radius: 5px;
+  /* width: 30vw; */
+  width: 90%;
+  height: 30vw;
+  margin: 1vh auto;
 }
 
 .card_image {
