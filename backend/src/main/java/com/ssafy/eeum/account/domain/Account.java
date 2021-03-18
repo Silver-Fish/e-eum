@@ -1,6 +1,7 @@
 package com.ssafy.eeum.account.domain;
 
 import com.ssafy.eeum.card.domain.AccountCard;
+import com.ssafy.eeum.card.domain.Card;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -9,6 +10,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * com.ssafy.eeum.account.domain
@@ -54,5 +56,11 @@ public class Account {
 
     public void addAccountCard(AccountCard accountCard){
         accountCards.add(accountCard);
+    }
+
+    public List<Card> getCards(){
+        return accountCards.stream()
+                .map(AccountCard::getCard)
+                .collect(Collectors.toList());
     }
 }
