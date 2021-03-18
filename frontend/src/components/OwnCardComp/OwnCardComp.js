@@ -4,9 +4,14 @@ import styles from './OwnCardComp.module.css'
 
 const OwnCardComp = (props) => {
   const isEdit = props['isEdit']
-  const cardName = props.textValue
-  const imgUrl = props.cardUrl
-
+  const textValue = props.textValue
+  const cardUrl = props.cardUrl
+  const cardButtonClick = (e) => {    
+    props.cardClick({
+      cardName: {textValue}, 
+      cardUrl: {cardUrl}
+    })
+  }
   const CardClick = (e) => {    
     // props.categoryState(false)
     console.log('백이랑 통신이 필요함');
@@ -28,9 +33,9 @@ const OwnCardComp = (props) => {
     <>
       { isEdit === false
         ?
-        <button className={styles.card} onClick={CardClick}>
-          <img className={styles.card_image} src={imgUrl} alt=""/>
-            {cardName}
+        <button className={styles.card} onClick={cardButtonClick}>
+          <img className={styles.card_image} src={cardUrl} alt=""/>
+            {textValue}
         </button>
         :
         <>       
@@ -38,8 +43,8 @@ const OwnCardComp = (props) => {
             <div className={styles.card_del_box} >
               <img src="/images/minus.png" alt="" onClick={cardDeleteClick}/>
             </div>
-            <img className={styles.card_image} src={imgUrl} alt=""/>
-            {cardName}
+            <img className={styles.card_image} src={cardUrl} alt=""/>
+            {textValue}
           </button>
         </>
       }
