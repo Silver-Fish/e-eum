@@ -1,0 +1,19 @@
+div {
+  font-size: 18px;
+}
+
+.qr_list_box {
+  height: 80vh;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.qr_register_box {
+  font-size: inherit;
+  width: 100vw;
+  height: 10vh;
+  background-color: #F5DF4D;
+  border: 0px;
+
+}
+

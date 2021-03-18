@@ -1,0 +1,37 @@
+div {
+  font-size: 18px;
+}
+
+.qr_name_input_box {
+  width: 100vw;
+  height: 80vh;
+}
+
+.qr_name_input {
+  font-size: inherit;
+  border: 0px;
+  border-bottom: 1px solid #000;
+  width: 80vw;
+  margin-top: 15vh;
+}
+
+
+.button_box {
+  display: flex;
+  width: 100vw;
+  height: 10vh;
+}
+.qr_edit_delete_button {
+  font-size: inherit;
+  width: 50vw;
+  color: #F5DF4D;
+  background-color: #fff;
+  border: 1px solid #F5DF4D;
+}
+
+.qr_edit_button {
+  font-size: inherit;
+  width: 50vw;
+  background-color: #F5DF4D;
+  border: 1px solid #F5DF4D;
+}

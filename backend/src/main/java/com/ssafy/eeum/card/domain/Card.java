@@ -47,6 +47,7 @@ public class Card {
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval=true)
     private List<AccountCard> accountCards = new ArrayList<>();
 
+
     @Builder
     public Card(String word) {
         this.word = word;
@@ -55,4 +56,5 @@ public class Card {
     public void setImageUrl(String imageUrl){
         this.imageUrl = imageUrl;
     }
+
 }

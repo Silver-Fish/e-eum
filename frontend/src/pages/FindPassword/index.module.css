@@ -1,0 +1,38 @@
+form button {
+  display: block;
+  font-size: inherit;
+  text-align: center;
+  width: 50%;
+  height: 50%;
+  background-color: #8a9c3a;
+  border: 2px solid #8a9c3a;
+  border-radius: 5px;
+  margin: 20px auto 5px auto;
+}
+
+.Button_Cancel {
+  display: block;
+  font-size: inherit;
+  text-align: center;
+  width: 50%;
+  height: 50%;
+  background-color: #ffffff;
+  border: 2px solid #8a9c3a;
+  border-radius: 5px;
+  margin: 5px auto;
+}
+
+form input {
+  display: block;
+  font-size: inherit;
+  margin: 2px auto;
+  box-sizing: border-box;
+  padding: 0px;
+  width: 60vw;
+}
+div {
+  font-size: 18px;
+}
+.onModalForm {
+  margin-top: 30vh;
+}
