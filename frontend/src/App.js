@@ -1,8 +1,9 @@
 import { Route, Switch } from 'react-router-dom';
 import { 
+  OwnEeum,
   Category , Login, UserRegister, 
   MyPage, Main, Confirm,UserUpdate,
-  UserDelete,FindPassword ,UserRegisterSuccess
+
 } from './pages';
 
 import './App.css';
@@ -12,6 +13,7 @@ function App() {
     <div className="App">
       <Route exact path="/" component={ Main } />
       <Route path="/category" component={ Category } />
+      <Route path="/owneeum" component={ OwnEeum } />
       <Route path="/login" component={ Login } />
       <Route path="/userRegister" component={ UserRegister } />
       <Route path="/myPage" component={ MyPage } />

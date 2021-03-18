@@ -1,3 +1,5 @@
+
+export { default as OwnEeum } from "./OwnEeum"
 export { default as Category } from "./Category"
 export { default as Main } from "./Main";
 export { default as Login } from "./Login"
