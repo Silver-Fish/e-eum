@@ -6,6 +6,15 @@ import lombok.Getter;
 
 import javax.persistence.*;
 
+/**
+ * com.ssafy.eeum.card.domain
+ * AccountCard.java
+ * @date    2021-03-19 오전 2:03
+ * @author  이아영
+ *
+ * @변경이력
+ **/
+
 @Entity
 @Getter
 public class AccountCard {
