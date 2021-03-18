@@ -36,6 +36,9 @@ dependencies {
 
 	// log
 	implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+
+	// QR code
+	implementation group: 'com.google.zxing', name: 'core', version: '3.3.3'
 }
 
 test {
