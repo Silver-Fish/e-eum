@@ -36,10 +36,8 @@ public class AccountService {
         return this.accountRepository.save(account);
     }
 
-    public void checkDuplicateEmail(String email) {
-        accountRepository.findByEmail(email).ifPresent(account -> {
-            throw new DuplicateException(ErrorCode.DUPLICATED_EMAIL);
-        });
+    public boolean checkDuplicateEmail(String email) {
+        return !accountRepository.findByEmail(email).isEmpty();
     }
 
 }
