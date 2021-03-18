@@ -3,7 +3,7 @@ import {
   OwnEeum, UserDelete, FindPassword,
   Category , Login, UserRegister, 
   MyPage, Main, Confirm,UserUpdate,
-  UserRegisterSuccess
+  UserRegisterSuccess, Qr
 
 } from './pages';
 
@@ -23,6 +23,7 @@ function App() {
       <Route path="/userDelete" component={ UserDelete } />
       <Route path="/findPassword" component={ FindPassword } />
       <Route path="/userRegisterSuccess" component={ UserRegisterSuccess } />
+      <Route path="/qr" component={ Qr } />
     </div>
   )
 }

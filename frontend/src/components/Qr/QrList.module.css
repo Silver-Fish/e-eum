@@ -1,0 +1,44 @@
+div {
+  font-size: 18px;
+}
+
+.qr_list_box {
+  display: flex;
+  justify-content: space-between;
+  width: 80vw;
+  margin: 2vh auto;
+  border-bottom: 1px solid #000;
+}
+
+.qr_name_box {
+  margin: auto 0;
+}
+
+
+.qr_name {
+  border: 0;
+  background-color: transparent;
+  font-size: inherit;
+}
+
+.qr_edit_button {
+  width: 10vw;
+  height: 10vw;
+  background-color: #F5DF4D;
+  color: #fff;
+  font-size: xx-small;
+  border: 0px;
+  border-radius: 2vw;
+  margin: 1vh 1vw;
+}
+
+.qr_button {
+  width: 10vw;
+  height: 10vw;
+  background-color: #FFF;
+  color: #F5DF4D;
+  font-size: xx-small;
+  border: 1px solid #F5DF4D;
+  border-radius: 2vw;
+  margin: 1vh 1vw;
+}
