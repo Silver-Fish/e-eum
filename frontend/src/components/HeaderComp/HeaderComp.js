@@ -9,14 +9,25 @@ const HeaderComp = (props) => {
   const history = useHistory();
   const heardertitle = props.heardertitle;
   const homeClick = (e) => {
-    history.push('./')
+    history.push('/')
   }
   const mypageClick = (e) => {
-    history.push('./mypage')
+    history.push('/mypage')
+  }
+  const myEeumClick = (e) => {
+    history.push('/setting')
+  }
+  const situationEeumClick = (e) => {
+    history.push('/category')
+  }
+  const qrEeumClick = (e) => {
+    history.push('/setting')
   }
   const settingClick = (e) => {
-    history.push('./setting')
+    history.push('/setting')
   }
+
+
 
   return(
     <>
@@ -56,6 +67,9 @@ const HeaderComp = (props) => {
               <input className={styles.modal_search} type="text" placeholder="검색"/>
               <ul className={styles.modal_list}>
                 <li className={styles.modal_list_line} ><button className={styles.modal_button} onClick={mypageClick}>마이 페이지</button></li>
+                <li className={styles.modal_list_line} ><button className={styles.modal_button} onClick={myEeumClick} >나만의 이음</button></li>
+                <li className={styles.modal_list_line} ><button className={styles.modal_button} onClick={situationEeumClick} >상황별 이음</button></li>
+                <li className={styles.modal_list_line} ><button className={styles.modal_button} onClick={qrEeumClick} >QR로 이음</button></li>
                 <li className={styles.modal_list_line} ><button className={styles.modal_button} onClick={settingClick} >설정</button></li>
               </ul>
             </div>

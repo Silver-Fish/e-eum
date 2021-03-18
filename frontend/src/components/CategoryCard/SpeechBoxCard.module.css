@@ -1,11 +1,10 @@
-.card {
+.card{
   background-color: white;
   border: 1px solid black;
   border-radius: 5px;
-  /* width: 30vw; */
-  width: 90%;
-  height: 30vw;
-  margin: 1vh auto;
+  width: 20%;
+  height: 90%; 
+  margin: 1vh 1vw;
 }
 
 .card_image {
@@ -14,4 +13,5 @@
   height: 70%;
   width: 100%;
   padding: 0px;
+  display: flex;
 }

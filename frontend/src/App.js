@@ -1,4 +1,4 @@
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { 
   Category , Login, UserRegister, 
   MyPage, Main, Confirm,UserUpdate,
