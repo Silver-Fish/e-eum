@@ -1,9 +1,10 @@
 import React , {useState} from 'react';
 
-import UserButtonComp from '../../components/ButtonComp/UserButtonComp';
-import Imgbox from '../../components/Image/Imgbox';
+import HeaderComp from '../../components/HeaderComp/HeaderComp'
+import LabelComp from '../../components/LabelComp/LabelComp';
+import ImgboxTitle from '../../components/Image/ImgboxTitle';
 import InputComp from '../../components/InputComp/InputComp';
-
+import styles from './index.module.css';
 
 const Login = () => {
 
@@ -50,13 +51,20 @@ const Login = () => {
 
     return (
         <div>
-            <Imgbox src='/images/loginImage.PNG'/>
+            <HeaderComp />
+            <div className={styles.MainForm}>
+            <ImgboxTitle src='/images/loginImage.PNG'/>
             <form onSubmit={onSubmitHandler}>
                 <InputComp type="email" placeholder="Email" InputChange={onEmailHandler} /><br/>
                 <InputComp type="password" placeholder="PW" InputChange={onPasswordHandler} /><br/>
-                <button type ="submit">로그인</button>
+                <span>자동로그인</span>
+                <div className={styles.labelForm}>
+                    <LabelComp textValue ="회원가입" handleClcikPath="./register"/>
+                    <LabelComp textValue ="비밀번호 찾기" handleClcikPath="./findPassword"/>                
+                </div>
+                <button className={styles.button} type ="submit">로그인</button>
             </form>
-            <UserButtonComp textValue ="회원가입" handleClick='register'></UserButtonComp>
+            </div>
         </div>
     );
 };

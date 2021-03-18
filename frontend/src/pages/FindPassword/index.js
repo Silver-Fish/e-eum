@@ -1,5 +1,5 @@
 import React ,{useState} from 'react';
-import Imgbox from '../../components/Image/Imgbox';
+import ImgboxTitle from '../../components/Image/ImgboxTitle';
 
 import UserButtonComp from '../../components/ButtonComp/UserButtonComp';
 
@@ -24,7 +24,7 @@ const FindPassword = () => {
 
     return (
         <div>
-            <Imgbox src='/images/findPasswordImage.PNG'/>
+            <ImgboxTitle src='/images/findPasswordImage.PNG'/>
             <from onSubmit={onSubmitHandler}>
                 이메일<input  value ={ email } type ="text"  placeholder={email} onChange={onEmailHandler} /><br/>
                 이름<input value = { name } type = "text" placeholder={name} onChange={onNameHandler} /> <br/>

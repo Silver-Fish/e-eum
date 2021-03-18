@@ -1,6 +1,6 @@
 import React from 'react';
 import UserButtonComp from '../../components/ButtonComp/UserButtonComp';
-import Imgbox from '../../components/Image/Imgbox';
+import ImgboxTitle from '../../components/Image/ImgboxTitle';
 
 const MyPage = () => {
 
@@ -9,7 +9,7 @@ const MyPage = () => {
 
     return (
         <div>
-            <Imgbox src='/images/myPageImage.PNG'></Imgbox>
+            <ImgboxTitle src='/images/myPageImage.PNG'/>
             <p>이름</p>
             <input readOnly value={name} placeholder={name}></input><br/>
             <p>이메일</p>
