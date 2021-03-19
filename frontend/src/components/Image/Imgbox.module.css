@@ -1,0 +1,18 @@
+.imagebox {
+  position:relative;
+  width: 100vw;
+  height: 35vh;
+  overflow: hidden;
+  text-align: center;
+  color: white;
+  font-size: 0.8em;
+}
+
+.image{ 
+  width: 100%;
+  height: 100%;
+  margin: 0px auto;
+}
+
+
+

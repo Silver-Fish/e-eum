@@ -1,0 +1,39 @@
+div {
+  font-size: 18px;
+}
+.mainbox {
+  text-align: center;
+  width: 100%;
+  margin: 0px auto; 
+}
+ 
+.main_login_box {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  height: 10vh;
+}
+
+.login_button {
+  font-size: inherit;
+  height: 40% ;
+  margin-right: 10px;
+  margin-top: 10px;
+  color: #8A9C3A;
+  background-color: white;
+  border: 2px solid #8A9C3A;
+  border-radius: 5px;
+}
+
+.eeum_button_box {
+  margin: auto;
+  text-align: center;
+  width: 70%;
+}
+
+.footer_button_box {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  width: 50%;
+}

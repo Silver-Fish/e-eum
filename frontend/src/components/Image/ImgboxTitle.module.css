@@ -1,0 +1,15 @@
+.imagebox {
+  width: 100vw;
+  height: 35vh;
+  overflow: hidden;
+  text-align: center;
+  color: white;
+  font-size: 0.8em;
+  box-sizing: border-box;
+}
+
+.image {
+  width: 50%;
+  height: 50%;
+  margin: 60px auto 30px;
+}
