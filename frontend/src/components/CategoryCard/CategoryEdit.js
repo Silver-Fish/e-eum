@@ -4,7 +4,8 @@ import styles from './CategoryEdit.module.css'
 const CategoryEdit = (props) => {
 
   const [situationImg, setImg] = useState(props['categoryUrl'])
-  const [categoryName, setCategoryName] = useState(props['categoryName'])
+  // const [categoryName, setCategoryName] = useState(props['categoryName'])
+  const categoryName = useState(props['categoryName'])[0]
   
   
   const onImageChange = function (e) {
