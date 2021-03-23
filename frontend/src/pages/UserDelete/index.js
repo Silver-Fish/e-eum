@@ -10,7 +10,7 @@ const UserDelete = () => {
     const onDeleteHandler = (e) =>{
         e.preventDefault();
         axios
-        .delete('http://localhost:8080/api/accouts/delete',{
+        .delete(process.env.REACT_APP_API_URL +'/accouts/delete',{
             headers:{
                 Authorization: sessionStorage.getItem('jwt'),
             },

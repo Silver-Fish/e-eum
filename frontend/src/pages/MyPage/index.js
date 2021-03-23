@@ -10,7 +10,7 @@ const MyPage = () => {
   useEffect(() => {
     const token = sessionStorage.getItem('jwt');
     axios
-      .get('http://localhos:8080/api/accounts/info', {
+      .get(process.env.REACT_APP_API_URL +'/accounts/info', {
         headers: {
           Authorization: token,
         },
