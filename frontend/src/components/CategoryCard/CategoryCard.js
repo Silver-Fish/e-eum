@@ -6,6 +6,7 @@ import styles from './CategoryCard.module.css';
 
   
 const CategoryCard = (props) => {
+  console.log(props)
   const [isCategoryCardEdit, setCategoryCardEdit] = useState(false)
   const isCategoryEdit = props['isCategoryEdit']
   const categoryName = props.textValue

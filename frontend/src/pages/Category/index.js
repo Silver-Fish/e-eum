@@ -1,5 +1,5 @@
-// import React, {useState, useEffect} from 'react'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
+// import React, {useState} from 'react'
 import styles from './index.module.css'
 import HeaderComp from '../../components/HeaderComp/HeaderComp'
 import CategoryCard from '../../components/CategoryCard/CategoryCard'
@@ -9,8 +9,8 @@ import CategoryAdd from '../../components/CategoryCard/CategoryAdd'
 import CategoryEdit from '../../components/CategoryCard/CategoryEdit'
 import CardAdd from '../../components/CategoryCard/CardAdd'
 import CardEdit from '../../components/CategoryCard/CardEdit'
-// import axios from 'axios'
-
+import axios from 'axios'
+require('dotenv').config();
 
 
 
@@ -41,20 +41,22 @@ import CardEdit from '../../components/CategoryCard/CardEdit'
 const Category = () => {
 
   
-  // const token = sessionStorage.getItem('jwt')
-  // const config = {
-  //   headers: {
-  //     'Authorization': token
-  //   }
-  // }
-  // axios.get('http://localhost:8080/api/category/test', config)
-  // .then((res) =>{
-  //   setCategoryDatas(res.data.data.categories)
-  // })
-  // .catch((err) => {
-  //   console.log(err)
-  // })
-
+  const token = sessionStorage.getItem('jwt')
+  const config = {
+    headers: {
+      'Authorization': token
+    }
+  }
+  useEffect(()=> {
+    axios.get(process.env.REACT_APP_API_URL + 'api/category', config)
+    .then((res) =>{
+      console.log(res)
+      setCategoryDatas(res.data.data.categories)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  },[]);
   
   const [headTitle, setheadTitle] = useState('상황별 이음')
   const [isCategory, setCategory] = useState(true);
@@ -71,25 +73,14 @@ const Category = () => {
   const [cardUrl, setCardUrl] = useState('')
   const [cardName, setCardName] = useState('')
 
-  // const [categoryDatas, setCategoryDatas] = useState([
-  //   // ['학교', '/images/user.png'], ['병원', '/images/user.png'] , ['싸피', '/images/user.png'] , ['감정표현', '/images/user.png'], ['스타벅스', '/images/user.png'], 
-  //   // ['학교', '/images/user.png'], ['병원', '/images/user.png'] , ['싸피', '/images/user.png'] , ['감정표현', '/images/user.png'], ['스타벅스', '/images/user.png'], 
-  //   // ['학교', '/images/user.png'], ['병원', '/images/user.png'] , ['싸피', '/images/user.png'] , ['감정표현', '/images/user.png'], ['스타벅스', '/images/user.png'], 
-  //   // ['학교', '/images/user.png'], ['병원', '/images/user.png'] , ['싸피', '/images/user.png'] , ['감정표현', '/images/user.png'], ['스타벅스', '/images/user.png'], 
-  // ]);
-  const categoryDatas = useState([
-    // ['학교', '/images/user.png'], ['병원', '/images/user.png'] , ['싸피', '/images/user.png'] , ['감정표현', '/images/user.png'], ['스타벅스', '/images/user.png'], 
-    // ['학교', '/images/user.png'], ['병원', '/images/user.png'] , ['싸피', '/images/user.png'] , ['감정표현', '/images/user.png'], ['스타벅스', '/images/user.png'], 
-    // ['학교', '/images/user.png'], ['병원', '/images/user.png'] , ['싸피', '/images/user.png'] , ['감정표현', '/images/user.png'], ['스타벅스', '/images/user.png'], 
-    // ['학교', '/images/user.png'], ['병원', '/images/user.png'] , ['싸피', '/images/user.png'] , ['감정표현', '/images/user.png'], ['스타벅스', '/images/user.png'], 
-  ])[0];
+  const [categoryDatas, setCategoryDatas] = useState([])
 
   const [cardDatas, setCard] = useState([]);
   const [speechBoxDatas, setSpeechBoxDatas] = useState([]);
 
 
 
-
+  
 
   const categoryClick = (e) => {
     setCategory(!isCategory);
@@ -164,11 +155,12 @@ const Category = () => {
 
   const categoryList = categoryDatas.map(
     (category, i) => (
+
       <CategoryCard       
         key={i} 
-        id={category[0]}
-        textValue={category[1]}
-        categoryUrl={category[2]}
+        id={category.id}
+        textValue={category.word}
+        categoryUrl={category.categoryImageUrl}
         categoryState={categoryClick}
         isCategoryEdit={isCategoryEdit}
         categoryTitle = {categoryTitle}
@@ -212,6 +204,7 @@ const Category = () => {
           if (isCategoryAdd !== true && isCategoryCardEdit !== true)
             return (
               <>
+              <p>{process.env.REACT_APP_DB_HOST}</p>
                 <HeaderComp headertitle={headTitle}></HeaderComp>
                 <div className={styles.speech_box}>
                   { speechBoxList }

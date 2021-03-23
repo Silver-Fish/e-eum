@@ -19,7 +19,7 @@ const CategoryAdd = (props) => {
     let data = new FormData()
     data.append('file', imgFile)
     data.append('word', '몰라')
-    axios.post('http://localhost:8080/api/category', data, {
+    axios.post(process.env.REACT_APP_API_URL + 'api/category', data, {
       headers: {
         'Content-type': 'multipart/form-data',
         'Authorization': token
