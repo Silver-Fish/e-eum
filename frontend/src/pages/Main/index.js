@@ -36,7 +36,7 @@ const Main = () => {
         <EeumButtonComp
           textValue="나만의 이음"
           buttonImg="/images/user.png"
-          handleClickPath="./"
+          handleClickPath="./OwnEeum"
         ></EeumButtonComp>
         <EeumButtonComp
           textValue="상황별 이음"

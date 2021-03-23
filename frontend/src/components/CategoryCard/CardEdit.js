@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import styles from './CardEdit.module.css'
 
 const CardEdit = (props) => {
-  console.log(props)
+  
   const [cardImg, setCardImg] = useState(props['cardUrl'])
-  const [cardName, setCardName] = useState(props['cardName'])
-  console.log(cardImg)
+  // const [cardName, setCardName] = useState(props['cardName'])
+  
+  
   
   const onImageChange = function (e) {
     

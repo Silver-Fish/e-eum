@@ -5,7 +5,8 @@ import styles from './HeaderComp.module.css';
 const HeaderComp = (props) => {
   const [isModal, setModal] = useState(false);
   const history = useHistory();
-  const heardertitle = props.heardertitle;
+  const headertitle = props.headertitle;
+  const headerColor = props.headerColor
   const homeClick = (e) => {
     history.push('/');
   };
@@ -30,14 +31,15 @@ const HeaderComp = (props) => {
   return (
     <>
       {isModal !== true ? (
-        <div className={styles.header_box}>
+        // <div className={'styles.header_box' + " " + headerColor === undefined ? '' : styles.headerColor}>
+        <div className={styles.header_box + " " + (headerColor === undefined ? '' : styles.yellow)}>
           <img
             className={styles.header_image}
             src="/favicon.png"
             alt="이미지"
             onClick={homeClick}
           />
-          <span className={styles.header_title}>{heardertitle}</span>
+          <span className={styles.header_title}>{headertitle}</span>
           <button
             className={styles.header_button}
             onClick={function (e) {

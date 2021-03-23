@@ -8,9 +8,12 @@ import QrEdit from '../../components/Qr/QrEdit'
 
 
 const Qr = () => {
-  const [qrs, setQrs] = useState([
+  // const [qrs, setQrs] = useState([
+  //   ['스타벅스'], ['롯데리아'],['다이소'], ['편의점'], ['K치과']
+  // ])
+  const qrs = useState([
     ['스타벅스'], ['롯데리아'],['다이소'], ['편의점'], ['K치과']
-  ])
+  ])[0]
   const [isQrResister, setQrResister] = useState(false)
   const [isQrEdit, setQrEdit] = useState(false)
   const [slectedQrName, setSlectedQrName] = useState('')
@@ -25,9 +28,9 @@ const Qr = () => {
     setQrEdit(!isQrEdit)
   }
 
-  const selectedEditQrName = (data) => {
-    setSlectedQrName(data)
-  }
+  // const selectedEditQrName = (data) => {
+  //   setSlectedQrName(data)
+  // }
 
   const qrLists = qrs.map(
     (qr, i) => (
@@ -46,7 +49,7 @@ const Qr = () => {
       if (isQrResister!==true && isQrEdit!==true) 
       return(
         <>
-          <HearderComp heardertitle='QR로 이음'></HearderComp>
+          <HearderComp headertitle='QR로 이음' headerColor='yello'></HearderComp>
           <div className={styles.qr_list_box}>
             {qrLists}
           </div>
