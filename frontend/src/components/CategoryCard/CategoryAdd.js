@@ -1,17 +1,37 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import styles from './CategoryAdd.module.css'
 
 const CategoryAdd = (props) => {
   const [situationImg, setImg] = useState()
+  const [imgFile, setImgFile] = useState()
   const onImageChange = function (e) {
-    
-    console.log(situationImg)
-    console.log(e.target.value)
-    setImg(e.target.value)
-    
+    setImg(e.target.value)    
+    setImgFile(e.target.files[0])
     setImg(URL.createObjectURL(e.target.files[0]))
   }
 
+  
+  
+
+  const addCategory = () => {
+    const token = sessionStorage.getItem('jwt')
+    let data = new FormData()
+    data.append('file', imgFile)
+    data.append('word', '몰라')
+    axios.post(process.env.REACT_APP_API_URL + 'api/category', data, {
+      headers: {
+        'Content-type': 'multipart/form-data',
+        'Authorization': token
+        }
+    })
+    .then((res)=> {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
 
   return(
     <>
@@ -36,7 +56,7 @@ const CategoryAdd = (props) => {
 
       <div className={styles.button_box}>
           <button className={styles.close_button} onClick={props.addStateChange}>취소</button>
-          <button className={styles.add_button} onClick={props.addStateChange} >등록</button>
+          <button className={styles.add_button} onClick={addCategory} >등록</button>
       </div>
     </>
   )
