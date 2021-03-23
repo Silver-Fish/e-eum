@@ -36,7 +36,7 @@ const MyPage = () => {
         <input readOnly placeholder={email}></input>
       </div>
       <div className={styles.labelForm}>
-        <LabelComp textValue="회원탈퇴" handleClickPath="./userDelete" />
+        <LabelComp textValue="회원탈퇴" handleClickPath="./confirm" />
         <LabelComp textValue="비밀번호 변경" handleClickPath="./userUpdate" />
       </div>
       <div className={styles.Buttons}>
