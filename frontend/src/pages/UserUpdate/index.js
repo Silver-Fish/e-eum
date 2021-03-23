@@ -1,17 +1,20 @@
-import React, {useState} from 'react';
+import axios from 'axios';
+import React, {useState, useEffect} from 'react';
 import { useHistory } from "react-router-dom";
 import ImgboxTitle from '../../components/Image/ImgboxTitle';
+import styles from './index.module.css';
+
 const UserUpdate = () => {
 
     const history = useHistory();
-    const [name, setName] = useState("");
-    const email = "";
+ 
     const [password,setPassword] = useState("");
+    const [newpassword,setNewPassword] = useState("");
     const [passwordcheck,setPasswordCheck] = useState("");
     const [message , setMessage] = useState("");
 
-    const onNameHandler = (e) =>{
-        setName(e.currentTarget.value);
+    const onNewPasswordHandler = (e) =>{
+      setNewPassword(e.currentTarget.value);
     }
 
     const onPasswordHandler = (e) => {
@@ -22,40 +25,88 @@ const UserUpdate = () => {
         setPasswordCheck(e.currentTarget.value);
       };  
 
-    const onMessageController = () =>{
-        if(password === "")  setMessage("");
-        else if(passwordcheck !== "" && password ==="") setMessage("비밀번호를 입력해주세요");
-        (password === passwordcheck) ? setMessage("비밀번호가 일치합니다.") : setMessage("비밀번호가 일치하지 않습니다.");
-       
-      };
+      useEffect(() => {
+        if(newpassword === "" && passwordcheck==="")  setMessage("");
+        else if((passwordcheck !== "" && newpassword ==="") || (passwordcheck === "" && newpassword !=="") ) setMessage("비밀번호를 입력해주세요");
+        else if(passwordcheck===newpassword) setMessage("비밀번호가 일치합니다.");
+        else if(passwordcheck!==newpassword)setMessage("비밀번호가 일치하지 않습니다.");
+      });  
+ 
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
-        if(password===passwordcheck){
-            console.log('Email', email);
-            console.log('Name' , name);
-            console.log('Password', password);
-            history.push('./myPage') 
+        if(password===passwordcheck && password !==""){
+          axios
+          .get(process.env.REACT_APP_API_URL +'/accouts/confirm?password=' + password,{
+              headers:{
+                  Authorization: sessionStorage.getItem('jwt'),
+              },
+          })
+          .then((res) => {
+            //현재 비밀번호가 맞다면
+            if (res.data) {         
+                axios
+                .put(process.env.REACT_APP_API_URL+'/accouts/changePassword' ,newpassword)
+                .then((suc)=>{
+                  if(suc.data){
+                    history.push('/myPage');
+                  }
+                  else{
+                    alert('비밀번호 변경 실패');
+                  }
+                })              
+              
+            } else {
+              alert('현재 비밀번호 체크!');
+            }
+          })
+          .catch((err) => {
+            alert('오류');
+          });
         }
         else{
-            console.log("가입실패2")
+            console.log("변경할 비밀번호 체크")
         }
 
       };
 
     return (
         <div>
-             <ImgboxTitle src = "/images/updateImage.PNG" />
-             <form onSubmit={onSubmitHandler}>
-                이메일<input readOnly value ={ email } type ="text"  placeholder={email} /><br/>
-                이름<input value = { name } type = "text" placeholder={name} onChange={onNameHandler} /> <br/>
-                비밀번호<input value ={ password } type ="password"  placeholder={password} onChange={onPasswordHandler}/><br/>                
-                비밀번호 확인<input value ={ passwordcheck } type ="password"  placeholder="비밀번호 확인" onChange={onPasswordCheckHandler} onKeyUp={onMessageController}/><br/>
-                <p style ={ {color : "red"} }>{ message }</p><br/>
-                <button type ="submit">수정하기</button>
-             </form>
-             
-        </div>
+             <ImgboxTitle src = "/images/changePassword.PNG" />
+          
+      <form onSubmit={onSubmitHandler}>   
+        <input 
+          value={password}
+          type="password" 
+          placeholder="현재 비밀번호"
+           onChange={onPasswordHandler}
+        />
+        <br />
+        <input
+          value={newpassword}
+          type="password"
+          placeholder="변경할 비밀번호"
+          onChange={onNewPasswordHandler}
+        />
+        <br />
+        <input
+          value={passwordcheck}
+          type="password"
+          placeholder="비밀번호 확인"
+          onChange={onPasswordCheckHandler}
+         
+        />
+        <br />
+        <p>{message}</p>
+        <br />
+        <button type="submit">확인</button>
+        <button 
+        className={styles.Button_cancel}
+        onClick={(e)=>{
+          history.push('/myPage')
+        }}>취소</button>
+      </form>             
+      </div>
     );
 };
 

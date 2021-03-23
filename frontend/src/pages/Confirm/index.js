@@ -17,7 +17,7 @@ const Confirm = () => {
     const onSubmitHandler = (e) => {
         e.preventDefault();
         axios
-          .get('http://localhost:8080/api/accouts/confirm?password=' + password,{
+          .get(process.env.REACT_APP_API_URL +'/accouts/confirm?password=' + password,{
               headers:{
                   Authorization: sessionStorage.getItem('jwt'),
               },
@@ -37,7 +37,7 @@ const Confirm = () => {
     return (
         <div>
             <ImgboxTitle src='/images/confirmImage.PNG'/>            
-            비밀번호 
+            
             <form onSubmit={onSubmitHandler}>
              <input type ="password" placeholder="비밀번호 확인" value ={password} onChange={onPasswordHandler} /><br/>
              <button type ="submit">확인</button>         

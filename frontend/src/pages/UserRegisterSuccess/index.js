@@ -8,7 +8,7 @@ const UserRegisterSuccess = () => {
   const history = useHistory();
   useEffect(() => {
     setTimeout(function () {
-      history.push('./login');
+      history.push('/login');
     }, 3000);
   });
   return (
