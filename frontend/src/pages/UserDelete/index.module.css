@@ -1,0 +1,27 @@
+.Button_Ok {
+  display: inline-block;
+  font-size: inherit;
+  text-align: center;
+  width: 50%;
+  height: 50%;
+  background-color: #8a9c3a;
+  border: 2px solid #8a9c3a;
+  border-radius: 5px;
+  margin: 20px auto 20px auto;
+}
+
+.Button_Cancel {
+  display: block;
+  font-size: inherit;
+  text-align: center;
+  width: 50%;
+  height: 50%;
+  background-color: #ffffff;
+  border: 2px solid #8a9c3a;
+  border-radius: 5px;
+  margin: 20px auto;
+}
+
+div {
+  font-size: 18px;
+}
