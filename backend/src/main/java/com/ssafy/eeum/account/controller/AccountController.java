@@ -53,12 +53,8 @@ public class AccountController {
     @ApiOperation(value = "현재 로그인한 회원의 비밀번호 확인")
     @PostMapping("/check-pw")
     public ResponseEntity<Boolean> checkPassword(@RequestBody PasswordRequest passwordRequest,
-//                                                 @CurrentAccount Account account) {
-                                                 @AuthenticationPrincipal UserAccount userAccount) {
-        boolean result = accountService.checkPassword(passwordRequest, userAccount.getAccount());
-//        boolean result = false;
-//        if(userAccount == null)
-//            result = true;
+                                                 @CurrentAccount Account account) {
+        boolean result = accountService.checkPassword(passwordRequest, account);
         return new ResponseEntity<Boolean>(result, HttpStatus.OK);
     }
 
