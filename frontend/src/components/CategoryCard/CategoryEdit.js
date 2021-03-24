@@ -1,19 +1,46 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import styles from './CategoryEdit.module.css'
+import { useHistory } from 'react-router-dom';
 
 const CategoryEdit = (props) => {
-
+  const history = useHistory();
   const [situationImg, setImg] = useState(props['categoryUrl'])
-  // const [categoryName, setCategoryName] = useState(props['categoryName'])
-  const categoryName = useState(props['categoryName'])[0]
-  
-  
+  const [categoryName, setCategoryName] = useState(props['categoryName'])
+  const categoryId = useState(props['categoryId'])[0]
+  const [imgFile, setImgFile] = useState()
+
   const onImageChange = function (e) {
-    
-    setImg(e.target.value)
     setImg(URL.createObjectURL(e.target.files[0]))
+    setImgFile(e.target.files[0])
+  }
+  const onInputChange = (e) => {
+    setCategoryName(e.target.value)
   }
 
+
+  const editCategory = () => {
+    const token = sessionStorage.getItem('jwt')
+    // let data = new FormData()
+    // data.append('file', imgFile)
+    // data.append('word', categoryName)
+    const data  = {
+      "categoryImageUrl": situationImg,
+      "word":categoryName 
+    }
+    axios.put(process.env.REACT_APP_API_URL + '/category/'+ categoryId, data, {
+      headers: {
+        'Content-type': 'multipart/form-data',
+        'Authorization': token
+        }
+    })
+    .then(()=> {
+      history.go(0)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
 
   return(
     <>
@@ -34,12 +61,13 @@ const CategoryEdit = (props) => {
           type='text' 
           className={styles.situation_input}
           defaultValue={categoryName}
+          onChange={onInputChange}
           placeholder='상황 이름'/>
       </div>
 
       <div className={styles.button_box}>
           <button className={styles.close_button} onClick={props.categoryEditStateChange}>취소</button>
-          <button className={styles.add_button} onClick={props.categoryEditStateChange} >등록</button>
+          <button className={styles.add_button} onClick={editCategory} >등록</button>
       </div>
     </>
   )

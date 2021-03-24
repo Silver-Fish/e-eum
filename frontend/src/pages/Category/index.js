@@ -10,36 +10,10 @@ import CategoryEdit from '../../components/CategoryCard/CategoryEdit'
 import CardAdd from '../../components/CategoryCard/CardAdd'
 import CardEdit from '../../components/CategoryCard/CardEdit'
 import axios from 'axios'
-require('dotenv').config();
-
-
-
-
-// useEffect = (() => {
-//   const token = sessionStorage.getItem('jwt')
-//   const config = {
-//     headers: {
-//       'Authorization': token
-//     }
-//   }
-//   axios.get('http://localhost:8080/api/category/test', config)
-//   .then((res) =>{
-//     setCategoryDatas(res.data.data.categories)
-//   })
-//   .catch((err) => {
-//     console.log(err)
-//   })
-
-// })
-
-
-
-
 
 
 
 const Category = () => {
-
   
   const token = sessionStorage.getItem('jwt')
   const config = {
@@ -48,9 +22,8 @@ const Category = () => {
     }
   }
   useEffect(()=> {
-    axios.get(process.env.REACT_APP_API_URL + 'api/category', config)
+    axios.get(process.env.REACT_APP_API_URL + '/category', config)
     .then((res) =>{
-      console.log(res)
       setCategoryDatas(res.data.data.categories)
     })
     .catch((err) => {
@@ -66,7 +39,8 @@ const Category = () => {
   const [isCategoryCardEdit, setCategoryCardEdit] = useState(false);
   const [categoryUrl, setCategoryUrl] = useState('')
   const [categoryName, setCategoryName] = useState('')
-  
+  const [categoryId, setCategoryId] = useState('') 
+
   const [isCardAdd, setCardAdd] = useState(false);
   const [isCardEdit, setCardEdit] = useState(false);
   const [isCardStateEdit, setCardStateEdit] = useState(false);
@@ -116,6 +90,7 @@ const Category = () => {
     setCategoryCardEdit(data.state)
     setCategoryUrl(data.url)
     setCategoryName(data.name)
+    setCategoryId(data.id)
   }
 
   const CardStateEdit = (data) => {
@@ -160,7 +135,7 @@ const Category = () => {
         key={i} 
         id={category.id}
         textValue={category.word}
-        categoryUrl={category.categoryImageUrl}
+        categoryUrl={process.env.REACT_APP_IMG_PATH + category.categoryImageUrl}
         categoryState={categoryClick}
         isCategoryEdit={isCategoryEdit}
         categoryTitle = {categoryTitle}
@@ -243,6 +218,7 @@ const Category = () => {
                   categoryEditStateChange={categoryEditStateChange}
                   categoryName={categoryName}
                   categoryUrl={categoryUrl}
+                  categoryId={categoryId}
                   ></CategoryEdit>
               </>
             );
