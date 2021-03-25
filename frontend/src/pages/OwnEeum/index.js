@@ -107,7 +107,7 @@ const OwnEeum = () => {
           if (isAdd !== true && isEdit !== true) 
             return (
             <div>
-            <HeaderComp heardertitle='나만의 이음'></HeaderComp>
+            <HeaderComp headertitle='나만의 이음'></HeaderComp>
             <div className={styles.speech_box}>
                <div className={styles.speech_item_box}>
                { speechBoxList }
