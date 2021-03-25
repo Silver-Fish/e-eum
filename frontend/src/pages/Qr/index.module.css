@@ -6,6 +6,7 @@ div {
   height: 80vh;
   overflow-x: scroll;
   overflow-y: hidden;
+  margin: 0px;
 }
 
 .qr_register_box {
@@ -14,6 +15,6 @@ div {
   height: 10vh;
   background-color: #F5DF4D;
   border: 0px;
-
+  margin: 0px;
 }
 

@@ -6,7 +6,7 @@ const QrEdit = (props) => {
   const slectedQrName = props.slectedQrName
   return(
     <>
-      <HearderComp heardertitle='QR 수정'></HearderComp>
+      <HearderComp headertitle='QR 수정' headerColor='yellow'></HearderComp>
       <div className={styles.qr_name_input_box}>
         <input 
           className={styles.qr_name_input} 
