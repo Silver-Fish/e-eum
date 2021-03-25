@@ -58,9 +58,7 @@ const Category = () => {
 
   const categoryClick = (e) => {
     setCategory(!isCategory);
-    setCard([
-      // ['학교', '/images/user.png'], ['병원', '/images/user.png'] , ['싸피', '/images/user.png'] , ['감정표현', '/images/user.png'], ['스타벅스', '/images/user.png'],
-    ]);
+    setCard( e.cardDatas );
   }
   
   const cardClick = (data) => {
@@ -116,6 +114,7 @@ const Category = () => {
     setCategoryEdit(!isCategoryEdit)
   }
 
+
   const cardAddClick = (data) => {
     setCardAdd(!isCardAdd)
   }
@@ -136,10 +135,11 @@ const Category = () => {
         id={category.id}
         textValue={category.word}
         categoryUrl={process.env.REACT_APP_IMG_PATH + category.categoryImageUrl}
-        categoryState={categoryClick}
+        categoryClick={categoryClick}
         isCategoryEdit={isCategoryEdit}
         categoryTitle = {categoryTitle}
         categoryCardEdit = {categoryCardEdit}
+        
       ></CategoryCard>
     )
   )
@@ -150,8 +150,9 @@ const Category = () => {
     (card, i) => (
       <Card 
         key={i} 
-        textValue={card[0]}
-        cardUrl={card[1]}
+        id={card.id}
+        textValue={card.word}
+        cardUrl={card.imageUrl}
         cardClick={cardClick}
         isCardEdit={isCardEdit}
         CardStateEdit = {CardStateEdit}
