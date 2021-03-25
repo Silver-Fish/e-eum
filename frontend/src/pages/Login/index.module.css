@@ -1,18 +1,15 @@
 .button {
-  
   font-size: inherit;
   text-align: center;
   width: 50%;
   height: 50%;
-  background-color: #8A9C3A;
-  border: 2px solid #8A9C3A;
-  border-radius: 5px; 
-  
-  
+  background-color: #8a9c3a;
+  border: 2px solid #8a9c3a;
+  border-radius: 5px;
 }
 
 div {
-  font-size : 18px;
+  font-size: 18px;
 }
 
 .labelForm {
@@ -22,13 +19,21 @@ div {
 }
 
 span {
- 
   font-size: 14px;
   margin: 5px 0px;
-  width:auto;
+  width: auto;
 }
 
-.MainForm{
+.MainForm {
   display: inline-block;
   margin-top: 50px;
+}
+
+.input_check {
+  display: inline;
+  font-size: inherit;
+
+  width: 10%;
+  margin: 0;
+  padding: auto 0px;
 }
