@@ -58,14 +58,18 @@ public class Account {
         this.role = role;
     }
 
-    public void addAccountCard(AccountCard accountCard){
-        accountCards.add(accountCard);
+    public void setPassword(String password){
+        this.password = password;
     }
 
     public List<Card> getCards(){
         return accountCards.stream()
                 .map(AccountCard::getCard)
                 .collect(Collectors.toList());
+    }
+
+    public void addAccountCard(AccountCard accountCard){
+        accountCards.add(accountCard);
     }
                 
     public void addCategory(Category category) {
