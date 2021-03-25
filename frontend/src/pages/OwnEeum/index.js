@@ -1,28 +1,32 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import styles from './index.module.css'
 import OwnCardComp from '../../components/OwnCardComp/OwnCardComp';
 import SpeechBoxCard from '../../components/OwnCardComp/SpeechBoxCard';
 import OwnCardadd from '../../components/OwnCardComp/OwnCardadd';
 // import Card from '../../components/OwnCardComp/Card';
 import HeaderComp from '../../components/HeaderComp/HeaderComp'
+import axios from 'axios';
 
 
 const OwnEeum = () => {
   const [isAdd, setAdd] = useState(false);
   const [isEdit, setEdit] = useState(false);
-  const [cardUrl, setCardUrl] = useState('')
-  const [cardName, setCardName] = useState('')
-  const [owncardDatas, setOwncardDatas] = useState([
-    ['안녕하세요', '/images/user.png'], ['화장실', '/images/user.png'] , ['물', '/images/user.png'] , ['감사합니다', '/images/user.png'], ['안녕히가세요', '/images/user.png'], 
-    ['안녕하세요', '/images/user.png'], ['화장실', '/images/user.png'] , ['물', '/images/user.png'] , ['감사합니다', '/images/user.png'], ['안녕히가세요', '/images/user.png'], 
-    ['안녕하세요', '/images/user.png'], ['화장실', '/images/user.png'] , ['물', '/images/user.png'] , ['감사합니다', '/images/user.png'], ['안녕히가세요', '/images/user.png'], 
-    ['안녕하세요', '/images/user.png'], ['화장실', '/images/user.png'] , ['물', '/images/user.png'] , ['감사합니다', '/images/user.png'], ['안녕히가세요', '/images/user.png'], 
-    ['안녕하세요', '/images/user.png'], ['화장실', '/images/user.png'] , ['물', '/images/user.png'] , ['감사합니다', '/images/user.png'], ['안녕히가세요', '/images/user.png'], 
-    ['안녕하세요', '/images/user.png'], ['화장실', '/images/user.png'] , ['물', '/images/user.png'] , ['감사합니다', '/images/user.png'], ['안녕히가세요', '/images/user.png'], 
-    ['안녕하세요', '/images/user.png'], ['화장실', '/images/user.png'] , ['물', '/images/user.png'] , ['감사합니다', '/images/user.png'], ['안녕히가세요', '/images/user.png'], 
-    ['안녕하세요', '/images/user.png'], ['화장실', '/images/user.png'] , ['물', '/images/user.png'] , ['감사합니다', '/images/user.png'], ['안녕히가세요', '/images/user.png'], 
-    ['안녕하세요', '/images/user.png'], ['화장실', '/images/user.png'] , ['물', '/images/user.png'] , ['감사합니다', '/images/user.png'], ['안녕히가세요', '/images/user.png'], 
-  ])
+  // const [cardUrl, setCardUrl] = useState('')
+  const cardUrl = useState([0])
+  // const [cardName, setCardName] = useState('')
+  // const [owncardDatas, setOwncardDatas] = useState([
+  //   ['안녕하세요', '/images/user.png'], ['화장실', '/images/user.png'] , ['물', '/images/user.png'] , ['감사합니다', '/images/user.png'], ['안녕히가세요', '/images/user.png'], 
+  //   ['안녕하세요', '/images/user.png'], ['화장실', '/images/user.png'] , ['물', '/images/user.png'] , ['감사합니다', '/images/user.png'], ['안녕히가세요', '/images/user.png'], 
+  //   ['안녕하세요', '/images/user.png'], ['화장실', '/images/user.png'] , ['물', '/images/user.png'] , ['감사합니다', '/images/user.png'], ['안녕히가세요', '/images/user.png'], 
+  //   ['안녕하세요', '/images/user.png'], ['화장실', '/images/user.png'] , ['물', '/images/user.png'] , ['감사합니다', '/images/user.png'], ['안녕히가세요', '/images/user.png'], 
+  //   ['안녕하세요', '/images/user.png'], ['화장실', '/images/user.png'] , ['물', '/images/user.png'] , ['감사합니다', '/images/user.png'], ['안녕히가세요', '/images/user.png'], 
+  //   ['안녕하세요', '/images/user.png'], ['화장실', '/images/user.png'] , ['물', '/images/user.png'] , ['감사합니다', '/images/user.png'], ['안녕히가세요', '/images/user.png'], 
+  //   ['안녕하세요', '/images/user.png'], ['화장실', '/images/user.png'] , ['물', '/images/user.png'] , ['감사합니다', '/images/user.png'], ['안녕히가세요', '/images/user.png'], 
+  //   ['안녕하세요', '/images/user.png'], ['화장실', '/images/user.png'] , ['물', '/images/user.png'] , ['감사합니다', '/images/user.png'], ['안녕히가세요', '/images/user.png'], 
+  //   ['안녕하세요', '/images/user.png'], ['화장실', '/images/user.png'] , ['물', '/images/user.png'] , ['감사합니다', '/images/user.png'], ['안녕히가세요', '/images/user.png'], 
+  // ])
+  const [owncardDatas, setOwncardDatas] = useState([0])
+  // const owncardDatas = useState([0])
 
   // const [cardDatas, setCard] = useState([]);
   const [speechBoxDatas, setSpeechBoxDatas] = useState([]);
@@ -30,7 +34,7 @@ const OwnEeum = () => {
   const cardClick = (data) => {
     
     setSpeechBoxDatas([...speechBoxDatas,
-      [data.cardName['textValue'], data.cardUrl['cardUrl']]
+      [data.cardName['textValue'], data.imgUrl['imgUrl']]
     ]);
     console.log(speechBoxDatas)
     console.log(speechBoxList)
@@ -41,13 +45,35 @@ const OwnEeum = () => {
     setSpeechBoxDatas([...speechBoxDatas])
     
   }
+  const token = sessionStorage.getItem('jwt')
+  const config = {
+    headers: {
+      'Authorization': token
+    }
+  }
+  useEffect(() => {
+    console.log("useeffect")
+    const type = 'own'
+    // const params = {type: type}
+    axios.get(process.env.REACT_APP_API_URL+`/card/${type}`,
+    config)
+    .then((res)=> {
+      console.log(res)
+      console.log(res.data)
+      console.log(res.data[0].imageUrl)
+      setOwncardDatas(res.data)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }, [])
 
   const owncardList = owncardDatas.map(
     (owncard,i) => (
       <OwnCardComp 
         key={i} 
-        textValue={owncard[0]}
-        cardUrl={owncard[1]}
+        textValue={owncard.word}
+        imgUrl={owncard.imageUrl}
         isEdit={isEdit}
         cardClick={cardClick}
         // categoryCardEdit = {categoryCardEdit}
@@ -60,7 +86,7 @@ const OwnEeum = () => {
       <SpeechBoxCard
         key={i} 
         textValue={speech[0]} 
-        cardUrl={speech[1]}
+        imgUrl={speech[1]}
       ></SpeechBoxCard>
     )
   )
