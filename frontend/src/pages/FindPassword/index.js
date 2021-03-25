@@ -23,7 +23,7 @@ const FindPassword = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     axios
-      .get(process.env.REACT_APP_API_URL +'/accouts/find?email=' + email + '&name=' + name)
+      .get(process.env.REACT_APP_API_URL + '/accouts/find?email=' + email + '&name=' + name)
       .then((res) => {
         if (res.data) {
           setModal(true);
@@ -47,7 +47,7 @@ const FindPassword = () => {
     e.preventDefault();
     if (password === checkpassword) {
       axios
-        .put(process.env.REACT_APP_API_URL +'/accouts', password)
+        .put(process.env.REACT_APP_API_URL + '/accouts', password)
         .then((res) => {
           alert('변경완료');
           setTimeout(function () {
