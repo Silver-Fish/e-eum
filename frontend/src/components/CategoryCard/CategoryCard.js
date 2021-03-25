@@ -6,12 +6,13 @@ import styles from './CategoryCard.module.css';
 
   
 const CategoryCard = (props) => {
-  console.log(props)
-  const [isCategoryCardEdit, setCategoryCardEdit] = useState(false)
+  
+  // const [isCategoryCardEdit, setCategoryCardEdit] = useState(false)
+  const isCategoryCardEdit = useState(false)[0]
   const isCategoryEdit = props['isCategoryEdit']
   const categoryName = props.textValue
   const imgUrl = props.categoryUrl
-
+  
   const categoryCardClick = (e) => {    
     
     props.categoryTitle({categoryName}['categoryName'])
@@ -25,7 +26,7 @@ const CategoryCard = (props) => {
   }
   const categoryCardEditClick = (e) => {
     
-    props.categoryCardEdit({state:!isCategoryCardEdit, url:imgUrl, name: {categoryName}['categoryName']})
+    props.categoryCardEdit({state:!isCategoryCardEdit, id:props.id, url:imgUrl, name: {categoryName}['categoryName']})
   }
   
   return(

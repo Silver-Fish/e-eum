@@ -80,7 +80,7 @@ const UserRegister = () => {
     console.log('중복체크');
     if (email !== '') {
       axios
-        .get('http://localhost:8080/api/accounts/check-dup?email=' + email)
+        .get(process.env.REACT_APP_API_URL + '/accounts/check-dup?email=' + email)
         .then((res) => {
           if (res.data) {
             isCheck(false);

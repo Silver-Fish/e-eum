@@ -15,13 +15,13 @@ const HeaderComp = (props) => {
     else setModal(false);
   };
   const myEeumClick = (e) => {
-    history.push('/setting');
+    history.push('/mypage');
   };
   const situationEeumClick = (e) => {
     history.push('/category');
   };
   const qrEeumClick = (e) => {
-    if (sessionStorage.getItem('jwt') !== null) history.push('/setting');
+    if (sessionStorage.getItem('jwt') !== null) history.push('/qr');
     else setModal(false);
   };
   const settingClick = (e) => {

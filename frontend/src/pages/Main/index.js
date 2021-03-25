@@ -36,17 +36,17 @@ const Main = () => {
         <EeumButtonComp
           textValue="나만의 이음"
           buttonImg="/images/user.png"
-          handleClickPath="./OwnEeum"
+          handleClickPath="/OwnEeum"
         ></EeumButtonComp>
         <EeumButtonComp
           textValue="상황별 이음"
           buttonImg="/images/folder.png"
-          handleClickPath="./category"
+          handleClickPath="/category"
         ></EeumButtonComp>
         <EeumButtonComp
           textValue="QR로 이동"
           buttonImg="/images/qr.png"
-          handleClickPath="./qr"
+          handleClickPath="/qr"
         ></EeumButtonComp>
       </div>
 
@@ -54,17 +54,17 @@ const Main = () => {
         <MainFooterButtonComp
           textValue="도움말"
           buttonImg="/images/information.png"
-          handleClickPath="./qr"
+          handleClickPath="/help" 
         ></MainFooterButtonComp>
         <MainFooterButtonComp
           textValue="설정"
           buttonImg="/images/setting.png"
-          handleClickPath="./qr"
+          handleClickPath="/setting"
         ></MainFooterButtonComp>
         <MainFooterButtonComp
           textValue="내정보"
           buttonImg="/images/fish.png"
-          handleClickPath="./qr"
+          handleClickPath="/mypage"
         ></MainFooterButtonComp>
       </div>
     </div>
