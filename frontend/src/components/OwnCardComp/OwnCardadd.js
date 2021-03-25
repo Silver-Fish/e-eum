@@ -1,18 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import styles from './OwnCardadd.module.css'
 import axios from 'axios'
 
 const OwnCardadd = (props) => {
-  const childText = 'dsadsa'
   const [situationImg, setImg] = useState()
+  const [imgFile, setImgFile] = useState()
   const onImageChange = function (e) {
     console.log(situationImg)
     console.log(e.target.value)
     setImg(e.target.value)
+    setImgFile(e.target.files[0])
     setImg(URL.createObjectURL(e.target.files[0]))
   }
 
-
+  const addCard = () => {
+    const token = sessionStorage.getItem('jwt')
+    let data = new FormData()
+    data.append('file', imgFile)
+    data.append('word', '몰라')
+    data.append('type', 'own')
+    axios.post('https://dev.e-eum.kr/api/card', data, {
+      headers: {
+        // 'type' : 'own',
+        // 'word' : 'cardtitle',
+        // 'file' : 'cardImg',
+        'Content-type': 'multipart/form-data',
+        'Authorization': token
+        }
+    })
+    .then((res)=> {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
   return(
     <>
       <div className={styles.add_box}>
@@ -36,7 +58,7 @@ const OwnCardadd = (props) => {
 
       <div className={styles.button_box}>
           <button className={styles.close_button} onClick={props.addStateChange}>취소</button>
-          <button className={styles.add_button} onClick={props.addStateChange} >등록</button>
+          <button className={styles.add_button} onClick={addCard} >등록</button>
       </div>
     </>
   )
