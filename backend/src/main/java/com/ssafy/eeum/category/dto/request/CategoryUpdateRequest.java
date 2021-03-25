@@ -19,18 +19,14 @@ public class CategoryUpdateRequest {
     @Length(max = 10, message = "카테고리 이름의 총 길이는 10자 입니다.")
     private String word;
 
-    @ApiModelProperty(value = "이미지")
-    private String categoryImageUrl;
 
-    public CategoryUpdateRequest (@NotBlank @Length(max = 10, message = "카테고리 이름의 총 길이는 10자 입니다.") String word, String categoryImageUrl) {
+    public CategoryUpdateRequest (@NotBlank @Length(max = 10, message = "카테고리 이름의 총 길이는 10자 입니다.") String word) {
         this.word = word;
-        this.categoryImageUrl = categoryImageUrl;
     }
 
     public Category toCategory(){
         return Category.builder()
                 .word(word)
-                .categoryImageUrl(categoryImageUrl)
                 .build();
     }
 }
