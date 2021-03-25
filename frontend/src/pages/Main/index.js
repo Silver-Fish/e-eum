@@ -1,25 +1,37 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styles from './index.module.css';
 import Imgbox from '../../components/Image/Imgbox';
 import EeumButtonComp from '../../components/ButtonComp/EeumButtonComp';
 import MainFooterButtonComp from '../../components/ButtonComp/MainFooterButtonComp';
-
+import { useCookies } from 'react-cookie';
 const Main = () => {
   const history = useHistory();
+  const [cookies, removeCookie] = useCookies(['cookie']);
   const handleInClick = (e) => {
     history.push('./login');
   };
   const handleOutClick = (e) => {
     sessionStorage.removeItem('jwt');
+    removeCookie('cookie');
     alert('로그아웃 완료');
     history.push('./');
+  };
+
+  useEffect(() => {
+    if (sessionStorage.getItem('jwt') === null && cookies.cookie !== 'undefined') {
+      sessionStorage.setItem('jwt', cookies.cookie);
+    }
+  });
+  const gogo = (e) => {
+    console.log(sessionStorage.getItem('jwt'));
   };
 
   return (
     <div className={styles.mainbox}>
       <div className={styles.main_login_box}>
-        {sessionStorage.getItem('jwt') === null ? (
+        {(cookies.cookie === 'undefined' || cookies.cookie === undefined) &&
+        sessionStorage.getItem('jwt') === null ? (
           <button className={styles.login_button} onClick={handleInClick}>
             로그인
           </button>
@@ -67,6 +79,7 @@ const Main = () => {
           handleClickPath="./qr"
         ></MainFooterButtonComp>
       </div>
+      <button onClick={gogo}>버튼</button>
     </div>
   );
 };
