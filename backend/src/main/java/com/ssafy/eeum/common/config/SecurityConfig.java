@@ -59,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/accounts").permitAll()
                 .antMatchers("/accounts/check-dup").permitAll()
-                .antMatchers("/accounts/check-pw").hasRole("USER")
+                .antMatchers("/card/**").hasRole("USER")
                 .anyRequest().authenticated();
     }
 
