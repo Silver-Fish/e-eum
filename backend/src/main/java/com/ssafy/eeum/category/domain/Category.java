@@ -1,6 +1,7 @@
 package com.ssafy.eeum.category.domain;
 
 import com.ssafy.eeum.account.domain.Account;
+import com.ssafy.eeum.card.domain.AccountCard;
 import com.ssafy.eeum.card.domain.Card;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -53,6 +55,12 @@ public class Category {
         this.categoryImageUrl = category.categoryImageUrl;
 
         return this;
+    }
+
+    public List<Card> getCards(){
+        return categoryCards.stream()
+                .map(CategoryCard::getCard)
+                .collect(Collectors.toList());
     }
 
     public void setAccount(Account account) {
