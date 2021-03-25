@@ -179,7 +179,6 @@ const Category = () => {
           if (isCategoryAdd !== true && isCategoryCardEdit !== true)
             return (
               <>
-              <p>{process.env.REACT_APP_DB_HOST}</p>
                 <HeaderComp headertitle={headTitle}></HeaderComp>
                 <div className={styles.speech_box}>
                   { speechBoxList }

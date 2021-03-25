@@ -26,14 +26,15 @@ const MyPage = () => {
   return (
     <div className={styles.MainForm}>
       <ImgboxTitle src="/images/myPageImage.PNG" />
-      <div>
-        <span>이름</span>
-        <input readOnly placeholder={name}></input>
-      </div>
-
-      <div>
-        <span>이메일</span>
-        <input readOnly placeholder={email}></input>
+      <div className={styles.input_box}>
+        <div >
+          <span>이름</span>
+          <input readOnly placeholder={name}></input>
+        </div>
+        <div>
+          <span>이메일</span>
+          <input readOnly placeholder={email}></input>
+        </div>
       </div>
       <div className={styles.labelForm}>
         <LabelComp textValue="회원탈퇴" handleClickPath="./confirm" />

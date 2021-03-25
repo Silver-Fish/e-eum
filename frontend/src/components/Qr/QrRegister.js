@@ -6,7 +6,7 @@ const QrRegister = (props) => {
 
   return(
     <>
-      <HearderComp heardertitle='QR 등록'></HearderComp>
+      <HearderComp headertitle='QR 등록' headerColor='yellow'></HearderComp>
       <div className={styles.qr_name_input_box}>
         <input className={styles.qr_name_input} type="text" placeholder='QR 이름'/>
       </div>
