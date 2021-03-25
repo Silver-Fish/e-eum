@@ -5,31 +5,32 @@ import axios from 'axios'
 const OwnCardadd = (props) => {
   const [situationImg, setImg] = useState()
   const [imgFile, setImgFile] = useState()
+  const [cardName, setCardName] = useState()
   const onImageChange = function (e) {
     console.log(situationImg)
     console.log(e.target.value)
-    setImg(e.target.value)
     setImgFile(e.target.files[0])
     setImg(URL.createObjectURL(e.target.files[0]))
+  }
+  const onInputChange = (e) => {
+    setCardName(e.target.value)
   }
 
   const addCard = () => {
     const token = sessionStorage.getItem('jwt')
     let data = new FormData()
     data.append('file', imgFile)
-    data.append('word', '몰라')
+    data.append('word', cardName)
     data.append('type', 'own')
     axios.post('https://dev.e-eum.kr/api/card', data, {
       headers: {
-        // 'type' : 'own',
-        // 'word' : 'cardtitle',
-        // 'file' : 'cardImg',
         'Content-type': 'multipart/form-data',
         'Authorization': token
         }
     })
     .then((res)=> {
       console.log(res)
+      
     })
     .catch((err) => {
       console.log(err)
@@ -53,7 +54,9 @@ const OwnCardadd = (props) => {
         <input 
           type='text' 
           className={styles.situation_input}
-          placeholder='상황 이름'/>
+          onChange={onInputChange}
+          defalutvalue={cardName}
+          placeholder='카드 이름'/>
       </div>
 
       <div className={styles.button_box}>

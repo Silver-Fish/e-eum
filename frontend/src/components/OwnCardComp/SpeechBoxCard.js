@@ -3,10 +3,10 @@ import styles from './SpeechBoxCard.module.css'
 
 const SpeechBoxCard = (props) => {
   const textValue = props.textValue
-  const cardUrl = props.cardUrl
+  const imgUrl = props.imgUrl
   return(
     <button className={styles.card}>
-      <img className={styles.card_image} src={cardUrl} alt="대체이미지"/>
+      <img className={styles.card_image} src={imgUrl} alt="대체이미지"/>
         {textValue}
     </button>
   )

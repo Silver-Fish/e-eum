@@ -40,6 +40,7 @@ public class CardService {
 
     private final CardRepository cardRepository;
     private final CategoryRepository categoryRepository;
+    private final AccountRepository accountRepository;
 
     @Transactional
     public Long save(Account account, String type, Long typeId, String word, MultipartFile image) throws Exception {
@@ -47,6 +48,7 @@ public class CardService {
         cardRepository.save(card);
         switch (type){
             case "own":
+                account = findAccount(account.getEmail());
                 account.addAccountCard(AccountCard.createAccountCard(account,card));
                 break;
             case "category":
@@ -76,11 +78,16 @@ public class CardService {
         return categoryRepository.findById(typeId)
                 .orElseThrow(()->{return new NotFoundException(ErrorCode.CATEGORY_NOT_FOUND);});
     }
+    private Account findAccount(String email){
+        return accountRepository.findByEmail(email)
+                .orElseThrow(()->{return new NotFoundException(ErrorCode.USER_NOT_FOUND);});
+    }
 
     public List<CardResponse> findList(Account account, String type, Long typeId){
         List<Card> cards = null;
         switch(type){
             case "own":
+                account = findAccount(account.getEmail());
                 cards = account.getCards();
                 break;
             case "category":
