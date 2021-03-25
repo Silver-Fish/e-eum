@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import ImgboxTitle from '../../components/Image/ImgboxTitle';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
@@ -43,7 +43,7 @@ const UserRegister = () => {
       console.log(userData);
 
       axios
-        .post(process.env.REACT_APP_API_URL +'/accounts', userData)
+        .post(process.env.REACT_APP_API_URL + '/accounts', userData)
         .then((res) => {
           if (res.data === 'Created') {
             history.push('./userRegisterSuccess');
@@ -68,11 +68,12 @@ const UserRegister = () => {
   };
 
   useEffect(() => {
-    if(password === "" && passwordcheck==="")  setMessage("");
-    else if((passwordcheck !== "" && password ==="") || (passwordcheck === "" && password !=="") ) setMessage("비밀번호를 입력해주세요");
-    else if(passwordcheck===password) setMessage("비밀번호가 일치합니다.");
-    else if(passwordcheck!==password)setMessage("비밀번호가 일치하지 않습니다.");
-  });  
+    if (password === '' && passwordcheck === '') setMessage('');
+    else if ((passwordcheck !== '' && password === '') || (passwordcheck === '' && password !== ''))
+      setMessage('비밀번호를 입력해주세요');
+    else if (passwordcheck === password) setMessage('비밀번호가 일치합니다.');
+    else if (passwordcheck !== password) setMessage('비밀번호가 일치하지 않습니다.');
+  }, [password, passwordcheck]);
 
   const onEmailCheck = (e) => {
     e.preventDefault();
@@ -136,13 +137,14 @@ const UserRegister = () => {
           type="password"
           placeholder="비밀번호 확인"
           onChange={onPasswordCheckHandler}
-        
         />
         <br />
         <p>{message}</p>
         <br />
         <button type="submit">회원가입</button>
-        <button className ={styles.Button_cancel}onClick={onCancelButton}>취소</button>
+        <button className={styles.Button_cancel} onClick={onCancelButton}>
+          취소
+        </button>
       </form>
     </div>
   );

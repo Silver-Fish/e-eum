@@ -6,11 +6,19 @@ import LabelComp from '../../components/LabelComp/LabelComp';
 import ImgboxTitle from '../../components/Image/ImgboxTitle';
 import InputComp from '../../components/InputComp/InputComp';
 import styles from './index.module.css';
+import { useCookies } from 'react-cookie';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [autoLogin, setAutoLogin] = useState(false);
   const history = useHistory();
+
+  const [cookies, setCookie] = useCookies(['cookie']);
+
+  const setCookieFunc = () => {
+    setCookie('cookie', sessionStorage.getItem('jwt'), { maxAge: 2000 });
+  };
 
   const onEmailHandler = (e) => {
     setEmail(e);
@@ -18,6 +26,10 @@ const Login = () => {
 
   const onPasswordHandler = (e) => {
     setPassword(e);
+  };
+
+  const onAutoLogin = (e) => {
+    setAutoLogin(e.target.checked);
   };
 
   const onSubmitHandler = (e) => {
@@ -29,16 +41,17 @@ const Login = () => {
     console.log(userData);
 
     axios
-      .post(process.env.REACT_APP_API_URL +'/login', userData)
+      .post(process.env.REACT_APP_API_URL + '/login', userData)
 
       .then((res) => {
         if (res.status === 200) {
           // localStorage.setItem('email', res.data.data.email);
           // localStorage.setItem('name', res.data.data.name);
-
           sessionStorage.setItem('jwt', res.headers.authorization);
-
-          history.push('./');
+          if (autoLogin) {
+            setCookieFunc();
+          }
+          history.push('/');
         } else {
           alert('ID와 PW가 일치하지 않습니다.^0^');
         }
@@ -59,7 +72,8 @@ const Login = () => {
           <br />
           <InputComp type="password" placeholder="PW" InputChange={onPasswordHandler} />
           <br />
-          <span>자동로그인</span>
+          <input type="checkbox" checked={autoLogin} onClick={onAutoLogin} />
+          자동로그인
           <div className={styles.labelForm}>
             <LabelComp textValue="회원가입" handleClickPath="./userRegister" />
             <LabelComp textValue="비밀번호 찾기" handleClickPath="./findPassword" />
