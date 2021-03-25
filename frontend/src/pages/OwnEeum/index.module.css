@@ -1,13 +1,13 @@
 div {
   font-size: 18px;
 }
-
 .speech_box {
   background-color: white;
   border-bottom: 1px solid black;
   /* border-radius: 10px; */
   width: 100%;
   height: 15vh;
+  margin: 0;
   box-sizing: border-box;
   /* white-space:nowrap;
   overflow-x: scroll;
@@ -15,12 +15,37 @@ div {
   display: flex;
 }
 
+
+.speech_item_box {
+  flex-basis: 0;
+  flex-grow: 0.9;
+  white-space:nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.speech_cancel {
+  background-color: white;
+  border-radius: 10px;
+  border: 0;
+  height: 14vh;
+  margin: auto;
+  flex-basis: 0;
+  flex-grow: 0.1;
+
+}
+
+.speech_cancel img {
+  width: 100%;
+  height: 100%;
+}
 .owneeum_card_box {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(5, 1fr);
   box-sizing: border-box;
-  height: 70vh;
+  height: 69vh;
+  margin: 0;
   flex-wrap: wrap;
   overflow: scroll;
 }
@@ -56,27 +81,3 @@ div {
 }
 
 
-
-.speech_item_box {
-  flex-basis: 0;
-  flex-grow: 0.9;
-  white-space:nowrap;
-  overflow-x: scroll;
-  overflow-y: hidden;
-}
-
-.speech_cancel {
-  background-color: white;
-  border-radius: 10px;
-  border: 0;
-  height: 15vh;
-  margin: auto;
-  flex-basis: 0;
-  flex-grow: 0.1;
-
-}
-
-.speech_cancel img {
-  width: 100%;
-  height: 100%;
-}

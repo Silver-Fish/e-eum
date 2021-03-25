@@ -6,6 +6,7 @@ import OwnCardadd from '../../components/OwnCardComp/OwnCardadd';
 // import Card from '../../components/OwnCardComp/Card';
 import HeaderComp from '../../components/HeaderComp/HeaderComp'
 
+
 const OwnEeum = () => {
   const [isAdd, setAdd] = useState(false);
   const [isEdit, setEdit] = useState(false);
@@ -22,6 +23,7 @@ const OwnEeum = () => {
     ['안녕하세요', '/images/user.png'], ['화장실', '/images/user.png'] , ['물', '/images/user.png'] , ['감사합니다', '/images/user.png'], ['안녕히가세요', '/images/user.png'], 
     ['안녕하세요', '/images/user.png'], ['화장실', '/images/user.png'] , ['물', '/images/user.png'] , ['감사합니다', '/images/user.png'], ['안녕히가세요', '/images/user.png'], 
   ])
+
   // const [cardDatas, setCard] = useState([]);
   const [speechBoxDatas, setSpeechBoxDatas] = useState([]);
 
@@ -71,11 +73,6 @@ const OwnEeum = () => {
     setEdit(!isEdit)
     
   }
-  const categoryCardEdit = (data) => {
-    // setCategoryCardEdit(data.state)
-    setCardUrl(data.url)
-    setCardName(data.name)
-  }
   
   return (
     <>
@@ -85,7 +82,6 @@ const OwnEeum = () => {
             return (
             <div>
             <HeaderComp heardertitle='나만의 이음'></HeaderComp>
-            {/* <SpeechboxComp></SpeechboxComp> */}
             <div className={styles.speech_box}>
                <div className={styles.speech_item_box}>
                { speechBoxList }
