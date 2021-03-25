@@ -76,4 +76,6 @@ public class Account {
         categories.add(category);
         category.setAccount(this);
     }
+
+    public void deleteAccountCard(AccountCard accountCard){accountCards.remove(accountCard);}
 }
