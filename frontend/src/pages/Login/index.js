@@ -29,7 +29,7 @@ const Login = () => {
     console.log(userData);
 
     axios
-      .post(process.env.REACT_APP_API_URL +'/login', userData)
+      .post(process.env.REACT_APP_API_URL + '/login', userData)
 
       .then((res) => {
         if (res.status === 200) {
