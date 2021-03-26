@@ -37,34 +37,29 @@ const UserUpdate = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    if (password === passwordcheck && password !== '') {
+    if (newpassword === passwordcheck && newpassword !== '') {
+      const userData = {
+        currentPw: password,
+        newPw: newpassword,
+      };
       axios
-        .get(process.env.REACT_APP_API_URL + '/accouts/confirm?password=' + password, {
+        .put(process.env.REACT_APP_API_URL + '/accounts/update-pw', userData, {
           headers: {
             Authorization: sessionStorage.getItem('jwt'),
           },
         })
-        .then((res) => {
-          //현재 비밀번호가 맞다면
-          if (res.data) {
-            axios
-              .put(process.env.REACT_APP_API_URL + '/accouts/changePassword', newpassword)
-              .then((suc) => {
-                if (suc.data) {
-                  history.push('/myPage');
-                } else {
-                  alert('비밀번호 변경 실패');
-                }
-              });
+        .then((suc) => {          
+          if (suc.status ===200) {
+            alert('비밀번호변경 성공')
+            history.push('/myPage');
           } else {
-            alert('현재 비밀번호 체크!');
+            alert('비밀번호 변경 실패');
           }
         })
         .catch((err) => {
-          alert('오류');
+          alert('오류발생');
+          console.log(err);
         });
-    } else {
-      console.log('변경할 비밀번호 체크');
     }
   };
 

@@ -10,14 +10,16 @@ const MyPage = () => {
   useEffect(() => {
     const token = sessionStorage.getItem('jwt');
     axios
-      .get(process.env.REACT_APP_API_URL +'/accounts/info', {
+      .get(process.env.REACT_APP_API_URL + '/accounts', {
         headers: {
           Authorization: token,
         },
       })
       .then((res) => {
-        setName(res.data.name);
-        setEmail(res.data.email);
+        if(res.status===200){      
+          setName(res.data.name);
+          setEmail(res.data.email);
+        }
       })
       .catch((err) => {
         console.log(err);

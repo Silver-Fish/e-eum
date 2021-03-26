@@ -19,13 +19,14 @@ const Main = () => {
   };
 
   useEffect(() => {
-    if (sessionStorage.getItem('jwt') === null && cookies.cookie !== 'undefined') {
+    if (
+      sessionStorage.getItem('jwt') === null &&
+      cookies.cookie !== 'undefined' &&
+      cookies.cookie !== undefined
+    ) {
       sessionStorage.setItem('jwt', cookies.cookie);
     }
   });
-  const gogo = (e) => {
-    console.log(sessionStorage.getItem('jwt'));
-  };
 
   return (
     <div className={styles.mainbox}>
@@ -66,7 +67,7 @@ const Main = () => {
         <MainFooterButtonComp
           textValue="도움말"
           buttonImg="/images/information.png"
-          handleClickPath="/help" 
+          handleClickPath="/help"
         ></MainFooterButtonComp>
         <MainFooterButtonComp
           textValue="설정"
@@ -79,7 +80,6 @@ const Main = () => {
           handleClickPath="/mypage"
         ></MainFooterButtonComp>
       </div>
-      <button onClick={gogo}>버튼</button>
     </div>
   );
 };
