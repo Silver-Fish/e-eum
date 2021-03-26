@@ -1,8 +1,10 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState} from 'react';
+import { useHistory } from 'react-router-dom';
 import styles from './OwnCardadd.module.css'
 import axios from 'axios'
 
 const OwnCardadd = (props) => {
+  const history = useHistory();
   const [situationImg, setImg] = useState()
   const [imgFile, setImgFile] = useState()
   const [cardName, setCardName] = useState()
@@ -30,7 +32,7 @@ const OwnCardadd = (props) => {
     })
     .then((res)=> {
       console.log(res)
-      
+      history.go(0)
     })
     .catch((err) => {
       console.log(err)
