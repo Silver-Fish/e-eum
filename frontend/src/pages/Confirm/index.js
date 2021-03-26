@@ -47,7 +47,7 @@ const Confirm = () => {
       <button
         className={styles.Button_Cancel}
         onClick={(e) => {
-          history.push('/login');
+          history.push('/mypage');
         }}
       >
         취소

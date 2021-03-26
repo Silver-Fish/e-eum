@@ -38,6 +38,7 @@ const UserDelete = () => {
       <button
         className={styles.Button_Cancel}
         onClick={(e) => {
+          console.log('취소')
           history.push('/');
         }}
       >
