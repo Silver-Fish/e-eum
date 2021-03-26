@@ -1,32 +1,36 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import styles from './CategoryAdd.module.css'
 
 const CategoryAdd = (props) => {
+  const history = useHistory();
   const [situationImg, setImg] = useState()
   const [imgFile, setImgFile] = useState()
-  const onImageChange = function (e) {
-    setImg(e.target.value)    
+  const [categoryName, setCategoryName] = useState()
+  const onImageChange = (e) => {
     setImgFile(e.target.files[0])
     setImg(URL.createObjectURL(e.target.files[0]))
   }
 
-  
+  const onInputChange = (e) => {
+    setCategoryName(e.target.value)
+  }
   
 
   const addCategory = () => {
     const token = sessionStorage.getItem('jwt')
     let data = new FormData()
     data.append('file', imgFile)
-    data.append('word', '몰라')
-    axios.post('http://localhost:8080/api/category', data, {
+    data.append('word', categoryName)
+    axios.post(process.env.REACT_APP_API_URL + '/category', data, {
       headers: {
         'Content-type': 'multipart/form-data',
         'Authorization': token
         }
     })
-    .then((res)=> {
-      console.log(res)
+    .then(()=> {
+      history.go(0)
     })
     .catch((err) => {
       console.log(err)
@@ -51,6 +55,8 @@ const CategoryAdd = (props) => {
         <input 
           type='text' 
           className={styles.situation_input}
+          onChange={onInputChange}
+          defalutvalue={categoryName}
           placeholder='상황 이름'/>
       </div>
 

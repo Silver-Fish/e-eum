@@ -15,13 +15,13 @@ const HeaderComp = (props) => {
     else setModal(false);
   };
   const myEeumClick = (e) => {
-    history.push('/setting');
+    history.push('/mypage');
   };
   const situationEeumClick = (e) => {
     history.push('/category');
   };
   const qrEeumClick = (e) => {
-    if (sessionStorage.getItem('jwt') !== null) history.push('/setting');
+    if (sessionStorage.getItem('jwt') !== null) history.push('/qr');
     else setModal(false);
   };
   const settingClick = (e) => {
@@ -31,7 +31,6 @@ const HeaderComp = (props) => {
   return (
     <>
       {isModal !== true ? (
-        // <div className={'styles.header_box' + " " + headerColor === undefined ? '' : styles.headerColor}>
         <div className={styles.header_box + " " + (headerColor === undefined ? '' : styles.yellow)}>
           <img
             className={styles.header_image}
@@ -39,7 +38,7 @@ const HeaderComp = (props) => {
             alt="이미지"
             onClick={homeClick}
           />
-          <span className={styles.header_title}>{headertitle}</span>
+          <div className={styles.header_title}>{headertitle}</div>
           <button
             className={styles.header_button}
             onClick={function (e) {
@@ -50,7 +49,7 @@ const HeaderComp = (props) => {
           </button>
         </div>
       ) : (
-        <div className={styles.modal_box}>
+        <div className={styles.modal_box + " " + (headerColor === undefined ? '' : styles.yellow)}>
           <div className={styles.modal_header_box}>
             <button className={styles.modal_header_button}>
               <img

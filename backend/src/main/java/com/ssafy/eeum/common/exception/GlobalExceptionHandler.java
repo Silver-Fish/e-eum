@@ -37,4 +37,22 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(errorCode.getStatus()));
     }
 
+    @ExceptionHandler(NotMatchException.class)
+    public ResponseEntity<?> handleNotMatchException(NotMatchException e){
+        ErrorCode errorCode = e.getErrorCode();
+        String message = errorCode.getMessage();
+        String code = errorCode.getCode();
+        ErrorResponse errorResponse = new ErrorResponse(message, code);
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(errorCode.getStatus()));
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleException(Exception e){
+        log.error(e.getMessage(),e);
+        ErrorCode errorCode = ErrorCode.INTERNAL_SERVER_ERROR;
+        String message = errorCode.getMessage();
+        String code = errorCode.getCode();
+        ErrorResponse errorResponse = new ErrorResponse(message, code);
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(errorCode.getStatus()));
+    }
 }

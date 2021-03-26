@@ -1,7 +1,9 @@
 package com.ssafy.eeum.card.controller;
 
+import com.ssafy.eeum.account.domain.Account;
 import com.ssafy.eeum.card.dto.response.CardResponse;
 import com.ssafy.eeum.card.service.CardService;
+import com.ssafy.eeum.common.annotation.CurrentAccount;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.util.List;
 
@@ -34,21 +38,31 @@ public class CardController {
     private final CardService cardService;
 
     @PostMapping
-    @ApiOperation(value = "카드 등록", notes = "타입(own, category, qr), 이미지, 단어를 받아서 카드를 등록한다", response = ResponseEntity.class)
-    public ResponseEntity<Long> saveCard(Authentication authentication, @RequestParam(value = "type") String type, @RequestParam(value = "typeId", required = false) String typeId, @RequestParam(value = "word") String word, @RequestParam(value = "file", required = false) MultipartFile image) {
+    @ApiOperation(value = "카드 등록, http://localhost:8080/api/card, data={type:타입, typeId:타입의 id, word:단어, file:이미지파일}", notes = "타입(own, category, qr), 이미지, 단어를 받아서 카드를 등록한다", response = ResponseEntity.class)
+    public ResponseEntity<Long> saveCard(@CurrentAccount Account account, @RequestParam(value = "type") @NotBlank String type, @RequestParam(value = "typeId", required = false) Long typeId, @RequestParam(value = "word") @NotBlank String word, @RequestParam(value = "file", required = false) MultipartFile image) throws Exception{
         Long cardNo = null;
-        try {
-            cardNo = cardService.save((String) authentication.getPrincipal(), type, typeId, word, image);
-        } catch (IOException e) {
-            logger.error(e.getMessage());
-        }
+        cardNo = cardService.save(account, type, typeId, word, image);
         return ResponseEntity.ok().body(cardNo);
     }
 
+    @GetMapping()
+    @ApiOperation(value = "개별 카드 리스트 조회, http://localhost:8080/api/card/{id:카드아이디}", notes = "카드 id를 받아 카드리스트를 조회한다.", response = ResponseEntity.class)
+    public ResponseEntity<CardResponse> getCard(@RequestParam @NotNull Long id) {
+        CardResponse cardResponse = cardService.find(id);
+        return ResponseEntity.ok().body(cardResponse);
+    }
+
     @GetMapping("/{type}")
-    @ApiOperation(value = "카드 리스트 조회", notes = "타입(own, category, qr)과 타입의 번호(ex.category_id)를 받아 카드리스트를 조회. own의 경우 타입번호 미입력", response = ResponseEntity.class)
-    public ResponseEntity<List<CardResponse>> getCardList(Authentication authentication, @PathVariable String type, @RequestParam(required = false) String typeId) {
-        List<CardResponse> cardResponses = cardService.findList((String)authentication.getPrincipal(),type, typeId);
+    @ApiOperation(value = "카드 리스트 조회, http://localhost:8080/api/card/{type:타입}?typeId={typeId:타입의 id}", notes = "타입(own, category, qr)과 타입의 번호(ex.category_id)를 받아 카드리스트를 조회. own의 경우 타입번호 미입력", response = ResponseEntity.class)
+    public ResponseEntity<List<CardResponse>> getCardList(@CurrentAccount Account account, @PathVariable @NotBlank String type, @RequestParam(required = false) Long typeId) {
+        List<CardResponse> cardResponses = cardService.findList(account,type, typeId);
         return ResponseEntity.ok().body(cardResponses);
+    }
+
+    @DeleteMapping("/{id}")
+    @ApiOperation(value = "카드 삭제, http://localhost:8080/api/card/{id:카드아이디}", notes = "카드 id를 받아 카드리스트를 삭제한다.", response = ResponseEntity.class)
+    public ResponseEntity<Void> deleteCard(@PathVariable @NotNull Long id){
+        cardService.deleteCard(id);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -1,15 +1,17 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './OwnCardComp.module.css'
-
 
 const OwnCardComp = (props) => {
   const isEdit = props['isEdit']
   const textValue = props.textValue
-  const cardUrl = props.cardUrl
+  const imgUrl = `/data/${props.imgUrl}`
+  // const imgUrl = `/images/cat.PNG`
+  console.log(imgUrl)
+  // const [imgFile, setImgFile] = useState()
   const cardButtonClick = (e) => {    
     props.cardClick({
       cardName: {textValue}, 
-      cardUrl: {cardUrl}
+      imgUrl: {imgUrl}
     })
   }
   const CardClick = (e) => {    
@@ -34,7 +36,8 @@ const OwnCardComp = (props) => {
       { isEdit === false
         ?
         <button className={styles.card} onClick={cardButtonClick}>
-          <img className={styles.card_image} src={cardUrl} alt=""/>
+          <img className={styles.card_image} src={imgUrl} alt=""/>
+          {/* <img className={styles.card_image} src={imgFile} alt=""/> */}
             {textValue}
         </button>
         :
@@ -43,7 +46,7 @@ const OwnCardComp = (props) => {
             <div className={styles.card_del_box} >
               <img src="/images/minus.png" alt="" onClick={cardDeleteClick}/>
             </div>
-            <img className={styles.card_image} src={cardUrl} alt=""/>
+            <img className={styles.card_image} src={imgUrl} alt=""/>
             {textValue}
           </button>
         </>

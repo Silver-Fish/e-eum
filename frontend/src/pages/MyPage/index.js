@@ -10,14 +10,16 @@ const MyPage = () => {
   useEffect(() => {
     const token = sessionStorage.getItem('jwt');
     axios
-      .get('http://localhos:8080/api/accounts/info', {
+      .get(process.env.REACT_APP_API_URL + '/accounts', {
         headers: {
           Authorization: token,
         },
       })
       .then((res) => {
-        setName(res.data.name);
-        setEmail(res.data.email);
+        if(res.status===200){      
+          setName(res.data.name);
+          setEmail(res.data.email);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -26,17 +28,18 @@ const MyPage = () => {
   return (
     <div className={styles.MainForm}>
       <ImgboxTitle src="/images/myPageImage.PNG" />
-      <div>
-        <span>이름</span>
-        <input readOnly placeholder={name}></input>
-      </div>
-
-      <div>
-        <span>이메일</span>
-        <input readOnly placeholder={email}></input>
+      <div className={styles.input_box}>
+        <div >
+          <span>이름</span>
+          <input readOnly placeholder={name}></input>
+        </div>
+        <div>
+          <span>이메일</span>
+          <input readOnly placeholder={email}></input>
+        </div>
       </div>
       <div className={styles.labelForm}>
-        <LabelComp textValue="회원탈퇴" handleClickPath="./userDelete" />
+        <LabelComp textValue="회원탈퇴" handleClickPath="./confirm" />
         <LabelComp textValue="비밀번호 변경" handleClickPath="./userUpdate" />
       </div>
       <div className={styles.Buttons}>

@@ -56,11 +56,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(), this.accountRepository))
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/login").permitAll()
-                .antMatchers(HttpMethod.POST, "/accounts").permitAll()
-                .antMatchers( "/**").permitAll()
-                .antMatchers("/api/public/management/*").hasRole("MANAGER")
-                .antMatchers("/api/public/admin/*").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/login", "/accounts", "/accounts/check-account").permitAll()
+                .antMatchers("/accounts/reset-pw", "/accounts/check-dup").permitAll()
+                .antMatchers("/accounts/**").hasRole("USER")
+                .antMatchers("/card/**").hasRole("USER")
                 .anyRequest().authenticated();
     }
 

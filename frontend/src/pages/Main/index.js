@@ -1,25 +1,38 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styles from './index.module.css';
 import Imgbox from '../../components/Image/Imgbox';
 import EeumButtonComp from '../../components/ButtonComp/EeumButtonComp';
 import MainFooterButtonComp from '../../components/ButtonComp/MainFooterButtonComp';
-
+import { useCookies } from 'react-cookie';
 const Main = () => {
   const history = useHistory();
+  const [cookies, removeCookie] = useCookies(['cookie']);
   const handleInClick = (e) => {
     history.push('./login');
   };
   const handleOutClick = (e) => {
     sessionStorage.removeItem('jwt');
+    removeCookie('cookie');
     alert('로그아웃 완료');
     history.push('./');
   };
 
+  useEffect(() => {
+    if (
+      sessionStorage.getItem('jwt') === null &&
+      cookies.cookie !== 'undefined' &&
+      cookies.cookie !== undefined
+    ) {
+      sessionStorage.setItem('jwt', cookies.cookie);
+    }
+  });
+
   return (
     <div className={styles.mainbox}>
       <div className={styles.main_login_box}>
-        {sessionStorage.getItem('jwt') === null ? (
+        {(cookies.cookie === 'undefined' || cookies.cookie === undefined) &&
+        sessionStorage.getItem('jwt') === null ? (
           <button className={styles.login_button} onClick={handleInClick}>
             로그인
           </button>
@@ -36,17 +49,17 @@ const Main = () => {
         <EeumButtonComp
           textValue="나만의 이음"
           buttonImg="/images/user.png"
-          handleClickPath="./OwnEeum"
+          handleClickPath="/OwnEeum"
         ></EeumButtonComp>
         <EeumButtonComp
           textValue="상황별 이음"
           buttonImg="/images/folder.png"
-          handleClickPath="./category"
+          handleClickPath="/category"
         ></EeumButtonComp>
         <EeumButtonComp
           textValue="QR로 이동"
           buttonImg="/images/qr.png"
-          handleClickPath="./qr"
+          handleClickPath="/qr"
         ></EeumButtonComp>
       </div>
 
@@ -54,17 +67,17 @@ const Main = () => {
         <MainFooterButtonComp
           textValue="도움말"
           buttonImg="/images/information.png"
-          handleClickPath="./qr"
+          handleClickPath="/help"
         ></MainFooterButtonComp>
         <MainFooterButtonComp
           textValue="설정"
           buttonImg="/images/setting.png"
-          handleClickPath="./qr"
+          handleClickPath="/setting"
         ></MainFooterButtonComp>
         <MainFooterButtonComp
           textValue="내정보"
           buttonImg="/images/fish.png"
-          handleClickPath="./qr"
+          handleClickPath="/mypage"
         ></MainFooterButtonComp>
       </div>
     </div>

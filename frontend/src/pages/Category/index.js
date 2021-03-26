@@ -1,5 +1,5 @@
-// import React, {useState, useEffect} from 'react'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
+// import React, {useState} from 'react'
 import styles from './index.module.css'
 import HeaderComp from '../../components/HeaderComp/HeaderComp'
 import CategoryCard from '../../components/CategoryCard/CategoryCard'
@@ -9,52 +9,27 @@ import CategoryAdd from '../../components/CategoryCard/CategoryAdd'
 import CategoryEdit from '../../components/CategoryCard/CategoryEdit'
 import CardAdd from '../../components/CategoryCard/CardAdd'
 import CardEdit from '../../components/CategoryCard/CardEdit'
-// import axios from 'axios'
-
-
-
-
-
-// useEffect = (() => {
-//   const token = sessionStorage.getItem('jwt')
-//   const config = {
-//     headers: {
-//       'Authorization': token
-//     }
-//   }
-//   axios.get('http://localhost:8080/api/category/test', config)
-//   .then((res) =>{
-//     setCategoryDatas(res.data.data.categories)
-//   })
-//   .catch((err) => {
-//     console.log(err)
-//   })
-
-// })
-
-
-
-
+import axios from 'axios'
 
 
 
 const Category = () => {
-
   
-  // const token = sessionStorage.getItem('jwt')
-  // const config = {
-  //   headers: {
-  //     'Authorization': token
-  //   }
-  // }
-  // axios.get('http://localhost:8080/api/category/test', config)
-  // .then((res) =>{
-  //   setCategoryDatas(res.data.data.categories)
-  // })
-  // .catch((err) => {
-  //   console.log(err)
-  // })
-
+  const token = sessionStorage.getItem('jwt')
+  const config = {
+    headers: {
+      'Authorization': token
+    }
+  }
+  useEffect(()=> {
+    axios.get(process.env.REACT_APP_API_URL + '/category', config)
+    .then((res) =>{
+      setCategoryDatas(res.data.data.categories)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  },[]);
   
   const [headTitle, setheadTitle] = useState('상황별 이음')
   const [isCategory, setCategory] = useState(true);
@@ -64,38 +39,26 @@ const Category = () => {
   const [isCategoryCardEdit, setCategoryCardEdit] = useState(false);
   const [categoryUrl, setCategoryUrl] = useState('')
   const [categoryName, setCategoryName] = useState('')
-  
+  const [categoryId, setCategoryId] = useState('') 
+
   const [isCardAdd, setCardAdd] = useState(false);
   const [isCardEdit, setCardEdit] = useState(false);
   const [isCardStateEdit, setCardStateEdit] = useState(false);
   const [cardUrl, setCardUrl] = useState('')
   const [cardName, setCardName] = useState('')
 
-  // const [categoryDatas, setCategoryDatas] = useState([
-  //   // ['학교', '/images/user.png'], ['병원', '/images/user.png'] , ['싸피', '/images/user.png'] , ['감정표현', '/images/user.png'], ['스타벅스', '/images/user.png'], 
-  //   // ['학교', '/images/user.png'], ['병원', '/images/user.png'] , ['싸피', '/images/user.png'] , ['감정표현', '/images/user.png'], ['스타벅스', '/images/user.png'], 
-  //   // ['학교', '/images/user.png'], ['병원', '/images/user.png'] , ['싸피', '/images/user.png'] , ['감정표현', '/images/user.png'], ['스타벅스', '/images/user.png'], 
-  //   // ['학교', '/images/user.png'], ['병원', '/images/user.png'] , ['싸피', '/images/user.png'] , ['감정표현', '/images/user.png'], ['스타벅스', '/images/user.png'], 
-  // ]);
-  const categoryDatas = useState([
-    // ['학교', '/images/user.png'], ['병원', '/images/user.png'] , ['싸피', '/images/user.png'] , ['감정표현', '/images/user.png'], ['스타벅스', '/images/user.png'], 
-    // ['학교', '/images/user.png'], ['병원', '/images/user.png'] , ['싸피', '/images/user.png'] , ['감정표현', '/images/user.png'], ['스타벅스', '/images/user.png'], 
-    // ['학교', '/images/user.png'], ['병원', '/images/user.png'] , ['싸피', '/images/user.png'] , ['감정표현', '/images/user.png'], ['스타벅스', '/images/user.png'], 
-    // ['학교', '/images/user.png'], ['병원', '/images/user.png'] , ['싸피', '/images/user.png'] , ['감정표현', '/images/user.png'], ['스타벅스', '/images/user.png'], 
-  ])[0];
+  const [categoryDatas, setCategoryDatas] = useState([])
 
   const [cardDatas, setCard] = useState([]);
   const [speechBoxDatas, setSpeechBoxDatas] = useState([]);
 
 
 
-
+  
 
   const categoryClick = (e) => {
     setCategory(!isCategory);
-    setCard([
-      // ['학교', '/images/user.png'], ['병원', '/images/user.png'] , ['싸피', '/images/user.png'] , ['감정표현', '/images/user.png'], ['스타벅스', '/images/user.png'],
-    ]);
+    setCard( e.cardDatas );
   }
   
   const cardClick = (data) => {
@@ -125,6 +88,7 @@ const Category = () => {
     setCategoryCardEdit(data.state)
     setCategoryUrl(data.url)
     setCategoryName(data.name)
+    setCategoryId(data.id)
   }
 
   const CardStateEdit = (data) => {
@@ -150,6 +114,7 @@ const Category = () => {
     setCategoryEdit(!isCategoryEdit)
   }
 
+
   const cardAddClick = (data) => {
     setCardAdd(!isCardAdd)
   }
@@ -164,15 +129,17 @@ const Category = () => {
 
   const categoryList = categoryDatas.map(
     (category, i) => (
+
       <CategoryCard       
         key={i} 
-        id={category[0]}
-        textValue={category[1]}
-        categoryUrl={category[2]}
-        categoryState={categoryClick}
+        id={category.id}
+        textValue={category.word}
+        categoryUrl={process.env.REACT_APP_IMG_PATH + category.categoryImageUrl}
+        categoryClick={categoryClick}
         isCategoryEdit={isCategoryEdit}
         categoryTitle = {categoryTitle}
         categoryCardEdit = {categoryCardEdit}
+        
       ></CategoryCard>
     )
   )
@@ -183,8 +150,9 @@ const Category = () => {
     (card, i) => (
       <Card 
         key={i} 
-        textValue={card[0]}
-        cardUrl={card[1]}
+        id={card.id}
+        textValue={card.word}
+        cardUrl={card.imageUrl}
         cardClick={cardClick}
         isCardEdit={isCardEdit}
         CardStateEdit = {CardStateEdit}
@@ -250,6 +218,7 @@ const Category = () => {
                   categoryEditStateChange={categoryEditStateChange}
                   categoryName={categoryName}
                   categoryUrl={categoryUrl}
+                  categoryId={categoryId}
                   ></CategoryEdit>
               </>
             );

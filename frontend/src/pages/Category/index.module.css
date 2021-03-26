@@ -9,6 +9,7 @@ div {
   white-space:nowrap;
   overflow-x: scroll;
   overflow-y: hidden;
+  margin: 0px;
 }
 
 
@@ -17,6 +18,7 @@ div {
   height: 5vh;
   box-sizing: border-box;
   background-color: #8A9C3A;
+  margin: 0px;
 
 }
 
@@ -43,10 +45,12 @@ div {
 .category_card_box {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(5, 1fr);
   box-sizing: border-box;
   height: 65vh;
   flex-wrap: wrap;
   overflow: scroll;
+  margin: 0px;
 }
 
 
@@ -59,12 +63,14 @@ div {
   height: 65vh;
   flex-wrap: wrap;
   overflow: scroll;
+  margin: 0px;
 }
 
 .button_box {
   height: 5vh;
   box-sizing: border-box;
   display: flex;
+  margin: 0px;
 }
 
 .add_button {
