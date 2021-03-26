@@ -62,4 +62,7 @@ public class Card {
         this.imageUrl = imageUrl;
     }
 
+    public void update(Card requestCard) {
+        this.word = requestCard.word;
+    }
 }
