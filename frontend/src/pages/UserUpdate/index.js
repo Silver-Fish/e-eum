@@ -48,8 +48,9 @@ const UserUpdate = () => {
             Authorization: sessionStorage.getItem('jwt'),
           },
         })
-        .then((suc) => {
-          if (suc.data) {
+        .then((suc) => {          
+          if (suc.status ===200) {
+            alert('비밀번호변경 성공')
             history.push('/myPage');
           } else {
             alert('비밀번호 변경 실패');
