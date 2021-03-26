@@ -4,6 +4,7 @@ import com.ssafy.eeum.account.domain.Account;
 import com.ssafy.eeum.account.repository.AccountRepository;
 import com.ssafy.eeum.card.domain.AccountCard;
 import com.ssafy.eeum.card.domain.Card;
+import com.ssafy.eeum.card.dto.request.CardUpdateRequest;
 import com.ssafy.eeum.card.dto.response.CardResponse;
 import com.ssafy.eeum.card.repository.AccountCardRepository;
 import com.ssafy.eeum.card.repository.CardRepository;
@@ -82,6 +83,7 @@ public class CardService {
         return card.getId();
     }
 
+    @Transactional(readOnly = true)
     public List<CardResponse> findList(Account account, String type, Long typeId) {
         List<Card> cards = null;
         switch (type) {
@@ -99,12 +101,20 @@ public class CardService {
         return CardResponse.listOf(cards);
     }
 
+    @Transactional(readOnly = true)
     public CardResponse find(Long id) {
         Card card = findCard(id);
         return CardResponse.of(card);
     }
 
+    @Transactional
+    public void updateCard(Long id, CardUpdateRequest cardUpdateRequest) {
+        Card card = findCard(id);
+        Card requestCard = cardUpdateRequest.toCard();
+        card.update(requestCard);
+    }
 
+    @Transactional
     public void deleteCard(Long id) {
         //TODO:계정 확인 로직 구현?
         List<AccountCard> accountCards = accountCardRepository.findByCardId(id);
@@ -153,5 +163,4 @@ public class CardService {
                     return new NotFoundException(ErrorCode.USER_NOT_FOUND);
                 });
     }
-
 }
