@@ -28,7 +28,7 @@ const CategoryCard = (props) => {
     
     axios.get(process.env.REACT_APP_API_URL + '/card/category?typeId=' + categoryId, config)
     .then((res) => {
-      props.categoryClick({state:false, cardDatas:res.data, categoryId:categoryId})
+      props.categoryClick({state:false, cardDatas:res.data, categoryId:categoryId, categoryName:categoryName})
     })
     .catch((err) => {
       console.log(err)
@@ -38,7 +38,26 @@ const CategoryCard = (props) => {
   
   const categoryDeleteClick = (e) => {    
     e.stopPropagation();
-    console.log('서버와 삭제 통신해야함')
+    const token = sessionStorage.getItem('jwt')
+    // let data = new FormData()
+    // data.append('file', imgFile)
+    // data.append('word', categoryName)
+    // axios.post(process.env.REACT_APP_API_URL + '/category', data, {
+    //   headers: {
+    //     'Content-type': 'multipart/form-data',
+    //     'Authorization': token
+    //     }
+    // })
+    // .then(()=> {
+    //   history.go(0)
+    // })
+    // .catch((err) => {
+    //   console.log(err)
+    // })
+
+
+
+
   }
   const categoryCardEditClick = (e) => {
     
