@@ -30,6 +30,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+
 	// swagger
 	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
 	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
@@ -40,6 +41,7 @@ dependencies {
 
 	// QR code
 	implementation group: 'com.google.zxing', name: 'core', version: '3.3.3'
+	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
 
 	// security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
