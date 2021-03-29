@@ -118,7 +118,7 @@ public class CardService {
     public void deleteCard(Long id) {
         //TODO:계정 확인 로직 구현?
         List<AccountCard> accountCards = accountCardRepository.findByCardId(id);
-        List<CategoryCard> categoryCards = categoryCardRepository.findByCategoryId(id);
+        List<CategoryCard> categoryCards = categoryCardRepository.findByCardId(id);
         if (accountCards.size() != 0) {
             for (AccountCard accountCard : accountCards) {
                 accountCard.setCard(null);

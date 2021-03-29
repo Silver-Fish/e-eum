@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface CategoryCardRepository extends JpaRepository<CategoryCard,Long> {
-    List<CategoryCard> findByCategoryId(Long id);
+    List<CategoryCard> findByCardId(Long id);
 }
