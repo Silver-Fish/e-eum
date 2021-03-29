@@ -76,27 +76,10 @@ public class CategoryService {
 
     // 카테고리 수정
     @Transactional
-    public CategoryResponse updateCategory(Long id, CategoryUpdateRequest categoryUpdateRequest) {
+    public void updateCategory(Long id, CategoryUpdateRequest categoryUpdateRequest) {
         Category category = findById(id);
         Category requestCategory = categoryUpdateRequest.toCategory();
-        Category updatedCategory = category.update(requestCategory);
-
-//        Account account,MultipartFile image, throws Exception
-//        String imageUrl = account.getId() + "/category/" + category.getId();
-//        category.setCategoryImageUrl(imageUrl);
-//        categoryRepository.save(category);
-//
-//        File folder = new File(filePath+account.getId() + "/category");
-//        log.info(folder.mkdirs() ? "success make dir" : "fail make dir");
-//
-//        File file = new File(filePath+imageUrl);
-//        log.info(filePath+imageUrl);
-//        log.info(file.createNewFile() ? "success make file" : "fail make file");
-//        FileOutputStream fos = new FileOutputStream(file);
-//        fos.write(image.getBytes());
-//        fos.close();
-
-        return CategoryResponse.of(updatedCategory);
+        category.update(requestCategory);
     }
 
     private Category findById(Long id) {

@@ -1,7 +1,6 @@
 package com.ssafy.eeum.category.domain;
 
 import com.ssafy.eeum.account.domain.Account;
-import com.ssafy.eeum.card.domain.AccountCard;
 import com.ssafy.eeum.card.domain.Card;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -50,11 +49,8 @@ public class Category {
 //        this.categoryImageUrl = categoryImageUrl;
     }
 
-    public Category update(Category category) {
+    public void update(Category category) {
         this.word = category.word;
-//        this.categoryImageUrl = category.categoryImageUrl;
-
-        return this;
     }
 
     public List<Card> getCards(){
