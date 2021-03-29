@@ -46,6 +46,7 @@ const Category = () => {
   const [isCardStateEdit, setCardStateEdit] = useState(false);
   const [cardUrl, setCardUrl] = useState('')
   const [cardName, setCardName] = useState('')
+  const [cardId, setCardId] = useState('') 
 
   const [categoryDatas, setCategoryDatas] = useState([])
 
@@ -97,6 +98,7 @@ const Category = () => {
     setCardStateEdit(data['state'])
     setCardName(data['name'])
     setCardUrl(data['url'])
+    setCardId(data['cardId'])
     
   }
 
@@ -116,7 +118,6 @@ const Category = () => {
     setCategoryEdit(!isCategoryEdit)
   }
 
-
   const cardAddClick = (data) => {
     setCardAdd(!isCardAdd)
   }
@@ -125,7 +126,7 @@ const Category = () => {
     setCardEdit(!isCardEdit)
   }
 
-  const cardEditStateChange = () => {
+  const cardEditStateChange = (data) => {
     setCardStateEdit(!isCardStateEdit)
   }
 
@@ -150,7 +151,7 @@ const Category = () => {
 
   const cardList = cardDatas.map(
     (card, i) => (
-      
+    
       <Card 
         key={i} 
         id={card.id}
@@ -272,6 +273,7 @@ const Category = () => {
                   cardEditStateChange={cardEditStateChange} 
                   cardName={cardName}
                   cardUrl={cardUrl}
+                  cardId={cardId}   
                 ></CardEdit>
             </>
             );
