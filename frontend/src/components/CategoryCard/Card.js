@@ -7,6 +7,7 @@ import styles from './CategoryCard.module.css';
   
 const Card = (props) => {
   // const [isCardStateEdit, setCardStateEdit] = useState(false)
+  const categoryId = props.categoryId
   const isCardStateEdit = useState(false)[0]
   const isCardEdit = props.isCardEdit
   const textValue = props.textValue 

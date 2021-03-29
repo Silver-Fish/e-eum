@@ -24,7 +24,7 @@ const Category = () => {
   useEffect(()=> {
     axios.get(process.env.REACT_APP_API_URL + '/category', config)
     .then((res) =>{
-      setCategoryDatas(res.data.data.categories)
+      setCategoryDatas(res.data.categories)
     })
     .catch((err) => {
       console.log(err)
@@ -58,7 +58,9 @@ const Category = () => {
 
   const categoryClick = (e) => {
     setCategory(!isCategory);
-    setCard( e.cardDatas );
+    setCard(e.cardDatas );
+    setCategoryId(e.categoryId);
+    setCategoryName(e.categoryName);
   }
   
   const cardClick = (data) => {
@@ -148,6 +150,7 @@ const Category = () => {
 
   const cardList = cardDatas.map(
     (card, i) => (
+      
       <Card 
         key={i} 
         id={card.id}
@@ -156,6 +159,7 @@ const Category = () => {
         cardClick={cardClick}
         isCardEdit={isCardEdit}
         CardStateEdit = {CardStateEdit}
+        categoryId = {categoryId}
       ></Card>
     )
   )
@@ -232,7 +236,7 @@ const Category = () => {
         if (isCardAdd !== true && isCardStateEdit !== true)
           return(
             <>
-              <HeaderComp heardertitle={headTitle}></HeaderComp>
+              <HeaderComp headertitle={headTitle}></HeaderComp>
 
               <div className={styles.speech_box}>
                 { speechBoxList }
@@ -256,14 +260,14 @@ const Category = () => {
           if (isCardAdd === true)
               return(
                 <>
-                  <HeaderComp heardertitle='카드 추가'></HeaderComp>
-                  <CardAdd cardAddClick={cardAddClick}></CardAdd>
+                  <HeaderComp headertitle='카드 추가'></HeaderComp>
+                  <CardAdd cardAddClick={cardAddClick} categoryId={categoryId} categoryName={categoryName}></CardAdd>
                 </>
               )
           if (isCardStateEdit === true)
             return(
             <>
-              <HeaderComp heardertitle='상황 수정'></HeaderComp>
+              <HeaderComp headertitle='상황 수정'></HeaderComp>
               <CardEdit 
                   cardEditStateChange={cardEditStateChange} 
                   cardName={cardName}
