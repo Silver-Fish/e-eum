@@ -21,18 +21,12 @@ const CategoryEdit = (props) => {
 
   const editCategory = () => {
     const token = sessionStorage.getItem('jwt')
-    let data = new FormData()
-    // data.append('file', imgFile)
-    data.append('word', categoryName)
-    console.log(categoryName)
-    console.log(categoryId)
-    // const data  = {
-    //   "categoryImageUrl": situationImg,
-    //   "word":categoryName 
-    // }
+    const data = {
+      'word': categoryName
+    }
+    
     axios.put(process.env.REACT_APP_API_URL + '/category/'+ categoryId, data, {
       headers: {
-        'Content-type': 'multipart/form-data',
         'Authorization': token
         }
     })

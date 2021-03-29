@@ -2,11 +2,13 @@ import React from 'react';
 import { useState } from 'react';
 import styles from './CategoryCard.module.css';
 import axios from 'axios'
+import { useHistory } from 'react-router-dom';
 
 
   
 const CategoryCard = (props) => {
   // const [isCategoryCardEdit, setCategoryCardEdit] = useState(false)
+  const history = useHistory();
   const isCategoryCardEdit = useState(false)[0]
   const isCategoryEdit = props['isCategoryEdit']
   const categoryName = props.textValue
@@ -39,21 +41,19 @@ const CategoryCard = (props) => {
   const categoryDeleteClick = (e) => {    
     e.stopPropagation();
     const token = sessionStorage.getItem('jwt')
-    // let data = new FormData()
-    // data.append('file', imgFile)
-    // data.append('word', categoryName)
-    // axios.post(process.env.REACT_APP_API_URL + '/category', data, {
-    //   headers: {
-    //     'Content-type': 'multipart/form-data',
-    //     'Authorization': token
-    //     }
-    // })
-    // .then(()=> {
-    //   history.go(0)
-    // })
-    // .catch((err) => {
-    //   console.log(err)
-    // })
+
+    
+    axios.delete(process.env.REACT_APP_API_URL + '/category/'+ props.id, {
+      headers: {
+        'Authorization': token
+        }
+    })
+    .then(()=> {
+      history.go(0)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 
 
 
