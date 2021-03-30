@@ -39,7 +39,7 @@ public class QrController {
     }
 
     @GetMapping("")
-    @ApiOperation(value = "QR 목록 조회", notes = "유저의 QR 전체 목록을 조회한다", response = ResponseEntity.class)
+    @ApiOperation(value = "QR 목록 조회", notes = "유저의 QR 전체 목록을 조회한다.", response = ResponseEntity.class)
     public ResponseEntity<List<QrResponse>> getQrList(@CurrentAccount Account account) {
         List<QrResponse> qrResponses = qrService.findList(account);
         return ResponseEntity.ok().body(qrResponses);
