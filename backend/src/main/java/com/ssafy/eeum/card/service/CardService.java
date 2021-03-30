@@ -14,6 +14,8 @@ import com.ssafy.eeum.category.repository.CategoryCardRepository;
 import com.ssafy.eeum.category.repository.CategoryRepository;
 import com.ssafy.eeum.common.exception.ErrorCode;
 import com.ssafy.eeum.common.exception.NotFoundException;
+import com.ssafy.eeum.qr.domain.QR;
+import com.ssafy.eeum.qr.repository.QrRepository;
 import com.sun.xml.bind.v2.TODO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +49,7 @@ public class CardService {
     private final AccountRepository accountRepository;
     private final AccountCardRepository accountCardRepository;
     private final CategoryCardRepository categoryCardRepository;
+    private final QrRepository qrRepository;
 
     @Transactional
     public Long save(Account account, String type, Long typeId, String word, MultipartFile image) throws Exception {
@@ -62,6 +65,8 @@ public class CardService {
                 category.addCategoryCard(CategoryCard.createCategoryCard(category, card));
                 break;
             case "qr":
+                QR qr = findQR(typeId);
+
                 break;
         }
 
@@ -96,6 +101,8 @@ public class CardService {
                 cards = category.getCards();
                 break;
             case "qr":
+                QR qr = findQR(typeId);
+                cards = qr.getCards();
                 break;
         }
         return CardResponse.listOf(cards);
@@ -161,6 +168,13 @@ public class CardService {
         return accountRepository.findByEmail(email)
                 .orElseThrow(() -> {
                     return new NotFoundException(ErrorCode.USER_NOT_FOUND);
+                });
+    }
+
+    private QR findQR(Long typeId){
+        return qrRepository.findById(typeId)
+                .orElseThrow(() -> {
+                    return new NotFoundException(ErrorCode.QR_NOT_FOUND);
                 });
     }
 }

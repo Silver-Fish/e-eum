@@ -1,5 +1,7 @@
 package com.ssafy.eeum.qr.domain;
 
+import com.ssafy.eeum.card.domain.AccountCard;
+import com.ssafy.eeum.card.domain.Card;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +11,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -26,11 +31,15 @@ public class QR {
     @Lob
     private String qrUrl;
 
+    @OneToMany(mappedBy = "qr", fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval=true)
+    private List<QRCard> qrCards = new ArrayList<>();
+
     @CreationTimestamp
     private LocalDateTime createDate;
 
     @UpdateTimestamp
     private LocalDateTime updateDate;
+
 
     @Builder
     public QR(String title, String qrUrl) {
@@ -40,5 +49,11 @@ public class QR {
 
     public void setQrUrl(String qrUrl) {
         this.qrUrl = qrUrl;
+    }
+
+    public List<Card> getCards(){
+        return qrCards.stream()
+                .map(QRCard::getCard)
+                .collect(Collectors.toList());
     }
 }

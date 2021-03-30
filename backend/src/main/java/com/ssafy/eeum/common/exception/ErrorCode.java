@@ -16,7 +16,9 @@ public enum ErrorCode {
 
     CARD_NOT_FOUND(400,"CD_001","해당 카드를 찾을 수 없습니다."),
 
-    CATEGORY_NOT_FOUND(400,"CT_001","해당 카테고리를 찾을 수 없습니다.");
+    CATEGORY_NOT_FOUND(400,"CT_001","해당 카테고리를 찾을 수 없습니다."),
+
+    QR_NOT_FOUND(400,"QR_001","해당 QR을 찾을 수 없습니다.");
 
     private final String code;
     private final String message;
