@@ -97,4 +97,5 @@ public class Account {
     }
 
     public void deleteAccountCard(AccountCard accountCard){accountCards.remove(accountCard);}
+    public void deleteAccountQr(AccountQr accountQr){accountQrs.remove(accountQr);}
 }
