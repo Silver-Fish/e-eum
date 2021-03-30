@@ -1,5 +1,5 @@
 import React from 'react';
-import ImgboxTitle from '../../components/Image/ImgboxTitle';
+import HeaderComp from '../../components/HeaderComp/HeaderComp';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import styles from './index.module.css';
@@ -29,8 +29,8 @@ const UserDelete = () => {
 
   return (
     <div>
-      <ImgboxTitle src="/images/deleteImage.PNG" />
-      <br />
+      <HeaderComp headertitle="회원 탈퇴" />
+      <h1>회원 탈퇴</h1>
       <p>진짜 삭제??</p>
       <button className={styles.Button_Ok} onClick={onDeleteHandler}>
         탈퇴
@@ -38,7 +38,7 @@ const UserDelete = () => {
       <button
         className={styles.Button_Cancel}
         onClick={(e) => {
-          console.log('취소')
+          console.log('취소');
           history.push('/');
         }}
       >

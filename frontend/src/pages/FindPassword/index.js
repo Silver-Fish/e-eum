@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ImgboxTitle from '../../components/Image/ImgboxTitle';
+import HeaderComp from '../../components/HeaderComp/HeaderComp';
 import { useHistory } from 'react-router-dom';
 import styles from './index.module.css';
 import axios from 'axios';
@@ -22,14 +22,14 @@ const FindPassword = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    const userData={
-      email:email,
-      name:name,
-    }
+    const userData = {
+      email: email,
+      name: name,
+    };
     axios
-      .post(process.env.REACT_APP_API_URL + '/accounts/check-account',userData)
+      .post(process.env.REACT_APP_API_URL + '/accounts/check-account', userData)
       .then((res) => {
-        if (res.status===200) {
+        if (res.status === 200) {
           setModal(true);
         } else {
           alert('이메일 또는 이름 오류');
@@ -50,19 +50,19 @@ const FindPassword = () => {
   const changePassword = (e) => {
     e.preventDefault();
     if (password === checkpassword) {
-      const userData={
-        email:email,
-        password:password,
-      }
+      const userData = {
+        email: email,
+        password: password,
+      };
       axios
         .put(process.env.REACT_APP_API_URL + '/accounts/reset-pw', userData)
         .then((res) => {
-          if(res.status===200){
+          if (res.status === 200) {
             alert('변경완료');
             setTimeout(function () {
               history.push('/login');
-            },1000);
-          }        
+            }, 1000);
+          }
         })
         .catch((err) => {
           alert('변경실패');
@@ -72,9 +72,10 @@ const FindPassword = () => {
 
   return (
     <>
+      <HeaderComp headertitle="비밀번호 찾기" />
       {!isModal ? (
         <div>
-          <ImgboxTitle src="/images/findPasswordImage.PNG" />
+          <h1>비밀번호 찾기</h1>
           <form onSubmit={onSubmitHandler}>
             <input value={email} type="text" placeholder="이메일" onChange={onEmailHandler} />
             <br />

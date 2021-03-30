@@ -4,8 +4,6 @@ import com.ssafy.eeum.card.domain.AccountCard;
 import com.ssafy.eeum.card.domain.Card;
 import com.ssafy.eeum.category.domain.AccountCategory;
 import com.ssafy.eeum.category.domain.Category;
-import com.ssafy.eeum.qr.domain.AccountQr;
-import com.ssafy.eeum.qr.domain.QR;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -54,12 +52,6 @@ public class Account {
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval=true)
     private List<AccountCategory> accountCategories = new ArrayList<>();
 
-    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval=true)
-    private List<QR> qrs = new ArrayList<>();
-
-    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval=true)
-    private List<AccountQr> accountQrs = new ArrayList<AccountQr>();
-
     public Account() {}
 
     @Builder
@@ -84,16 +76,10 @@ public class Account {
         accountCards.add(accountCard);
     }
     public void addAccountCategory(AccountCategory accountCategory) { accountCategories.add(accountCategory); }
-    public void addAccountQr(AccountQr accountQr) { accountQrs.add(accountQr); }
                 
     public void addCategory(Category category) {
         categories.add(category);
         category.setAccount(this);
-    }
-
-    public void addQr(QR qr) {
-        qrs.add(qr);
-        qr.setAccount(this);
     }
 
     public void deleteAccountCard(AccountCard accountCard){accountCards.remove(accountCard);}
