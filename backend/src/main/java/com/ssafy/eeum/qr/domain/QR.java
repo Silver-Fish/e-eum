@@ -1,5 +1,6 @@
 package com.ssafy.eeum.qr.domain;
 
+import com.ssafy.eeum.account.domain.Account;
 import com.ssafy.eeum.card.domain.Card;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,7 +13,10 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+<<<<<<< backend/src/main/java/com/ssafy/eeum/qr/domain/QR.java
+=======
 import java.util.stream.Collectors;
+>>>>>>> backend/src/main/java/com/ssafy/eeum/qr/domain/QR.java
 
 @Entity
 @Getter
@@ -24,6 +28,10 @@ public class QR {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "qr_id")
     private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private Account account;
 
     private String title;
 
@@ -39,6 +47,11 @@ public class QR {
     @UpdateTimestamp
     private LocalDateTime updateDate;
 
+<<<<<<< backend/src/main/java/com/ssafy/eeum/qr/domain/QR.java
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AccountQr> accountQrs = new ArrayList<>();
+=======
+>>>>>>> backend/src/main/java/com/ssafy/eeum/qr/domain/QR.java
 
     @Builder
     public QR(String title, String qrUrl) {
@@ -50,6 +63,14 @@ public class QR {
         this.qrUrl = qrUrl;
     }
 
+<<<<<<< backend/src/main/java/com/ssafy/eeum/qr/domain/QR.java
+    public void update(QR requestQr) {
+        this.title = requestQr.title;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+=======
     public List<Card> getCards() {
         return qrCards.stream()
                 .map(QrCard::getCard)
@@ -62,5 +83,6 @@ public class QR {
 
     public void deleteQrCard(QrCard qrCard) {
         qrCards.remove(qrCard);
+>>>>>>> backend/src/main/java/com/ssafy/eeum/qr/domain/QR.java
     }
 }
