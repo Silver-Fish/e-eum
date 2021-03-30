@@ -14,17 +14,9 @@ const Qr = () => {
   // ])[0]
   const [isQrResister, setQrResister] = useState(false);
   const [isQrEdit, setQrEdit] = useState(false);
-  const [slectedQrName, setSlectedQrName] = useState("");
+  const [selectedQrName, setselectedQrName] = useState("");
 
-  // const data = useState([
-  //   ["스타벅스"],
-  //   ["롯데리아"],
-  //   ["다이소"],
-  //   ["편의점"],
-  //   ["K치과"],
-  // ])[0];
   useEffect(() => {
-    //setQrs(data);
     axios
       .get(process.env.REACT_APP_API_URL + "/QrList", {
         headers: {
@@ -34,10 +26,12 @@ const Qr = () => {
       .then((res) => {
         if (res.status === 200) {
           setQrs(res.data);
+        } else {
+          console.log("QrList R : status가 200아님");
         }
       })
       .catch((err) => {
-        console.log("Qr리스트 받아오기 실패 ㅠㅠ");
+        console.log("QrList R : err났어잇");
         console.log(err);
       });
   });
@@ -47,7 +41,7 @@ const Qr = () => {
   };
 
   const changeQrEditState = (data) => {
-    setSlectedQrName(data[0]);
+    setselectedQrName(data[0]);
     setQrEdit(!isQrEdit);
   };
 
@@ -89,7 +83,7 @@ const Qr = () => {
           return (
             <QrEdit
               changeQrEditState={changeQrEditState}
-              slectedQrName={slectedQrName}
+              slectedQrName={selectedQrName}
             ></QrEdit>
           );
       })()}

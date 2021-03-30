@@ -8,11 +8,11 @@ const MyPage = () => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   useEffect(() => {
-    const token = sessionStorage.getItem('jwt');
+    
     axios
       .get(process.env.REACT_APP_API_URL + '/accounts', {
         headers: {
-          Authorization: token,
+          Authorization: sessionStorage.getItem('jwt'),
         },
       })
       .then((res) => {
