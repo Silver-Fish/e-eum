@@ -24,7 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryService {
 
-    @Value("D:/")
+    @Value("${file.path}")
     private String filePath;
 
     private final CategoryRepository categoryRepository;

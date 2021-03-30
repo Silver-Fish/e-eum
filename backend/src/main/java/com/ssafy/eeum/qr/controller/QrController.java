@@ -11,10 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotBlank;
 
@@ -30,7 +27,7 @@ public class QrController {
     @PostMapping
     @ApiOperation(value = "QR 등록",
             notes = "QR코드로 등록할 이름을 입력받아 QR을 등록한다", response = ResponseEntity.class)
-    public ResponseEntity<Long> saveQr(@CurrentAccount Account account, @RequestParam(value = "title") @NotBlank String title) throws Exception {
+    public ResponseEntity<Long> saveQr(@CurrentAccount Account account, @RequestBody @NotBlank String title) throws Exception {
         Long qrNo = null;
         qrNo = qrService.save(account, title);
         return ResponseEntity.ok().body(qrNo);
