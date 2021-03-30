@@ -22,7 +22,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class QrService {
 
-    @Value("D:/")
+    @Value("${file.path}")
     private String filePath;
 
     @Value("${apiId}")
