@@ -14,7 +14,8 @@ const Qr = () => {
   // ])[0]
   const [isQrResister, setQrResister] = useState(false);
   const [isQrEdit, setQrEdit] = useState(false);
-  const [selectedQrName, setselectedQrName] = useState('');
+  const [selectedQrName, setSelectedQrName] = useState('');
+  const [selectedQrId, setSelectedQrId] = useState('');
 
   useEffect(() => {
     axios
@@ -24,9 +25,9 @@ const Qr = () => {
         },
       })
       .then((res) => {
+        console.log(res);
         if (res.status === 200) {
-          //setQrs(res.data);
-          console('아직암것두없어잇');
+          setQrs(res.data);
         } else {
           console.log('QrList R : status가 200아님');
         }
@@ -35,14 +36,15 @@ const Qr = () => {
         console.log('QrList R : err났어잇');
         console.log(err);
       });
-  });
+  }, []);
 
   const changeQrResisterState = () => {
     setQrResister(!isQrResister);
   };
 
   const changeQrEditState = (data) => {
-    setselectedQrName(data[0]);
+    setSelectedQrName(data.qrName);
+    setSelectedQrId(data.qrId);
     setQrEdit(!isQrEdit);
   };
 
@@ -51,7 +53,7 @@ const Qr = () => {
   // }
 
   const qrLists = qrs.map((qr, i) => (
-    <QrList key={i} qrName={qr} changeQrEditState={changeQrEditState}></QrList>
+    <QrList key={i} qrId={qr.id} qrName={qr.title} changeQrEditState={changeQrEditState}></QrList>
   ));
 
   return (
@@ -72,7 +74,11 @@ const Qr = () => {
           return <QrRegister changeQrResisterState={changeQrResisterState}></QrRegister>;
         if (isQrEdit === true)
           return (
-            <QrEdit changeQrEditState={changeQrEditState} slectedQrName={selectedQrName}></QrEdit>
+            <QrEdit
+              changeQrEditState={changeQrEditState}
+              selectedQrId={selectedQrId}
+              selectedQrName={selectedQrName}
+            ></QrEdit>
           );
       })()}
     </>
