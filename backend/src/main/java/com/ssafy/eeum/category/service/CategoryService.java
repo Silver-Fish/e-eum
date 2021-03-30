@@ -2,6 +2,7 @@ package com.ssafy.eeum.category.service;
 
 import com.ssafy.eeum.account.domain.Account;
 import com.ssafy.eeum.account.repository.AccountRepository;
+import com.ssafy.eeum.category.domain.AccountCategory;
 import com.ssafy.eeum.category.domain.Category;
 import com.ssafy.eeum.category.dto.request.CategoryUpdateRequest;
 import com.ssafy.eeum.category.dto.response.CategoriesResponse;
@@ -35,6 +36,10 @@ public class CategoryService {
     public Long save(Account account, String word, MultipartFile image) throws Exception {
         Category category = Category.builder().word(word).build();
         categoryRepository.save(category);
+
+        account = findAccount(account.getEmail());
+        account.addAccountCategory(AccountCategory.createAccountCategory(account, category));
+        account.addCategory(category);
 
         String imageUrl = account.getId() + "/category/" + category.getId();
         category.setCategoryImageUrl(imageUrl);
@@ -84,5 +89,10 @@ public class CategoryService {
     @Transactional
     public void deleteCategory(Long id) { categoryRepository.deleteById(id); }
 
-
+    private Account findAccount(String email) {
+        return accountRepository.findByEmail(email)
+                .orElseThrow(() -> {
+                    return new NotFoundException(ErrorCode.USER_NOT_FOUND);
+                });
+    }
 }

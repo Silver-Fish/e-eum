@@ -35,6 +35,9 @@ public class Category {
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CategoryCard> categoryCards = new ArrayList<>();
 
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AccountCategory> accountCategories = new ArrayList<>();
+
     @CreationTimestamp
     private LocalDateTime createDate;
 
@@ -46,7 +49,6 @@ public class Category {
     @Builder
     public Category(String word) {
         this.word = word;
-//        this.categoryImageUrl = categoryImageUrl;
     }
 
     public void update(Category category) {
