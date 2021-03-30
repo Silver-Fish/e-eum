@@ -37,4 +37,8 @@ public class QR {
         this.title = title;
         this.qrUrl = qrUrl;
     }
+
+    public void setQrUrl(String qrUrl) {
+        this.qrUrl = qrUrl;
+    }
 }

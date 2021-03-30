@@ -11,7 +11,7 @@ import { useCookies } from 'react-cookie';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [autoLogin, setAutoLogin] = useState(false);
+  const [autoLogin, setAutoLogin] = useState('');
   const history = useHistory();
 
   const [cookies, setCookie] = useCookies(['cookie']);
@@ -38,8 +38,6 @@ const Login = () => {
       email: email,
       password: password,
     };
-    console.log(userData);
-
     axios
       .post(process.env.REACT_APP_API_URL + '/login', userData)
 
@@ -72,8 +70,14 @@ const Login = () => {
           <br />
           <InputComp type="password" placeholder="PW" InputChange={onPasswordHandler} />
           <br />
-          <input type="checkbox" checked={autoLogin} onClick={onAutoLogin} />
-          자동로그인
+          <input
+            className={styles.input_check}
+            type="checkbox"
+            checked={autoLogin}
+            onChange={onAutoLogin}
+            id="check"
+          />
+          <label for="check">자동로그인</label>
           <div className={styles.labelForm}>
             <LabelComp textValue="회원가입" handleClickPath="./userRegister" />
             <LabelComp textValue="비밀번호 찾기" handleClickPath="./findPassword" />

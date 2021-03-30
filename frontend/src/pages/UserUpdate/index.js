@@ -1,16 +1,16 @@
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import ImgboxTitle from '../../components/Image/ImgboxTitle';
-import styles from './index.module.css';
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import ImgboxTitle from "../../components/Image/ImgboxTitle";
+import styles from "./index.module.css";
 
 const UserUpdate = () => {
   const history = useHistory();
 
-  const [password, setPassword] = useState('');
-  const [newpassword, setNewPassword] = useState('');
-  const [passwordcheck, setPasswordCheck] = useState('');
-  const [message, setMessage] = useState('');
+  const [password, setPassword] = useState("");
+  const [newpassword, setNewPassword] = useState("");
+  const [passwordcheck, setPasswordCheck] = useState("");
+  const [message, setMessage] = useState("");
 
   const onNewPasswordHandler = (e) => {
     setNewPassword(e.currentTarget.value);
@@ -25,46 +25,44 @@ const UserUpdate = () => {
   };
 
   useEffect(() => {
-    if (newpassword === '' && passwordcheck === '') setMessage('');
+    if (newpassword === "" && passwordcheck === "") setMessage("");
     else if (
-      (passwordcheck !== '' && newpassword === '') ||
-      (passwordcheck === '' && newpassword !== '')
+      (passwordcheck !== "" && newpassword === "") ||
+      (passwordcheck === "" && newpassword !== "")
     )
-      setMessage('비밀번호를 입력해주세요');
-    else if (passwordcheck === newpassword) setMessage('비밀번호가 일치합니다.');
-    else if (passwordcheck !== newpassword) setMessage('비밀번호가 일치하지 않습니다.');
+      setMessage("비밀번호를 입력해주세요");
+    else if (passwordcheck === newpassword)
+      setMessage("비밀번호가 일치합니다.");
+    else if (passwordcheck !== newpassword)
+      setMessage("비밀번호가 일치하지 않습니다.");
   }, [newpassword, passwordcheck]);
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    if (password === passwordcheck && password !== '') {
+    if (newpassword === passwordcheck && newpassword !== "") {
+      const userData = {
+        currentPw: password,
+        newPw: newpassword,
+      };
       axios
-        .get(process.env.REACT_APP_API_URL + '/accouts/confirm?password=' + password, {
+        .put(process.env.REACT_APP_API_URL + "/accounts/update-pw", userData, {
           headers: {
-            Authorization: sessionStorage.getItem('jwt'),
+            Authorization: sessionStorage.getItem("jwt"),
           },
         })
-        .then((res) => {
-          //현재 비밀번호가 맞다면
-          if (res.data) {
-            axios
-              .put(process.env.REACT_APP_API_URL + '/accouts/changePassword', newpassword)
-              .then((suc) => {
-                if (suc.data) {
-                  history.push('/myPage');
-                } else {
-                  alert('비밀번호 변경 실패');
-                }
-              });
+        .then((suc) => {
+          if (suc.status === 200) {
+            alert("비밀번호변경 성공");
+            history.push("/myPage");
           } else {
-            alert('현재 비밀번호 체크!');
+            alert("비밀번호 변경 실패");
+            console.log("Password U  : status가 200아님");
           }
         })
         .catch((err) => {
-          alert('오류');
+          console.log("Password U : err났어잇");
+          console.log(err);
         });
-    } else {
-      console.log('변경할 비밀번호 체크');
     }
   };
 
@@ -100,7 +98,7 @@ const UserUpdate = () => {
         <button
           className={styles.Button_cancel}
           onClick={(e) => {
-            history.push('/myPage');
+            history.push("/myPage");
           }}
         >
           취소

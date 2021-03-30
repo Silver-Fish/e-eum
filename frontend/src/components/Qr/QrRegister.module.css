@@ -4,7 +4,8 @@ div {
 
 .qr_name_input_box {
   width: 100vw;
-  height: 80vh;
+  height: 85vh;
+  margin: 0px;
 }
 
 .qr_name_input {
@@ -19,7 +20,8 @@ div {
 .button_box {
   display: flex;
   width: 100vw;
-  height: 10vh;
+  height: 5vh;
+  margin: 0px;
 }
 .qr_resiter_cancle_button {
   font-size: inherit;

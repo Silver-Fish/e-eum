@@ -19,6 +19,7 @@ div {
 .speech_item_box {
   flex-basis: 0;
   flex-grow: 0.9;
+  margin: 0;
   white-space:nowrap;
   overflow-x: scroll;
   overflow-y: hidden;
@@ -29,7 +30,7 @@ div {
   border-radius: 10px;
   border: 0;
   height: 14vh;
-  margin: auto;
+  margin: 0;
   flex-basis: 0;
   flex-grow: 0.1;
 
@@ -44,7 +45,7 @@ div {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(5, 1fr);
   box-sizing: border-box;
-  height: 69vh;
+  height: 70vh;
   margin: 0;
   flex-wrap: wrap;
   overflow: scroll;

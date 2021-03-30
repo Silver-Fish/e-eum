@@ -22,10 +22,14 @@ const FindPassword = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
+    const userData={
+      email:email,
+      name:name,
+    }
     axios
-      .get(process.env.REACT_APP_API_URL +'/accouts/find?email=' + email + '&name=' + name)
+      .post(process.env.REACT_APP_API_URL + '/accounts/check-account',userData)
       .then((res) => {
-        if (res.data) {
+        if (res.status===200) {
           setModal(true);
         } else {
           alert('이메일 또는 이름 오류');
@@ -46,13 +50,19 @@ const FindPassword = () => {
   const changePassword = (e) => {
     e.preventDefault();
     if (password === checkpassword) {
+      const userData={
+        email:email,
+        password:password,
+      }
       axios
-        .put(process.env.REACT_APP_API_URL +'/accouts', password)
+        .put(process.env.REACT_APP_API_URL + '/accounts/reset-pw', userData)
         .then((res) => {
-          alert('변경완료');
-          setTimeout(function () {
-            history.push('/login');
-          });
+          if(res.status===200){
+            alert('변경완료');
+            setTimeout(function () {
+              history.push('/login');
+            },1000);
+          }        
         })
         .catch((err) => {
           alert('변경실패');

@@ -1,16 +1,19 @@
 import React from 'react';
 import { useState } from 'react';
 import styles from './CategoryCard.module.css';
-
-
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
   
 const Card = (props) => {
+  const history = useHistory();
   // const [isCardStateEdit, setCardStateEdit] = useState(false)
+  const categoryId = props.categoryId
   const isCardStateEdit = useState(false)[0]
   const isCardEdit = props.isCardEdit
   const textValue = props.textValue 
   const cardUrl = props.cardUrl
+  const cardId = props.id
 
   const cardButtonClick = (e) => {    
     props.cardClick({
@@ -23,11 +26,29 @@ const Card = (props) => {
   
   const CardDeleteClick = (e) => {    
     e.stopPropagation();
-    console.log('서버와 삭제 통신해야함')
-  }
+    const token = sessionStorage.getItem('jwt')   
+    axios.delete(process.env.REACT_APP_API_URL + '/card/'+ cardId, {
+      headers: {
+        'Authorization': token
+        }
+    })
+    .then(()=> {
+      history.go(0)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }  
+
+
+
+
+
+
+
   const CardEditClick = (e) => {
     
-    props.CardStateEdit({state:!isCardStateEdit, url:cardUrl, name: textValue})
+    props.CardStateEdit({state:!isCardStateEdit, url:cardUrl, name: textValue, cardId: cardId})
   }
 
 

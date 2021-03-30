@@ -1,53 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import styles from './OwnCardComp.module.css'
-import axios from 'axios'
 
 const OwnCardComp = (props) => {
   const isEdit = props['isEdit']
   const textValue = props.textValue
-  const cardUrl = props.cardUrl
+  const imgUrl = `/data/${props.imgUrl}`
+  // const imgUrl = `/images/cat.PNG`
+  console.log(imgUrl)
   // const [imgFile, setImgFile] = useState()
   const cardButtonClick = (e) => {    
     props.cardClick({
       cardName: {textValue}, 
-      cardUrl: {cardUrl}
+      imgUrl: {imgUrl}
     })
   }
-  // useEffect(() => {
-  //   this.getCardList()
-  // })
-  // const getCardList = () => {
-  //   const token = sessionStorage.getItem('jwt')
-  //   // let data = new FormData()
-
-  //   // axios.post('http://localhost:8080/api/card', data, {
-  //   //   headers: {
-  //   //     // 'type' : 'own',
-  //   //     // 'word' : 'cardtitle',
-  //   //     // 'file' : 'cardImg',
-  //   //     'Content-type': 'multipart/form-data',
-  //   //     'Authorization': token
-  //   //     }
-  //   // })
-  //   // .then((res)=> {
-  //   //   console.log(res)
-  //   // })
-  //   // .catch((err) => {
-  //   //   console.log(err)
-  //   // })
-  //   // axios.get(`http://localhost:8080/api/card/${type}`, data, {
-  //   //   headers: {
-  //   //     'Content-type': 'multipart/form-data',
-  //   //     'Authorization': token
-  //   //     }
-  //   // })
-  //   // .then((res)=> {
-  //   //   console.log(res)
-  //   // })
-  //   // .catch((err) => {
-  //   //   console.log(err)
-  //   // })
-  // }
   const CardClick = (e) => {    
     // props.categoryState(false)
     console.log('백이랑 통신이 필요함');
@@ -70,7 +36,7 @@ const OwnCardComp = (props) => {
       { isEdit === false
         ?
         <button className={styles.card} onClick={cardButtonClick}>
-          <img className={styles.card_image} src={cardUrl} alt=""/>
+          <img className={styles.card_image} src={imgUrl} alt=""/>
           {/* <img className={styles.card_image} src={imgFile} alt=""/> */}
             {textValue}
         </button>
@@ -80,7 +46,7 @@ const OwnCardComp = (props) => {
             <div className={styles.card_del_box} >
               <img src="/images/minus.png" alt="" onClick={cardDeleteClick}/>
             </div>
-            <img className={styles.card_image} src={cardUrl} alt=""/>
+            <img className={styles.card_image} src={imgUrl} alt=""/>
             {textValue}
           </button>
         </>

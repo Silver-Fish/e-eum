@@ -23,7 +23,14 @@ span {
   width: 20%;
 }
 
-input {
+.input_box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  margin: 0 20vw;
+}
+
+.input_box div input {
   padding: 0px;
-  width: 50%;
+  width: 40vw;
 }

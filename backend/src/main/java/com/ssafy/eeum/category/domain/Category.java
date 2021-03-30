@@ -72,4 +72,6 @@ public class Category {
     public void addCategoryCard(CategoryCard categoryCard) {
         categoryCards.add(categoryCard);
     }
+
+    public void deleteCategoryCard(CategoryCard categoryCard) { categoryCards.remove(categoryCard);}
 }
