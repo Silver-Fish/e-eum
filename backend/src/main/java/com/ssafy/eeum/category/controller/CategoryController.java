@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import java.awt.*;
@@ -35,7 +36,7 @@ public class CategoryController {
     @ApiOperation(value = "카테고리 등록",
             notes = "카테고리 정보를 전달받아 새 카테고리 등록",
             response = ResponseEntity.class)
-    public ResponseEntity<Long> saveCategory(@CurrentAccount Account account, String word, MultipartFile image) throws Exception {
+    public ResponseEntity<Long> saveCategory(@ApiIgnore @CurrentAccount Account account, String word, MultipartFile image) throws Exception {
         Long categoryNo = null;
         categoryNo = categoryService.save(account, word, image);
         return ResponseEntity.ok().body(categoryNo);
@@ -45,7 +46,7 @@ public class CategoryController {
     @ApiOperation(value = "카테고리 조회",
             notes = "카테고리 목록을 조회한다.",
             response = ResponseEntity.class)
-    public ResponseEntity<Object> getCategoryList(Authentication authentication) {
+    public ResponseEntity<Object> getCategoryList(@ApiIgnore Authentication authentication) {
         CategoriesResponse categoryResponses = categoryService.getCategoryList();
         return ResponseEntity.ok().body(categoryResponses);
     }
