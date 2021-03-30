@@ -2,6 +2,7 @@ package com.ssafy.eeum.qr.domain;
 
 import com.ssafy.eeum.card.domain.AccountCard;
 import com.ssafy.eeum.card.domain.Card;
+import com.ssafy.eeum.category.domain.CategoryCard;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -55,5 +56,9 @@ public class QR {
         return qrCards.stream()
                 .map(QRCard::getCard)
                 .collect(Collectors.toList());
+    }
+
+    public void addQRCard(QRCard qrCard) {
+        qrCards.add(qrCard);
     }
 }
