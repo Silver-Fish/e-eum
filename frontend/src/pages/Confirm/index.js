@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ImgboxTitle from '../../components/Image/ImgboxTitle';
+import HeaderComp from '../../components/HeaderComp/HeaderComp';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import styles from './index.module.css';
@@ -32,7 +32,8 @@ const Confirm = () => {
 
   return (
     <div>
-      <ImgboxTitle src="/images/confirmImage.PNG" />
+      <HeaderComp headertitle="비밀번호 확인" />
+      <h1>비밀번호 확인</h1>
 
       <form onSubmit={onSubmitHandler}>
         <input

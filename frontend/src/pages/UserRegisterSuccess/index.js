@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import ImgboxTitle from '../../components/Image/ImgboxTitle';
-import Imgbox from '../../components/Image/Imgbox';
+import HeaderComp from '../../components/HeaderComp/HeaderComp';
 import UserButtonComp from '../../components/ButtonComp/UserButtonComp';
 
 const UserRegisterSuccess = () => {
@@ -13,8 +12,8 @@ const UserRegisterSuccess = () => {
   });
   return (
     <div>
-      <ImgboxTitle src="/images/userRegisterSuccess.PNG" />
-      <Imgbox src="/images/cat.PNG" />
+      <HeaderComp headertitle="회원가입 완료" />
+      <h1>회원가입 완료</h1>
       <UserButtonComp textValue="로그인 하러가기" handleClick="login"></UserButtonComp>
     </div>
   );
