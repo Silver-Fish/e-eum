@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ImgboxTitle from '../../components/Image/ImgboxTitle';
+
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import HeaderComp from '../../components/HeaderComp/HeaderComp';
@@ -106,8 +106,8 @@ const UserRegister = () => {
 
   return (
     <div>
-      <HeaderComp />
-      <ImgboxTitle src="/images/RegisterImage.PNG" />
+      <HeaderComp headertitle="회원가입" />
+      <h1>회원가입</h1>
 
       <form onSubmit={onSubmitHandler}>
         <div className={styles.formCheck}>

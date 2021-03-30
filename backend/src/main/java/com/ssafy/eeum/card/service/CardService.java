@@ -14,7 +14,10 @@ import com.ssafy.eeum.category.repository.CategoryCardRepository;
 import com.ssafy.eeum.category.repository.CategoryRepository;
 import com.ssafy.eeum.common.exception.ErrorCode;
 import com.ssafy.eeum.common.exception.NotFoundException;
-import com.sun.xml.bind.v2.TODO;
+import com.ssafy.eeum.qr.domain.QR;
+import com.ssafy.eeum.qr.domain.QrCard;
+import com.ssafy.eeum.qr.repository.QrCardRepository;
+import com.ssafy.eeum.qr.repository.QrRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -47,6 +50,8 @@ public class CardService {
     private final AccountRepository accountRepository;
     private final AccountCardRepository accountCardRepository;
     private final CategoryCardRepository categoryCardRepository;
+    private final QrRepository qrRepository;
+    private final QrCardRepository qrCardRepository;
 
     @Transactional
     public Long save(Account account, String type, Long typeId, String word, MultipartFile image) throws Exception {
@@ -62,6 +67,8 @@ public class CardService {
                 category.addCategoryCard(CategoryCard.createCategoryCard(category, card));
                 break;
             case "qr":
+                QR qr = findQR(typeId);
+                qr.addQRCard(QrCard.createQRCard(qr,card));
                 break;
         }
 
@@ -96,6 +103,8 @@ public class CardService {
                 cards = category.getCards();
                 break;
             case "qr":
+                QR qr = findQR(typeId);
+                cards = qr.getCards();
                 break;
         }
         return CardResponse.listOf(cards);
@@ -119,6 +128,7 @@ public class CardService {
         //TODO:계정 확인 로직 구현?
         List<AccountCard> accountCards = accountCardRepository.findByCardId(id);
         List<CategoryCard> categoryCards = categoryCardRepository.findByCardId(id);
+        List<QrCard> qrCards = qrCardRepository.findByCardId(id);
         if (accountCards.size() != 0) {
             for (AccountCard accountCard : accountCards) {
                 accountCard.setCard(null);
@@ -129,6 +139,12 @@ public class CardService {
             for (CategoryCard categoryCard : categoryCards) {
                 categoryCard.setCard(null);
                 categoryCard.getCategory().deleteCategoryCard(categoryCard);
+                log.info("category card delete");
+            }
+        } else if (qrCards.size()!=0){
+            for (QrCard qrCard : qrCards) {
+                qrCard.setCard(null);
+                qrCard.getQr().deleteQrCard(qrCard);
                 log.info("category card delete");
             }
         }
@@ -161,6 +177,13 @@ public class CardService {
         return accountRepository.findByEmail(email)
                 .orElseThrow(() -> {
                     return new NotFoundException(ErrorCode.USER_NOT_FOUND);
+                });
+    }
+
+    private QR findQR(Long typeId){
+        return qrRepository.findById(typeId)
+                .orElseThrow(() -> {
+                    return new NotFoundException(ErrorCode.QR_NOT_FOUND);
                 });
     }
 }
