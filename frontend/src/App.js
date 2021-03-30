@@ -36,7 +36,7 @@ function App() {
       <Route path="/setting" component={Setting} />
       <Route path="/help" component={Help} />
       <Switch>
-        <Route path="/qr/:qrid" component={QrCard} />
+        <Route path="/qr/:qrId" component={QrCard} />
         <Route path="/qr" component={Qr} />
       </Switch>
     </div>

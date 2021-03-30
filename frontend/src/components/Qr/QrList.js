@@ -13,7 +13,7 @@ const QrList = (props) => {
   };
 
   const goQrList = () => {
-    history.push('./ASDASD');
+    history.push(`./qr/${qrId}`);
   };
 
   return (
