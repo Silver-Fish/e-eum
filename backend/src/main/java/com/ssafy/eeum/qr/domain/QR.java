@@ -63,6 +63,7 @@ public class QR {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
 
     public List<Card> getCards() {
         return qrCards.stream()
