@@ -3,6 +3,7 @@ package com.ssafy.eeum.card.domain;
 import com.ssafy.eeum.account.domain.Account;
 import com.ssafy.eeum.category.domain.Category;
 import com.ssafy.eeum.category.domain.CategoryCard;
+import com.ssafy.eeum.qr.domain.QRCard;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -46,12 +47,14 @@ public class Card {
     @UpdateTimestamp
     private LocalDateTime updateDate;
 
-    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval=true)
+    @OneToMany(mappedBy = "card")
     private List<AccountCard> accountCards = new ArrayList<>();
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval=true)
+    @OneToMany(mappedBy = "card")
     private List<CategoryCard> categoryCards = new ArrayList<>();
 
+    @OneToMany(mappedBy = "card")
+    private List<QRCard> qrCards = new ArrayList<>();
 
     @Builder
     public Card(String word) {
