@@ -1,37 +1,38 @@
-import React, { useEffect, useState } from "react";
-import styles from "./index.module.css";
-import HearderComp from "../../components/HeaderComp/HeaderComp";
-import QrList from "../../components/Qr/QrList";
-import QrRegister from "../../components/Qr/QrRegister";
-import QrEdit from "../../components/Qr/QrEdit";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import styles from './index.module.css';
+import HearderComp from '../../components/HeaderComp/HeaderComp';
+import QrList from '../../components/Qr/QrList';
+import QrRegister from '../../components/Qr/QrRegister';
+import QrEdit from '../../components/Qr/QrEdit';
+import axios from 'axios';
 
 const Qr = () => {
-  const token = sessionStorage.getItem("jwt");
+  const token = sessionStorage.getItem('jwt');
   const [qrs, setQrs] = useState([]);
   // const qrs = useState([
   //   ['스타벅스'], ['롯데리아'],['다이소'], ['편의점'], ['K치과']
   // ])[0]
   const [isQrResister, setQrResister] = useState(false);
   const [isQrEdit, setQrEdit] = useState(false);
-  const [selectedQrName, setselectedQrName] = useState("");
+  const [selectedQrName, setselectedQrName] = useState('');
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API_URL + "/QrList", {
+      .get(process.env.REACT_APP_API_URL + '/qr', {
         headers: {
           Authorization: token,
         },
       })
       .then((res) => {
         if (res.status === 200) {
-          setQrs(res.data);
+          //setQrs(res.data);
+          console('아직암것두없어잇');
         } else {
-          console.log("QrList R : status가 200아님");
+          console.log('QrList R : status가 200아님');
         }
       })
       .catch((err) => {
-        console.log("QrList R : err났어잇");
+        console.log('QrList R : err났어잇');
         console.log(err);
       });
   });
@@ -59,32 +60,19 @@ const Qr = () => {
         if (isQrResister !== true && isQrEdit !== true)
           return (
             <>
-              <HearderComp
-                headertitle="QR로 이음"
-                headerColor="yello"
-              ></HearderComp>
+              <HearderComp headertitle="QR로 이음" headerColor="yello"></HearderComp>
               <div className={styles.qr_list_box}>{qrLists}</div>
 
-              <button
-                className={styles.qr_register_box}
-                onClick={changeQrResisterState}
-              >
+              <button className={styles.qr_register_box} onClick={changeQrResisterState}>
                 등록
               </button>
             </>
           );
         if (isQrResister === true)
-          return (
-            <QrRegister
-              changeQrResisterState={changeQrResisterState}
-            ></QrRegister>
-          );
+          return <QrRegister changeQrResisterState={changeQrResisterState}></QrRegister>;
         if (isQrEdit === true)
           return (
-            <QrEdit
-              changeQrEditState={changeQrEditState}
-              slectedQrName={selectedQrName}
-            ></QrEdit>
+            <QrEdit changeQrEditState={changeQrEditState} slectedQrName={selectedQrName}></QrEdit>
           );
       })()}
     </>
