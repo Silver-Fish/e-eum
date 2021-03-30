@@ -1,15 +1,13 @@
 package com.ssafy.eeum.qr.domain;
 
-import com.ssafy.eeum.account.domain.Account;
 import com.ssafy.eeum.card.domain.Card;
-import com.ssafy.eeum.qr.dto.request.QrInsertRequest;
 import lombok.Getter;
 
 import javax.persistence.*;
 
 /**
  * com.ssafy.eeum.qr.domain
- * QRCard.java
+ * QrCard.java
  * @date    2021-03-30 오후 3:40
  * @author  이아영
  *
@@ -18,7 +16,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-public class QRCard {
+public class QrCard {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -33,8 +31,8 @@ public class QRCard {
     @JoinColumn(name = "card_id")
     private Card card;
 
-    public static QRCard createQRCard(QR qr, Card card) {
-        QRCard qrCard = new QRCard();
+    public static QrCard createQRCard(QR qr, Card card) {
+        QrCard qrCard = new QrCard();
         qrCard.setQR(qr);
         qrCard.setCard(card);
         return qrCard;

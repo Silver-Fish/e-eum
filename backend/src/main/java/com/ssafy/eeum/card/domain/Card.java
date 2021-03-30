@@ -1,9 +1,7 @@
 package com.ssafy.eeum.card.domain;
 
-import com.ssafy.eeum.account.domain.Account;
-import com.ssafy.eeum.category.domain.Category;
 import com.ssafy.eeum.category.domain.CategoryCard;
-import com.ssafy.eeum.qr.domain.QRCard;
+import com.ssafy.eeum.qr.domain.QrCard;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -54,7 +52,7 @@ public class Card {
     private List<CategoryCard> categoryCards = new ArrayList<>();
 
     @OneToMany(mappedBy = "card")
-    private List<QRCard> qrCards = new ArrayList<>();
+    private List<QrCard> qrCards = new ArrayList<>();
 
     @Builder
     public Card(String word) {

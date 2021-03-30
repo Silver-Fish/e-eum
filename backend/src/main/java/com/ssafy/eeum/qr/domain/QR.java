@@ -1,8 +1,6 @@
 package com.ssafy.eeum.qr.domain;
 
-import com.ssafy.eeum.card.domain.AccountCard;
 import com.ssafy.eeum.card.domain.Card;
-import com.ssafy.eeum.category.domain.CategoryCard;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,11 +18,11 @@ import java.util.stream.Collectors;
 @Getter
 @ToString
 @NoArgsConstructor
-@Table(name="qr")
+@Table(name = "qr")
 public class QR {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="qr_id")
+    @Column(name = "qr_id")
     private Long id;
 
     private String title;
@@ -32,8 +30,8 @@ public class QR {
     @Lob
     private String qrUrl;
 
-    @OneToMany(mappedBy = "qr", fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval=true)
-    private List<QRCard> qrCards = new ArrayList<>();
+    @OneToMany(mappedBy = "qr", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<QrCard> qrCards = new ArrayList<>();
 
     @CreationTimestamp
     private LocalDateTime createDate;
@@ -52,13 +50,17 @@ public class QR {
         this.qrUrl = qrUrl;
     }
 
-    public List<Card> getCards(){
+    public List<Card> getCards() {
         return qrCards.stream()
-                .map(QRCard::getCard)
+                .map(QrCard::getCard)
                 .collect(Collectors.toList());
     }
 
-    public void addQRCard(QRCard qrCard) {
+    public void addQRCard(QrCard qrCard) {
         qrCards.add(qrCard);
+    }
+
+    public void deleteQrCard(QrCard qrCard) {
+        qrCards.remove(qrCard);
     }
 }
