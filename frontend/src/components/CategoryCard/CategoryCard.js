@@ -2,11 +2,13 @@ import React from 'react';
 import { useState } from 'react';
 import styles from './CategoryCard.module.css';
 import axios from 'axios'
+import { useHistory } from 'react-router-dom';
 
 
   
 const CategoryCard = (props) => {
   // const [isCategoryCardEdit, setCategoryCardEdit] = useState(false)
+  const history = useHistory();
   const isCategoryCardEdit = useState(false)[0]
   const isCategoryEdit = props['isCategoryEdit']
   const categoryName = props.textValue
@@ -28,7 +30,7 @@ const CategoryCard = (props) => {
     
     axios.get(process.env.REACT_APP_API_URL + '/card/category?typeId=' + categoryId, config)
     .then((res) => {
-      props.categoryClick({state:false, cardDatas:res.data, categoryId:categoryId})
+      props.categoryClick({state:false, cardDatas:res.data, categoryId:categoryId, categoryName:categoryName})
     })
     .catch((err) => {
       console.log(err)
@@ -38,7 +40,24 @@ const CategoryCard = (props) => {
   
   const categoryDeleteClick = (e) => {    
     e.stopPropagation();
-    console.log('서버와 삭제 통신해야함')
+    const token = sessionStorage.getItem('jwt')
+
+    
+    axios.delete(process.env.REACT_APP_API_URL + '/category/'+ props.id, {
+      headers: {
+        'Authorization': token
+        }
+    })
+    .then(()=> {
+      history.go(0)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+
+
+
+
   }
   const categoryCardEditClick = (e) => {
     

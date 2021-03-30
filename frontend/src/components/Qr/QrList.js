@@ -11,7 +11,7 @@ const QrList = (props) => {
   return(
     <div className={ styles.qr_list_box }>
       <div className={ styles.qr_name_box} >
-        <button className={ styles.qr_name }>{qrName}</button>
+        <button className={ styles.qr_name }>{qrName} </button>
       </div>
 
       <div>
