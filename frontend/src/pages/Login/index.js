@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import HeaderComp from '../../components/HeaderComp/HeaderComp';
 import LabelComp from '../../components/LabelComp/LabelComp';
-import ImgboxTitle from '../../components/Image/ImgboxTitle';
+
 import InputComp from '../../components/InputComp/InputComp';
 import styles from './index.module.css';
 import { useCookies } from 'react-cookie';
@@ -62,9 +62,9 @@ const Login = () => {
 
   return (
     <div>
-      <HeaderComp />
+      <HeaderComp headertitle="로그인" />
       <div className={styles.MainForm}>
-        <ImgboxTitle src="/images/loginImage.PNG" />
+        <h1>로그인</h1>
         <form onSubmit={onSubmitHandler}>
           <InputComp type="email" placeholder="Email" InputChange={onEmailHandler} />
           <br />
