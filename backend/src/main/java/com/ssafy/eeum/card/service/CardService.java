@@ -15,6 +15,7 @@ import com.ssafy.eeum.category.repository.CategoryRepository;
 import com.ssafy.eeum.common.exception.ErrorCode;
 import com.ssafy.eeum.common.exception.NotFoundException;
 import com.ssafy.eeum.qr.domain.QR;
+import com.ssafy.eeum.qr.domain.QRCard;
 import com.ssafy.eeum.qr.repository.QrRepository;
 import com.sun.xml.bind.v2.TODO;
 import lombok.RequiredArgsConstructor;
@@ -66,7 +67,7 @@ public class CardService {
                 break;
             case "qr":
                 QR qr = findQR(typeId);
-
+                qr.addQRCard(QRCard.createQRCard(qr,card));
                 break;
         }
 
