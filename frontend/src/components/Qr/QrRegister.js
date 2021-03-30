@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import HearderComp from '../HeaderComp/HeaderComp';
 import styles from './QrRegister.module.css';
 import axios from 'axios';
-
+import { useHistory } from 'react-router-dom';
 const QrRegister = (props) => {
+  const history = useHistory();
   const [title, setTitle] = useState('');
   const onTitleHandler = (e) => {
     setTitle(e.target.value);
@@ -25,7 +26,7 @@ const QrRegister = (props) => {
           console.log(res);
           if (res.status === 200) {
             alert('등록 성공 , 카드 리스트 추가해잇!');
-            props.changeQrResisterState();
+            history.go(0);
           } else {
             console.log('QrList C: status가 200이아님');
           }

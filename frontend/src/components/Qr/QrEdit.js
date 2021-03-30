@@ -1,45 +1,66 @@
-import axios from "axios";
-import React, { useState } from "react";
-import HearderComp from "../HeaderComp/HeaderComp";
-import styles from "./QrEdit.module.css";
-
+import axios from 'axios';
+import React, { useState } from 'react';
+import HearderComp from '../HeaderComp/HeaderComp';
+import styles from './QrEdit.module.css';
+import { useHistory } from 'react-router-dom';
 const QrEdit = (props) => {
-  //기존 이름
-  const title = props.selectedQrName;
+  const qrId = props.selectedQrId;
+  const history = useHistory();
   //바뀔 이름
   const [selectedQrName, setSelectedQrName] = useState(props.selectedQrName);
   const onUpdateHandler = () => {
-    if (selectedQrName === "") {
-      alert("이름 입력해잇!");
-    } else if (selectedQrName === title) {
-      alert("수정 성공잇");
-      props.changeQrEditState();
+    const data = {
+      title: selectedQrName,
+    };
+    if (selectedQrName === '') {
+      alert('이름 입력해잇!');
     } else {
-      const updateData = {
-        title: title,
-        newTitle: selectedQrName,
-      };
       axios
-        .put(process.env.REACT_APP_API_URL + "/QrList", updateData, {
+        .put(process.env.REACT_APP_API_URL + '/qr/' + qrId, data, {
           headers: {
-            Authorization: sessionStorage.getItem("jwt"),
+            Authorization: sessionStorage.getItem('jwt'),
           },
         })
         .then((res) => {
-          if (res.status === 200) {
-            alert("수정 성공잇");
-            props.changeQrEditState();
+          console.log(res);
+          if (res.status === 204) {
+            alert('수정 성공잇');
+            history.go(0);
           } else {
-            alert("수정 실패잇");
-            console.log("QrList U : status가 200아님");
+            alert('수정 실패잇');
+            history.go(0);
+            console.log('QrList U : status가 200아님');
           }
         })
         .catch((err) => {
-          console.log("QrList U : err났어잇");
+          console.log('QrList U : err났어잇');
           console.log(err);
         });
-      props.changeQrEditState();
     }
+  };
+
+  const onDeleteHandler = () => {
+    axios
+      .delete(process.env.REACT_APP_API_URL + '/qr/' + qrId, {
+        headers: {
+          Authorization: sessionStorage.getItem('jwt'),
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          alert('삭제 성공잇');
+          history.go(0);
+        } else {
+          alert('삭제 실패잇');
+          console.log('QrList D : status가 200아님');
+          history.go(0);
+        }
+      })
+      .catch((err) => {
+        console.log('QrList D : err났어잇');
+        console.log(err);
+      });
   };
   const onTitleHandler = (e) => {
     setSelectedQrName(e.target.value);
@@ -52,17 +73,13 @@ const QrEdit = (props) => {
         <input
           className={styles.qr_name_input}
           type="text"
-          placeholder="QR 이름"
-          value={selectedQrName}
+          placeholder="Qr 이름"
           defaultValue={selectedQrName}
           onChange={onTitleHandler}
         />
       </div>
       <div className={styles.button_box}>
-        <button
-          className={styles.qr_edit_delete_button}
-          onClick={props.changeQrEditState}
-        >
+        <button className={styles.qr_edit_delete_button} onClick={onDeleteHandler}>
           삭제
         </button>
 
