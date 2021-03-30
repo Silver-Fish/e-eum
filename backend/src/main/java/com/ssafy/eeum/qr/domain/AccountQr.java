@@ -25,7 +25,7 @@ public class AccountQr {
     public static AccountQr createAccountQr(Account account, QR qr) {
         AccountQr accountQr = new AccountQr();
         accountQr.setAccount(account);
-        accountQr.setQr(qr);/
+        accountQr.setQr(qr);
         
         return accountQr;
     }
