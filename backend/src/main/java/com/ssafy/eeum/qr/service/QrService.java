@@ -3,13 +3,18 @@ package com.ssafy.eeum.qr.service;
 
 import com.ssafy.eeum.account.domain.Account;
 import com.ssafy.eeum.account.repository.AccountRepository;
+import com.ssafy.eeum.card.domain.AccountCard;
+import com.ssafy.eeum.card.domain.Card;
+import com.ssafy.eeum.category.domain.CategoryCard;
 import com.ssafy.eeum.common.exception.ErrorCode;
 import com.ssafy.eeum.common.exception.NotFoundException;
 import com.ssafy.eeum.qr.domain.AccountQr;
 import com.ssafy.eeum.qr.domain.QR;
+import com.ssafy.eeum.qr.domain.QrCard;
 import com.ssafy.eeum.qr.dto.request.QrUpdateRequest;
 import com.ssafy.eeum.qr.dto.response.QrResponse;
 import com.ssafy.eeum.qr.repository.AccountQrRepository;
+import com.ssafy.eeum.qr.repository.QrCardRepository;
 import com.ssafy.eeum.qr.repository.QrRepository;
 import com.ssafy.eeum.common.util.naverApiUtil;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +49,7 @@ public class QrService {
     private final QrRepository qrRepository;
     private final AccountRepository accountRepository;
     private final AccountQrRepository accountQrRepository;
+    private final QrCardRepository qrCardRepository;
 
     // QR 생성
     @Transactional
@@ -86,7 +93,21 @@ public class QrService {
     // QR 삭제
     @Transactional
     public void deleteQr(Long id) {
-//        List<AccountQr> accountQrs = accountQrRepository.findByQrId(id);
+        List<AccountQr> accountQrs = accountQrRepository.findByQrId(id);
+        List<QrCard> qrCards = qrCardRepository.findByCardId(id);
+        if (accountQrs.size() != 0) {
+            for (AccountQr accountQr : accountQrs) {
+                accountQr.setQr(null);
+                accountQr.getAccount().deleteAccountQr(accountQr);
+                log.info("account qr delete");
+            }
+        } else if (qrCards.size()!=0){
+            for (QrCard qrCard : qrCards) {
+                qrCard.setCard(null);
+                qrCard.getQr().deleteQrCard(qrCard);
+                log.info("qr card delete");
+            }
+        }
         qrRepository.deleteById(id);
     }
 
@@ -127,5 +148,6 @@ public class QrService {
                 .orElseThrow(() -> {
                     return new NotFoundException(ErrorCode.USER_NOT_FOUND);
                 });
+
     }
 }
