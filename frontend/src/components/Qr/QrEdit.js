@@ -13,7 +13,7 @@ const QrEdit = (props) => {
       alert("이름 입력해잇!");
     } else if (selectedQrName === title) {
       alert("수정 성공잇");
-      props.changeQrEditState;
+      props.changeQrEditState();
     } else {
       const updateData = {
         title: title,
@@ -28,7 +28,7 @@ const QrEdit = (props) => {
         .then((res) => {
           if (res.status === 200) {
             alert("수정 성공잇");
-            props.changeQrEditState;
+            props.changeQrEditState();
           } else {
             alert("수정 실패잇");
             console.log("QrList U : status가 200아님");
@@ -38,7 +38,7 @@ const QrEdit = (props) => {
           console.log("QrList U : err났어잇");
           console.log(err);
         });
-      props.changeQrEditState;
+      props.changeQrEditState();
     }
   };
   const onTitleHandler = (e) => {
