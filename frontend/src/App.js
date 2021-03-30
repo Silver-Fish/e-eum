@@ -1,10 +1,10 @@
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { 
   OwnEeum, UserDelete, FindPassword,
   Category , Login, UserRegister, 
   MyPage, Main, Confirm,UserUpdate,
   UserRegisterSuccess, Qr, Setting,
-  Help
+  Help, QrCard
 } from './pages';
 
 import './App.css';
@@ -23,9 +23,12 @@ function App() {
       <Route path="/userDelete" component={ UserDelete } />
       <Route path="/findPassword" component={ FindPassword } />
       <Route path="/userRegisterSuccess" component={ UserRegisterSuccess } />
-      <Route path="/qr" component={ Qr } />
       <Route path="/setting" component={ Setting } />
       <Route path="/help" component={ Help } />
+      <Switch>
+        <Route path="/qr/:username/:qrname" component={ QrCard } />
+        <Route path="/qr" component={ Qr } />
+      </Switch>
     </div>
   )
 }
