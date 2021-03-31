@@ -7,6 +7,7 @@
   width: 90%;
   height: 30vw;
   margin: 1vh auto;
+    font-family: inherit;
 }
 
 .card_is_edit {
@@ -18,6 +19,7 @@
   height: 30vw;
   margin: 1vh auto;
   -webkit-animation: moveSlideshow .3s linear infinite; 
+  font-family: inherit;
 }
 
 @keyframes moveSlideshow {
@@ -58,4 +60,5 @@
   height: 70%;
   width: 100%;
   padding: 0px;
+
 }

@@ -7,9 +7,11 @@ import OwnCardEdit from '../../components/OwnCardComp/OwnCardEdit';
 // import Card from '../../components/OwnCardComp/Card';
 import HeaderComp from '../../components/HeaderComp/HeaderComp'
 import axios from 'axios';
-
+import { useHistory } from 'react-router-dom';
 
 const OwnEeum = () => {
+  const history = useHistory();
+  const checkLogin = sessionStorage.getItem('jwt')
   const [isAdd, setAdd] = useState(false);
   const [isEdit, setEdit] = useState(false);
   const [goEdit, setgoEdit] = useState(false);
@@ -99,6 +101,10 @@ const OwnEeum = () => {
     setAdd(!isAdd)
   }
 
+  const noLogin = () => {
+    alert('로그인 해주세요')
+    history.push('./login');
+  }
   
   return (
     <>
@@ -106,7 +112,7 @@ const OwnEeum = () => {
         (() => {
           if (isAdd !== true && goEdit !== true) 
             return (
-            <div>
+            <div className={styles.owncard_box}>
             <HeaderComp headertitle='나만의 이음'></HeaderComp>
             <div className={styles.speech_box}>
                <div className={styles.speech_item_box}>
@@ -122,8 +128,18 @@ const OwnEeum = () => {
             {owncardList}
             </div>
             <div className={styles.button_box}>
-            <button className={styles.add_button} onClick={addCard}>추가</button>
-            <button className={styles.update_button} onClick={editCard}>수정</button>
+              { checkLogin !== null
+                ?
+              <>
+                <button className={styles.add_button} onClick={addCard}>추가</button>
+                <button className={styles.update_button} onClick={editCard}>수정</button>
+              </>
+              :
+              <>
+                <button className={styles.add_button} onClick={noLogin}>추가</button>
+                <button className={styles.update_button} onClick={noLogin}>수정</button>
+              </>
+              }
             </div>
             </div>
             )

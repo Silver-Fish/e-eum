@@ -1,3 +1,7 @@
+* {
+  font-family: inherit;
+}
+
 div {
   font-size: 18px;
 }
@@ -14,6 +18,7 @@ div {
   border-bottom: 1px solid #000;
   width: 80vw;
   margin-top: 15vh;
+  font-family: inherit;
 }
 
 

@@ -57,6 +57,7 @@
   margin: 0;
   border: 0px;
   border-bottom: 1px solid #000;
+  font-family: inherit;
 }
 
 
@@ -75,6 +76,7 @@
   font-size: inherit;
   border: #8A9C3A solid 1px;
   border-radius: 3px;
+  font-family: inherit;
 }
 .add_button {
   width: 50vw;
@@ -85,4 +87,5 @@
   font-size: inherit;
   border: #8A9C3A solid 1px;
   border-radius: 3px;
+  font-family: inherit;
 }

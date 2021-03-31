@@ -5,6 +5,7 @@
   width: 20%;
   height: 90%; 
   margin: 1vh 1vw;
+  font-family: inherit;
 }
 
 .card_image {
