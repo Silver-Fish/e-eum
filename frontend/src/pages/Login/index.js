@@ -61,32 +61,33 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className={styles.login_box}>
       <HeaderComp headertitle="로그인" />
-      <div className={styles.MainForm}>
-        <h1>로그인</h1>
-        <form onSubmit={onSubmitHandler}>
-          <InputComp type="email" placeholder="Email" InputChange={onEmailHandler} />
-          <br />
-          <InputComp type="password" placeholder="PW" InputChange={onPasswordHandler} />
-          <br />
-          <input
-            className={styles.input_check}
-            type="checkbox"
-            checked={autoLogin}
-            onChange={onAutoLogin}
-            id="check"
-          />
-          <label for="check">자동로그인</label>
-          <div className={styles.labelForm}>
-            <LabelComp textValue="회원가입" handleClickPath="./userRegister" />
-            <LabelComp textValue="비밀번호 찾기" handleClickPath="./findPassword" />
-          </div>
-          <button className={styles.button} type="submit">
-            로그인
-          </button>
-        </form>
-      </div>
+
+      <div className={styles.login_title}>로그인</div>
+
+      <form className={styles.MainForm} onSubmit={onSubmitHandler}>
+        <InputComp type="email" placeholder="이메일" InputChange={onEmailHandler} />
+        <InputComp type="password" placeholder="비밀번호" InputChange={onPasswordHandler} />
+        
+        <input
+          className={styles.input_check}
+          type="checkbox"
+          checked={autoLogin}
+          onChange={onAutoLogin}
+          id="check"
+        />
+
+        <label for="check">자동로그인</label>
+        <div className={styles.labelForm}>
+          <LabelComp textValue="회원가입" handleClickPath="./userRegister" />
+          <LabelComp textValue="비밀번호 찾기" handleClickPath="./findPassword" />
+        </div>
+        <button className={styles.login_button} type="submit">
+          로그인
+        </button>
+      </form>
+
     </div>
   );
 };
