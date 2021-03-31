@@ -76,4 +76,11 @@ public class CardController {
         cardService.deleteCard(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/search/{keyword}")
+    @ApiOperation(value = "카드 검색, http://localhost:8080/api/card/search/{keyword:검색할 키워드}", notes = "keyword를 받아 나만의 이음과 상황별 이음에 있는 카드를 검색하여 반환한다.")
+    public ResponseEntity<List<CardResponse>> searchByKeyword(@ApiIgnore @CurrentAccount Account account, @PathVariable @NotBlank String keyword) {
+        List<CardResponse> cardResponses = cardService.searchCardByKeyword(account, keyword);
+        return ResponseEntity.ok().body(cardResponses);
+    }
 }
