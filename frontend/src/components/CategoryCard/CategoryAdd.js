@@ -19,9 +19,12 @@ const CategoryAdd = (props) => {
   
 
   const addCategory = () => {
+    console.log(123)
+    const addButton = document.getElementById('addButton')
+    addButton.disabled = true;
     const token = sessionStorage.getItem('jwt')
     let data = new FormData()
-    data.append('file', imgFile)
+    data.append('image', imgFile)
     data.append('word', categoryName)
     axios.post(process.env.REACT_APP_API_URL + '/category', data, {
       headers: {
@@ -62,7 +65,7 @@ const CategoryAdd = (props) => {
 
       <div className={styles.button_box}>
           <button className={styles.close_button} onClick={props.addStateChange}>취소</button>
-          <button className={styles.add_button} onClick={addCategory} >등록</button>
+          <button id='addButton' className={styles.add_button} onClick={addCategory} >등록</button>
       </div>
     </>
   )

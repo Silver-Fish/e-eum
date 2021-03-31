@@ -23,6 +23,8 @@ const CardEdit = (props) => {
 
   const editCard = () => {
     const token = sessionStorage.getItem('jwt')
+    const editButton = document.getElementById('editButton')
+    editButton.disabled = true;
     const data = {
       'word': cardName
     }
@@ -49,7 +51,7 @@ const CardEdit = (props) => {
 
   return(
     <>
-      <div className={styles.add_box}>
+      <div className={styles.edit_box}>
         <div className={styles.image_box}>
           <img  src={cardImg} alt="이미지를 등록해주세요" />
 
@@ -78,7 +80,7 @@ const CardEdit = (props) => {
 
       <div className={styles.button_box}>
           <button className={styles.close_button} onClick={props.cardEditStateChange}>취소</button>
-          <button className={styles.add_button} onClick={editCard} >등록</button>
+          <button id='editButton' className={styles.edit_button} onClick={editCard} >수정</button>
       </div>
     </>
   )

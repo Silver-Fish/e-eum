@@ -27,6 +27,8 @@ const CardAdd = (props) => {
   const cardRegisterClick= () => {
 
     const token = sessionStorage.getItem('jwt')
+    const registerButton = document.getElementById('registerButton')
+    registerButton.disabled = true;
 
     let data = new FormData()
     data.append('file', imgFile)
@@ -78,7 +80,7 @@ const CardAdd = (props) => {
 
       <div className={styles.button_box}>
           <button className={styles.close_button} onClick={props.cardAddClick}>취소</button>
-          <button className={styles.add_button} onClick={cardRegisterClick} >등록</button>
+          <button id='registerButton' className={styles.register_button} onClick={cardRegisterClick} >등록</button>
       </div>
     </>
   )
