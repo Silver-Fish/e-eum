@@ -27,7 +27,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * com.ssafy.eeum.card.service
@@ -157,6 +160,25 @@ public class CardService {
             log.info("file not exist");
         }
         cardRepository.deleteById(id);
+    }
+
+    public List<CardResponse> searchCardByKeyword(Account account, String keyword) {
+        account = findAccount(account.getEmail());
+        List<Card> cards = new ArrayList<>();
+        Set<String> words = new HashSet<>();
+        accountCardRepository.findByKeyword(keyword, account).stream().filter(accountCard ->
+                !words.contains(accountCard.getCard().getWord()) && cards.size() < 4
+        ).forEach(accountCard -> {
+            words.add(accountCard.getCard().getWord());
+            cards.add(accountCard.getCard());
+        });
+        categoryCardRepository.findByKeyword(keyword, account).stream().filter(categoryCard ->
+                !words.contains(categoryCard.getCard().getWord()) && cards.size() < 4
+        ).forEach(categoryCard -> {
+            words.add(categoryCard.getCard().getWord());
+            cards.add(categoryCard.getCard());
+        });
+        return CardResponse.listOf(cards);
     }
 
     private Card findCard(Long id) {
