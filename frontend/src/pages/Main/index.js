@@ -37,7 +37,7 @@ const Main = () => {
             로그인
           </button>
         ) : (
-          <button className={styles.login_button} onClick={handleOutClick}>
+          <button className={styles.logout_button} onClick={handleOutClick}>
             로그아웃
           </button>
         )}

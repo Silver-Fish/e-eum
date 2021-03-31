@@ -28,7 +28,7 @@ const MyPage = () => {
     <>
       <HeaderComp headertitle="내 정보" />
       <div className={styles.MainForm}>
-        <h1>내 정보</h1>
+        <h1 className={styles.page_title}>MyPage</h1>
         <div className={styles.input_box}>
           <div>
             <span>이름</span>
