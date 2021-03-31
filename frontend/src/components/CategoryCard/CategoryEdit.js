@@ -21,6 +21,8 @@ const CategoryEdit = (props) => {
 
   const editCategory = () => {
     const token = sessionStorage.getItem('jwt')
+    const editButton = document.getElementById('editButton')
+    editButton.disabled = true;
     const data = {
       'word': categoryName
     }
@@ -63,7 +65,7 @@ const CategoryEdit = (props) => {
 
       <div className={styles.button_box}>
           <button className={styles.close_button} onClick={props.categoryEditStateChange}>취소</button>
-          <button className={styles.add_button} onClick={editCategory} >등록</button>
+          <button id='editButton' className={styles.edit_button} onClick={editCategory} >수정</button>
       </div>
     </>
   )

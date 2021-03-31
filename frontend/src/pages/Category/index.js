@@ -224,14 +224,14 @@ const Category = () => {
           if (isCategoryAdd === true)
             return(
               <>
-                <HeaderComp heardertitle='상황 추가'></HeaderComp>
+                <HeaderComp headertitle='상황 추가'></HeaderComp>
                 <CategoryAdd addStateChange={addStateChange}></CategoryAdd>
               </>
             );
           if (isCategoryCardEdit === true)
             return(
               <>
-                <HeaderComp heardertitle='상황 수정'></HeaderComp>
+                <HeaderComp headertitle='상황 수정'></HeaderComp>
                 
 
                 <CategoryEdit 
