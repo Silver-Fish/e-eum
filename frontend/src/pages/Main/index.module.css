@@ -9,7 +9,7 @@ div {
   width: 100%;
   margin: 0px auto; 
   box-sizing: border-box;
-  
+    font-family: inherit;
 }
  
 .main_login_box {
@@ -30,6 +30,7 @@ div {
   background-color: white;
   border: 2px solid #8A9C3A;
   border-radius: 5px;
+  font-family: inherit;
 }
 
 .logout_button {

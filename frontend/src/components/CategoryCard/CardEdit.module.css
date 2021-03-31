@@ -57,6 +57,7 @@
   margin: 0;
   border: 0px;
   border-bottom: 1px solid #000;
+  font-family: inherit;
 }
 
 .card_input_box {

@@ -11,8 +11,13 @@ const HeaderComp = (props) => {
     history.push('/');
   };
   const mypageClick = (e) => {
-    if (sessionStorage.getItem('jwt') !== null) history.push('/myPage');
-    else setModal(false);
+    if (sessionStorage.getItem('jwt') !== null){ 
+      history.push('/myPage')
+    }else 
+    {
+      alert('로그인을 해주세요')
+      setModal(false);
+    }
   };
   const myEeumClick = (e) => {
     history.push('/mypage');
@@ -21,8 +26,13 @@ const HeaderComp = (props) => {
     history.push('/category');
   };
   const qrEeumClick = (e) => {
-    if (sessionStorage.getItem('jwt') !== null) history.push('/qr');
-    else setModal(false);
+    if (sessionStorage.getItem('jwt') !== null) {
+      history.push('/qr');
+    }else 
+    {
+      alert('로그인을 해주세요')
+      setModal(false);
+    }
   };
   const settingClick = (e) => {
     history.push('/setting');

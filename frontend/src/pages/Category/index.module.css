@@ -81,6 +81,7 @@ div {
   font-size: inherit;
   border: #8A9C3A solid 1px;
   border-radius: 3px;
+  font-family: inherit;
 }
 .update_button {
   width: 50vw;
@@ -91,6 +92,7 @@ div {
   font-size: inherit;
   border: #8A9C3A solid 1px;
   border-radius: 3px;
+  font-family: inherit;
 }
 
 

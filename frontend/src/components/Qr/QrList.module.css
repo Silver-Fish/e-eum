@@ -19,6 +19,7 @@ div {
   border: 0;
   background-color: transparent;
   font-size: inherit;
+  font-family: inherit;
 }
 
 .qr_edit_button {
@@ -30,6 +31,7 @@ div {
   border: 0px;
   border-radius: 2vw;
   margin: 1vh 1vw;
+  font-family: inherit;
 }
 
 .qr_button {
@@ -41,4 +43,5 @@ div {
   border: 1px solid #F5DF4D;
   border-radius: 2vw;
   margin: 1vh 1vw;
+  font-family: inherit;
 }
