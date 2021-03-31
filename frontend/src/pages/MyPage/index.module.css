@@ -34,3 +34,12 @@ span {
   padding: 0px;
   width: 40vw;
 }
+
+.page_title {
+  color: #8A9C3A;
+  text-shadow: -1px 0 #F5DF4D, 
+                0 1px #F5DF4D, 
+                1px 0 #F5DF4D, 
+                0 -1px #F5DF4D;
+  
+}
