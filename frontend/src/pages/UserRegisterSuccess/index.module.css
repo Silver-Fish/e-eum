@@ -1,0 +1,27 @@
+div {
+  font-size: 18px;
+}
+
+
+.success_box {
+  height: 100%;
+  width: 100%;
+}
+
+.success_title {
+  margin: 20% auto;
+  height: 15%;
+  font-size: 3rem;
+  color: #8a9c3a;
+  text-shadow: 
+    -3px 0 #F5DF4D, 
+    0 3px #F5DF4D, 
+    3px 0 #F5DF4D, 
+    0 -3px #F5DF4D;
+}
+
+.go_login_box {
+  height: 5%;
+  width: 80%;
+  margin: 0 auto;
+}

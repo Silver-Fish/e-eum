@@ -25,29 +25,35 @@ const MyPage = () => {
       });
   });
   return (
-    <>
+    <div className={styles.mypage_box}>
       <HeaderComp headertitle="내 정보" />
+      <div className={styles.mypage_title}>MyPage</div>
+      
       <div className={styles.MainForm}>
-        <h1 className={styles.page_title}>MyPage</h1>
+
         <div className={styles.input_box}>
-          <div>
-            <span>이름</span>
+          <div className={styles.name_box}>
+            <span>이름:</span>
             <input readOnly placeholder={name}></input>
           </div>
-          <div>
-            <span>이메일</span>
+
+          <div className={styles.email_box}>
+            <span>이메일:</span>
             <input readOnly placeholder={email}></input>
           </div>
         </div>
-        <div className={styles.labelForm}>
+        
+        <div className={styles.label_box}>
           <LabelComp textValue="회원탈퇴" handleClickPath="./confirm" />
           <LabelComp textValue="비밀번호 변경" handleClickPath="./userUpdate" />
         </div>
-        <div className={styles.Buttons}>
+
+
+        <div className={styles.button_box}>
           <UserButtonComp textValue="확인" handleClick="ok"></UserButtonComp>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
