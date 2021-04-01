@@ -26,8 +26,8 @@ const OwnEeum = () => {
     setSpeechBoxDatas([...speechBoxDatas,
       [data.cardName['textValue'], data.imgUrl['imgUrl']]
     ]);
+    console.log(data)
     console.log(speechBoxDatas)
-    console.log(speechBoxList)
   }
   const deleteClick = () => {
     speechBoxDatas.pop()
@@ -90,11 +90,11 @@ const OwnEeum = () => {
   const speechBoxList = speechBoxDatas.map(
     (speech, i) => (
       <SpeechBoxCard
-        key={i} 
-        textValue={speech[0]} 
-        imgUrl={speech[1]}
+      key={i} 
+      c={speech[0]} 
+      imgUrl={speech[1]}
       ></SpeechBoxCard>
-    )
+      )
   )
   
   const addCard = () => {
@@ -127,19 +127,23 @@ const OwnEeum = () => {
             <div className={styles.owneeum_card_box}>
             {owncardList}
             </div>
-            <div className={styles.button_box}>
-              { checkLogin !== null
-                ?
-              <>
-                <button className={styles.add_button} onClick={addCard}>추가</button>
-                <button className={styles.update_button} onClick={editCard}>수정</button>
-              </>
-              :
-              <>
-                <button className={styles.add_button} onClick={noLogin}>추가</button>
-                <button className={styles.update_button} onClick={noLogin}>수정</button>
-              </>
-              }
+            <div className={styles.bottom_button}>
+              <div className={styles.button_box}>
+                { checkLogin !== null
+                  ?
+                <>
+                  <button className={styles.add_button} onClick={addCard}>추가</button>
+                  <button className={styles.update_button} onClick={editCard}>수정</button>
+                  
+                </>
+                :
+                <>
+
+                  <button className={styles.add_button} onClick={noLogin}>추가</button>
+                  <button className={styles.update_button} onClick={noLogin}>수정</button>
+                </>
+                }
+              </div>
             </div>
             </div>
             )

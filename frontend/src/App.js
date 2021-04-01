@@ -1,4 +1,5 @@
 import { Route, Switch } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import {
   OwnEeum,
   UserDelete,
@@ -16,10 +17,16 @@ import {
   Help,
   QrCard,
 } from './pages';
-
+import { useCookies } from 'react-cookie';
 import './App.css';
 
 function App() {
+  const [cookies] = useCookies(['cookie']);
+  useEffect(() => {
+    if (sessionStorage.getItem('jwt') === null && cookies.cookie !== 'undefined') {
+      sessionStorage.setItem('jwt', cookies.cookie);
+    }
+  });
   return (
     <div className="App">
       <Route exact path="/" component={Main} />

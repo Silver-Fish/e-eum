@@ -6,9 +6,11 @@ import com.ssafy.eeum.category.domain.AccountCategory;
 import com.ssafy.eeum.category.domain.Category;
 import com.ssafy.eeum.category.dto.request.CategoryUpdateRequest;
 import com.ssafy.eeum.category.dto.response.CategoriesResponse;
+import com.ssafy.eeum.category.dto.response.CategoryResponse;
 import com.ssafy.eeum.category.repository.CategoryRepository;
 import com.ssafy.eeum.common.exception.ErrorCode;
 import com.ssafy.eeum.common.exception.NotFoundException;
+import com.ssafy.eeum.qr.domain.QR;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -59,11 +61,12 @@ public class CategoryService {
     }
 
     // 카테고리 조회
-    @Transactional
-    public CategoriesResponse getCategoryList() {
+    @Transactional(readOnly = true)
+    public List<CategoryResponse> findList(Account account) {
         List<Category> categories = null;
-        categories = categoryRepository.findAll();
-        return new CategoriesResponse(categories);
+        account = findAccount(account.getEmail());
+        categories = account.getCategories();
+        return CategoryResponse.listOf(categories);
     }
 
     public CategoriesResponse searchCategory(String email) {

@@ -2,7 +2,6 @@ package com.ssafy.eeum.category.controller;
 
 import com.ssafy.eeum.account.domain.Account;
 import com.ssafy.eeum.category.dto.request.CategoryUpdateRequest;
-import com.ssafy.eeum.category.dto.response.CategoriesResponse;
 import com.ssafy.eeum.category.dto.response.CategoryResponse;
 import com.ssafy.eeum.category.service.CategoryService;
 import com.ssafy.eeum.common.annotation.CurrentAccount;
@@ -12,15 +11,12 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
-import java.awt.*;
 import java.util.List;
 
 @Api(tags = {"3. Category"})
@@ -46,8 +42,8 @@ public class CategoryController {
     @ApiOperation(value = "카테고리 조회",
             notes = "카테고리 목록을 조회한다.",
             response = ResponseEntity.class)
-    public ResponseEntity<Object> getCategoryList(@ApiIgnore Authentication authentication) {
-        CategoriesResponse categoryResponses = categoryService.getCategoryList();
+    public ResponseEntity<List<CategoryResponse>> getCategoryList(@ApiIgnore @CurrentAccount Account account) {
+        List<CategoryResponse> categoryResponses = categoryService.findList(account);
         return ResponseEntity.ok().body(categoryResponses);
     }
 

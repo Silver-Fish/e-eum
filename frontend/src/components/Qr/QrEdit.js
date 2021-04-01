@@ -48,7 +48,7 @@ const QrEdit = (props) => {
       })
       .then((res) => {
         console.log(res);
-        if (res.status === 200) {
+        if (res.status === 204) {
           alert('삭제 성공잇');
           history.go(0);
         } else {
