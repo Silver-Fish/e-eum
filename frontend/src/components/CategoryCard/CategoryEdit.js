@@ -62,10 +62,11 @@ const CategoryEdit = (props) => {
           onChange={onInputChange}
           placeholder='상황 이름'/>
       </div>
-
-      <div className={styles.button_box}>
-          <button className={styles.close_button} onClick={props.categoryEditStateChange}>취소</button>
-          <button id='editButton' className={styles.edit_button} onClick={editCategory} >수정</button>
+      <div className={styles.bottom_button}>
+        <div className={styles.button_box}>
+            <button className={styles.close_button} onClick={props.categoryEditStateChange}>취소</button>
+            <button id='editButton' className={styles.edit_button} onClick={editCategory} >수정</button>
+        </div>
       </div>
     </>
   )

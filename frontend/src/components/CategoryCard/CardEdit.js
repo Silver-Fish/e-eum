@@ -77,10 +77,11 @@ const CardEdit = (props) => {
         </div>
       
       </div>
-
-      <div className={styles.button_box}>
-          <button className={styles.close_button} onClick={props.cardEditStateChange}>취소</button>
-          <button id='editButton' className={styles.edit_button} onClick={editCard} >수정</button>
+      <div className={styles.bottom_button}>
+        <div className={styles.button_box}>
+            <button className={styles.close_button} onClick={props.cardEditStateChange}>취소</button>
+            <button id='editButton' className={styles.edit_button} onClick={editCard} >수정</button>
+        </div>
       </div>
     </>
   )

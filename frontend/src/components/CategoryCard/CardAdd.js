@@ -77,10 +77,11 @@ const CardAdd = (props) => {
           <img onClick={speakClick} src="/images/speaker-filled-audio-tool.svg" alt="대체이미지" />
         </div>
       </div>
-
-      <div className={styles.button_box}>
-          <button className={styles.close_button} onClick={props.cardAddClick}>취소</button>
-          <button id='registerButton' className={styles.register_button} onClick={cardRegisterClick} >등록</button>
+      <div className={styles.bottom_button}>
+        <div className={styles.button_box}>
+            <button className={styles.close_button} onClick={props.cardAddClick}>취소</button>
+            <button id='registerButton' className={styles.register_button} onClick={cardRegisterClick} >등록</button>
+        </div>
       </div>
     </>
   )
