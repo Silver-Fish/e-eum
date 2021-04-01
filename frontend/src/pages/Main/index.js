@@ -19,11 +19,11 @@ const Main = () => {
     history.push('./');
   };
 
-  useEffect(() => {
-    if (sessionStorage.getItem('jwt') === null && cookies.cookie !== undefined) {
-      sessionStorage.setItem('jwt', cookies.cookie);
-    }
-  });
+  // useEffect(() => {
+  //   if (sessionStorage.getItem('jwt') === null && cookies.cookie !== undefined) {
+  //     sessionStorage.setItem('jwt', cookies.cookie);
+  //   }
+  // });
 
   const noLogin = () => {
     alert('로그인 해주세요');
