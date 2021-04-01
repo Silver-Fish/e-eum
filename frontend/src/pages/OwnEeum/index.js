@@ -26,6 +26,7 @@ const OwnEeum = () => {
     setSpeechBoxDatas([...speechBoxDatas,
       [data.cardName['textValue'], data.imgUrl['imgUrl']]
     ]);
+    console.log(data)
     console.log(speechBoxDatas)
     console.log(speechBoxList)
   }
@@ -131,8 +132,10 @@ const OwnEeum = () => {
               { checkLogin !== null
                 ?
               <>
-                <button className={styles.add_button} onClick={addCard}>추가</button>
-                <button className={styles.update_button} onClick={editCard}>수정</button>
+                <div className={styles.bottom_button}>
+                  <button className={styles.add_button} onClick={addCard}>추가</button>
+                  <button className={styles.update_button} onClick={editCard}>수정</button>
+                </div>
               </>
               :
               <>
