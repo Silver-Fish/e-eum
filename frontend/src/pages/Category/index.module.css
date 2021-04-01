@@ -28,6 +28,7 @@ div {
   border: 0px;
   background-color: transparent; 
   padding: 0;
+  height: 5vh;
 }
 
 .control_box img {
