@@ -10,10 +10,12 @@ import java.util.List;
 public class CategoryResponse {
     private Long id;
     private String word;
+    private String categoryImageUrl;
 
     public CategoryResponse(Long id, String word, String categoryImageUrl) {
         this.id = id;
         this.word = word;
+        this.categoryImageUrl = categoryImageUrl;
     }
 
     public static CategoryResponse of(Category category) {
