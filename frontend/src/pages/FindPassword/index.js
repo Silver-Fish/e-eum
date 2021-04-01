@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import HeaderComp from '../../components/HeaderComp/HeaderComp';
 import { useHistory } from 'react-router-dom';
 import styles from './index.module.css';
 import axios from 'axios';
-
+import { useCookies } from 'react-cookie';
 const FindPassword = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -11,6 +11,7 @@ const FindPassword = () => {
   const [password, setPassword] = useState('');
   const [checkpassword, setCheckPassword] = useState('');
   const history = useHistory();
+  const [cookies] = useCookies(['cookie']);
 
   const onNameHandler = (e) => {
     setName(e.currentTarget.value);
@@ -19,6 +20,21 @@ const FindPassword = () => {
   const onEmailHandler = (e) => {
     setEmail(e.currentTarget.value);
   };
+
+  useEffect(() => {
+    if (
+      sessionStorage.getItem('jwt') === null &&
+      cookies.cookie !== undefined &&
+      cookies.cookie !== 'undefined'
+    ) {
+      history.push('/');
+    } else if (
+      sessionStorage.getItem('jwt') === null &&
+      (cookies.cookie === undefined || cookies.cookie === 'undefined')
+    ) {
+      history.push('/');
+    }
+  });
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -72,42 +88,39 @@ const FindPassword = () => {
 
   return (
     <div className={styles.findpassword_box}>
-      
       {!isModal ? (
         <>
           <HeaderComp headertitle="비밀번호 찾기" />
           <div className={styles.findpassword_title}>비밀번호 찾기</div>
 
           <form className={styles.MainForm} onSubmit={onSubmitHandler}>
-
             <div className={styles.email_box}>
-              <input 
+              <input
                 className={styles.input_email}
-                value={email} type="text" 
-                placeholder="이메일" 
-                onChange={onEmailHandler} 
-              />
-            </div>
-            
-            <div className={styles.name_box}>
-              <input 
-                className={styles.input_name}
-                value={name} 
-                type="text" 
-                placeholder="이름" 
-                onChange={onNameHandler} 
+                value={email}
+                type="text"
+                placeholder="이메일"
+                onChange={onEmailHandler}
               />
             </div>
 
-            
-            <button 
-              className={styles.check_button} 
-              type="submit"> 
-            확인</button>
+            <div className={styles.name_box}>
+              <input
+                className={styles.input_name}
+                value={name}
+                type="text"
+                placeholder="이름"
+                onChange={onNameHandler}
+              />
+            </div>
+
+            <button className={styles.check_button} type="submit">
+              확인
+            </button>
           </form>
 
           <button
-            className={styles.cancel_button} 
+            className={styles.cancel_button}
             onClick={(e) => {
               history.push('/login');
             }}
@@ -120,9 +133,6 @@ const FindPassword = () => {
           <HeaderComp headertitle="비밀번호 변경" />
           <div className={styles.updatepassword_title}>비밀번호 변경</div>
           <form className={styles.onModalForm} onSubmit={changePassword}>
-            
-            
-
             <div className={styles.password_box}>
               <input
                 className={styles.input_password}
@@ -142,11 +152,9 @@ const FindPassword = () => {
                 onChange={onPasswordCheckHandler}
               />
             </div>
-            <button 
-              className={styles.check_button} 
-              type="submit">
-            확인</button>
-            
+            <button className={styles.check_button} type="submit">
+              확인
+            </button>
           </form>
         </>
       )}

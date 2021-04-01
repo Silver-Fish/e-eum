@@ -3,10 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import HeaderComp from '../../components/HeaderComp/HeaderComp';
 import styles from './index.module.css';
-
+import { useCookies } from 'react-cookie';
 const UserUpdate = () => {
   const history = useHistory();
-
+  const [cookies] = useCookies(['cookie']);
   const [password, setPassword] = useState('');
   const [newpassword, setNewPassword] = useState('');
   const [passwordcheck, setPasswordCheck] = useState('');
@@ -25,6 +25,19 @@ const UserUpdate = () => {
   };
 
   useEffect(() => {
+    if (
+      sessionStorage.getItem('jwt') === null &&
+      cookies.cookie !== undefined &&
+      cookies.cookie !== 'undefined'
+    ) {
+      history.push('/');
+    } else if (
+      sessionStorage.getItem('jwt') === null &&
+      (cookies.cookie === undefined || cookies.cookie === 'undefined')
+    ) {
+      history.push('/');
+    }
+
     if (newpassword === '' && passwordcheck === '') setMessage('');
     else if (
       (passwordcheck !== '' && newpassword === '') ||
@@ -33,7 +46,7 @@ const UserUpdate = () => {
       setMessage('비밀번호를 입력해주세요');
     else if (passwordcheck === newpassword) setMessage('비밀번호가 일치합니다.');
     else if (passwordcheck !== newpassword) setMessage('비밀번호가 일치하지 않습니다.');
-  }, [newpassword, passwordcheck]);
+  }, [newpassword, passwordcheck, cookies.cookie, history]);
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -68,10 +81,8 @@ const UserUpdate = () => {
     <div className={styles.password_change_box}>
       <HeaderComp headertitle="비밀번호 변경" />
       <div className={styles.password_change_title}>비밀번호 변경</div>
-      
 
       <form className={styles.MainForm} onSubmit={onSubmitHandler}>
-
         <div className={styles.password_box}>
           <input
             className={styles.input_password}
@@ -81,7 +92,6 @@ const UserUpdate = () => {
             onChange={onPasswordHandler}
           />
         </div>
-        
 
         <div className={styles.change_password_box}>
           <input
@@ -93,7 +103,6 @@ const UserUpdate = () => {
           />
         </div>
 
-        
         <div className={styles.check_password_box}>
           <input
             className={styles.input_check_password}
@@ -104,20 +113,19 @@ const UserUpdate = () => {
           />
           <p>{message}</p>
         </div>
-        
-        <button 
-          className={styles.check_button}
-          type="submit"
-        >확인</button>
-        
+
+        <button className={styles.check_button} type="submit">
+          확인
+        </button>
+
         <button
           className={styles.cancel_button}
           onClick={(e) => {
             history.push('/myPage');
           }}
-        >취소</button>
-
-
+        >
+          취소
+        </button>
       </form>
     </div>
   );

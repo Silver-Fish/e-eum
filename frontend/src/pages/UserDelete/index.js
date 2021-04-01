@@ -1,13 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import HeaderComp from '../../components/HeaderComp/HeaderComp';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import styles from './index.module.css';
+import { useCookies } from 'react-cookie';
 const UserDelete = () => {
   const history = useHistory();
+  const [cookies] = useCookies(['cookie']);
+
+  useEffect(() => {
+    if (
+      sessionStorage.getItem('jwt') === null &&
+      cookies.cookie !== undefined &&
+      cookies.cookie !== 'undefined'
+    ) {
+      history.push('/');
+    } else if (
+      sessionStorage.getItem('jwt') === null &&
+      (cookies.cookie === undefined || cookies.cookie === 'undefined')
+    ) {
+      history.push('/');
+    }
+  });
 
   const onDeleteHandler = (e) => {
     e.preventDefault();
+
     axios
       .delete(process.env.REACT_APP_API_URL + '/accouts/delete', {
         headers: {

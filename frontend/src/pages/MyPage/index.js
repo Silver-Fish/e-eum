@@ -14,10 +14,17 @@ const MyPage = () => {
   const [cookies] = useCookies(['cookie']);
 
   useEffect(() => {
-    if (sessionStorage.getItem('jwt') === null && cookies.cookie !== undefined) {
+    if (
+      sessionStorage.getItem('jwt') === null &&
+      cookies.cookie !== undefined &&
+      cookies.cookie !== 'undefined'
+    ) {
       sessionStorage.setItem('jwt', cookies.cookie);
       setCheckLogin(sessionStorage.getItem('jwt'));
-    } else if (sessionStorage.getItem('jwt') === null && cookies.cookie === undefined) {
+    } else if (
+      sessionStorage.getItem('jwt') === null &&
+      (cookies.cookie === undefined || cookies.cookie === 'undefined')
+    ) {
       history.push('/login');
     }
 
@@ -36,7 +43,7 @@ const MyPage = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [checkLogin]);
+  }, [checkLogin, history, cookies.cookie]);
   return (
     <div className={styles.mypage_box}>
       <HeaderComp headertitle="내 정보" />
