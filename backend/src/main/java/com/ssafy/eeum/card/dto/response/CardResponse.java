@@ -11,21 +11,23 @@ public class CardResponse {
     private Long id;
     private String word;
     private String imageUrl;
+    private String voiceUrl;
 
-    public CardResponse(Long id, String word, String imageUrl) {
+    public CardResponse(Long id, String word, String imageUrl, String voiceUrl) {
         this.id = id;
         this.word = word;
         this.imageUrl = imageUrl;
+        this.voiceUrl = voiceUrl;
     }
 
-    public static CardResponse of(Card card){
-        return new CardResponse(card.getId(),card.getWord(),card.getImageUrl());
+    public static CardResponse of(Card card) {
+        return new CardResponse(card.getId(), card.getWord(), card.getImageUrl(), card.getVoiceUrl());
     }
 
-    public static List<CardResponse> listOf(List<Card> cards){
+    public static List<CardResponse> listOf(List<Card> cards) {
         List<CardResponse> cardResponses = new ArrayList<>();
 
-        for (Card card : cards){
+        for (Card card : cards) {
             cardResponses.add(of(card));
         }
         return cardResponses;
