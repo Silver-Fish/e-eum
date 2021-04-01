@@ -203,20 +203,21 @@ const Category = () => {
                 <div className={styles.category_card_box}>
                   { categoryList }
                 </div>
-                        
-                <div className={styles.button_box}>
-                  { checkLogin !== null
-                  ?
-                    <>
-                      <button className={styles.add_button} onClick={addStateChange}>추가</button>
-                      <button className={styles.update_button} onClick={categoryEditClick}>수정</button>
-                    </>
-                    :
-                    <>
-                      <button className={styles.add_button} onClick={noLogin}>추가</button>
-                      <button className={styles.update_button} onClick={noLogin}>수정</button>
-                    </>
-                  }
+                <div className={styles.bottom_button}>
+                  <div className={styles.button_box}>
+                    { checkLogin !== null
+                    ?
+                      <>
+                        <button className={styles.add_button} onClick={addStateChange}>추가</button>
+                        <button className={styles.update_button} onClick={categoryEditClick}>수정</button>
+                      </>
+                      :
+                      <>
+                        <button className={styles.add_button} onClick={noLogin}>추가</button>
+                        <button className={styles.update_button} onClick={noLogin}>수정</button>
+                      </>
+                    }
+                  </div>       
                 </div>
               </>
             );
