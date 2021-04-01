@@ -42,6 +42,8 @@ public class Card {
     @Lob
     private String voiceUrl;
 
+    private Float voiceLength;
+
     @CreationTimestamp
     private LocalDateTime createDate;
 
@@ -66,10 +68,11 @@ public class Card {
         this.imageUrl = imageUrl;
     }
 
-
     public void setVoiceUrl(String voiceUrl){
         this.voiceUrl = voiceUrl;
     }
+
+    public void setVoiceLength(Float voiceLength){ this.voiceLength = voiceLength; }
 
     public void update(Card requestCard) {
         this.word = requestCard.word;
