@@ -1,0 +1,27 @@
+.help_box {
+  width: 100%;
+  height: 100%;
+  overflow-y:scroll
+}
+
+.green {
+  color: #8A9C3A;
+}
+
+.blue {
+  color: blue;
+}
+
+.red {
+  color: red;
+}
+
+.feature_box {
+  text-align: left;
+  margin-top: 15%;
+  margin-left: 5%;
+}
+
+.indent_text {
+  text-indent: 1rem;
+}
