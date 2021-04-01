@@ -4,6 +4,7 @@ import HearderComp from '../../components/HeaderComp/HeaderComp';
 import QrList from '../../components/Qr/QrList';
 import QrRegister from '../../components/Qr/QrRegister';
 import QrEdit from '../../components/Qr/QrEdit';
+import QrView from '../../components/Qr/QrView';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import { useHistory } from 'react-router-dom';
@@ -12,6 +13,7 @@ const Qr = () => {
   const history = useHistory();
   const [isQrResister, setQrResister] = useState(false);
   const [isQrEdit, setQrEdit] = useState(false);
+  const [isQrView, setQrView] = useState(false);
   const [selectedQrName, setSelectedQrName] = useState('');
   const [selectedQrId, setSelectedQrId] = useState('');
   const [token, setToken] = useState(sessionStorage.getItem('jwt'));
@@ -38,7 +40,6 @@ const Qr = () => {
         },
       })
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           setQrs(res.data);
         } else {
@@ -61,18 +62,31 @@ const Qr = () => {
     setQrEdit(!isQrEdit);
   };
 
+  const changeQrViewState = (data) => {
+    console.log(data);
+    setSelectedQrName(data.qrName);
+    setSelectedQrId(data.qrId);
+    setQrView(!isQrView);
+  };
+
   // const selectedEditQrName = (data) => {
   //   setSlectedQrName(data)
   // }
 
   const qrLists = qrs.map((qr, i) => (
-    <QrList key={i} qrId={qr.id} qrName={qr.title} changeQrEditState={changeQrEditState}></QrList>
+    <QrList
+      key={i}
+      qrId={qr.id}
+      qrName={qr.title}
+      changeQrEditState={changeQrEditState}
+      changeQrViewState={changeQrViewState}
+    ></QrList>
   ));
 
   return (
     <>
       {(function () {
-        if (isQrResister !== true && isQrEdit !== true)
+        if (isQrResister !== true && isQrEdit !== true && isQrView !== true)
           return (
             <>
               <HearderComp headertitle="QR로 이음" headerColor="yello"></HearderComp>
@@ -86,13 +100,9 @@ const Qr = () => {
         if (isQrResister === true)
           return <QrRegister changeQrResisterState={changeQrResisterState}></QrRegister>;
         if (isQrEdit === true)
-          return (
-            <QrEdit
-              changeQrEditState={changeQrEditState}
-              selectedQrId={selectedQrId}
-              selectedQrName={selectedQrName}
-            ></QrEdit>
-          );
+          return <QrEdit selectedQrId={selectedQrId} selectedQrName={selectedQrName}></QrEdit>;
+        if (isQrView === true)
+          return <QrView selectedQrId={selectedQrId} selectedQrName={selectedQrName}></QrView>;
       })()}
     </>
   );
