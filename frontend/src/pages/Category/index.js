@@ -59,7 +59,6 @@ const Category = () => {
   
 
   const categoryClick = (e) => {
-    console.log(e)
     setCategory(!isCategory);
     setCard(e.cardDatas );
     setCategoryId(e.categoryId);
@@ -206,21 +205,19 @@ const Category = () => {
                   { categoryList }
                 </div>
                         
-                <div className={styles.bottom_button}>
-                  <div className={styles.button_box}>
-                    { checkLogin !== null
-                    ?
-                      <>
-                        <button className={styles.add_button} onClick={addStateChange}>추가</button>
-                        <button className={styles.update_button} onClick={categoryEditClick}>수정</button>
-                      </>
-                      :
-                      <>
-                        <button className={styles.add_button} onClick={noLogin}>추가</button>
-                        <button className={styles.update_button} onClick={noLogin}>수정</button>
-                      </>
-                    }
-                  </div>
+                <div className={styles.button_box}>
+                  { checkLogin !== null
+                  ?
+                    <>
+                      <button className={styles.add_button} onClick={addStateChange}>추가</button>
+                      <button className={styles.update_button} onClick={categoryEditClick}>수정</button>
+                    </>
+                    :
+                    <>
+                      <button className={styles.add_button} onClick={noLogin}>추가</button>
+                      <button className={styles.update_button} onClick={noLogin}>수정</button>
+                    </>
+                  }
                 </div>
               </>
             );
@@ -270,12 +267,10 @@ const Category = () => {
               <div className={styles.card_box}>
                 {cardList}
               </div>
-              <div className={styles.bottom_button}>
-                <div className={styles.button_box}>
-                  <button className={styles.add_button} onClick={cardAddClick}>추가</button>
-                  <button className={styles.update_button} onClick={cardEditClick}>수정</button>
-                </div> 
-              </div>
+              <div className={styles.button_box}>
+                <button className={styles.add_button} onClick={cardAddClick}>추가</button>
+                <button className={styles.update_button} onClick={cardEditClick}>수정</button>
+              </div> 
             </>
           );
           if (isCardAdd === true)
