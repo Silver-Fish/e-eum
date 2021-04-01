@@ -93,6 +93,7 @@ div {
 
 .bottom_button{
   position: fixed;
+  bottom: 0px;
 }
 
 
