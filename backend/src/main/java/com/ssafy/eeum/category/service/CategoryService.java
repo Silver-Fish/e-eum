@@ -6,6 +6,7 @@ import com.ssafy.eeum.category.domain.AccountCategory;
 import com.ssafy.eeum.category.domain.Category;
 import com.ssafy.eeum.category.dto.request.CategoryUpdateRequest;
 import com.ssafy.eeum.category.dto.response.CategoriesResponse;
+import com.ssafy.eeum.category.dto.response.CategoryResponse;
 import com.ssafy.eeum.category.repository.CategoryRepository;
 import com.ssafy.eeum.common.exception.ErrorCode;
 import com.ssafy.eeum.common.exception.NotFoundException;
@@ -28,6 +29,12 @@ public class CategoryService {
     @Value("${file.path}")
     private String filePath;
 
+    @Value("${file.defaultpath}")
+    private String defaultPath;
+
+    @Value("${eeum.defaultemail}")
+    private String defaultEmail;
+
     private final CategoryRepository categoryRepository;
     private final AccountRepository accountRepository;
 
@@ -41,19 +48,23 @@ public class CategoryService {
         account.addAccountCategory(AccountCategory.createAccountCategory(account, category));
         account.addCategory(category);
 
-        String imageUrl = account.getId() + "/category/" + category.getId();
-        category.setCategoryImageUrl(imageUrl);
-        categoryRepository.save(category);
+        if (image != null && !image.isEmpty()) {
+            String imageUrl = account.getId() + "/category/" + category.getId();
+            category.setCategoryImageUrl(imageUrl);
+            categoryRepository.save(category);
 
-        File folder = new File(filePath+account.getId() + "/category");
-        log.info(folder.mkdirs() ? "success make dir" : "fail make dir");
+            File folder = new File(filePath + account.getId() + "/category");
+            log.info(folder.mkdirs() ? "success make dir" : "fail make dir");
 
-        File file = new File(filePath+imageUrl);
-        log.info(filePath+imageUrl);
-        log.info(file.createNewFile() ? "success make file" : "fail make file");
-        FileOutputStream fos = new FileOutputStream(file);
-        fos.write(image.getBytes());
-        fos.close();
+            File file = new File(filePath + imageUrl);
+            log.info(filePath + imageUrl);
+            log.info(file.createNewFile() ? "success make file" : "fail make file");
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(image.getBytes());
+            fos.close();
+        } else {
+            category.setCategoryImageUrl(defaultPath);
+        }
 
         return category.getId();
     }
@@ -64,6 +75,14 @@ public class CategoryService {
         List<Category> categories = null;
         categories = categoryRepository.findAll();
         return new CategoriesResponse(categories);
+    }
+
+    @Transactional(readOnly = true)
+    public List<CategoryResponse> findList(Account account) {
+        List<Category> categories = null;
+        account = findAccount(account == null? defaultEmail :account.getEmail());
+        categories = account.getCategories();
+        return CategoryResponse.listOf(categories);
     }
 
     public CategoriesResponse searchCategory(String email) {
