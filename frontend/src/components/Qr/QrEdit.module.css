@@ -21,8 +21,9 @@ div {
   font-family: inherit;
 }
 
-
 .button_box {
+  position: fixed;
+  bottom: 0px;
   display: flex;
   width: 100vw;
   height: 5vh;
@@ -31,14 +32,14 @@ div {
 .qr_edit_delete_button {
   font-size: inherit;
   width: 50vw;
-  color: #F5DF4D;
+  color: #f5df4d;
   background-color: #fff;
-  border: 1px solid #F5DF4D;
+  border: 1px solid #f5df4d;
 }
 
 .qr_edit_button {
   font-size: inherit;
   width: 50vw;
-  background-color: #F5DF4D;
-  border: 1px solid #F5DF4D;
+  background-color: #f5df4d;
+  border: 1px solid #f5df4d;
 }

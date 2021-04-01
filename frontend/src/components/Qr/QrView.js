@@ -1,15 +1,15 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import HearderComp from '../HeaderComp/HeaderComp';
-//import styles from './QrEdit.module.css';
-import { useHistory } from 'react-router-dom';
+import styles from './QrView.module.css';
 
 const QrView = (props) => {
   const qrId = props.selectedQrId;
   const qrName = props.selectedQrName;
   const [qrUrl, setQrUrl] = useState('');
-  //const history = useHistory();
-
+  const selectedViewQr = () => {
+    props.changeQrViewState({ qrName: qrName, qrId: qrId });
+  };
   useEffect(() => {
     axios
       .get(process.env.REACT_APP_API_URL + `/qr/${qrId}`, {
@@ -36,7 +36,16 @@ const QrView = (props) => {
   return (
     <>
       <HearderComp headertitle={qrName} headerColor="yellow"></HearderComp>
-      <img src={qrUrl}></img>
+
+      <div className={styles.qr_box}>
+        <img className={styles.qr_img} src={qrUrl}></img>
+      </div>
+
+      <div className={styles.button_box}>
+        <button className={styles.qr_view_cancel_button} onClick={selectedViewQr}>
+          취소
+        </button>
+      </div>
     </>
   );
 };

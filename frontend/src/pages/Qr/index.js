@@ -102,7 +102,13 @@ const Qr = () => {
         if (isQrEdit === true)
           return <QrEdit selectedQrId={selectedQrId} selectedQrName={selectedQrName}></QrEdit>;
         if (isQrView === true)
-          return <QrView selectedQrId={selectedQrId} selectedQrName={selectedQrName}></QrView>;
+          return (
+            <QrView
+              changeQrViewState={changeQrViewState}
+              selectedQrId={selectedQrId}
+              selectedQrName={selectedQrName}
+            ></QrView>
+          );
       })()}
     </>
   );
