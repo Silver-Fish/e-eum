@@ -5,19 +5,25 @@ import QrList from '../../components/Qr/QrList';
 import QrRegister from '../../components/Qr/QrRegister';
 import QrEdit from '../../components/Qr/QrEdit';
 import axios from 'axios';
-
+import { useCookies } from 'react-cookie';
+import { useHistory } from 'react-router-dom';
 const Qr = () => {
-  const token = sessionStorage.getItem('jwt');
   const [qrs, setQrs] = useState([]);
-  // const qrs = useState([
-  //   ['스타벅스'], ['롯데리아'],['다이소'], ['편의점'], ['K치과']
-  // ])[0]
+  const history = useHistory();
   const [isQrResister, setQrResister] = useState(false);
   const [isQrEdit, setQrEdit] = useState(false);
   const [selectedQrName, setSelectedQrName] = useState('');
   const [selectedQrId, setSelectedQrId] = useState('');
+  const [token, setToken] = useState(sessionStorage.getItem('jwt'));
+  const [cookies] = useCookies(['cookie']);
 
   useEffect(() => {
+    if (sessionStorage.getItem('jwt') === null && cookies.cookie !== undefined) {
+      sessionStorage.setItem('jwt', cookies.cookie);
+      setToken(sessionStorage.getItem('jwt'));
+    } else if (sessionStorage.getItem('jwt') === null && cookies.cookie === undefined) {
+      history.push('/login');
+    }
     axios
       .get(process.env.REACT_APP_API_URL + '/qr', {
         headers: {
@@ -36,7 +42,7 @@ const Qr = () => {
         console.log('QrList R : err났어잇');
         console.log(err);
       });
-  }, []);
+  }, [token]);
 
   const changeQrResisterState = () => {
     setQrResister(!isQrResister);

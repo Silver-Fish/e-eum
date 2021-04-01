@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styles from './index.module.css';
 import Imgbox from '../../components/Image/Imgbox';
@@ -7,7 +7,7 @@ import MainFooterButtonComp from '../../components/ButtonComp/MainFooterButtonCo
 import { useCookies } from 'react-cookie';
 const Main = () => {
   const history = useHistory();
-  const checkLogin = sessionStorage.getItem('jwt');
+  const [checkLogin, setCheckLogin] = useState(sessionStorage.getItem('jwt'));
   const [cookies, removeCookie] = useCookies(['cookie']);
   const handleInClick = (e) => {
     history.push('./login');
@@ -19,11 +19,12 @@ const Main = () => {
     history.push('./');
   };
 
-  // useEffect(() => {
-  //   if (sessionStorage.getItem('jwt') === null && cookies.cookie !== undefined) {
-  //     sessionStorage.setItem('jwt', cookies.cookie);
-  //   }
-  // });
+  useEffect(() => {
+    if (sessionStorage.getItem('jwt') === null && cookies.cookie !== undefined) {
+      sessionStorage.setItem('jwt', cookies.cookie);
+      setCheckLogin(sessionStorage.getItem('jwt'));
+    }
+  }, [checkLogin]);
 
   const noLogin = () => {
     alert('로그인 해주세요');
