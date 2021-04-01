@@ -6,8 +6,10 @@ import CardAdd from '../../components/QrCard/CardAdd';
 import CardEdit from '../../components/QrCard/CardEdit';
 import SpeechBoxCard from '../../components/QrCard/SpeechBoxCard';
 import axios from 'axios';
-
+import { useHistory } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 const QrCard = ({ match }) => {
+  const history = useHistory();
   const qrId = match.params.qrId;
   const [isAdd, setAdd] = useState(false);
   const [isEdit, setEdit] = useState(false);
@@ -18,17 +20,30 @@ const QrCard = ({ match }) => {
   const [isCardStateEdit, setCardStateEdit] = useState(false);
   const [cardUrl, setCardUrl] = useState('');
   const [qrCardDatas, setQrCard] = useState([]);
+  const [cookies] = useCookies(['cookie']);
+  const [token, setToken] = useState(sessionStorage.getItem('jwt'));
 
-  const token = sessionStorage.getItem('jwt');
-  const config = {
-    headers: {
-      Authorization: token,
-    },
-  };
   useEffect(() => {
-    console.log(qrId);
+    if (
+      sessionStorage.getItem('jwt') === null &&
+      cookies.cookie !== undefined &&
+      cookies.cookie !== 'undefined'
+    ) {
+      sessionStorage.setItem('jwt', cookies.cookie);
+      setToken(sessionStorage.getItem('jwt'));
+    } else if (
+      sessionStorage.getItem('jwt') === null &&
+      (cookies.cookie === undefined || cookies.cookie === 'undefined')
+    ) {
+      history.push('/login');
+    }
+
     axios
-      .get(process.env.REACT_APP_API_URL + '/card/qr?typeId=' + qrId, config)
+      .get(process.env.REACT_APP_API_URL + '/card/qr?typeId=' + qrId, {
+        headers: {
+          Authorization: token,
+        },
+      })
       .then((res) => {
         console.log(res);
         setQrCard(res.data);
@@ -36,7 +51,7 @@ const QrCard = ({ match }) => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [token, history, cookies.cookie, qrId]);
 
   const addClick = () => {
     setAdd(!isAdd);

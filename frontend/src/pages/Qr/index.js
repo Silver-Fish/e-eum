@@ -18,10 +18,17 @@ const Qr = () => {
   const [cookies] = useCookies(['cookie']);
 
   useEffect(() => {
-    if (sessionStorage.getItem('jwt') === null && cookies.cookie !== undefined) {
+    if (
+      sessionStorage.getItem('jwt') === null &&
+      cookies.cookie !== undefined &&
+      cookies.cookie !== 'undefined'
+    ) {
       sessionStorage.setItem('jwt', cookies.cookie);
       setToken(sessionStorage.getItem('jwt'));
-    } else if (sessionStorage.getItem('jwt') === null && cookies.cookie === undefined) {
+    } else if (
+      sessionStorage.getItem('jwt') === null &&
+      (cookies.cookie === undefined || cookies.cookie === 'undefined')
+    ) {
       history.push('/login');
     }
     axios
@@ -42,7 +49,7 @@ const Qr = () => {
         console.log('QrList R : err났어잇');
         console.log(err);
       });
-  }, [token]);
+  }, [token, history, cookies.cookie]);
 
   const changeQrResisterState = () => {
     setQrResister(!isQrResister);
