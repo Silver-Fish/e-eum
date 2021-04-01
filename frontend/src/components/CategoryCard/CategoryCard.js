@@ -12,7 +12,7 @@ const CategoryCard = (props) => {
   const isCategoryCardEdit = useState(false)[0]
   const isCategoryEdit = props['isCategoryEdit']
   const categoryName = props.textValue
-  const imgUrl = props.categoryUrl
+  const imgUrl = process.env.REACT_APP_IMG_PATH+props.categoryUrl
   const categoryId = props['id']
   
   const categoryCardClick = (e) => {    

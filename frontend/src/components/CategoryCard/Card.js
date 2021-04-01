@@ -12,7 +12,7 @@ const Card = (props) => {
   const isCardStateEdit = useState(false)[0]
   const isCardEdit = props.isCardEdit
   const textValue = props.textValue 
-  const cardUrl = props.cardUrl
+  const cardUrl = process.env.REACT_APP_IMG_PATH+props.cardUrl
   const cardId = props.id
 
   const cardButtonClick = (e) => {    

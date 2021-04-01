@@ -59,6 +59,7 @@ const Category = () => {
   
 
   const categoryClick = (e) => {
+    console.log(e)
     setCategory(!isCategory);
     setCard(e.cardDatas );
     setCategoryId(e.categoryId);
