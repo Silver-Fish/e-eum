@@ -28,7 +28,7 @@ public class AccountCard {
     @JoinColumn(name = "user_id")
     private Account account;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "card_id")
     private Card card;
 

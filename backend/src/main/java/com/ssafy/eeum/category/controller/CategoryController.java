@@ -30,8 +30,7 @@ public class CategoryController {
 
     @PostMapping("")
     @ApiOperation(value = "카테고리 등록",
-            notes = "카테고리 정보를 전달받아 새 카테고리 등록",
-            response = ResponseEntity.class)
+            notes = "카테고리 정보를 전달받아 새 카테고리 등록")
     public ResponseEntity<Long> saveCategory(@ApiIgnore @CurrentAccount Account account, String word, MultipartFile image) throws Exception {
         Long categoryNo = null;
         categoryNo = categoryService.save(account, word, image);
@@ -40,8 +39,7 @@ public class CategoryController {
 
     @GetMapping("")
     @ApiOperation(value = "카테고리 조회",
-            notes = "카테고리 목록을 조회한다.",
-            response = ResponseEntity.class)
+            notes = "카테고리 목록을 조회한다.")
     public ResponseEntity<List<CategoryResponse>> getCategoryList(@ApiIgnore @CurrentAccount Account account) {
         List<CategoryResponse> categoryResponses = categoryService.findList(account);
         return ResponseEntity.ok().body(categoryResponses);
@@ -49,15 +47,14 @@ public class CategoryController {
 
     @PutMapping("/{id}")
     @ApiOperation(value = "카테고리 수정",
-            notes = "수정하려는 카테고리 이름과 id를 전달 받아 해당 카테고리 정보 수정",
-            response = ResponseEntity.class)
+            notes = "수정하려는 카테고리 이름과 id를 전달 받아 해당 카테고리 정보 수정")
     public ResponseEntity<Void> updateCategory(@PathVariable @NotNull Long id, @RequestBody @Valid CategoryUpdateRequest categoryUpdateRequest) {
         categoryService.updateCategory(id, categoryUpdateRequest);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
-    @ApiOperation(value = "카테고리 한 개 삭제", notes = "카테고리의 id를 전달받아 해당 카테고리를 삭제", response = ResponseEntity.class)
+    @ApiOperation(value = "카테고리 한 개 삭제", notes = "카테고리의 id를 전달받아 해당 카테고리를 삭제")
     public ResponseEntity<String>deleteCategory(@PathVariable @NotNull Long id) {
         categoryService.deleteCategory(id);
         return ResponseEntity.ok().build();

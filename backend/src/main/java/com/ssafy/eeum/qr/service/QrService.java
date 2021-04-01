@@ -3,17 +3,11 @@ package com.ssafy.eeum.qr.service;
 
 import com.ssafy.eeum.account.domain.Account;
 import com.ssafy.eeum.account.repository.AccountRepository;
-import com.ssafy.eeum.card.domain.AccountCard;
-import com.ssafy.eeum.card.domain.Card;
-import com.ssafy.eeum.category.domain.CategoryCard;
 import com.ssafy.eeum.common.exception.ErrorCode;
 import com.ssafy.eeum.common.exception.NotFoundException;
-import com.ssafy.eeum.qr.domain.AccountQr;
 import com.ssafy.eeum.qr.domain.QR;
-import com.ssafy.eeum.qr.domain.QrCard;
 import com.ssafy.eeum.qr.dto.request.QrUpdateRequest;
 import com.ssafy.eeum.qr.dto.response.QrResponse;
-import com.ssafy.eeum.qr.repository.AccountQrRepository;
 import com.ssafy.eeum.qr.repository.QrCardRepository;
 import com.ssafy.eeum.qr.repository.QrRepository;
 import com.ssafy.eeum.common.util.naverApiUtil;
@@ -26,7 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +27,7 @@ import java.util.Map;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class QrService {
 
     @Value("${file.path}")
@@ -48,18 +42,13 @@ public class QrService {
 
     private final QrRepository qrRepository;
     private final AccountRepository accountRepository;
-    private final AccountQrRepository accountQrRepository;
     private final QrCardRepository qrCardRepository;
 
     // QR 생성
-    @Transactional
     public Long save(Account account, String title) {
-        QR qr = QR.builder().title(title).build();
-        qrRepository.save(qr);
-
         account = findAccount(account.getEmail());
-        account.addAccountQr(AccountQr.createAccountQr(account,qr));
-        account.addQr(qr);
+        QR qr = QR.builder().title(title).account(account).build();
+        qrRepository.save(qr);
 
         String qrUrl = getQr(account.getId(), qr.getId());
         qr.setQrUrl(qrUrl);
@@ -83,7 +72,7 @@ public class QrService {
         return QrResponse.of(qr);
     }
 
-    @Transactional
+
     public void updateQr(Long id, QrUpdateRequest qrUpdateRequest) {
         QR qr = findQr(id);
         QR requestQr = qrUpdateRequest.toQr();
@@ -93,21 +82,11 @@ public class QrService {
     // QR 삭제
     @Transactional
     public void deleteQr(Long id) {
-        List<AccountQr> accountQrs = accountQrRepository.findByQrId(id);
-        List<QrCard> qrCards = qrCardRepository.findByCardId(id);
-        if (accountQrs.size() != 0) {
-            for (AccountQr accountQr : accountQrs) {
-                accountQr.setQr(null);
-                accountQr.getAccount().deleteAccountQr(accountQr);
-                log.info("account qr delete");
-            }
-        } else if (qrCards.size()!=0){
-            for (QrCard qrCard : qrCards) {
-                qrCard.setCard(null);
-                qrCard.getQr().deleteQrCard(qrCard);
-                log.info("qr card delete");
-            }
-        }
+        QR qr = findQr(id);
+
+        Account account = qr.getAccount();
+        account.deleteQR(qr);
+
         qrRepository.deleteById(id);
     }
 
@@ -115,7 +94,7 @@ public class QrService {
         String clientId = id;
         String clientSecret = password;
 
-        String originalURL = "https://dev.e-eum.kr/" + userId + "/" + qrId;
+        String originalURL = "https://dev.e-eum.kr/qr/" + qrId;
         String apiURL = "https://openapi.naver.com/v1/util/shorturl?url=" + originalURL;
 
         Map<String, String> requestHeaders = new HashMap<>();

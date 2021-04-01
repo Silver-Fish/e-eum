@@ -5,6 +5,7 @@ import com.ssafy.eeum.account.repository.AccountRepository;
 import com.ssafy.eeum.card.domain.AccountCard;
 import com.ssafy.eeum.card.domain.Card;
 import com.ssafy.eeum.card.dto.request.CardUpdateRequest;
+import com.ssafy.eeum.card.dto.request.CardVoiceRequest;
 import com.ssafy.eeum.card.dto.response.CardResponse;
 import com.ssafy.eeum.card.repository.AccountCardRepository;
 import com.ssafy.eeum.card.repository.CardRepository;
@@ -23,8 +24,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -44,6 +49,7 @@ import java.util.Set;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CardService {
 
     @Value("${file.path}")
@@ -55,6 +61,8 @@ public class CardService {
     @Value("${eeum.defaultemail}")
     private String defaultEmail;
 
+    private final RestTemplate restTemplate;
+
     private final CardRepository cardRepository;
     private final CategoryRepository categoryRepository;
     private final AccountRepository accountRepository;
@@ -63,7 +71,6 @@ public class CardService {
     private final QrRepository qrRepository;
     private final QrCardRepository qrCardRepository;
 
-    @Transactional
     public Long save(Account account, String type, Long typeId, String word, MultipartFile image) throws Exception {
         Card card = Card.builder().word(word).build();
         cardRepository.save(card);
@@ -82,25 +89,41 @@ public class CardService {
                 break;
         }
 
+        // 음성 파일 처리
+        CardVoiceRequest cardVoiceRequest = new CardVoiceRequest(card.getId().toString(),word+'.');
+        byte[] voice = restTemplate.postForObject("http://ai.e-eum.kr:8088/tts",cardVoiceRequest, byte[].class);
+        String voiceUrl = account.getId() + "/voice/" + card.getId()+".wav";
+        card.setVoiceUrl(voiceUrl);
+
+        File folder = new File(filePath + account.getId() + "/voice");
+        log.info(folder.mkdirs() ? "success make dir" : "fail make dir");
+
+        File file = new File(filePath + voiceUrl);
+        log.info(file.createNewFile() ? "success make file" : "fail make file");
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(voice);
+        fos.close();
+
+        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
+        AudioFormat format = audioInputStream.getFormat();
+        long audioFileLength = file.length();
+        int frameSize = format.getFrameSize();
+        float frameRate = format.getFrameRate();
+        float voiceLength = (audioFileLength / (frameSize * frameRate));
+        card.setVoiceLength(voiceLength);
+
         if (image != null && !image.isEmpty()) {
             String imageUrl = account.getId() + "/card/" + card.getId();
             card.setImageUrl(imageUrl);
-            cardRepository.save(card);
 
-            File folder = new File(filePath + account.getId() + "/card");
-            log.info(folder.mkdirs() ? "success make dir" : "fail make dir");
-
-            File file = new File(filePath + imageUrl);
+            file = new File(filePath + imageUrl);
             log.info(file.createNewFile() ? "success make file" : "fail make file");
-            FileOutputStream fos = new FileOutputStream(file);
+            fos = new FileOutputStream(file);
             fos.write(image.getBytes());
             fos.close();
         } else {
             card.setImageUrl(defaultPath);
         }
-
-
-        card.setVoiceUrl("2/voice/2.wav");
 
         return card.getId();
     }
@@ -131,14 +154,12 @@ public class CardService {
         return CardResponse.of(card);
     }
 
-    @Transactional
     public void updateCard(Long id, CardUpdateRequest cardUpdateRequest) {
         Card card = findCard(id);
         Card requestCard = cardUpdateRequest.toCard();
         card.update(requestCard);
     }
 
-    @Transactional
     public void deleteCard(Long id) {
         //TODO:계정 확인 로직 구현?
         List<AccountCard> accountCards = accountCardRepository.findByCardId(id);
@@ -160,7 +181,7 @@ public class CardService {
             for (QrCard qrCard : qrCards) {
                 qrCard.setCard(null);
                 qrCard.getQr().deleteQrCard(qrCard);
-                log.info("category card delete");
+                log.info("qr card delete");
             }
         }
         Card card = findCard(id);
@@ -175,7 +196,7 @@ public class CardService {
     }
 
     public List<CardResponse> searchCardByKeyword(Account account, String keyword) {
-        account = findAccount(account.getEmail());
+        account = findAccount(account == null ? defaultEmail : account.getEmail());
         List<Card> cards = new ArrayList<>();
         Set<String> words = new HashSet<>();
         accountCardRepository.findByKeyword(keyword, account).stream().filter(accountCard ->

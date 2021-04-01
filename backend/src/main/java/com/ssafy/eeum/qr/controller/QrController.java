@@ -32,7 +32,7 @@ public class QrController {
 
     @PostMapping("")
     @ApiOperation(value = "QR 등록",
-            notes = "QR코드로 등록할 이름을 입력받아 QR을 등록한다", response = ResponseEntity.class)
+            notes = "QR코드로 등록할 이름을 입력받아 QR을 등록한다")
     public ResponseEntity<Long> saveQr(@ApiIgnore @CurrentAccount Account account, @RequestBody @NotBlank QrInsertRequest qrInsertRequest) throws Exception {
         Long qrNo = null;
         qrNo = qrService.save(account, qrInsertRequest.getTitle());
@@ -40,28 +40,28 @@ public class QrController {
     }
 
     @GetMapping("")
-    @ApiOperation(value = "QR 목록 조회", notes = "유저의 QR 전체 목록을 조회한다.", response = ResponseEntity.class)
+    @ApiOperation(value = "QR 목록 조회", notes = "유저의 QR 전체 목록을 조회한다.")
     public ResponseEntity<List<QrResponse>> getQrList(@ApiIgnore @CurrentAccount Account account) {
         List<QrResponse> qrResponses = qrService.findList(account);
         return ResponseEntity.ok().body(qrResponses);
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "QR 이미지 조회", notes = "QR id를 받아 해당 QR의 데이터와 유저명을 조회한다", response = ResponseEntity.class)
+    @ApiOperation(value = "QR 이미지 조회", notes = "QR id를 받아 해당 QR의 데이터와 유저명을 조회한다")
     public ResponseEntity<QrResponse> getQr(@PathVariable @NotNull Long id) {
         QrResponse qrResponse = qrService.find(id);
         return ResponseEntity.ok().body(qrResponse);
     }
 
     @PutMapping("/{id}")
-    @ApiOperation(value = "QR 제목 수정", notes = "QR id를 받아 해당 QR의 제목을 수정한다", response = ResponseEntity.class)
+    @ApiOperation(value = "QR 제목 수정", notes = "QR id를 받아 해당 QR의 제목을 수정한다")
     public ResponseEntity<Void> updateQr(@PathVariable @NotNull Long id, @RequestBody @Valid QrUpdateRequest qrUpdateRequest) {
         qrService.updateQr(id, qrUpdateRequest);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
-    @ApiOperation(value = "QR 삭제", notes = "QR id를 받아 해당 QR을 삭제한다", response = ResponseEntity.class)
+    @ApiOperation(value = "QR 삭제", notes = "QR id를 받아 해당 QR을 삭제한다")
     public ResponseEntity<Void> deleteQr(@PathVariable @NotNull Long id) {
         qrService.deleteQr(id);
         return ResponseEntity.noContent().build();

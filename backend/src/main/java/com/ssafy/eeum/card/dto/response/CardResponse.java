@@ -12,16 +12,18 @@ public class CardResponse {
     private String word;
     private String imageUrl;
     private String voiceUrl;
+    private Float voiceLength;
 
-    public CardResponse(Long id, String word, String imageUrl, String voiceUrl) {
+    public CardResponse(Long id, String word, String imageUrl, String voiceUrl, Float voiceLength) {
         this.id = id;
         this.word = word;
         this.imageUrl = imageUrl;
         this.voiceUrl = voiceUrl;
+        this.voiceLength = voiceLength;
     }
 
     public static CardResponse of(Card card) {
-        return new CardResponse(card.getId(), card.getWord(), card.getImageUrl(), card.getVoiceUrl());
+        return new CardResponse(card.getId(), card.getWord(), card.getImageUrl(), card.getVoiceUrl(), card.getVoiceLength());
     }
 
     public static List<CardResponse> listOf(List<Card> cards) {

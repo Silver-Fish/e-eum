@@ -2,9 +2,7 @@ package com.ssafy.eeum.account.domain;
 
 import com.ssafy.eeum.card.domain.AccountCard;
 import com.ssafy.eeum.card.domain.Card;
-import com.ssafy.eeum.category.domain.AccountCategory;
 import com.ssafy.eeum.category.domain.Category;
-import com.ssafy.eeum.qr.domain.AccountQr;
 import com.ssafy.eeum.qr.domain.QR;
 import lombok.Builder;
 import lombok.Getter;
@@ -52,13 +50,7 @@ public class Account {
     private List<Category> categories = new ArrayList<>();
 
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval=true)
-    private List<AccountCategory> accountCategories = new ArrayList<>();
-
-    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval=true)
     private List<QR> qrs = new ArrayList<>();
-
-    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval=true)
-    private List<AccountQr> accountQrs = new ArrayList<AccountQr>();
 
     public Account() {}
 
@@ -83,8 +75,6 @@ public class Account {
     public void addAccountCard(AccountCard accountCard){
         accountCards.add(accountCard);
     }
-    public void addAccountCategory(AccountCategory accountCategory) { accountCategories.add(accountCategory); }
-    public void addAccountQr(AccountQr accountQr) { accountQrs.add(accountQr); }
                 
     public void addCategory(Category category) {
         categories.add(category);
@@ -97,5 +87,12 @@ public class Account {
     }
 
     public void deleteAccountCard(AccountCard accountCard){accountCards.remove(accountCard);}
-    public void deleteAccountQr(AccountQr accountQr){accountQrs.remove(accountQr);}
+
+    public void deleteCategory(Category category) {
+        categories.remove(category);
+    }
+
+    public void deleteQR(QR qr) {
+        qrs.remove(qr);
+    }
 }
