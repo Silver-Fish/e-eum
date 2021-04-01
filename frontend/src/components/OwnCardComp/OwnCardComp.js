@@ -9,14 +9,32 @@ const OwnCardComp = (props) => {
   const isEdit = props['isEdit']
   const cardName = props.textValue
   const cardId = props.cardId
+  const voiceUrl = `/data/${props.voiceUrl}`
   const imgUrl = `/data/${props.imgUrl}`
+  let audio = ""
 
-
-  const cardButtonClick = (e) => {    
+  const cardButtonClick = (e) => { 
     props.cardClick({
       cardName: {cardName}, 
-      imgUrl: {imgUrl}
+      imgUrl: {imgUrl},
+      voiceUrl: {voiceUrl}
     })
+    audio = new Audio(voiceUrl)
+    audio.load()
+    playAudio()   
+  }
+  const playAudio = () => {
+    const audioPromise = audio.play()
+    if (audioPromise !== undefined) {
+      audioPromise
+        .then(_ => {
+          // autoplay started
+        })
+        .catch(err => {
+          // catch dom exception
+          console.info(err)
+        })
+    }
   }
   
   const cardDeleteClick = (e) => {    

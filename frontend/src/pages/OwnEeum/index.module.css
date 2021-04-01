@@ -30,6 +30,8 @@ div {
   white-space:nowrap;
   overflow-x: scroll;
   overflow-y: hidden;
+  background-color: white;
+  border: 0;
 }
 
 .speech_cancel {
