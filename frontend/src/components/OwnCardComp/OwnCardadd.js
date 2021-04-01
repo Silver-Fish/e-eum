@@ -61,9 +61,11 @@ const OwnCardadd = (props) => {
           placeholder='카드 이름'/>
       </div>
 
+        <div className={styles.bottom_button}>
       <div className={styles.button_box}>
           <button className={styles.close_button} onClick={props.addStateChange}>취소</button>
           <button className={styles.add_button} onClick={addCard} >등록</button>
+        </div>
       </div>
     </>
   )

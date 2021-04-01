@@ -45,9 +45,11 @@ const OwnCardEdit = (props) => {
          />
       </div>
 
-      <div className={styles.button_box}>
+      <div className={styles.bottom_button}>
+        <div className={styles.button_box}>
           <button className={styles.close_button} onClick={props.goEditStateChange}>취소</button>
           <button className={styles.add_button} onClick={editCard} >등록</button>
+        </div>
       </div>    
     </>
   )

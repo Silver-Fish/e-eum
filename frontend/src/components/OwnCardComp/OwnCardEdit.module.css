@@ -86,3 +86,7 @@
   border: #8A9C3A solid 1px;
   border-radius: 3px;
 }
+.bottom_button{
+  position: fixed;
+  bottom: 0px;
+}

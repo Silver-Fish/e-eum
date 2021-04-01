@@ -89,3 +89,7 @@
   border-radius: 3px;
   font-family: inherit;
 }
+.bottom_button{
+  position: fixed;
+  bottom: 0px;
+}
