@@ -109,3 +109,36 @@
 .yellow {
   background-color: #F5DF4D;
 }
+.search_card_list_box {
+  width: 80vw;
+  height: 70vw;
+  border-radius: 5px;
+  background-color: #fff;
+  margin: 5vh auto;
+  position: relative;
+  border: 1px solid #000;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  overflow: scroll;
+  font-family: inherit;
+}
+/* .con {
+  width: 180px;
+  position: relative;
+  border: 1px solid
+ #ccc;
+}
+.con_input {
+  margin: 0 0 0 4px;
+  border: 0;
+}
+.con img {
+  display: block;
+  position: absolute;
+  top: 4px;
+  left: 164px;
+  cursor: pointer;
+} */
