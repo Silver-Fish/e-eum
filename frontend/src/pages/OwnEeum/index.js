@@ -22,12 +22,9 @@ const OwnEeum = () => {
   const [cardId, setCardId] = useState('') 
 
   const cardClick = (data) => {
-    
     setSpeechBoxDatas([...speechBoxDatas,
-      [data.cardName['textValue'], data.imgUrl['imgUrl']]
+      [data.cardName.cardName, data.imgUrl['imgUrl']]
     ]);
-    console.log(data)
-    console.log(speechBoxDatas)
   }
   const deleteClick = () => {
     speechBoxDatas.pop()
@@ -43,15 +40,10 @@ const OwnEeum = () => {
     }
   }
   useEffect(() => {
-    console.log("useeffect")
     const type = 'own'
-    // const params = {type: type}
     axios.get(process.env.REACT_APP_API_URL+`/card/${type}`,
     config)
     .then((res)=> {
-      console.log(res)
-      console.log(res.data)
-      console.log(res.data[0].imageUrl)
       setOwncardDatas(res.data)
     })
     .catch((err) => {
@@ -59,7 +51,6 @@ const OwnEeum = () => {
     })
   }, [])
   const editCard = () => {
-    console.log('edit')
     setEdit(!isEdit)
   }
   const OwnGoEdit = (data) => {
@@ -82,7 +73,6 @@ const OwnEeum = () => {
         isEdit={isEdit}
         goEdit={goEdit}
         OwnGoEdit = {OwnGoEdit}
-        // categoryCardEdit = {categoryCardEdit}
       >
       </OwnCardComp>
     )
@@ -91,7 +81,7 @@ const OwnEeum = () => {
     (speech, i) => (
       <SpeechBoxCard
       key={i} 
-      c={speech[0]} 
+      textValue={speech[0]} 
       imgUrl={speech[1]}
       ></SpeechBoxCard>
       )
@@ -154,27 +144,6 @@ const OwnEeum = () => {
               <OwnCardadd addStateChange={addCard}></OwnCardadd>
             </div>  
           )
-          // else if (isEdit ===true)
-          //   return(
-          //   <div>
-          //     <HeaderComp headertitle='나만의 이음'></HeaderComp>
-          //     <div className={styles.speech_box}>
-          //       <div className={styles.speech_item_box}>
-          //         { speechBoxList }
-          //       </div>
-          //       <button className={styles.speech_cancel}>
-          //         <img src="/images/close.svg" alt=""/>
-          //       </button> 
-          //     </div>
-          //     <div className={styles.owneeum_card_box}>
-          //       {owncardList}
-          //     </div>
-          //     <div className={styles.button_box}>
-          //       <button className={styles.add_button} onClick={addCard}>추가</button>
-          //       <button className={styles.update_button} onClick={editCard}>수정</button>
-          //     </div>
-          //   </div>
-          //   )
           else if(goEdit ===true)
             return(
               <>
