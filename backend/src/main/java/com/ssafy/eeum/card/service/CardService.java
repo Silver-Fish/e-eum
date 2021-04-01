@@ -69,7 +69,7 @@ public class CardService {
         cardRepository.save(card);
         switch (type) {
             case "own":
-                account = findAccount(account == null ? defaultEmail : account.getEmail());
+                account = findAccount(account.getEmail());
                 account.addAccountCard(AccountCard.createAccountCard(account, card));
                 break;
             case "category":
@@ -110,7 +110,7 @@ public class CardService {
         List<Card> cards = null;
         switch (type) {
             case "own":
-                account = findAccount(account.getEmail());
+                account = findAccount(account == null ? defaultEmail : account.getEmail());
                 cards = account.getCards();
                 break;
             case "category":
