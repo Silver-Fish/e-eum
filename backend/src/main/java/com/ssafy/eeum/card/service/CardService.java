@@ -90,6 +90,8 @@ public class CardService {
             fos.close();
         }
 
+        card.setVoiceUrl("2/voice/2.wav");
+
         return card.getId();
     }
 
