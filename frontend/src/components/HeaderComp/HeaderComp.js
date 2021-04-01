@@ -108,7 +108,11 @@ const HeaderComp = (props) => {
       ) : (
         <div className={styles.modal_box + " " + (headerColor === undefined ? '' : styles.yellow)}>
           <div className={styles.modal_header_box}>
-            <button className={styles.modal_header_button}>
+            <button 
+              className={styles.modal_header_button} 
+              onClick={function (e) {
+              setModal(!isModal);
+            }}>
               <img
                 className={styles.modal_header_button_image}
                 src="/images/hamburger.svg"

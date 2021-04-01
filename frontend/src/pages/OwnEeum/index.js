@@ -23,8 +23,15 @@ const OwnEeum = () => {
   const [cardId, setCardId] = useState('');
   const [token, setToken] = useState(sessionStorage.getItem('jwt'));
   const [cookies] = useCookies(['cookie']);
+  const [speechList, setSpeechList] = useState([])
+  let audio = ""
   const cardClick = (data) => {
-    setSpeechBoxDatas([...speechBoxDatas, [data.cardName.cardName, data.imgUrl['imgUrl']]]);
+    console.log(data)
+    setSpeechBoxDatas([...speechBoxDatas, 
+      [data.cardName.cardName, data.imgUrl['imgUrl'],data.voiceUrl.voiceUrl]]);
+      for(let i =0; i<speechBoxDatas.length; i++) {
+        setSpeechList(speechList=> [...speechList,speechBoxDatas[i][2]])
+      }
   };
   const deleteClick = () => {
     speechBoxDatas.pop();
@@ -72,6 +79,7 @@ const OwnEeum = () => {
       cardId={owncard.id}
       textValue={owncard.word}
       imgUrl={owncard.imageUrl}
+      voiceUrl={owncard.voiceUrl}
       cardClick={cardClick}
       isEdit={isEdit}
       goEdit={goEdit}
@@ -79,12 +87,40 @@ const OwnEeum = () => {
     ></OwnCardComp>
   ));
   const speechBoxList = speechBoxDatas.map((speech, i) => (
-    <SpeechBoxCard key={i} textValue={speech[0]} imgUrl={speech[1]}></SpeechBoxCard>
+    <SpeechBoxCard 
+      key={i} 
+      textValue={speech[0]} 
+      imgUrl={speech[1]}
+      voiceUrl={speech[2]}
+    ></SpeechBoxCard>
   ));
 
   const addCard = () => {
     setAdd(!isAdd);
   };
+  const speechClick = () => {
+    console.log(speechList)
+    console.log(speechList.length)
+    for(let i=0; i<speechList.length; i++) {
+      audio = new Audio(speechList[i])
+      audio.load()
+      playAudio()   
+
+    }
+  };
+  const playAudio = () => {
+    const audioPromise = audio.play()
+    if (audioPromise !== undefined) {
+      audioPromise
+        .then(_ => {
+          // autoplay started
+        })
+        .catch(err => {
+          // catch dom exception
+          console.info(err)
+        })
+    }
+  }
 
   const noLogin = () => {
     alert('로그인 해주세요');
@@ -99,11 +135,14 @@ const OwnEeum = () => {
             <div className={styles.owncard_box}>
               <HeaderComp headertitle="나만의 이음"></HeaderComp>
               <div className={styles.speech_box}>
-                <div className={styles.speech_item_box}>{speechBoxList}</div>
+                <>
+                <div className={styles.speech_item_box} onClick={speechClick}>{speechBoxList}</div>
+                {/* <div className={styles.speech_item_box} >{speechBoxList}</div> */}
 
                 <button onClick={deleteClick} className={styles.speech_cancel}>
                   <img src="/images/close.svg" alt="" />
                 </button>
+                </>
               </div>
 
               <div className={styles.owneeum_card_box}>{owncardList}</div>
