@@ -4,7 +4,7 @@ import styles from './SearchCardComp.module.css'
 const SearchCardComp = (props) => {
   console.log(props)
   const textValue = props.textValue
-  const imgUrl = props.imgUrl
+  const imgUrl = `/data/${props.imgUrl}`
   return(
     // <div className={styles.owneeum_card_box}>
       <button className={styles.card}>
