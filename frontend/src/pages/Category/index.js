@@ -25,7 +25,7 @@ const Category = () => {
   useEffect(()=> {
     axios.get(process.env.REACT_APP_API_URL + '/category', config)
     .then((res) =>{
-      setCategoryDatas(res.data.categories)
+      setCategoryDatas(res.data)
     })
     .catch((err) => {
       console.log(err)
@@ -49,7 +49,7 @@ const Category = () => {
   const [cardName, setCardName] = useState('')
   const [cardId, setCardId] = useState('') 
 
-  const [categoryDatas, setCategoryDatas] = useState([])
+  const [categoryDatas, setCategoryDatas] = useState([]);
 
   const [cardDatas, setCard] = useState([]);
   const [speechBoxDatas, setSpeechBoxDatas] = useState([]);

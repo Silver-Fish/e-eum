@@ -14,6 +14,7 @@ const Card = (props) => {
   const textValue = props.textValue 
   const cardUrl = process.env.REACT_APP_IMG_PATH+props.cardUrl
   const cardId = props.id
+  console.log(cardUrl)
 
   const cardButtonClick = (e) => {    
     props.cardClick({
