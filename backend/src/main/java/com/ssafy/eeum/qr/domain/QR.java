@@ -44,13 +44,12 @@ public class QR {
     @UpdateTimestamp
     private LocalDateTime updateDate;
 
-    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<AccountQr> accountQrs = new ArrayList<>();
 
     @Builder
-    public QR(String title, String qrUrl) {
+    public QR(String title, Account account) {
         this.title = title;
-        this.qrUrl = qrUrl;
+        this.account = account;
+        account.addQr(this);
     }
 
     public void setQrUrl(String qrUrl) {

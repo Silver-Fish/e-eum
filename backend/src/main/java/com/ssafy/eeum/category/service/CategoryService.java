@@ -2,7 +2,7 @@ package com.ssafy.eeum.category.service;
 
 import com.ssafy.eeum.account.domain.Account;
 import com.ssafy.eeum.account.repository.AccountRepository;
-import com.ssafy.eeum.category.domain.AccountCategory;
+import com.ssafy.eeum.card.domain.AccountCard;
 import com.ssafy.eeum.category.domain.Category;
 import com.ssafy.eeum.category.dto.request.CategoryUpdateRequest;
 import com.ssafy.eeum.category.dto.response.CategoriesResponse;
@@ -10,7 +10,6 @@ import com.ssafy.eeum.category.dto.response.CategoryResponse;
 import com.ssafy.eeum.category.repository.CategoryRepository;
 import com.ssafy.eeum.common.exception.ErrorCode;
 import com.ssafy.eeum.common.exception.NotFoundException;
-import com.ssafy.eeum.qr.domain.QR;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import org.springframework.transaction.annotation.Transactional;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
@@ -25,6 +25,7 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CategoryService {
 
     @Value("${file.path}")
@@ -40,25 +41,23 @@ public class CategoryService {
     private final AccountRepository accountRepository;
 
     // 카테고리 등록
-    @Transactional
     public Long save(Account account, String word, MultipartFile image) throws Exception {
-        Category category = Category.builder().word(word).build();
+        account = findAccount(account.getEmail());
+        Category category = Category.builder().word(word).account(account).build();
         categoryRepository.save(category);
 
-        if (image != null && !image.isEmpty()) {
-            account = findAccount(account.getEmail());
-            account.addAccountCategory(AccountCategory.createAccountCategory(account, category));
-            account.addCategory(category);
 
+
+        if (image != null && !image.isEmpty()) {
             String imageUrl = account.getId() + "/category/" + category.getId();
             category.setCategoryImageUrl(imageUrl);
             categoryRepository.save(category);
 
-            File folder = new File(filePath+account.getId() + "/category");
+            File folder = new File(filePath + account.getId() + "/category");
             log.info(folder.mkdirs() ? "success make dir" : "fail make dir");
 
-            File file = new File(filePath+imageUrl);
-            log.info(filePath+imageUrl);
+            File file = new File(filePath + imageUrl);
+            log.info(filePath + imageUrl);
             log.info(file.createNewFile() ? "success make file" : "fail make file");
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(image.getBytes());
@@ -66,7 +65,6 @@ public class CategoryService {
         } else {
             category.setCategoryImageUrl(defaultPath);
         }
-
 
         return category.getId();
     }
@@ -82,13 +80,14 @@ public class CategoryService {
 
     public CategoriesResponse searchCategory(String email) {
         Account account = accountRepository.findByEmail(email)
-                .orElseThrow(() -> {return new NotFoundException(ErrorCode.USER_NOT_FOUND);});
+                .orElseThrow(() -> {
+                    return new NotFoundException(ErrorCode.USER_NOT_FOUND);
+                });
         List<Category> categories = categoryRepository.findByAccount(account);
         return new CategoriesResponse(categories);
     }
 
     // 카테고리 수정
-    @Transactional
     public void updateCategory(Long id, CategoryUpdateRequest categoryUpdateRequest) {
         Category category = findById(id);
         Category requestCategory = categoryUpdateRequest.toCategory();
@@ -100,13 +99,32 @@ public class CategoryService {
     }
 
     // 카테고리 삭제
-    @Transactional
-    public void deleteCategory(Long id) { categoryRepository.deleteById(id); }
+    public void deleteCategory(Long id) {
+        Category category = findCategory(id);
+        Account account = category.getAccount();
+        account.deleteCategory(category);
+
+        File file = new File(filePath + category.getCategoryImageUrl());
+        if (file.exists()) {
+            log.info("file exist");
+            log.info(file.delete() ? "success image delete" : "fail image delete");
+        } else {
+            log.info("file not exist");
+        }
+        categoryRepository.deleteById(id);
+    }
 
     private Account findAccount(String email) {
         return accountRepository.findByEmail(email)
                 .orElseThrow(() -> {
                     return new NotFoundException(ErrorCode.USER_NOT_FOUND);
+                });
+    }
+
+    private Category findCategory(Long typeId) {
+        return categoryRepository.findById(typeId)
+                .orElseThrow(() -> {
+                    return new NotFoundException(ErrorCode.CATEGORY_NOT_FOUND);
                 });
     }
 }

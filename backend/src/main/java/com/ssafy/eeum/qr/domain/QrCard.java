@@ -27,7 +27,7 @@ public class QrCard {
     @JoinColumn(name = "qr_id")
     private QR qr;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "card_id")
     private Card card;
 
