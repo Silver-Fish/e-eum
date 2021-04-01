@@ -30,6 +30,12 @@ public class CategoryService {
     @Value("${file.path}")
     private String filePath;
 
+    @Value("${file.defaultpath}")
+    private String defaultPath;
+
+    @Value("${eeum.defaultemail}")
+    private String defaultEmail;
+
     private final CategoryRepository categoryRepository;
     private final AccountRepository accountRepository;
 
@@ -39,23 +45,28 @@ public class CategoryService {
         Category category = Category.builder().word(word).build();
         categoryRepository.save(category);
 
-        account = findAccount(account.getEmail());
-        account.addAccountCategory(AccountCategory.createAccountCategory(account, category));
-        account.addCategory(category);
+        if (image != null && !image.isEmpty()) {
+            account = findAccount(account.getEmail());
+            account.addAccountCategory(AccountCategory.createAccountCategory(account, category));
+            account.addCategory(category);
 
-        String imageUrl = account.getId() + "/category/" + category.getId();
-        category.setCategoryImageUrl(imageUrl);
-        categoryRepository.save(category);
+            String imageUrl = account.getId() + "/category/" + category.getId();
+            category.setCategoryImageUrl(imageUrl);
+            categoryRepository.save(category);
 
-        File folder = new File(filePath+account.getId() + "/category");
-        log.info(folder.mkdirs() ? "success make dir" : "fail make dir");
+            File folder = new File(filePath+account.getId() + "/category");
+            log.info(folder.mkdirs() ? "success make dir" : "fail make dir");
 
-        File file = new File(filePath+imageUrl);
-        log.info(filePath+imageUrl);
-        log.info(file.createNewFile() ? "success make file" : "fail make file");
-        FileOutputStream fos = new FileOutputStream(file);
-        fos.write(image.getBytes());
-        fos.close();
+            File file = new File(filePath+imageUrl);
+            log.info(filePath+imageUrl);
+            log.info(file.createNewFile() ? "success make file" : "fail make file");
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(image.getBytes());
+            fos.close();
+        } else {
+            category.setCategoryImageUrl(defaultPath);
+        }
+
 
         return category.getId();
     }
@@ -64,7 +75,7 @@ public class CategoryService {
     @Transactional(readOnly = true)
     public List<CategoryResponse> findList(Account account) {
         List<Category> categories = null;
-        account = findAccount(account.getEmail());
+        account = findAccount(account == null ? defaultEmail : account.getEmail());
         categories = account.getCategories();
         return CategoryResponse.listOf(categories);
     }

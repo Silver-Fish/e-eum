@@ -45,8 +45,15 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 public class CardService {
+
     @Value("${file.path}")
     private String filePath;
+
+    @Value("${file.defaultpath}")
+    private String defaultPath;
+
+    @Value("${eeum.defaultemail}")
+    private String defaultEmail;
 
     private final CardRepository cardRepository;
     private final CategoryRepository categoryRepository;
@@ -75,7 +82,7 @@ public class CardService {
                 break;
         }
 
-        if (image != null) {
+        if (image != null && !image.isEmpty()) {
             String imageUrl = account.getId() + "/card/" + card.getId();
             card.setImageUrl(imageUrl);
             cardRepository.save(card);
@@ -88,7 +95,10 @@ public class CardService {
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(image.getBytes());
             fos.close();
+        } else {
+            card.setImageUrl(defaultPath);
         }
+
 
         card.setVoiceUrl("2/voice/2.wav");
 
@@ -100,7 +110,7 @@ public class CardService {
         List<Card> cards = null;
         switch (type) {
             case "own":
-                account = findAccount(account.getEmail());
+                account = findAccount(account == null ? defaultEmail : account.getEmail());
                 cards = account.getCards();
                 break;
             case "category":
