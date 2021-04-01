@@ -267,10 +267,12 @@ const Category = () => {
               <div className={styles.card_box}>
                 {cardList}
               </div>
-              <div className={styles.button_box}>
-                <button className={styles.add_button} onClick={cardAddClick}>추가</button>
-                <button className={styles.update_button} onClick={cardEditClick}>수정</button>
-              </div> 
+              <div className={styles.bottom_button}>
+                <div className={styles.button_box}>
+                  <button className={styles.add_button} onClick={cardAddClick}>추가</button>
+                  <button className={styles.update_button} onClick={cardEditClick}>수정</button>
+                </div> 
+              </div>
             </>
           );
           if (isCardAdd === true)

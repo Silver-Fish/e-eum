@@ -9,8 +9,6 @@ const OwnCardadd = (props) => {
   const [imgFile, setImgFile] = useState()
   const [cardName, setCardName] = useState()
   const onImageChange = function (e) {
-    console.log(situationImg)
-    console.log(e.target.value)
     setImgFile(e.target.files[0])
     setImg(URL.createObjectURL(e.target.files[0]))
   }

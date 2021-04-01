@@ -5,7 +5,6 @@ import axios from 'axios'
 
 const OwnCardComp = (props) => {
   const history = useHistory();
-  // const isEdit = props['isEdit']
   const goEdit = useState(false)[0]
   const isEdit = props['isEdit']
   const cardName = props.textValue
@@ -33,14 +32,11 @@ const OwnCardComp = (props) => {
       history.go(0)
     })
     .catch((err) => {
-      console.log('오류야')
       console.log(err)
     })
     
   }
   const cardEditClick = (e) => {
-    console.log("수정하기")
-    console.log(goEdit)
     props.OwnGoEdit({state:!goEdit,id:cardId, url:imgUrl, name: {cardName}['cardName']})
   }
   
@@ -50,7 +46,6 @@ const OwnCardComp = (props) => {
         ?
         <button className={styles.card} onClick={cardButtonClick}>
           <img className={styles.card_image} src={imgUrl} alt=""/>
-          {/* <img className={styles.card_image} src={imgFile} alt=""/> */}
             {cardName}
         </button>
         :

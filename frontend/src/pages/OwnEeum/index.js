@@ -28,21 +28,17 @@ const OwnEeum = () => {
   }
   const deleteClick = () => {
     speechBoxDatas.pop()
-    console.log(speechBoxDatas)
     setSpeechBoxDatas([...speechBoxDatas])
     
   }
-
-  const token = sessionStorage.getItem('jwt')
-  const config = {
-    headers: {
-      'Authorization': token
-    }
-  }
   useEffect(() => {
     const type = 'own'
-    axios.get(process.env.REACT_APP_API_URL+`/card/${type}`,
-    config)
+    const token = sessionStorage.getItem('jwt')
+    axios.get(process.env.REACT_APP_API_URL+`/card/${type}`,{
+      headers: {
+        'Authorization': token
+      }
+    })
     .then((res)=> {
       setOwncardDatas(res.data)
     })
