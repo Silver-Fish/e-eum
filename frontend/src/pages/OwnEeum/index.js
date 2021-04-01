@@ -28,7 +28,6 @@ const OwnEeum = () => {
     ]);
     console.log(data)
     console.log(speechBoxDatas)
-    console.log(speechBoxList)
   }
   const deleteClick = () => {
     speechBoxDatas.pop()
@@ -92,7 +91,7 @@ const OwnEeum = () => {
     (speech, i) => (
       <SpeechBoxCard
         key={i} 
-        textValue={speech[0]} 
+        c={speech[0]} 
         imgUrl={speech[1]}
       ></SpeechBoxCard>
     )
