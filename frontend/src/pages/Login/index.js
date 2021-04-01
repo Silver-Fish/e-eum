@@ -14,7 +14,7 @@ const Login = () => {
   const [autoLogin, setAutoLogin] = useState('');
   const history = useHistory();
 
-  const [cookies, setCookie] = useCookies(['cookie']);
+  const [cookies, setCookie] = useCookies(['cookie']); // eslint-disable-line no-unused-vars
 
   const setCookieFunc = () => {
     setCookie('cookie', sessionStorage.getItem('jwt'), { maxAge: 2000 });
@@ -69,7 +69,7 @@ const Login = () => {
       <form className={styles.MainForm} onSubmit={onSubmitHandler}>
         <InputComp type="email" placeholder="이메일" InputChange={onEmailHandler} />
         <InputComp type="password" placeholder="비밀번호" InputChange={onPasswordHandler} />
-        
+
         <input
           className={styles.input_check}
           type="checkbox"
@@ -87,7 +87,6 @@ const Login = () => {
           로그인
         </button>
       </form>
-
     </div>
   );
 };
