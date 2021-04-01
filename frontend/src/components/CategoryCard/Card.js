@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import styles from './CategoryCard.module.css';
+import styles from './Card.module.css';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 

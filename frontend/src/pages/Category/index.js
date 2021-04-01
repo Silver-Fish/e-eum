@@ -10,11 +10,12 @@ import CategoryEdit from '../../components/CategoryCard/CategoryEdit'
 import CardAdd from '../../components/CategoryCard/CardAdd'
 import CardEdit from '../../components/CategoryCard/CardEdit'
 import axios from 'axios'
-
+import { useHistory } from 'react-router-dom';
 
 
 const Category = () => {
-  
+  const history = useHistory();
+  const checkLogin = sessionStorage.getItem('jwt')
   const token = sessionStorage.getItem('jwt')
   const config = {
     headers: {
@@ -175,6 +176,10 @@ const Category = () => {
     )
   )
 
+  const noLogin = () => {
+    alert('로그인 해주세요')
+    history.push('./login');
+  }
 
   return (
     <>
@@ -201,22 +206,32 @@ const Category = () => {
                 </div>
                         
                 <div className={styles.button_box}>
-                  <button className={styles.add_button} onClick={addStateChange}>추가</button>
-                  <button className={styles.update_button} onClick={categoryEditClick}>수정</button>
+                  { checkLogin !== null
+                  ?
+                    <>
+                      <button className={styles.add_button} onClick={addStateChange}>추가</button>
+                      <button className={styles.update_button} onClick={categoryEditClick}>수정</button>
+                    </>
+                    :
+                    <>
+                      <button className={styles.add_button} onClick={noLogin}>추가</button>
+                      <button className={styles.update_button} onClick={noLogin}>수정</button>
+                    </>
+                  }
                 </div>
               </>
             );
           if (isCategoryAdd === true)
             return(
               <>
-                <HeaderComp heardertitle='상황 추가'></HeaderComp>
+                <HeaderComp headertitle='상황 추가'></HeaderComp>
                 <CategoryAdd addStateChange={addStateChange}></CategoryAdd>
               </>
             );
           if (isCategoryCardEdit === true)
             return(
               <>
-                <HeaderComp heardertitle='상황 수정'></HeaderComp>
+                <HeaderComp headertitle='상황 수정'></HeaderComp>
                 
 
                 <CategoryEdit 

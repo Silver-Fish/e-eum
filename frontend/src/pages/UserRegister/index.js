@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ImgboxTitle from '../../components/Image/ImgboxTitle';
+
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import HeaderComp from '../../components/HeaderComp/HeaderComp';
@@ -105,12 +105,13 @@ const UserRegister = () => {
   };
 
   return (
-    <div>
-      <HeaderComp />
-      <ImgboxTitle src="/images/RegisterImage.PNG" />
+    <div className={styles.register_box}>
+      <HeaderComp headertitle="회원가입" />
+      <div className={styles.register_title}>회원가입</div>
 
-      <form onSubmit={onSubmitHandler}>
-        <div className={styles.formCheck}>
+      <form className={styles.MainForm} onSubmit={onSubmitHandler}>
+        
+        <div className={styles.email_box}>
           <input
             className={styles.inputEmail}
             value={email}
@@ -118,34 +119,62 @@ const UserRegister = () => {
             placeholder="이메일"
             onChange={onEmailHandler}
           />
-          <button className={styles.checkEmail} onClick={onEmailCheck}>
-            중복확인
-          </button>
+          
+          <div className={styles.checkEmail}>
+            <button onClick={onEmailCheck}>
+              <pr>
+                중복
+                확인
+              </pr>
+            </button>
+          </div>
         </div>
-        <br />
-        <input value={name} type="text" placeholder="이름" onChange={onNameHandler} />
-        <br />
-        <input
-          value={password}
-          type="password"
-          placeholder="비밀번호"
-          onChange={onPasswordHandler}
-        />
-        <br />
-        <input
-          value={passwordcheck}
-          type="password"
-          placeholder="비밀번호 확인"
-          onChange={onPasswordCheckHandler}
-        />
-        <br />
-        <p>{message}</p>
-        <br />
-        <button type="submit">회원가입</button>
-        <button className={styles.Button_cancel} onClick={onCancelButton}>
-          취소
-        </button>
+
+
+        <div className={styles.name_box}>
+          <input 
+            className={styles.input_name}
+            value={name} 
+            type="text" 
+            placeholder="이름" 
+            onChange={onNameHandler} 
+            />
+        </div>
+
+
+        <div className={styles.password_box}>
+          <input
+            className={styles.input_password}
+            value={password}
+            type="password"
+            placeholder="비밀번호"
+            onChange={onPasswordHandler}
+          />
+        </div>
+
+        <div className={styles.password_check_box}>
+          <input
+            className={styles.input_password_check}
+            value={passwordcheck}
+            type="password"
+            placeholder="비밀번호 확인"
+            onChange={onPasswordCheckHandler}
+          />
+          <p>{message}</p>
+        </div>
+
+        
+        <button 
+          className={styles.register_button} 
+          type="submit">
+        회원가입</button>
+
+        <button 
+          className={styles.cancel_button} 
+          onClick={onCancelButton}>
+        취소</button>
       </form>
+
     </div>
   );
 };

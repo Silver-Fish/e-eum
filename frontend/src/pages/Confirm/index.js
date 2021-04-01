@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ImgboxTitle from '../../components/Image/ImgboxTitle';
+import HeaderComp from '../../components/HeaderComp/HeaderComp';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import styles from './index.module.css';
@@ -31,27 +31,37 @@ const Confirm = () => {
   };
 
   return (
-    <div>
-      <ImgboxTitle src="/images/confirmImage.PNG" />
+    <div className={styles.password_confirm_box}>
+      <HeaderComp headertitle="비밀번호 확인" />
+      <div className={styles.password_confirm_title}>비밀번호 확인</div>
 
-      <form onSubmit={onSubmitHandler}>
-        <input
-          type="password"
-          placeholder="비밀번호 확인"
-          value={password}
-          onChange={onPasswordHandler}
-        />
-        <br />
-        <button type="submit">확인</button>
+      <form className={styles.MainForm} onSubmit={onSubmitHandler}>
+        <div className={styles.password_box}>        
+          <input
+            className={styles.input_password_confirm}
+            type="password"
+            placeholder="비밀번호 확인"
+            value={password}
+            onChange={onPasswordHandler}
+          />
+        </div>
+
+        <button 
+          className={styles.check_button}
+          type="submit">
+        확인</button>
+        
+        <button
+          className={styles.cancel_button}
+          onClick={(e) => {
+            history.push('/mypage');
+          }}
+        >취소</button>
+
       </form>
-      <button
-        className={styles.Button_Cancel}
-        onClick={(e) => {
-          history.push('/mypage');
-        }}
-      >
-        취소
-      </button>
+
+
+
     </div>
   );
 };

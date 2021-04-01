@@ -33,6 +33,10 @@ div {
 }
 
 
+.speech_cancel img {
+  width: 100%;
+  height: 100%;
+}
 .qr_card_box {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

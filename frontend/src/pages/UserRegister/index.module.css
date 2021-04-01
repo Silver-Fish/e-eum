@@ -1,69 +1,156 @@
-form button {
+div {
+  font-size: 18px;
+}
+
+
+.register_box {
+  height: 100%;
+  width: 100%;
+}
+
+.register_title {
+  margin: 20% auto;
+  height: 15%;
+  font-size: 5rem;
+  color: #8a9c3a;
+  text-shadow: 
+    -3px 0 #F5DF4D, 
+    0 3px #F5DF4D, 
+    3px 0 #F5DF4D, 
+    0 -3px #F5DF4D;
+}
+
+.MainForm {
+  height: 50%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.email_box {
+  height: 10%;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}
+
+
+.inputEmail {
+  font-family: inherit;
+  width: 85%;
+  height: 100%;
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+
+.checkEmail {
+  display: block;
+  font-family: inherit;
+  font-size: 5px;
+  width: 15%;
+  height: 100%;
+  border-radius: 5px;
+  margin: 0;
+  padding-left: 1%;
+  box-sizing: border-box;
+  
+}
+
+.checkEmail button {
+  font-family: inherit;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+  background-color: #8a9c3a;
+  border-radius: 5px;
+  color: #fff;
+  border: 0;
+}
+
+
+
+
+.name_box {
+  height: 10%;
+  width: 80%;
+  margin: 5% auto
+}
+
+
+.input_name {
+  font-family: inherit;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.password_box {
+  height: 10%;
+  width: 80%;
+  margin: 5% auto
+}
+
+
+.input_password {
+  font-family: inherit;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+
+.password_check_box {
+  height: 10%;
+  width: 80%;
+  margin: 5% auto
+}
+
+
+.input_password_check {
+  font-family: inherit;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.password_check_box p {
+  text-align: right;
+  color: red;
+  font-size: 5px;
+}
+
+
+.register_button {
   display: block;
   font-size: inherit;
+  font-family: inherit;
   text-align: center;
-  width: 50%;
-  height: 50%;
+  color: #fff;
+  width: 80%;
+  height: 10%;
   background-color: #8a9c3a;
   border: 2px solid #8a9c3a;
   border-radius: 5px;
   margin: 20px auto;
 }
 
-form input {
+.cancel_button {
   display: block;
   font-size: inherit;
-  margin: 2px auto;
-  box-sizing: border-box;
-  padding: 0px;
-  width: 60vw;
-}
-div {
-  font-size: 18px;
-}
-
-.MainForm {
-  display: inline-block;
-  margin-top: 50px;
-}
-
-p {
-  color: red;
-  font-size: 12px;
-}
-
-.formCheck {
-  font-size: 18px;
-  display: flex;
-  justify-content: center;
-  width: 60vw;
-  margin: auto;
-  box-sizing: border-box;
-  padding: 0px;
-}
-
-.inputEmail {
-  margin: 0px;
-  width: 82%;
-}
-
-.checkEmail {
-  font-size: 5px;
-  width: 18%;
+  font-family: inherit;
+  text-align: center;
+  color: #fff;
+  width: 80%;
+  height: 10%;
   background-color: #8a9c3a;
   border: 2px solid #8a9c3a;
   border-radius: 5px;
-  margin: auto 0px auto 4px;
+  margin: 20px auto;
 }
 
-.Button_cancel {
-  display: block;
-  font-size: inherit;
-  text-align: center;
-  width: 50%;
-  height: 50%;
-  background-color: #ffffff;
-  border: 2px solid #8a9c3a;
-  border-radius: 5px;
-  margin: 5px auto;
-}
+

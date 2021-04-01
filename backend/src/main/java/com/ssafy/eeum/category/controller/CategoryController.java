@@ -32,7 +32,7 @@ public class CategoryController {
     @ApiOperation(value = "카테고리 등록",
             notes = "카테고리 정보를 전달받아 새 카테고리 등록",
             response = ResponseEntity.class)
-    public ResponseEntity<Long> saveCategory(@CurrentAccount Account account, String word, MultipartFile image) throws Exception {
+    public ResponseEntity<Long> saveCategory(@ApiIgnore @CurrentAccount Account account, String word, MultipartFile image) throws Exception {
         Long categoryNo = null;
         categoryNo = categoryService.save(account, word, image);
         return ResponseEntity.ok().body(categoryNo);

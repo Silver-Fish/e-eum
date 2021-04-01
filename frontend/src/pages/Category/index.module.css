@@ -28,12 +28,13 @@ div {
   border: 0px;
   background-color: transparent; 
   padding: 0;
+  height: 5vh;
 }
 
 .control_box img {
   padding: 5% 0;
-  width: 100%;
-  height: 100%;
+  width: 4vh%;
+  height: 4vh;
   box-sizing: border-box;
   
 }
@@ -81,6 +82,7 @@ div {
   font-size: inherit;
   border: #8A9C3A solid 1px;
   border-radius: 3px;
+  font-family: inherit;
 }
 .update_button {
   width: 50vw;
@@ -91,6 +93,7 @@ div {
   font-size: inherit;
   border: #8A9C3A solid 1px;
   border-radius: 3px;
+  font-family: inherit;
 }
 
 

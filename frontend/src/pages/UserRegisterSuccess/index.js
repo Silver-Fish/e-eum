@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import ImgboxTitle from '../../components/Image/ImgboxTitle';
-import Imgbox from '../../components/Image/Imgbox';
+import HeaderComp from '../../components/HeaderComp/HeaderComp';
 import UserButtonComp from '../../components/ButtonComp/UserButtonComp';
+import styles from './index.module.css';
 
 const UserRegisterSuccess = () => {
   const history = useHistory();
@@ -12,10 +12,12 @@ const UserRegisterSuccess = () => {
     }, 3000);
   });
   return (
-    <div>
-      <ImgboxTitle src="/images/userRegisterSuccess.PNG" />
-      <Imgbox src="/images/cat.PNG" />
-      <UserButtonComp textValue="로그인 하러가기" handleClick="login"></UserButtonComp>
+    <div className={styles.success_box}>
+      <HeaderComp headertitle="회원가입 완료" />
+      <div className={styles.success_title}>회원가입 완료</div>
+      <div className={styles.go_login_box}>
+        <UserButtonComp textValue="로그인 하러가기" handleClick="login"></UserButtonComp>
+      </div>
     </div>
   );
 };

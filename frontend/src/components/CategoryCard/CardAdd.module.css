@@ -1,5 +1,5 @@
 .add_box {
-  height: 80vh;
+  height: 85vh;
   background-color: #fff;
   display: flex;
   flex-wrap: wrap;  
@@ -16,8 +16,7 @@
   background-color: #fff;
   margin: 5vh auto;
   position: relative;
-  border: 1px solid #000;
-  
+  border: 1px solid #000;  
 }
 
 .image_box img{
@@ -62,6 +61,7 @@
   margin: 0;
   border: 0px;
   border-bottom: 1px solid #000;
+  font-family: inherit;
 }
 
 .card_input_box img {
@@ -84,7 +84,7 @@
   border: #8A9C3A solid 1px;
   border-radius: 3px;
 }
-.add_button {
+.register_button {
   width: 50vw;
   padding: 0;
   color: white;

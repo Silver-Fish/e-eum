@@ -1,7 +1,7 @@
 .header_box {
   display: flex;
   justify-content: space-between;
-  height: 10vh;
+  height: 10%;
   box-sizing: border-box;
   background-color: #8A9C3A;
   margin: 0px;
@@ -10,10 +10,10 @@
 
 
 .header_image {
-  margin-left: 10px;
-  margin-top: 10px;
-  width: 6vh;
-  height: 6vh;
+  margin: auto 0;
+  margin-left: 5%;
+  width: 15%;
+  height: 60%;
 }
 
 .header_title {
@@ -24,10 +24,10 @@
 }
 
 .header_button {
-  margin-right: 10px;
-  margin-top: 10px;
-  width: 6vh;
-  height: 6vh;
+  margin: auto 0;
+  margin-right: 5%;
+  width: 15%;
+  height: 60%;
   border: none;
   background: transparent;
 }
@@ -46,13 +46,14 @@
   height: 100vh;
   width: 100vw;
   z-index: 1;
-  
 }
 
 .modal_header_box {
   display: flex;
   justify-content: space-between;
   margin: 0 10px;
+
+
 }
 
 .modal_header_button {
@@ -61,6 +62,7 @@
   height: 6vh;
   border: none;
   background: transparent;
+  font-family: inherit;
 }
 
 .modal_header_button_image {
@@ -80,17 +82,20 @@
   border-radius: 20px;
   padding-left: 10px;
   box-shadow: 5px 5px;
+  font-family: inherit;
  }
 
 .modal_list {
   text-align: left;
   /* margin-top: 5vh; */
   margin: 5vh;
+  font-family: inherit;
 }
 
 .modal_list_line {
   border-bottom: 1px solid black;
   margin-top: 3vh;
+  font-family: inherit;
 }
 
 .modal_button {
@@ -98,6 +103,7 @@
   /* background-color: white; */
   background: transparent;
   font-size: inherit;
+  font-family: inherit;
 }
 
 .yellow {

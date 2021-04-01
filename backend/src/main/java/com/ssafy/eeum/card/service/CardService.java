@@ -14,7 +14,10 @@ import com.ssafy.eeum.category.repository.CategoryCardRepository;
 import com.ssafy.eeum.category.repository.CategoryRepository;
 import com.ssafy.eeum.common.exception.ErrorCode;
 import com.ssafy.eeum.common.exception.NotFoundException;
-import com.sun.xml.bind.v2.TODO;
+import com.ssafy.eeum.qr.domain.QR;
+import com.ssafy.eeum.qr.domain.QrCard;
+import com.ssafy.eeum.qr.repository.QrCardRepository;
+import com.ssafy.eeum.qr.repository.QrRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,7 +27,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * com.ssafy.eeum.card.service
@@ -47,6 +53,8 @@ public class CardService {
     private final AccountRepository accountRepository;
     private final AccountCardRepository accountCardRepository;
     private final CategoryCardRepository categoryCardRepository;
+    private final QrRepository qrRepository;
+    private final QrCardRepository qrCardRepository;
 
     @Transactional
     public Long save(Account account, String type, Long typeId, String word, MultipartFile image) throws Exception {
@@ -62,6 +70,8 @@ public class CardService {
                 category.addCategoryCard(CategoryCard.createCategoryCard(category, card));
                 break;
             case "qr":
+                QR qr = findQR(typeId);
+                qr.addQRCard(QrCard.createQRCard(qr,card));
                 break;
         }
 
@@ -96,6 +106,8 @@ public class CardService {
                 cards = category.getCards();
                 break;
             case "qr":
+                QR qr = findQR(typeId);
+                cards = qr.getCards();
                 break;
         }
         return CardResponse.listOf(cards);
@@ -119,6 +131,7 @@ public class CardService {
         //TODO:계정 확인 로직 구현?
         List<AccountCard> accountCards = accountCardRepository.findByCardId(id);
         List<CategoryCard> categoryCards = categoryCardRepository.findByCardId(id);
+        List<QrCard> qrCards = qrCardRepository.findByCardId(id);
         if (accountCards.size() != 0) {
             for (AccountCard accountCard : accountCards) {
                 accountCard.setCard(null);
@@ -131,6 +144,12 @@ public class CardService {
                 categoryCard.getCategory().deleteCategoryCard(categoryCard);
                 log.info("category card delete");
             }
+        } else if (qrCards.size()!=0){
+            for (QrCard qrCard : qrCards) {
+                qrCard.setCard(null);
+                qrCard.getQr().deleteQrCard(qrCard);
+                log.info("category card delete");
+            }
         }
         Card card = findCard(id);
         File file = new File(filePath + card.getImageUrl());
@@ -141,6 +160,25 @@ public class CardService {
             log.info("file not exist");
         }
         cardRepository.deleteById(id);
+    }
+
+    public List<CardResponse> searchCardByKeyword(Account account, String keyword) {
+        account = findAccount(account.getEmail());
+        List<Card> cards = new ArrayList<>();
+        Set<String> words = new HashSet<>();
+        accountCardRepository.findByKeyword(keyword, account).stream().filter(accountCard ->
+                !words.contains(accountCard.getCard().getWord()) && cards.size() < 4
+        ).forEach(accountCard -> {
+            words.add(accountCard.getCard().getWord());
+            cards.add(accountCard.getCard());
+        });
+        categoryCardRepository.findByKeyword(keyword, account).stream().filter(categoryCard ->
+                !words.contains(categoryCard.getCard().getWord()) && cards.size() < 4
+        ).forEach(categoryCard -> {
+            words.add(categoryCard.getCard().getWord());
+            cards.add(categoryCard.getCard());
+        });
+        return CardResponse.listOf(cards);
     }
 
     private Card findCard(Long id) {
@@ -161,6 +199,13 @@ public class CardService {
         return accountRepository.findByEmail(email)
                 .orElseThrow(() -> {
                     return new NotFoundException(ErrorCode.USER_NOT_FOUND);
+                });
+    }
+
+    private QR findQR(Long typeId){
+        return qrRepository.findById(typeId)
+                .orElseThrow(() -> {
+                    return new NotFoundException(ErrorCode.QR_NOT_FOUND);
                 });
     }
 }

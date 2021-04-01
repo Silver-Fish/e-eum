@@ -37,3 +37,8 @@
     transform: rotate(360deg);
   }
 }
+
+@font-face {
+  font-family: "maple";
+  src: url("./font/Maplestory\ Light.ttf")
+}

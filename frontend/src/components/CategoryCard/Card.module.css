@@ -1,4 +1,5 @@
 .card {
+  position: relative;
   background-color: white;
   border: 1px solid black;
   border-radius: 5px;
@@ -6,6 +7,52 @@
   width: 90%;
   height: 30vw;
   margin: 1vh auto;
+  font-family: inherit;
+}
+
+.card_is_edit {
+  position: relative;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 90%;
+  height: 30vw;
+  margin: 1vh auto;
+  -webkit-animation: moveSlideshow .3s linear infinite; 
+  font-family: inherit;
+}
+
+@keyframes moveSlideshow {
+  50% { 
+    transform: rotate(1deg);  
+  }
+  100% { 
+    transform: rotate(-1deg);  
+  }
+}
+
+
+.card_del_box {
+  position: absolute;
+  right: -5px;
+  top: -5px;
+  width: 8vw;
+  height: 8vw;
+  border: 1px solid #000;
+  background-color: red;
+  border-radius: 8vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: inherit;
+}
+
+.card_del_box img{
+  position: relative;
+  width: 80%;
+  height: 80%;
+  z-index: 2;
+  font-family: inherit;
 }
 
 .card_image {

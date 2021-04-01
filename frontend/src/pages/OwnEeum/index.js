@@ -3,29 +3,31 @@ import styles from './index.module.css'
 import OwnCardComp from '../../components/OwnCardComp/OwnCardComp';
 import SpeechBoxCard from '../../components/OwnCardComp/SpeechBoxCard';
 import OwnCardadd from '../../components/OwnCardComp/OwnCardadd';
+import OwnCardEdit from '../../components/OwnCardComp/OwnCardEdit';
 // import Card from '../../components/OwnCardComp/Card';
 import HeaderComp from '../../components/HeaderComp/HeaderComp'
 import axios from 'axios';
-
+import { useHistory } from 'react-router-dom';
 
 const OwnEeum = () => {
+  const history = useHistory();
+  const checkLogin = sessionStorage.getItem('jwt')
   const [isAdd, setAdd] = useState(false);
   const [isEdit, setEdit] = useState(false);
-  // const [cardUrl, setCardUrl] = useState('')
-  // const cardUrl = useState([0])
+  const [goEdit, setgoEdit] = useState(false);
   const [owncardDatas, setOwncardDatas] = useState([0])
-  // const owncardDatas = useState([0])
-
-  // const [cardDatas, setCard] = useState([]);
   const [speechBoxDatas, setSpeechBoxDatas] = useState([]);
+  const [imgUrl, setimgUrl] = useState('')
+  const [cardName, setCardName] = useState('')
+  const [cardId, setCardId] = useState('') 
 
   const cardClick = (data) => {
     
     setSpeechBoxDatas([...speechBoxDatas,
       [data.cardName['textValue'], data.imgUrl['imgUrl']]
     ]);
+    console.log(data)
     console.log(speechBoxDatas)
-    console.log(speechBoxList)
   }
   const deleteClick = () => {
     speechBoxDatas.pop()
@@ -33,6 +35,7 @@ const OwnEeum = () => {
     setSpeechBoxDatas([...speechBoxDatas])
     
   }
+
   const token = sessionStorage.getItem('jwt')
   const config = {
     headers: {
@@ -55,15 +58,30 @@ const OwnEeum = () => {
       console.log(err)
     })
   }, [])
-
+  const editCard = () => {
+    console.log('edit')
+    setEdit(!isEdit)
+  }
+  const OwnGoEdit = (data) => {
+    setgoEdit(data.state)
+    setimgUrl(data.url)
+    setCardName(data.name)
+    setCardId(data.id)
+  }
+  const goEditStateChange = () => {
+    setgoEdit(!goEdit)
+  }
   const owncardList = owncardDatas.map(
     (owncard,i) => (
       <OwnCardComp 
         key={i} 
+        cardId={owncard.id}
         textValue={owncard.word}
         imgUrl={owncard.imageUrl}
-        isEdit={isEdit}
         cardClick={cardClick}
+        isEdit={isEdit}
+        goEdit={goEdit}
+        OwnGoEdit = {OwnGoEdit}
         // categoryCardEdit = {categoryCardEdit}
       >
       </OwnCardComp>
@@ -73,7 +91,7 @@ const OwnEeum = () => {
     (speech, i) => (
       <SpeechBoxCard
         key={i} 
-        textValue={speech[0]} 
+        c={speech[0]} 
         imgUrl={speech[1]}
       ></SpeechBoxCard>
     )
@@ -82,19 +100,19 @@ const OwnEeum = () => {
   const addCard = () => {
     setAdd(!isAdd)
   }
-  const editCard = () => {
-    console.log('edit')
-    setEdit(!isEdit)
-    
+
+  const noLogin = () => {
+    alert('로그인 해주세요')
+    history.push('./login');
   }
   
   return (
     <>
       {
         (() => {
-          if (isAdd !== true && isEdit !== true) 
+          if (isAdd !== true && goEdit !== true) 
             return (
-            <div>
+            <div className={styles.owncard_box}>
             <HeaderComp headertitle='나만의 이음'></HeaderComp>
             <div className={styles.speech_box}>
                <div className={styles.speech_item_box}>
@@ -110,42 +128,62 @@ const OwnEeum = () => {
             {owncardList}
             </div>
             <div className={styles.button_box}>
-            <button className={styles.add_button} onClick={addCard}>추가</button>
-            <button className={styles.update_button} onClick={editCard}>수정</button>
+              { checkLogin !== null
+                ?
+              <>
+                <div className={styles.bottom_button}>
+                  <button className={styles.add_button} onClick={addCard}>추가</button>
+                  <button className={styles.update_button} onClick={editCard}>수정</button>
+                </div>
+              </>
+              :
+              <>
+                <button className={styles.add_button} onClick={noLogin}>추가</button>
+                <button className={styles.update_button} onClick={noLogin}>수정</button>
+              </>
+              }
             </div>
             </div>
             )
           else if (isAdd ===true)
             return(
             <div>
-            <HeaderComp headertitle='카드 추가'></HeaderComp>
-            <OwnCardadd addStateChange={addCard}></OwnCardadd>
+              <HeaderComp headertitle='카드 추가'></HeaderComp>
+              <OwnCardadd addStateChange={addCard}></OwnCardadd>
             </div>  
           )
-          else if (isEdit ===true)
+          // else if (isEdit ===true)
+          //   return(
+          //   <div>
+          //     <HeaderComp headertitle='나만의 이음'></HeaderComp>
+          //     <div className={styles.speech_box}>
+          //       <div className={styles.speech_item_box}>
+          //         { speechBoxList }
+          //       </div>
+          //       <button className={styles.speech_cancel}>
+          //         <img src="/images/close.svg" alt=""/>
+          //       </button> 
+          //     </div>
+          //     <div className={styles.owneeum_card_box}>
+          //       {owncardList}
+          //     </div>
+          //     <div className={styles.button_box}>
+          //       <button className={styles.add_button} onClick={addCard}>추가</button>
+          //       <button className={styles.update_button} onClick={editCard}>수정</button>
+          //     </div>
+          //   </div>
+          //   )
+          else if(goEdit ===true)
             return(
-            <div>
-              <HeaderComp headertitle='나만의 이음'></HeaderComp>
-              <div className={styles.speech_box}>
-                <div className={styles.speech_item_box}>
-                  { speechBoxList }
-                </div>
-
-              <button className={styles.speech_cancel}>
-                <img src="/images/close.svg" alt=""/>
-              </button> 
-            </div>
-              <div className={styles.owneeum_card_box}>
-                {owncardList}
-              </div>
-            <div className={styles.button_box}>
-              <button className={styles.add_button} onClick={addCard}>추가</button>
-              <button className={styles.update_button} onClick={editCard}>수정</button>
-            </div>
-
-            </div>
-
-
+              <>
+              <HeaderComp headertitle='카드 수정'></HeaderComp>
+              <OwnCardEdit
+                goEditStateChange={goEditStateChange}
+                cardName={cardName}
+                imgUrl={imgUrl}
+                cardId={cardId}
+              ></OwnCardEdit>
+              </>
             )
 
         })()

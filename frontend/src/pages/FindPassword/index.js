@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ImgboxTitle from '../../components/Image/ImgboxTitle';
+import HeaderComp from '../../components/HeaderComp/HeaderComp';
 import { useHistory } from 'react-router-dom';
 import styles from './index.module.css';
 import axios from 'axios';
@@ -22,14 +22,14 @@ const FindPassword = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    const userData={
-      email:email,
-      name:name,
-    }
+    const userData = {
+      email: email,
+      name: name,
+    };
     axios
-      .post(process.env.REACT_APP_API_URL + '/accounts/check-account',userData)
+      .post(process.env.REACT_APP_API_URL + '/accounts/check-account', userData)
       .then((res) => {
-        if (res.status===200) {
+        if (res.status === 200) {
           setModal(true);
         } else {
           alert('이메일 또는 이름 오류');
@@ -50,19 +50,19 @@ const FindPassword = () => {
   const changePassword = (e) => {
     e.preventDefault();
     if (password === checkpassword) {
-      const userData={
-        email:email,
-        password:password,
-      }
+      const userData = {
+        email: email,
+        password: password,
+      };
       axios
         .put(process.env.REACT_APP_API_URL + '/accounts/reset-pw', userData)
         .then((res) => {
-          if(res.status===200){
+          if (res.status === 200) {
             alert('변경완료');
             setTimeout(function () {
               history.push('/login');
-            },1000);
-          }        
+            }, 1000);
+          }
         })
         .catch((err) => {
           alert('변경실패');
@@ -71,49 +71,86 @@ const FindPassword = () => {
   };
 
   return (
-    <>
+    <div className={styles.findpassword_box}>
+      
       {!isModal ? (
-        <div>
-          <ImgboxTitle src="/images/findPasswordImage.PNG" />
-          <form onSubmit={onSubmitHandler}>
-            <input value={email} type="text" placeholder="이메일" onChange={onEmailHandler} />
-            <br />
-            <input value={name} type="text" placeholder="이름" onChange={onNameHandler} /> <br />
-            <button type="submit"> 확인 </button>
-            <br />
+        <>
+          <HeaderComp headertitle="비밀번호 찾기" />
+          <div className={styles.findpassword_title}>비밀번호 찾기</div>
+
+          <form className={styles.MainForm} onSubmit={onSubmitHandler}>
+
+            <div className={styles.email_box}>
+              <input 
+                className={styles.input_email}
+                value={email} type="text" 
+                placeholder="이메일" 
+                onChange={onEmailHandler} 
+              />
+            </div>
+            
+            <div className={styles.name_box}>
+              <input 
+                className={styles.input_name}
+                value={name} 
+                type="text" 
+                placeholder="이름" 
+                onChange={onNameHandler} 
+              />
+            </div>
+
+            
+            <button 
+              className={styles.check_button} 
+              type="submit"> 
+            확인</button>
           </form>
+
           <button
-            className={styles.Button_Cancel}
+            className={styles.cancel_button} 
             onClick={(e) => {
               history.push('/login');
             }}
           >
             취소
           </button>
-        </div>
+        </>
       ) : (
-        <div className={styles.onModal}>
+        <>
+          <HeaderComp headertitle="비밀번호 변경" />
+          <div className={styles.updatepassword_title}>비밀번호 변경</div>
           <form className={styles.onModalForm} onSubmit={changePassword}>
-            <h1>비밀번호 변경</h1>
-            <input
-              value={password}
-              type="password"
-              placeholder="비밀번호"
-              onChange={onPasswordHandler}
-            />
-            <br />
-            <input
-              value={checkpassword}
-              type="password"
-              placeholder="비밀번호 확인"
-              onChange={onPasswordCheckHandler}
-            />
-            <br />
-            <button type="submit">확인</button>
+            
+            
+
+            <div className={styles.password_box}>
+              <input
+                className={styles.input_password}
+                value={password}
+                type="password"
+                placeholder="비밀번호"
+                onChange={onPasswordHandler}
+              />
+            </div>
+
+            <div className={styles.password_check_box}>
+              <input
+                className={styles.input_password_check}
+                value={checkpassword}
+                type="password"
+                placeholder="비밀번호 확인"
+                onChange={onPasswordCheckHandler}
+              />
+            </div>
+            <button 
+              className={styles.check_button} 
+              type="submit">
+            확인</button>
+            
           </form>
-        </div>
+        </>
       )}
-    </>
+    </div>
   );
 };
 

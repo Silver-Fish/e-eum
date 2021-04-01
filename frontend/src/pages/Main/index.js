@@ -7,6 +7,7 @@ import MainFooterButtonComp from '../../components/ButtonComp/MainFooterButtonCo
 import { useCookies } from 'react-cookie';
 const Main = () => {
   const history = useHistory();
+  const checkLogin = sessionStorage.getItem('jwt');
   const [cookies, removeCookie] = useCookies(['cookie']);
   const handleInClick = (e) => {
     history.push('./login');
@@ -18,15 +19,16 @@ const Main = () => {
     history.push('./');
   };
 
-  useEffect(() => {
-    if (
-      sessionStorage.getItem('jwt') === null &&
-      cookies.cookie !== 'undefined' &&
-      cookies.cookie !== undefined
-    ) {
-      sessionStorage.setItem('jwt', cookies.cookie);
-    }
-  });
+  // useEffect(() => {
+  //   if (sessionStorage.getItem('jwt') === null && cookies.cookie !== undefined) {
+  //     sessionStorage.setItem('jwt', cookies.cookie);
+  //   }
+  // });
+
+  const noLogin = () => {
+    alert('로그인 해주세요');
+    history.push('./login');
+  };
 
   return (
     <div className={styles.mainbox}>
@@ -37,7 +39,7 @@ const Main = () => {
             로그인
           </button>
         ) : (
-          <button className={styles.login_button} onClick={handleOutClick}>
+          <button className={styles.logout_button} onClick={handleOutClick}>
             로그아웃
           </button>
         )}
@@ -56,11 +58,19 @@ const Main = () => {
           buttonImg="/images/folder.png"
           handleClickPath="/category"
         ></EeumButtonComp>
-        <EeumButtonComp
-          textValue="QR로 이동"
-          buttonImg="/images/qr.png"
-          handleClickPath="/qr"
-        ></EeumButtonComp>
+        {checkLogin !== null ? (
+          <EeumButtonComp
+            textValue="QR로 이동"
+            buttonImg="/images/qr.png"
+            handleClickPath="/qr"
+          ></EeumButtonComp>
+        ) : (
+          <EeumButtonComp
+            textValue="QR로 이동"
+            buttonImg="/images/qr.png"
+            handleClickPath="/login"
+          ></EeumButtonComp>
+        )}
       </div>
 
       <div className={styles.footer_button_box}>
@@ -74,11 +84,23 @@ const Main = () => {
           buttonImg="/images/setting.png"
           handleClickPath="/setting"
         ></MainFooterButtonComp>
-        <MainFooterButtonComp
-          textValue="내정보"
-          buttonImg="/images/fish.png"
-          handleClickPath="/mypage"
-        ></MainFooterButtonComp>
+        {checkLogin !== null ? (
+          <>
+            <MainFooterButtonComp
+              textValue="내정보"
+              buttonImg="/images/fish.png"
+              handleClickPath="/mypage"
+            ></MainFooterButtonComp>
+          </>
+        ) : (
+          <>
+            <MainFooterButtonComp
+              textValue="내정보"
+              buttonImg="/images/fish.png"
+              handleClickPath="/login"
+            ></MainFooterButtonComp>
+          </>
+        )}
       </div>
     </div>
   );

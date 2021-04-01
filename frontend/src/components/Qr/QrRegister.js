@@ -1,29 +1,34 @@
-import React, { useState } from "react";
-import HearderComp from "../HeaderComp/HeaderComp";
-import styles from "./QrRegister.module.css";
-import axios from "axios";
-
+import React, { useState } from 'react';
+import HearderComp from '../HeaderComp/HeaderComp';
+import styles from './QrRegister.module.css';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 const QrRegister = (props) => {
-  const [title, setTitle] = useState("");
+  const history = useHistory();
+  const [title, setTitle] = useState('');
   const onTitleHandler = (e) => {
     setTitle(e.target.value);
   };
   const onRegisterHandler = () => {
-    if (title === "") {
-      alert("이름을 입력하세요잇!");
+    if (title === '') {
+      alert('이름을 입력하세요잇!');
     } else {
+      const qrInsertRequest = {
+        title: title,
+      };
       axios
-        .post(process.env.REACT_APP_API_URL + "/QrList", title, {
+        .post(process.env.REACT_APP_API_URL + '/qr', qrInsertRequest, {
           headers: {
-            Authorization: sessionStorage.getItem("jwt"),
+            Authorization: sessionStorage.getItem('jwt'),
           },
         })
         .then((res) => {
+          console.log(res);
           if (res.status === 200) {
-            alert("등록 성공 , 카드 리스트 추가해잇!");
-            props.changeQrResisterState();
+            alert('등록 성공 , 카드 리스트 추가해잇!');
+            history.go(0);
           } else {
-            console.log("QrList C: status가 200이아님");
+            console.log('QrList C: status가 200이아님');
           }
         })
         .catch((err) => {
@@ -45,17 +50,11 @@ const QrRegister = (props) => {
         />
       </div>
       <div className={styles.button_box}>
-        <button
-          className={styles.qr_resiter_cancle_button}
-          onClick={props.changeQrResisterState}
-        >
+        <button className={styles.qr_resiter_cancle_button} onClick={props.changeQrResisterState}>
           취소
         </button>
 
-        <button
-          className={styles.qr_resiter_button}
-          onClick={onRegisterHandler}
-        >
+        <button className={styles.qr_resiter_button} onClick={onRegisterHandler}>
           등록
         </button>
       </div>

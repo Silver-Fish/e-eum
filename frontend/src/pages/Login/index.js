@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import HeaderComp from '../../components/HeaderComp/HeaderComp';
 import LabelComp from '../../components/LabelComp/LabelComp';
-import ImgboxTitle from '../../components/Image/ImgboxTitle';
+
 import InputComp from '../../components/InputComp/InputComp';
 import styles from './index.module.css';
 import { useCookies } from 'react-cookie';
@@ -14,7 +14,7 @@ const Login = () => {
   const [autoLogin, setAutoLogin] = useState('');
   const history = useHistory();
 
-  const [cookies, setCookie] = useCookies(['cookie']);
+  const [cookies, setCookie] = useCookies(['cookie']); // eslint-disable-line no-unused-vars
 
   const setCookieFunc = () => {
     setCookie('cookie', sessionStorage.getItem('jwt'), { maxAge: 2000 });
@@ -61,32 +61,32 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <HeaderComp />
-      <div className={styles.MainForm}>
-        <ImgboxTitle src="/images/loginImage.PNG" />
-        <form onSubmit={onSubmitHandler}>
-          <InputComp type="email" placeholder="Email" InputChange={onEmailHandler} />
-          <br />
-          <InputComp type="password" placeholder="PW" InputChange={onPasswordHandler} />
-          <br />
-          <input
-            className={styles.input_check}
-            type="checkbox"
-            checked={autoLogin}
-            onChange={onAutoLogin}
-            id="check"
-          />
-          <label for="check">자동로그인</label>
-          <div className={styles.labelForm}>
-            <LabelComp textValue="회원가입" handleClickPath="./userRegister" />
-            <LabelComp textValue="비밀번호 찾기" handleClickPath="./findPassword" />
-          </div>
-          <button className={styles.button} type="submit">
-            로그인
-          </button>
-        </form>
-      </div>
+    <div className={styles.login_box}>
+      <HeaderComp headertitle="로그인" />
+
+      <div className={styles.login_title}>로그인</div>
+
+      <form className={styles.MainForm} onSubmit={onSubmitHandler}>
+        <InputComp type="email" placeholder="이메일" InputChange={onEmailHandler} />
+        <InputComp type="password" placeholder="비밀번호" InputChange={onPasswordHandler} />
+
+        <input
+          className={styles.input_check}
+          type="checkbox"
+          checked={autoLogin}
+          onChange={onAutoLogin}
+          id="check"
+        />
+
+        <label for="check">자동로그인</label>
+        <div className={styles.labelForm}>
+          <LabelComp textValue="회원가입" handleClickPath="./userRegister" />
+          <LabelComp textValue="비밀번호 찾기" handleClickPath="./findPassword" />
+        </div>
+        <button className={styles.login_button} type="submit">
+          로그인
+        </button>
+      </form>
     </div>
   );
 };
