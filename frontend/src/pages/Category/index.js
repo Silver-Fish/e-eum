@@ -89,6 +89,7 @@ const Category = () => {
   }
   
   const categoryCardEdit = (data) => {
+    
     setCategoryCardEdit(data.state)
     setCategoryUrl(data.url)
     setCategoryName(data.name)
@@ -133,17 +134,15 @@ const Category = () => {
 
   const categoryList = categoryDatas.map(
     (category, i) => (
-
       <CategoryCard       
         key={i} 
         id={category.id}
         textValue={category.word}
-        categoryUrl={process.env.REACT_APP_IMG_PATH + category.categoryImageUrl}
+        categoryUrl={category.categoryImageUrl}
         categoryClick={categoryClick}
         isCategoryEdit={isCategoryEdit}
         categoryTitle = {categoryTitle}
-        categoryCardEdit = {categoryCardEdit}
-        
+        categoryCardEdit = {categoryCardEdit}  
       ></CategoryCard>
     )
   )
