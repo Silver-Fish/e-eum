@@ -1,0 +1,25 @@
+.qr_box {
+  margin: 40% auto 0;
+  width: 60vw;
+  height: 60vw;
+}
+
+.qr_img {
+  width: 100%;
+  height: 100%;
+}
+
+.button_box {
+  position: fixed;
+  bottom: 0px;
+  display: flex;
+  width: 100vw;
+  height: 5vh;
+  margin: 0px;
+}
+.qr_view_cancel_button {
+  font-size: inherit;
+  width: 100vw;
+  background-color: #f5df4d;
+  border: 1px solid #f5df4d;
+}
