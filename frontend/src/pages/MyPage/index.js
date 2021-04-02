@@ -47,7 +47,6 @@ const MyPage = () => {
   return (
     <div className={styles.mypage_box}>
       <HeaderComp headertitle="내 정보" />
-      <div className={styles.mypage_title}>MyPage</div>
 
       <div className={styles.MainForm}>
         <div className={styles.input_box}>

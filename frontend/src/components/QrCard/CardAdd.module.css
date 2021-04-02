@@ -57,11 +57,12 @@
 
 
 .card_input {
-  width: 55vw;
+  width: 80vw;
   height: 5vh;
   margin: 0;
   border: 0px;
   border-bottom: 1px solid #000;
+  font-size: 32px;
 }
 
 .card_input_box img {
@@ -69,10 +70,12 @@
 }
 
 .button_box {
-  height: 5vh;
   box-sizing: border-box;
   display: flex;
   margin: 0px;
+  font-size: 24px;
+  position: fixed;
+  bottom: 0;
 }
 
 .close_button {

@@ -53,18 +53,24 @@
 
 
 .situation_input {
-  width: 55vw;
+  width: 80vw;
   margin: 0;
   border: 0px;
   border-bottom: 1px solid #000;
+  font-size: 32px;
 }
 
 
 
 .button_box {
-  height: 5vh;
+  font-size: 24px;
   box-sizing: border-box;
   display: flex;
+}
+
+.bottom_button{
+  position: fixed;
+  bottom: 0px;
 }
 
 .close_button {
@@ -85,8 +91,4 @@
   font-size: inherit;
   border: #8A9C3A solid 1px;
   border-radius: 3px;
-}
-.bottom_button{
-  position: fixed;
-  bottom: 0px;
 }

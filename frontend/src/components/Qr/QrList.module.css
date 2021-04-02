@@ -1,5 +1,5 @@
 div {
-  font-size: 18px;
+  font-size: 32px;
 }
 
 .qr_list_box {
@@ -11,6 +11,7 @@ div {
 }
 
 .qr_name_box {
+  font-size: 32px;
   margin: auto 0;
 }
 
@@ -23,11 +24,9 @@ div {
 }
 
 .qr_edit_button {
-  width: 10vw;
-  height: 10vw;
+  font-size: 16px;
   background-color: #F5DF4D;
-  color: #fff;
-  font-size: xx-small;
+  color: #000;
   border: 0px;
   border-radius: 2vw;
   margin: 1vh 1vw;
@@ -35,11 +34,9 @@ div {
 }
 
 .qr_button {
-  width: 10vw;
-  height: 10vw;
+  font-size: 16px;
   background-color: #FFF;
   color: #F5DF4D;
-  font-size: xx-small;
   border: 1px solid #F5DF4D;
   border-radius: 2vw;
   margin: 1vh 1vw;

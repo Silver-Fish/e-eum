@@ -1,5 +1,5 @@
 div {
-  font-size: 18px;
+  font-size: 32px;
 }
 
 
@@ -8,27 +8,17 @@ div {
   width: 100%;
 }
 
-.register_title {
-  margin: 20% auto;
-  height: 15%;
-  font-size: 5rem;
-  color: #8a9c3a;
-  text-shadow: 
-    -3px 0 #F5DF4D, 
-    0 3px #F5DF4D, 
-    3px 0 #F5DF4D, 
-    0 -3px #F5DF4D;
-}
 
 .MainForm {
+  margin-top: 5%;
   height: 50%;
   width: 100%;
   box-sizing: border-box;
 }
 
 .email_box {
-  height: 10%;
-  width: 80%;
+  font-size: 32px;
+  width: 90%;
   display: flex;
   justify-content: center;
   margin: auto;
@@ -36,6 +26,7 @@ div {
 
 
 .inputEmail {
+  font-size: inherit;
   font-family: inherit;
   width: 85%;
   height: 100%;
@@ -58,6 +49,7 @@ div {
 }
 
 .checkEmail button {
+  font-size: 16px;
   font-family: inherit;
   height: 100%;
   width: 100%;
@@ -73,13 +65,14 @@ div {
 
 
 .name_box {
-  height: 10%;
-  width: 80%;
+  font-size: 32px;
+  width: 90%;
   margin: 5% auto
 }
 
 
 .input_name {
+  font-size: inherit;
   font-family: inherit;
   height: 100%;
   width: 100%;
@@ -88,13 +81,14 @@ div {
 }
 
 .password_box {
-  height: 10%;
-  width: 80%;
+  font-size: 32px;
+  width: 90%;
   margin: 5% auto
 }
 
 
 .input_password {
+  font-size: inherit;
   font-family: inherit;
   height: 100%;
   width: 100%;
@@ -104,13 +98,14 @@ div {
 
 
 .password_check_box {
-  height: 10%;
-  width: 80%;
+  font-size: 32px;
+  width: 90%;
   margin: 5% auto
 }
 
 
 .input_password_check {
+  font-size: inherit;
   font-family: inherit;
   height: 100%;
   width: 100%;
@@ -127,12 +122,11 @@ div {
 
 .register_button {
   display: block;
-  font-size: inherit;
+  font-size: 24px;
   font-family: inherit;
   text-align: center;
   color: #fff;
-  width: 80%;
-  height: 10%;
+  width: 60%;
   background-color: #8a9c3a;
   border: 2px solid #8a9c3a;
   border-radius: 5px;
@@ -141,12 +135,11 @@ div {
 
 .cancel_button {
   display: block;
-  font-size: inherit;
+  font-size: 24px;
   font-family: inherit;
   text-align: center;
   color: #fff;
-  width: 80%;
-  height: 10%;
+  width: 60%;
   background-color: #8a9c3a;
   border: 2px solid #8a9c3a;
   border-radius: 5px;

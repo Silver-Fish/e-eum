@@ -107,8 +107,6 @@ const UserRegister = () => {
   return (
     <div className={styles.register_box}>
       <HeaderComp headertitle="회원가입" />
-      <div className={styles.register_title}>회원가입</div>
-
       <form className={styles.MainForm} onSubmit={onSubmitHandler}>
         
         <div className={styles.email_box}>

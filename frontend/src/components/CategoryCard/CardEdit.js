@@ -55,13 +55,13 @@ const CardEdit = (props) => {
         <div className={styles.image_box}>
           <img  src={cardImg} alt="이미지를 등록해주세요" />
 
-          <label  
+          {/* <label  
             className={styles.image_button}
             >
             <img  src='/images/photo-camera.svg' alt="대체이미지" />
             <input type="file" className={styles.image_input} onChange={onImageChange}/>
               
-          </label>
+          </label> */}
         </div>
         
       
