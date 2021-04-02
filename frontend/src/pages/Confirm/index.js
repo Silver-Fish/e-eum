@@ -50,7 +50,6 @@ const Confirm = () => {
   return (
     <div className={styles.password_confirm_box}>
       <HeaderComp headertitle="비밀번호 확인" />
-      <div className={styles.password_confirm_title}>비밀번호 확인</div>
 
       <form className={styles.MainForm} onSubmit={onSubmitHandler}>
         <div className={styles.password_box}>

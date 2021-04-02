@@ -173,14 +173,14 @@ const OwnEeum = () => {
           );
         else if (isAdd === true)
           return (
-            <div>
+            <div className={styles.owncard_box}>
               <HeaderComp headertitle="카드 추가"></HeaderComp>
               <OwnCardadd addStateChange={addCard}></OwnCardadd>
             </div>
           );
         else if (goEdit === true)
           return (
-            <>
+            <div className={styles.owncard_box}>
               <HeaderComp headertitle="카드 수정"></HeaderComp>
               <OwnCardEdit
                 goEditStateChange={goEditStateChange}
@@ -188,7 +188,7 @@ const OwnEeum = () => {
                 imgUrl={imgUrl}
                 cardId={cardId}
               ></OwnCardEdit>
-            </>
+            </div>
           );
       })()}
     </>

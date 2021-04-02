@@ -9,7 +9,7 @@ div {
 }
 
 .qr_name_input {
-  font-size: inherit;
+  font-size: 32px;
   border: 0px;
   border-bottom: 1px solid #000;
   width: 80vw;
@@ -21,8 +21,8 @@ div {
   bottom: 0px;
   display: flex;
   width: 100vw;
-  height: 5vh;
   margin: 0px;
+  font-size: 24px;
 }
 .qr_resiter_cancle_button {
   font-size: inherit;

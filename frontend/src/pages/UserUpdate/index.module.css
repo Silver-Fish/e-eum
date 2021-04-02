@@ -1,5 +1,5 @@
 div {
-  font-size: 18px;
+  font-size: 24px;
 }
 
 .password_change_box {
@@ -7,17 +7,7 @@ div {
   height: 100%;
 }
 
-.password_change_title {
-  margin: 20% auto;
-  height: 15%;
-  font-size: 3rem;
-  color: #8a9c3a;
-  text-shadow: 
-    -3px 0 #F5DF4D, 
-    0 3px #F5DF4D, 
-    3px 0 #F5DF4D, 
-    0 -3px #F5DF4D;
-}
+
 
 .MainForm {
   height: 50%;
@@ -27,47 +17,50 @@ div {
 
 
 .password_box {
-  height: 10%;
-  width: 80%;
+  font-size: 32px;
+  width: 90%;
   margin: 5% auto;
 }
 
 
 .input_password {
+  font-size: inherit;
   font-family: inherit;
-  width: 85%;
+  width: 100%;
   height: 100%;
   margin: 0px;
   box-sizing: border-box;
 }
 
 .change_password_box {
-  height: 10%;
-  width: 80%;
+  font-size: 32px;
+  width: 90%;
   margin: 5% auto;
 }
 
 
 .input_change_password {
+  font-size: inherit;
   font-family: inherit;
-  width: 85%;
-  height: 100%;
-  margin: 0px;
-  box-sizing: border-box;
-}
-
-.input_check_password {
-  font-family: inherit;
-  width: 85%;
+  width: 100%;
   height: 100%;
   margin: 0px;
   box-sizing: border-box;
 }
 
 .check_password_box {
-  height: 10%;
-  width: 80%;
+  font-size: 32px;
+  width: 90%;
   margin: 5% auto;
+}
+
+.input_check_password {
+  font-size: inherit;
+  font-family: inherit;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  box-sizing: border-box;
 }
 
 .check_password_box p {
@@ -81,8 +74,7 @@ div {
   font-family: inherit;
   text-align: center;
   color: #fff;
-  width: 80%;
-  height: 10%;
+  width: 90%;
   background-color: #8a9c3a;
   border: 2px solid #8a9c3a;
   border-radius: 5px;
@@ -95,8 +87,7 @@ div {
   font-family: inherit;
   text-align: center;
   color: #fff;
-  width: 80%;
-  height: 10%;
+  width: 90%;
   background-color: #8a9c3a;
   border: 2px solid #8a9c3a;
   border-radius: 5px;

@@ -43,7 +43,7 @@ const QrView = (props) => {
 
       <div className={styles.button_box}>
         <button className={styles.qr_view_cancel_button} onClick={selectedViewQr}>
-          취소
+          목록으로 돌아가기
         </button>
       </div>
     </>

@@ -80,7 +80,6 @@ const UserUpdate = () => {
   return (
     <div className={styles.password_change_box}>
       <HeaderComp headertitle="비밀번호 변경" />
-      <div className={styles.password_change_title}>비밀번호 변경</div>
 
       <form className={styles.MainForm} onSubmit={onSubmitHandler}>
         <div className={styles.password_box}>

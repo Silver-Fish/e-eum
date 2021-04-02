@@ -10,12 +10,17 @@ div {
 }
 
 .qr_register_box {
-  font-size: inherit;
+  display: block;
+  font-size: 24px;
   width: 100vw;
-  height: 10vh;
   background-color: #F5DF4D;
   border: 0px;
   margin: 0px;
   font-family: inherit;
+  position: fixed;
+  bottom: 0px;
 }
 
+/* .bottom_button{
+
+} */
