@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import HeaderComp from "../../components/HeaderComp/HeaderComp";
 import { useHistory } from "react-router-dom";
 import styles from "./index.module.css";
 import axios from "axios";
-import { useCookies } from "react-cookie";
+
 const FindPassword = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -11,7 +11,6 @@ const FindPassword = () => {
   const [password, setPassword] = useState("");
   const [checkpassword, setCheckPassword] = useState("");
   const history = useHistory();
-  const [cookies] = useCookies(["cookie"]);
 
   const onNameHandler = (e) => {
     setName(e.currentTarget.value);
