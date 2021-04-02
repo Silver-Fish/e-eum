@@ -116,6 +116,9 @@ public class CardService {
             String imageUrl = account.getId() + "/card/" + card.getId();
             card.setImageUrl(imageUrl);
 
+            folder = new File(filePath + account.getId() + "/card");
+            log.info(folder.mkdirs() ? "success make dir" : "fail make dir");
+
             file = new File(filePath + imageUrl);
             log.info(file.createNewFile() ? "success make file" : "fail make file");
             fos = new FileOutputStream(file);
