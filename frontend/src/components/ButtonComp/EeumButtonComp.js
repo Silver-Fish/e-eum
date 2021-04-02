@@ -23,8 +23,7 @@ const EeumButtonComp = (props) => {
       { buttonImg !== undefined ?
         <img className={styles.image} src= {buttonImg} alt="이미지"/>
         : "" }
-
-      { buttonTextValue } 
+      <span>{ buttonTextValue } </span>
     </button>
   )
 }

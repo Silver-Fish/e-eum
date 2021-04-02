@@ -1,12 +1,10 @@
 .button {
-  flex: auto;
   background-color: white;
   border: 0px;
-  font-family: inherit;
 }
 
 .buttonimage {
-  height: 100%;
-  width: 100%;
+  height: 20vw;
+  width: 20vw;
   margin: auto;
 }

@@ -6,16 +6,6 @@ const Help = () => {
     return(
         <div className={styles.help_box}>
           <HeaderComp headertitle='도움말'></HeaderComp>
-          <h1>
-            <span className={styles.green}>이음, </span> 
-            QR로 쉽게 소통하는 AAC 서비스
-          </h1>
-          <h3>
-            <span className={styles.blue}>SSAFY </span> 
-            특화 프로젝트 Team 은붕어
-          </h3>
-          <h4>– 윤은철, 신동현, 이아영, 이재혁, 이주희, 차수연 -</h4>
-
           <div className={styles.feature_box}>
             <h3>1. 나만의 이음</h3>
             <p>사용자 편의에 따라 의사표현 카드를 구성</p>
