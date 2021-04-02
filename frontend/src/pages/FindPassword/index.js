@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import HeaderComp from '../../components/HeaderComp/HeaderComp';
-import { useHistory } from 'react-router-dom';
-import styles from './index.module.css';
-import axios from 'axios';
-import { useCookies } from 'react-cookie';
+import React, { useState, useEffect } from "react";
+import HeaderComp from "../../components/HeaderComp/HeaderComp";
+import { useHistory } from "react-router-dom";
+import styles from "./index.module.css";
+import axios from "axios";
+import { useCookies } from "react-cookie";
 const FindPassword = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [isModal, setModal] = useState(false);
-  const [password, setPassword] = useState('');
-  const [checkpassword, setCheckPassword] = useState('');
+  const [password, setPassword] = useState("");
+  const [checkpassword, setCheckPassword] = useState("");
   const history = useHistory();
-  const [cookies] = useCookies(['cookie']);
+  const [cookies] = useCookies(["cookie"]);
 
   const onNameHandler = (e) => {
     setName(e.currentTarget.value);
@@ -21,21 +21,6 @@ const FindPassword = () => {
     setEmail(e.currentTarget.value);
   };
 
-  useEffect(() => {
-    if (
-      sessionStorage.getItem('jwt') === null &&
-      cookies.cookie !== undefined &&
-      cookies.cookie !== 'undefined'
-    ) {
-      history.push('/');
-    } else if (
-      sessionStorage.getItem('jwt') === null &&
-      (cookies.cookie === undefined || cookies.cookie === 'undefined')
-    ) {
-      history.push('/');
-    }
-  });
-
   const onSubmitHandler = (e) => {
     e.preventDefault();
     const userData = {
@@ -43,16 +28,16 @@ const FindPassword = () => {
       name: name,
     };
     axios
-      .post(process.env.REACT_APP_API_URL + '/accounts/check-account', userData)
+      .post(process.env.REACT_APP_API_URL + "/accounts/check-account", userData)
       .then((res) => {
         if (res.status === 200) {
           setModal(true);
         } else {
-          alert('이메일 또는 이름 오류');
+          alert("이메일 또는 이름 오류");
         }
       })
       .catch((err) => {
-        alert('오류발생');
+        alert("오류발생");
       });
   };
   const onPasswordHandler = (e) => {
@@ -71,17 +56,17 @@ const FindPassword = () => {
         password: password,
       };
       axios
-        .put(process.env.REACT_APP_API_URL + '/accounts/reset-pw', userData)
+        .put(process.env.REACT_APP_API_URL + "/accounts/reset-pw", userData)
         .then((res) => {
           if (res.status === 200) {
-            alert('변경완료');
+            alert("변경완료");
             setTimeout(function () {
-              history.push('/login');
+              history.push("/login");
             }, 1000);
           }
         })
         .catch((err) => {
-          alert('변경실패');
+          alert("변경실패");
         });
     }
   };
@@ -122,7 +107,7 @@ const FindPassword = () => {
           <button
             className={styles.cancel_button}
             onClick={(e) => {
-              history.push('/login');
+              history.push("/login");
             }}
           >
             취소
