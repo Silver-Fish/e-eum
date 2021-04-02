@@ -1,5 +1,5 @@
 div {
-  font-size: 18px;
+  font-size: 32px;
 }
 
 .login_title {
@@ -22,6 +22,7 @@ div {
 
 
 .MainForm {
+  margin-top: 5%;
   width: 100%;  
 }
 

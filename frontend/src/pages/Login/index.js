@@ -64,8 +64,6 @@ const Login = () => {
     <div className={styles.login_box}>
       <HeaderComp headertitle="로그인" />
 
-      <div className={styles.login_title}>로그인</div>
-
       <form className={styles.MainForm} onSubmit={onSubmitHandler}>
         <InputComp type="email" placeholder="이메일" InputChange={onEmailHandler} />
         <InputComp type="password" placeholder="비밀번호" InputChange={onPasswordHandler} />
