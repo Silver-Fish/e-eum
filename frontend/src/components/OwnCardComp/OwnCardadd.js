@@ -2,12 +2,13 @@ import React, { useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import styles from './OwnCardadd.module.css'
 import axios from 'axios'
-
+import Loader from '../Loader/Loader'
 const OwnCardadd = (props) => {
   const history = useHistory();
   const [situationImg, setImg] = useState()
   const [imgFile, setImgFile] = useState()
   const [cardName, setCardName] = useState()
+  const [isLoading, setLoading] = useState(false)
   const onImageChange = function (e) {
     setImgFile(e.target.files[0])
     setImg(URL.createObjectURL(e.target.files[0]))
@@ -17,6 +18,7 @@ const OwnCardadd = (props) => {
   }
 
   const addCard = () => {
+    setLoading(!isLoading)
     const token = sessionStorage.getItem('jwt')
     let data = new FormData()
     data.append('file', imgFile)
@@ -29,7 +31,7 @@ const OwnCardadd = (props) => {
         }
     })
     .then((res)=> {
-      console.log(res)
+      setLoading(!isLoading)
       history.go(0)
     })
     .catch((err) => {
@@ -38,6 +40,10 @@ const OwnCardadd = (props) => {
   }
   return(
     <>
+      { isLoading === false
+      ?
+      (
+      <>
       <div className={styles.add_box}>
         <div className={styles.image_box}>
           <img  src={situationImg} alt="이미지를 등록해주세요" />
@@ -65,6 +71,13 @@ const OwnCardadd = (props) => {
           <button className={styles.add_button} onClick={addCard} >등록</button>
         </div>
       </div>
+      </>
+      )
+      :
+      (
+      <Loader></Loader>
+      )
+      }
     </>
   )
 }

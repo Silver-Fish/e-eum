@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from './CardEdit.module.css'
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-
+import Loader from '../Loader/Loader'
 
 const CardEdit = (props) => {
   const history = useHistory();
@@ -10,7 +10,11 @@ const CardEdit = (props) => {
   const [cardName, setCardName] = useState(props['cardName'])
   const cardId = props['cardId']
   let [lenCardName, setlenCardName] = useState(props['cardName'].length)
-  
+  const [isLoading, setLoading] = useState(false)
+  const categoryId = props.categoryId
+
+
+
   const onImageChange = function (e) {
     
     setCardImg(e.target.value)
@@ -28,20 +32,35 @@ const CardEdit = (props) => {
   }
 
   const editCard = () => {
+    setLoading(!isLoading)
     const token = sessionStorage.getItem('jwt')
+    const config= {
+      headers: {
+        'Authorization': token
+      }
+    }
     const editButton = document.getElementById('editButton')
     editButton.disabled = true;
     const data = {
       'word': cardName
     }
     
-    axios.put(process.env.REACT_APP_API_URL + '/card/'+ cardId, data, {
-      headers: {
-        'Authorization': token
-        }
-    })
+    axios.put(process.env.REACT_APP_API_URL + '/card/'+ cardId, data, config)
     .then(()=> {
-      history.go(0)
+      axios.get(process.env.REACT_APP_API_URL + '/card/category?typeId=' + categoryId, config)
+      .then((res) => {
+        setLoading(!isLoading)
+        props.cardEdit(false)
+        props.cardDataReset(res.data)
+        props.cardEditStateChange()
+
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      
+      
+      
     })
     .catch((err) => {
       console.log(err)
@@ -57,6 +76,10 @@ const CardEdit = (props) => {
 
   return(
     <>
+      { isLoading === false
+      ?
+      (
+      <>
       <div className={styles.edit_box}>
         <div className={styles.image_box}>
           <img  src={cardImg} alt="이미지를 등록해주세요" />
@@ -90,6 +113,13 @@ const CardEdit = (props) => {
             <button id='editButton' className={styles.edit_button} onClick={editCard} >수정</button>
         </div>
       </div>
+      </>
+      )
+      :
+      (
+        <Loader></Loader>
+      )
+      }
     </>
   )
 }

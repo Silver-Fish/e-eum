@@ -3,7 +3,6 @@ import { useState } from 'react';
 import styles from './Card.module.css';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-
   
 const Card = (props) => {
   const history = useHistory();
@@ -14,7 +13,6 @@ const Card = (props) => {
   const textValue = props.textValue 
   const cardUrl = props.cardUrl
   const cardId = props.id
-
   const cardButtonClick = (e) => {    
     props.cardClick({
       cardName: {textValue}, 

@@ -2,12 +2,13 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styles from './CategoryAdd.module.css'
-
+import Loader from '../Loader/Loader'
 const CategoryAdd = (props) => {
   const history = useHistory();
   const [situationImg, setImg] = useState()
   const [imgFile, setImgFile] = useState()
   const [categoryName, setCategoryName] = useState()
+  const [isLoading, setLoading] = useState(false)
   let [lenCategoryName, setlenCategoryName] = useState(0)
   const onImageChange = (e) => {
     setImgFile(e.target.files[0])
@@ -25,6 +26,7 @@ const CategoryAdd = (props) => {
   
 
   const addCategory = () => {
+    setLoading(!isLoading)
     const addButton = document.getElementById('addButton')
     addButton.disabled = true;
     const token = sessionStorage.getItem('jwt')
@@ -38,6 +40,7 @@ const CategoryAdd = (props) => {
         }
     })
     .then(()=> {
+      setLoading(!isLoading)
       history.go(0)
     })
     .catch((err) => {
@@ -47,6 +50,10 @@ const CategoryAdd = (props) => {
 
   return(
     <>
+      { isLoading === false
+      ?
+      (
+      <>
       <div className={styles.add_box}>
         <div className={styles.image_box}>
           <img  src={situationImg} alt="이미지를 등록해주세요" />
@@ -76,6 +83,13 @@ const CategoryAdd = (props) => {
             <button id='addButton' className={styles.add_button} onClick={addCategory} >등록</button>
         </div>
       </div>
+      </>
+      )
+      :
+      (
+        <Loader></Loader>
+      )
+      }
     </>
   )
 }

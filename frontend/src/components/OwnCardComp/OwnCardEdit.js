@@ -2,17 +2,19 @@ import React, { useState } from 'react';
 import {useHistory} from 'react-router-dom';
 import styles from './OwnCardEdit.module.css'
 import axios from 'axios'
-
+import Loader from '../Loader/Loader'
 const OwnCardEdit = (props) => {
   const history = useHistory();
   const imgUrl = props.imgUrl
   const [cardName, setCardName] = useState(props['cardName'])
   const cardId = props.cardId
+  const [isLoading, setLoading] = useState(false)
 
   const onInputChange = (e) => {
     setCardName(e.target.value)
   }
   const editCard = () => {
+    setLoading(!isLoading)
     const token = sessionStorage.getItem('jwt')
     const data = {
       'word' : cardName
@@ -23,7 +25,7 @@ const OwnCardEdit = (props) => {
         }
     })
     .then((res)=> {
-      console.log(res)
+      setLoading(!isLoading)
       history.go(0)
     })
     .catch((err) => {
@@ -32,6 +34,10 @@ const OwnCardEdit = (props) => {
   }
   return(
     <>
+      { isLoading === false
+      ?
+      (
+      <>
       <div className={styles.add_box}>
         <div className={styles.image_box}>
           <img  src={imgUrl} alt="이미지를 등록해주세요" />
@@ -50,7 +56,14 @@ const OwnCardEdit = (props) => {
           <button className={styles.close_button} onClick={props.goEditStateChange}>취소</button>
           <button className={styles.add_button} onClick={editCard} >등록</button>
         </div>
-      </div>    
+      </div>   
+      </> 
+      )
+      :
+      (
+        <Loader></Loader>
+      )
+      }
     </>
   )
 };

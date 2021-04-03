@@ -103,6 +103,22 @@ const Category = () => {
     setCardId(data['cardId']);
   };
 
+  const cardDelete = (e) => {
+    setCardEdit(e)
+  }
+
+  const cardAdd = (e) => {
+    setCardAdd(e)
+  }
+  const cardEdit = (e) => {
+    setCardEdit(e)
+  }
+
+  const cardDataReset = (e) => {
+    setCard(e)
+  }
+
+
   const addStateChange = () => {
     setCategoryAdd(!isCategoryAdd);
   };
@@ -137,6 +153,7 @@ const Category = () => {
       isCategoryEdit={isCategoryEdit}
       categoryTitle={categoryTitle}
       categoryCardEdit={categoryCardEdit}
+
     ></CategoryCard>
   ));
 
@@ -150,6 +167,8 @@ const Category = () => {
       isCardEdit={isCardEdit}
       CardStateEdit={CardStateEdit}
       categoryId={categoryId}
+      cardDelete={cardDelete}
+      cardDataReset={cardDataReset}
     ></Card>
   ));
 
@@ -276,18 +295,24 @@ const Category = () => {
                     cardAddClick={cardAddClick}
                     categoryId={categoryId}
                     categoryName={categoryName}
+                    cardAdd={cardAdd}
+                    cardDataReset={cardDataReset}
                   ></CardAdd>
                 </>
               );
             if (isCardStateEdit === true)
               return (
                 <>
-                  <HeaderComp headertitle="상황 수정"></HeaderComp>
+                  <HeaderComp headertitle="카드 수정"></HeaderComp>
                   <CardEdit
                     cardEditStateChange={cardEditStateChange}
                     cardName={cardName}
                     cardUrl={cardUrl}
                     cardId={cardId}
+                    isCardEdit={isCardEdit}
+                    categoryId={categoryId}
+                    cardEdit={cardEdit}
+                    cardDataReset={cardDataReset}
                   ></CardEdit>
                 </>
               );
