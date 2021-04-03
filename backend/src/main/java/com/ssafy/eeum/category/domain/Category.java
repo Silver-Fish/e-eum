@@ -14,9 +14,8 @@ import java.util.stream.Collectors;
 
 @Entity
 @Getter
-//@ToString
-//@NoArgsConstructor(access = AccessLevel.PROTECTED)
-//@Table(name="category")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "category")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,20 +40,20 @@ public class Category {
     @UpdateTimestamp
     private LocalDateTime updateDate;
 
-    public Category() {}
-
     @Builder
-    public Category(String word,Account account) {
+    public Category(String word, Account account) {
         this.word = word;
         this.account = account;
-        account.addCategory(this);
+        if (account != null) {
+            account.addCategory(this);
+        }
     }
 
     public void update(Category category) {
         this.word = category.word;
     }
 
-    public List<Card> getCards(){
+    public List<Card> getCards() {
         return categoryCards.stream()
                 .map(CategoryCard::getCard)
                 .collect(Collectors.toList());
@@ -72,5 +71,7 @@ public class Category {
         categoryCards.add(categoryCard);
     }
 
-    public void deleteCategoryCard(CategoryCard categoryCard) { categoryCards.remove(categoryCard);}
+    public void deleteCategoryCard(CategoryCard categoryCard) {
+        categoryCards.remove(categoryCard);
+    }
 }

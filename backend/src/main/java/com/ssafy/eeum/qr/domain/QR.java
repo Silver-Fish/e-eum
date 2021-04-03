@@ -49,7 +49,9 @@ public class QR {
     public QR(String title, Account account) {
         this.title = title;
         this.account = account;
-        account.addQr(this);
+        if (account != null) {
+            account.addQr(this);
+        }
     }
 
     public void setQrUrl(String qrUrl) {
