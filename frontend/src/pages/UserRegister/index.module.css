@@ -49,8 +49,9 @@ div {
 }
 
 .checkEmail button {
-  font-size: 16px;
+  font-size:18px;
   font-family: inherit;
+  padding: 0;
   height: 100%;
   width: 100%;
   margin: 0;
@@ -61,7 +62,9 @@ div {
   border: 0;
 }
 
-
+.checkEmail button pre {
+  margin: 0;
+}
 
 
 .name_box {
@@ -122,11 +125,11 @@ div {
 
 .register_button {
   display: block;
-  font-size: 24px;
+  font-size: 32px;
   font-family: inherit;
   text-align: center;
   color: #fff;
-  width: 60%;
+  width: 90%;
   background-color: #8a9c3a;
   border: 2px solid #8a9c3a;
   border-radius: 5px;
@@ -135,11 +138,11 @@ div {
 
 .cancel_button {
   display: block;
-  font-size: 24px;
+  font-size: 32px;
   font-family: inherit;
   text-align: center;
   color: #fff;
-  width: 60%;
+  width: 90%;
   background-color: #8a9c3a;
   border: 2px solid #8a9c3a;
   border-radius: 5px;

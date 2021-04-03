@@ -120,10 +120,14 @@ const UserRegister = () => {
           
           <div className={styles.checkEmail}>
             <button onClick={onEmailCheck}>
-              <pr>
+              <span>
                 중복
+              </span>
+              <br/>
+              <span>
                 확인
-              </pr>
+              </span>
+
             </button>
           </div>
         </div>

@@ -8,18 +8,23 @@ const CategoryAdd = (props) => {
   const [situationImg, setImg] = useState()
   const [imgFile, setImgFile] = useState()
   const [categoryName, setCategoryName] = useState()
+  let [lenCategoryName, setlenCategoryName] = useState(0)
   const onImageChange = (e) => {
     setImgFile(e.target.files[0])
     setImg(URL.createObjectURL(e.target.files[0]))
   }
 
   const onInputChange = (e) => {
-    setCategoryName(e.target.value)
+    if (e.target.value.length > 10){
+      alert('상황이름은 10자까지 가능합니다.')
+    } else{
+      setCategoryName(e.target.value)
+      setlenCategoryName(e.target.value.length)
+    }
   }
   
 
   const addCategory = () => {
-    console.log(123)
     const addButton = document.getElementById('addButton')
     addButton.disabled = true;
     const token = sessionStorage.getItem('jwt')
@@ -60,8 +65,11 @@ const CategoryAdd = (props) => {
           className={styles.situation_input}
           onChange={onInputChange}
           defalutvalue={categoryName}
-          placeholder='상황 이름'/>
+          placeholder='상황 이름'
+          maxLength='10'/>
+      <p>{lenCategoryName}/10</p>
       </div>
+
       <div className={styles.bottom_button}>
         <div className={styles.button_box}>
             <button className={styles.close_button} onClick={props.addStateChange}>취소</button>

@@ -75,7 +75,6 @@ const FindPassword = () => {
       {!isModal ? (
         <>
           <HeaderComp headertitle="비밀번호 찾기" />
-          <div className={styles.findpassword_title}>비밀번호 찾기</div>
 
           <form className={styles.MainForm} onSubmit={onSubmitHandler}>
             <div className={styles.email_box}>
@@ -101,9 +100,8 @@ const FindPassword = () => {
             <button className={styles.check_button} type="submit">
               확인
             </button>
-          </form>
 
-          <button
+            <button
             className={styles.cancel_button}
             onClick={(e) => {
               history.push("/login");
@@ -111,11 +109,13 @@ const FindPassword = () => {
           >
             취소
           </button>
+
+          </form>
+
         </>
       ) : (
         <>
           <HeaderComp headertitle="비밀번호 변경" />
-          <div className={styles.updatepassword_title}>비밀번호 변경</div>
           <form className={styles.onModalForm} onSubmit={changePassword}>
             <div className={styles.password_box}>
               <input

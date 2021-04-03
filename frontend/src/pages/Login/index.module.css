@@ -34,11 +34,11 @@ div {
 }
 
 .login_button {
-  font-size: 24px;
+  font-size: 32px;
   font-family: inherit;
   color: #fff;
   text-align: center;
-  width: 60%;
+  width: 90%;
   height: 5%;
   background-color: #8a9c3a;
   border: 2px solid #8a9c3a;

@@ -70,7 +70,7 @@ div {
 
 .check_button {
   display: block;
-  font-size: inherit;
+  font-size: 32px;
   font-family: inherit;
   text-align: center;
   color: #fff;
@@ -83,7 +83,7 @@ div {
 
 .cancel_button {
   display: block;
-  font-size: inherit;
+  font-size: 32px;
   font-family: inherit;
   text-align: center;
   color: #fff;

@@ -8,6 +8,7 @@ const CardEdit = (props) => {
   const [cardImg, setCardImg] = useState(props['cardUrl']);
   const [cardName, setCardName] = useState(props['cardName']);
   const cardId = props['cardId'];
+  let [lenCardName, setlenCardName] = useState(props['cardName'].length)
 
   const onImageChange = function (e) {
     setCardImg(e.target.value);
@@ -15,7 +16,12 @@ const CardEdit = (props) => {
   };
 
   const onInputChange = (e) => {
-    setCardName(e.target.value);
+    if (e.target.value.length > 10){
+      alert('카드이름은 10자까지 가능합니다.')
+    } else{
+      setCardName(e.target.value)
+      setlenCardName(e.target.value.length)
+    }
   };
 
   const editCard = () => {
@@ -61,9 +67,11 @@ const CardEdit = (props) => {
             defaultValue={cardName}
             onChange={onInputChange}
             placeholder="카드 이름"
+            maxLength='10'
           />
           <img onClick={speakClick} src="/images/speaker-filled-audio-tool.svg" alt="대체이미지" />
         </div>
+        <p>{lenCardName}/10</p>
       </div>
 
       <div className={styles.button_box}>

@@ -9,13 +9,18 @@ const CategoryEdit = (props) => {
   const [categoryName, setCategoryName] = useState(props['categoryName'])
   const categoryId = useState(props['categoryId'])[0]
   const [imgFile, setImgFile] = useState()
-
+  let [lenCategoryName, setlenCategoryName] = useState(props['categoryName'].length)
   const onImageChange = function (e) {
     setImg(URL.createObjectURL(e.target.files[0]))
     setImgFile(e.target.files[0])
   }
   const onInputChange = (e) => {
-    setCategoryName(e.target.value)
+    if (e.target.value.length > 10){
+      alert('상황이름은 10자까지 가능합니다.')
+    } else{
+      setCategoryName(e.target.value)
+      setlenCategoryName(e.target.value.length)
+    }
   }
 
 
@@ -60,7 +65,9 @@ const CategoryEdit = (props) => {
           className={styles.situation_input}
           defaultValue={categoryName}
           onChange={onInputChange}
-          placeholder='상황 이름'/>
+          placeholder='상황 이름'
+          maxLength='10'/>
+        <p>{lenCategoryName}/10</p>
       </div>
       <div className={styles.bottom_button}>
         <div className={styles.button_box}>

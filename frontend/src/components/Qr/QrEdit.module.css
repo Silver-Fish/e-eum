@@ -24,7 +24,7 @@ div {
   display: flex;
   width: 100vw;
   margin: 0px;
-  font-size: 24px;
+  font-size: 32px;
 }
 .qr_edit_delete_button {
   font-size: inherit;
