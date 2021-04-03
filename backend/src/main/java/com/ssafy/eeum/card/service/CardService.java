@@ -32,6 +32,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -85,14 +86,14 @@ public class CardService {
                 break;
             case "qr":
                 QR qr = findQR(typeId);
-                qr.addQRCard(QrCard.createQRCard(qr,card));
+                qr.addQRCard(QrCard.createQRCard(qr, card));
                 break;
         }
 
         // 음성 파일 처리
-        CardVoiceRequest cardVoiceRequest = new CardVoiceRequest(card.getId().toString(),word+'.');
-        byte[] voice = restTemplate.postForObject("http://ai.e-eum.kr:8088/tts",cardVoiceRequest, byte[].class);
-        String voiceUrl = account.getId() + "/voice/" + card.getId()+".wav";
+        CardVoiceRequest cardVoiceRequest = new CardVoiceRequest(card.getId().toString(), word + '.');
+        byte[] voice = restTemplate.postForObject("http://ai.e-eum.kr:8088/tts", cardVoiceRequest, byte[].class);
+        String voiceUrl = account.getId() + "/voice/" + card.getId() + ".wav";
         card.setVoiceUrl(voiceUrl);
 
         File folder = new File(filePath + account.getId() + "/voice");
@@ -157,10 +158,77 @@ public class CardService {
         return CardResponse.of(card);
     }
 
-    public void updateCard(Long id, CardUpdateRequest cardUpdateRequest) {
+    @Transactional(readOnly = true)
+    public String findVoice(Account account, String word) throws Exception {
+        File folder = new File(filePath + account.getId() + "/voice");
+        log.info(folder.mkdirs() ? "success make dir" : "fail make dir");
+
+        // temp로 시작하는 파일을 가져온다.
+        File[] preFileList = folder.listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.startsWith("temp");
+            }
+        });
+
+        // 현재 저장되어있는 음성과 새로 들어온 단어가 다른지 확인하기 위해 파일이름 용도의 단어로 변경경
+        // 파일에는?가 못 들어가므로 여러 개의 물음표를 _qum(question_mark)로 바꿈
+        String file_word = word.replaceAll("[?]{1,}", "_qum");
+        log.info("word: "+word+" / file_word: "+file_word);
+
+        String voiceUrl = "";
+        if (preFileList.length == 0 || !file_word.equals(preFileList[0].getName().substring(5, preFileList[0].getName().length() - 4))) {
+            log.info("voice remake");
+
+            // 음성 파일 처리
+            CardVoiceRequest cardVoiceRequest = new CardVoiceRequest("temp", word + '.');
+            byte[] voice = restTemplate.postForObject("http://ai.e-eum.kr:8088/tts", cardVoiceRequest, byte[].class);
+            voiceUrl = account.getId() + "/voice/temp_" + file_word + ".wav";
+
+            File file = new File(filePath + voiceUrl);
+            log.info(file.createNewFile() ? "success make voice" : "fail make voice");
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(voice);
+            fos.close();
+
+            // 기존 음성 삭제
+            for (File prefile : preFileList) {
+                if (prefile.exists()) {
+                    log.info("file exist");
+                    log.info(prefile.delete() ? "success voice delete" : "fail voice delete");
+                } else {
+                    log.info("file not exist");
+                }
+            }
+        } else {
+            log.info("voice not remake");
+            // 같은 단어가 들어오면 음성을 새로 만들 필요없이 기존 음성으로 반환
+            voiceUrl = account.getId() + "/voice/" + preFileList[0].getName();
+        }
+        return voiceUrl;
+    }
+
+    public void updateCard(Long id, CardUpdateRequest cardUpdateRequest) throws Exception {
         Card card = findCard(id);
         Card requestCard = cardUpdateRequest.toCard();
         card.update(requestCard);
+
+        // 음성 파일 처리
+        CardVoiceRequest cardVoiceRequest = new CardVoiceRequest(card.getId().toString(), card.getWord() + '.');
+        byte[] voice = restTemplate.postForObject("http://ai.e-eum.kr:8088/tts", cardVoiceRequest, byte[].class);
+
+        File file = new File(filePath + card.getVoiceUrl());
+        FileOutputStream fos = new FileOutputStream(file);
+        fos.write(voice);
+        fos.close();
+
+        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
+        AudioFormat format = audioInputStream.getFormat();
+        long audioFileLength = file.length();
+        int frameSize = format.getFrameSize();
+        float frameRate = format.getFrameRate();
+        float voiceLength = (audioFileLength / (frameSize * frameRate));
+        card.setVoiceLength(voiceLength);
     }
 
     public void deleteCard(Long id) {
@@ -180,19 +248,31 @@ public class CardService {
                 categoryCard.getCategory().deleteCategoryCard(categoryCard);
                 log.info("category card delete");
             }
-        } else if (qrCards.size()!=0){
+        } else if (qrCards.size() != 0) {
             for (QrCard qrCard : qrCards) {
                 qrCard.setCard(null);
                 qrCard.getQr().deleteQrCard(qrCard);
                 log.info("qr card delete");
             }
         }
+
         Card card = findCard(id);
-        File file = new File(filePath + card.getImageUrl());
-        if(file.exists()) {
+
+        // 음성 삭제
+        File file = new File(filePath + card.getVoiceUrl());
+        if (file.exists()) {
+            log.info("file exist");
+            log.info(file.delete() ? "success voice delete" : "fail voice delete");
+        } else {
+            log.info("file not exist");
+        }
+
+        // 이미지 삭제
+        file = new File(filePath + card.getImageUrl());
+        if (file.exists()) {
             log.info("file exist");
             log.info(file.delete() ? "success image delete" : "fail image delete");
-        }else{
+        } else {
             log.info("file not exist");
         }
         cardRepository.deleteById(id);
@@ -238,7 +318,7 @@ public class CardService {
                 });
     }
 
-    private QR findQR(Long typeId){
+    private QR findQR(Long typeId) {
         return qrRepository.findById(typeId)
                 .orElseThrow(() -> {
                     return new NotFoundException(ErrorCode.QR_NOT_FOUND);
