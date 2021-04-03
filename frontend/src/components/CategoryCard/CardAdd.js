@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import styles from './CardAdd.module.css';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-
+import Loader from '../Loader/Loader'
 const CardAdd = (props) => {
   const history = useHistory();
   const [imgFile, setImgFile] = useState()
   const [cardImg, setImg] = useState()
   const [cardName, setCardName] = useState()
   let [lenCardName, setlenCardName] = useState(0)
-
+  const [isLoading, setLoading] = useState(false)
 
   const onImageChange = function (e) {
     setImgFile(e.target.files[0])
@@ -32,7 +32,7 @@ const CardAdd = (props) => {
     console.log('소리쳐')
   }
   const cardRegisterClick= () => {
-
+    setLoading(!isLoading)
     const token = sessionStorage.getItem('jwt')
     const registerButton = document.getElementById('registerButton')
     registerButton.disabled = true;
@@ -50,7 +50,22 @@ const CardAdd = (props) => {
     }
       axios.post(process.env.REACT_APP_API_URL + '/card', data, config)
       .then((res) =>{
-        history.go(0)
+        
+        axios.get(process.env.REACT_APP_API_URL + '/card/category?typeId=' + categoryId, config)
+        .then((res) => {
+          setLoading(!isLoading)
+          props.cardAdd(false)
+          props.cardDataReset(res.data)  
+        })
+        .catch((err) => {
+          console.log(err)
+        })     
+          
+      
+      
+        
+        
+
       })
       .catch((err) => {
         console.log(err)
@@ -60,6 +75,10 @@ const CardAdd = (props) => {
 
   return(
     <>
+      { isLoading === false
+      ?
+      (
+      <>
       <div className={styles.add_box}>
         <div className={styles.image_box}>
           <img  src={cardImg} alt="이미지를 등록해주세요" />
@@ -94,6 +113,13 @@ const CardAdd = (props) => {
             <button id='registerButton' className={styles.register_button} onClick={cardRegisterClick} >등록</button>
         </div>
       </div>
+      </>
+      )
+      :
+      (
+        <Loader></Loader>
+      )
+      }
     </>
   )
 }

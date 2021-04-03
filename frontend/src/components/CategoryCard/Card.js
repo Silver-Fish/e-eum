@@ -10,12 +10,11 @@ const Card = (props) => {
   // const [isCardStateEdit, setCardStateEdit] = useState(false)
   const categoryId = props.categoryId
   const isCardStateEdit = useState(false)[0]
-  const isCardEdit = props.isCardEdit
+  // const [isCardEdit, setCardEdit] = useState(props.isCardEdit)
+  let isCardEdit = props.isCardEdit
   const textValue = props.textValue 
   const cardUrl = process.env.REACT_APP_IMG_PATH+props.cardUrl
   const cardId = props.id
-  console.log(cardUrl)
-
   const cardButtonClick = (e) => {    
     props.cardClick({
       cardName: {textValue}, 
@@ -27,14 +26,25 @@ const Card = (props) => {
   
   const CardDeleteClick = (e) => {    
     e.stopPropagation();
-    const token = sessionStorage.getItem('jwt')   
-    axios.delete(process.env.REACT_APP_API_URL + '/card/'+ cardId, {
+    const token = sessionStorage.getItem('jwt')
+    const config = {
       headers: {
         'Authorization': token
-        }
-    })
+      }
+    }   
+    axios.delete(process.env.REACT_APP_API_URL + '/card/'+ cardId, config)
     .then(()=> {
-      history.go(0)
+      axios.get(process.env.REACT_APP_API_URL + '/card/category?typeId=' + categoryId, config)
+      .then((res) => {
+        props.cardDelete(!isCardEdit)
+        props.cardDataReset(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+
+
+      // history.go(0)
     })
     .catch((err) => {
       console.log(err)
@@ -54,7 +64,7 @@ const Card = (props) => {
 
 
   return(
-    <>
+    <> 
     { isCardEdit === false
       ?
     <button className={styles.card} onClick={cardButtonClick}>

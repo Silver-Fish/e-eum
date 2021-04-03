@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from './CardEdit.module.css';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import Loader from '../Loader/Loader'
 
 const CardEdit = (props) => {
   const history = useHistory();
@@ -9,6 +10,7 @@ const CardEdit = (props) => {
   const [cardName, setCardName] = useState(props['cardName']);
   const cardId = props['cardId'];
   let [lenCardName, setlenCardName] = useState(props['cardName'].length)
+  const [isLoading, setLoading] = useState(false)
 
   const onImageChange = function (e) {
     setCardImg(e.target.value);
@@ -25,6 +27,7 @@ const CardEdit = (props) => {
   };
 
   const editCard = () => {
+    setLoading(!isLoading)
     const token = sessionStorage.getItem('jwt');
     const data = {
       word: cardName,
@@ -37,6 +40,7 @@ const CardEdit = (props) => {
         },
       })
       .then(() => {
+        setLoading(!isLoading)
         history.go(0);
       })
       .catch((err) => {
@@ -50,6 +54,10 @@ const CardEdit = (props) => {
 
   return (
     <>
+      { isLoading === false
+      ?
+      (
+      <>
       <div className={styles.add_box}>
         <div className={styles.image_box}>
           <img src={cardImg} alt="이미지를 등록해주세요" />
@@ -82,6 +90,13 @@ const CardEdit = (props) => {
           등록
         </button>
       </div>
+      </>
+      )
+      :
+      (
+        <Loader></Loader>
+      )
+      }
     </>
   );
 };

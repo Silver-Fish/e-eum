@@ -2,13 +2,14 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import styles from './CategoryEdit.module.css'
 import { useHistory } from 'react-router-dom';
-
+import Loader from '../Loader/Loader'
 const CategoryEdit = (props) => {
   const history = useHistory();
   const [situationImg, setImg] = useState(props['categoryUrl'])
   const [categoryName, setCategoryName] = useState(props['categoryName'])
   const categoryId = useState(props['categoryId'])[0]
   const [imgFile, setImgFile] = useState()
+  const [isLoading, setLoading] = useState(false)
   let [lenCategoryName, setlenCategoryName] = useState(props['categoryName'].length)
   const onImageChange = function (e) {
     setImg(URL.createObjectURL(e.target.files[0]))
@@ -25,6 +26,7 @@ const CategoryEdit = (props) => {
 
 
   const editCategory = () => {
+    setLoading(!isLoading)
     const token = sessionStorage.getItem('jwt')
     const editButton = document.getElementById('editButton')
     editButton.disabled = true;
@@ -38,6 +40,7 @@ const CategoryEdit = (props) => {
         }
     })
     .then(()=> {
+      setLoading(!isLoading)
       history.go(0)
     })
     .catch((err) => {
@@ -47,6 +50,10 @@ const CategoryEdit = (props) => {
 
   return(
     <>
+      { isLoading === false
+      ?
+      (
+      <>
       <div className={styles.add_box}>
         <div className={styles.image_box}>
           <img  src={situationImg} alt="이미지를 등록해주세요" />
@@ -75,6 +82,13 @@ const CategoryEdit = (props) => {
             <button id='editButton' className={styles.edit_button} onClick={editCategory} >수정</button>
         </div>
       </div>
+      </>
+      )
+      :
+      (
+        <Loader></Loader>
+      )
+      }
     </>
   )
 }
