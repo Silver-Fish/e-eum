@@ -24,8 +24,8 @@ const HeaderComp = (props) => {
       setModal(false);
     }
   };
-  const myEeumClick = (e) => {
-    history.push('/mypage');
+  const ownEeumClick = (e) => {
+    history.push('/owncard');
   };
   const situationEeumClick = (e) => {
     history.push('/category');
@@ -148,7 +148,7 @@ const HeaderComp = (props) => {
                   </button>
                 </li>
                 <li className={styles.modal_list_line}>
-                  <button className={styles.modal_button} onClick={myEeumClick}>
+                  <button className={styles.modal_button} onClick={ownEeumClick}>
                     나만의 이음
                   </button>
                 </li>
@@ -179,7 +179,7 @@ const HeaderComp = (props) => {
                 </button>
               </li>
               <li className={styles.modal_list_line}>
-                <button className={styles.modal_button} onClick={myEeumClick}>
+                <button className={styles.modal_button} onClick={ownEeumClick}>
                   나만의 이음
                 </button>
               </li>
