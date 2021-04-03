@@ -63,9 +63,16 @@ public class CardController {
         return ResponseEntity.ok().body(cardResponses);
     }
 
+    @GetMapping("/voice/{word}")
+    @ApiOperation(value = "미리듣기 음성 조회, http://localhost:8080/api/voice/{word:단어}", notes = "단어를 받아 음성을 반환한다.")
+    public ResponseEntity<String> getVoice(@ApiIgnore @CurrentAccount Account account, @RequestParam @NotNull String word) throws Exception{
+        String tempVoice = cardService.findVoice(account, word);
+        return ResponseEntity.ok().body(tempVoice);
+    }
+
     @PutMapping("/{id}")
     @ApiOperation(value = "카드 수정, http://localhost:8080/api/card/{id:카드아이디}, data={word:단어}", notes = "카드 id를 받아 카드리스트를 수정한다.")
-    public ResponseEntity<Void> updateCard(@PathVariable @NotNull Long id, @RequestBody @Valid CardUpdateRequest cardUpdateRequest) {
+    public ResponseEntity<Void> updateCard(@PathVariable @NotNull Long id, @RequestBody @Valid CardUpdateRequest cardUpdateRequest) throws Exception{
         cardService.updateCard(id, cardUpdateRequest);
         return ResponseEntity.noContent().build();
     }
