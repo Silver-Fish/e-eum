@@ -36,7 +36,7 @@ const Card = (props) => {
     .then(()=> {
       axios.get(process.env.REACT_APP_API_URL + '/card/category?typeId=' + categoryId, config)
       .then((res) => {
-        props.cardDelete(!isCardEdit)
+        // props.cardDelete(!isCardEdit)
         props.cardDataReset(res.data)
       })
       .catch((err) => {
