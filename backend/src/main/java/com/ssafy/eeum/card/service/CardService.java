@@ -174,7 +174,7 @@ public class CardService {
         // 현재 저장되어있는 음성과 새로 들어온 단어가 다른지 확인하기 위해 파일이름 용도의 단어로 변경경
         // 파일에는?가 못 들어가므로 여러 개의 물음표를 _qum(question_mark)로 바꿈
         String file_word = word.replaceAll("[?]{1,}", "_qum");
-        log.info("word: "+word+" / file_word: "+file_word);
+        log.info("word: " + word + " / file_word: " + file_word);
 
         String voiceUrl = "";
         if (preFileList.length == 0 || !file_word.equals(preFileList[0].getName().substring(5, preFileList[0].getName().length() - 4))) {
@@ -210,25 +210,27 @@ public class CardService {
 
     public void updateCard(Long id, CardUpdateRequest cardUpdateRequest) throws Exception {
         Card card = findCard(id);
-        Card requestCard = cardUpdateRequest.toCard();
-        card.update(requestCard);
+        if (!card.getWord().equals(cardUpdateRequest.getWord())) {
+            Card requestCard = cardUpdateRequest.toCard();
+            card.update(requestCard);
 
-        // 음성 파일 처리
-        CardVoiceRequest cardVoiceRequest = new CardVoiceRequest(card.getId().toString(), card.getWord() + '.');
-        byte[] voice = restTemplate.postForObject("http://ai.e-eum.kr:8088/tts", cardVoiceRequest, byte[].class);
+            // 음성 파일 처리
+            CardVoiceRequest cardVoiceRequest = new CardVoiceRequest(card.getId().toString(), card.getWord() + '.');
+            byte[] voice = restTemplate.postForObject("http://ai.e-eum.kr:8088/tts", cardVoiceRequest, byte[].class);
 
-        File file = new File(filePath + card.getVoiceUrl());
-        FileOutputStream fos = new FileOutputStream(file);
-        fos.write(voice);
-        fos.close();
+            File file = new File(filePath + card.getVoiceUrl());
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(voice);
+            fos.close();
 
-        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
-        AudioFormat format = audioInputStream.getFormat();
-        long audioFileLength = file.length();
-        int frameSize = format.getFrameSize();
-        float frameRate = format.getFrameRate();
-        float voiceLength = (audioFileLength / (frameSize * frameRate));
-        card.setVoiceLength(voiceLength);
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
+            AudioFormat format = audioInputStream.getFormat();
+            long audioFileLength = file.length();
+            int frameSize = format.getFrameSize();
+            float frameRate = format.getFrameRate();
+            float voiceLength = (audioFileLength / (frameSize * frameRate));
+            card.setVoiceLength(voiceLength);
+        }
     }
 
     public void deleteCard(Long id) {

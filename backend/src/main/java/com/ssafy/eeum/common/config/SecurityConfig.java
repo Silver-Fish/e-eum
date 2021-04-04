@@ -61,6 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/card/**", "/category/**").permitAll()
                 .antMatchers("/accounts/**").hasRole("USER")
                 .antMatchers("/card/**").hasRole("USER")
+                .antMatchers("/qr/**").hasRole("USER")
                 .anyRequest().authenticated();
     }
 
