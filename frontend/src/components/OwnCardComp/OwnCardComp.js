@@ -10,6 +10,7 @@ const OwnCardComp = (props) => {
   const cardName = props.textValue
   const cardId = props.cardId
   const voiceUrl = `/data/${props.voiceUrl}`
+  const voiceLength = props.voiceLength
   const imgUrl = `/data/${props.imgUrl}`
   let audio = ""
 
@@ -17,8 +18,10 @@ const OwnCardComp = (props) => {
     props.cardClick({
       cardName: {cardName}, 
       imgUrl: {imgUrl},
-      voiceUrl: {voiceUrl}
+      voiceUrl: {voiceUrl},
+      voiceLength:{voiceLength}
     })
+    console.log(voiceLength)
     audio = new Audio(voiceUrl)
     audio.load()
     playAudio()   

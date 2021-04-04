@@ -16,26 +16,38 @@ const OwnEeum = () => {
   const [isAdd, setAdd] = useState(false);
   const [isEdit, setEdit] = useState(false);
   const [goEdit, setgoEdit] = useState(false);
-  const [owncardDatas, setOwncardDatas] = useState([0]);
+  const [owncardDatas, setOwncardDatas] = useState([]);
   const [speechBoxDatas, setSpeechBoxDatas] = useState([]);
   const [imgUrl, setimgUrl] = useState('');
   const [cardName, setCardName] = useState('');
   const [cardId, setCardId] = useState('');
   const [token, setToken] = useState(sessionStorage.getItem('jwt'));
   const [cookies] = useCookies(['cookie']);
-  const [speechList, setSpeechList] = useState([])
+  const [speechList, setSpeechList] = useState([])  
   let audio = ""
+
   const cardClick = (data) => {
     console.log(data)
     setSpeechBoxDatas([...speechBoxDatas, 
-      [data.cardName.cardName, data.imgUrl['imgUrl'],data.voiceUrl.voiceUrl]]);
-      for(let i =0; i<speechBoxDatas.length; i++) {
-        setSpeechList(speechList=> [...speechList,speechBoxDatas[i][2]])
-      }
+      [
+        data.cardName.cardName, 
+        data.imgUrl['imgUrl'],
+        data.voiceUrl.voiceUrl,
+        data.voiceLength.voiceLength]
+      ]);
+    setSpeechList(speechList => [...speechList,
+      [
+        data.voiceUrl.voiceUrl,
+        data.voiceLength.voiceLength]
+      ])
   };
   const deleteClick = () => {
     speechBoxDatas.pop();
     setSpeechBoxDatas([...speechBoxDatas]);
+    speechList.pop();
+    setSpeechList([...speechList]);
+    console.log(speechBoxDatas)
+    console.log(speechBoxList)
   };
   useEffect(() => {
     const type = 'own';
@@ -80,6 +92,7 @@ const OwnEeum = () => {
       textValue={owncard.word}
       imgUrl={owncard.imageUrl}
       voiceUrl={owncard.voiceUrl}
+      voiceLength={owncard.voiceLength}
       cardClick={cardClick}
       isEdit={isEdit}
       goEdit={goEdit}
@@ -92,6 +105,7 @@ const OwnEeum = () => {
       textValue={speech[0]} 
       imgUrl={speech[1]}
       voiceUrl={speech[2]}
+      voiceLength={speech[3]}
     ></SpeechBoxCard>
   ));
 
@@ -99,13 +113,17 @@ const OwnEeum = () => {
     setAdd(!isAdd);
   };
   const speechClick = () => {
-    console.log(speechList)
-    console.log(speechList.length)
     for(let i=0; i<speechList.length; i++) {
-      audio = new Audio(speechList[i])
+      let audioLength = 0
+      for(let j=0; j<i; j++) {
+        audioLength += (speechList[j][1]*1000)
+      }
+      setTimeout(()=> {
+      console.log(audioLength)
+      audio = new Audio(speechList[i][0])
       audio.load()
-      playAudio()   
-
+      playAudio()
+    },audioLength)
     }
   };
   const playAudio = () => {
