@@ -11,7 +11,7 @@ const Card = (props) => {
   const isCardStateEdit = useState(false)[0]
   const isEdit = props.isEdit
   const textValue = props.textValue 
-  const cardUrl = props.cardUrl
+  const cardUrl = process.env.REACT_APP_IMG_PATH + props.cardUrl
   const cardId = props.id
   const cardButtonClick = (e) => {    
     props.cardClick({
@@ -49,7 +49,7 @@ const Card = (props) => {
     { isEdit === false
       ?
     <button className={styles.card} onClick={cardButtonClick}>
-      <img className={styles.card_image} src={process.env.REACT_APP_IMG_PATH + cardUrl} alt=""/>
+      <img className={styles.card_image} src={cardUrl} alt=""/>
         {textValue}
     </button>
     : 
