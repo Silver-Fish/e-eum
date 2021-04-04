@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styles from './HeaderComp.module.css';
 import SearchCardComp from './SearchCardComp'
@@ -45,6 +45,10 @@ const HeaderComp = (props) => {
   const onSearch = (e) => {
     setSearchKeyword(e.target.value)
   }
+  useEffect(() => {
+    console.log(searchFlag)
+    
+  },[searchkeyword])
 
   const searchCard = () => {
     const keyword = searchkeyword
@@ -55,15 +59,13 @@ const HeaderComp = (props) => {
       }
     })
     .then((res)=> {
-      console.log(res)
       if (res.data) {
         setSearchFlag(true)
-        console.log(searchFlag)
         setSearchCardDatas(res.data)
-        console.log(res.data)
+        console.log(searchFlag)
         console.log('검색시작!')
       }
-      else {
+      else if(!res.data) {
         setSearchFlag(false)
         console.log(searchFlag)
         console.log("검색음슴")
@@ -80,6 +82,7 @@ const HeaderComp = (props) => {
         key={i}
         textValue={searchcard.word}
         voiceUrl={searchcard.voiceUrl}
+        voiceLength={searchcard.voiceLength}
         imgUrl={searchcard.imageUrl}
       ></SearchCardComp>
 
