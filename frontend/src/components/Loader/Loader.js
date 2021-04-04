@@ -4,7 +4,8 @@ import styles from './Loader.module.css'
 const Loader = () => {
   return(
     <div className={styles.loading_box}>
-        <div className={styles.loading_img}></div>        
+        <div className={styles.loading_img}></div>    
+        <div className={styles.loading_img2}></div>    
         <div className={styles.loading}>
           <span>L</span>
           <span>o</span>
