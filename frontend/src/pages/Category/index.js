@@ -38,6 +38,8 @@ const Category = () => {
 
   const [cardDatas, setCard] = useState([]);
   const [speechBoxDatas, setSpeechBoxDatas] = useState([]);
+  const [speechList, setSpeechList] = useState([])  
+  let audio = ""
 
   useEffect(() => {
     if (
@@ -65,6 +67,7 @@ const Category = () => {
   }, [cookies.cookie, token]);
 
   const categoryClick = (e) => {
+    console.log(e)
     setCategory(!isCategory);
     setCard(e.cardDatas);
     setCategoryId(e.categoryId);
@@ -72,12 +75,25 @@ const Category = () => {
   };
 
   const cardClick = (data) => {
-    setSpeechBoxDatas([...speechBoxDatas, [data.cardName['textValue'], data.cardUrl['cardUrl']]]);
+    setSpeechBoxDatas([...speechBoxDatas, 
+      [
+        data.cardName['textValue'], 
+        data.cardUrl['cardUrl'],
+        data.voiceUrl.voiceUrl,
+        data.voiceLength.voiceLength]      
+      ]);
+    setSpeechList(speechList => [...speechList,
+      [
+        data.voiceUrl.voiceUrl,
+        data.voiceLength.voiceLength]
+      ])
   };
 
   const deleteClick = () => {
     speechBoxDatas.pop();
     setSpeechBoxDatas([...speechBoxDatas]);
+    speechList.pop();
+    setSpeechList([...speechList]);
   };
 
   const undo = () => {
@@ -163,6 +179,8 @@ const Category = () => {
       id={card.id}
       textValue={card.word}
       cardUrl={card.imageUrl}
+      voiceUrl={card.voiceUrl}
+      voiceLength={card.voiceLength}
       cardClick={cardClick}
       isCardEdit={isCardEdit}
       CardStateEdit={CardStateEdit}
@@ -180,6 +198,32 @@ const Category = () => {
     alert('로그인 해주세요');
     history.push('./login');
   };
+  const speechClick = () => {
+    for(let i=0; i<speechList.length; i++) {
+      let audioLength = 0
+      for(let j=0; j<i; j++) {
+        audioLength += (speechList[j][1]*1000)
+      }
+      setTimeout(()=> {
+      audio = new Audio(speechList[i][0])
+      audio.load()
+      playAudio()
+    },audioLength)
+    }
+  };
+  const playAudio = () => {
+    const audioPromise = audio.play()
+    if (audioPromise !== undefined) {
+      audioPromise
+        .then(_ => {
+          // autoplay started
+        })
+        .catch(err => {
+          // catch dom exception
+          console.info(err)
+        })
+    }
+  }
 
   return (
     <>
@@ -196,7 +240,7 @@ const Category = () => {
                     <button disabled>
                       <img src="/images/undo.svg" alt="undo" />
                     </button>
-                    <button>
+                    <button onClick={speechClick}>
                       <img src="/images/play-button.svg" alt="play" />
                     </button>
                     <button onClick={deleteClick}>
@@ -266,7 +310,7 @@ const Category = () => {
                     <button onClick={undo}>
                       <img src="/images/undo.svg" alt="undo" />
                     </button>
-                    <button>
+                    <button onClick={speechClick}>
                       <img src="/images/play-button.svg" alt="play" />
                     </button>
                     <button onClick={deleteClick}>
