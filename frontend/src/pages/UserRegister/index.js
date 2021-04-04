@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import HeaderComp from '../../components/HeaderComp/HeaderComp';
 import styles from './index.module.css';
+import UserRegisterLoader from '../../components/Loader/UserRegisterLoader'
 
 const UserRegister = () => {
   const [name, setName] = useState('');
@@ -13,6 +14,7 @@ const UserRegister = () => {
   const [message, setMessage] = useState('');
   const [check, isCheck] = useState(false);
   const history = useHistory();
+  const [isLoading, setLoading] = useState(false);
 
   const onEmailHandler = (e) => {
     setEmail(e.currentTarget.value);
@@ -31,6 +33,7 @@ const UserRegister = () => {
   };
 
   const onSubmitHandler = (e) => {
+    setLoading(!isLoading)
     e.preventDefault();
 
     if (password === passwordcheck && password !== '' && check && name !== '' && email !== '') {
@@ -45,6 +48,7 @@ const UserRegister = () => {
       axios
         .post(process.env.REACT_APP_API_URL + '/accounts', userData)
         .then((res) => {
+          setLoading(!isLoading)
           if (res.data === 'Created') {
             history.push('./userRegisterSuccess');
           } else {
@@ -107,6 +111,10 @@ const UserRegister = () => {
   return (
     <div className={styles.register_box}>
       <HeaderComp headertitle="회원가입" />
+      { isLoading === false
+      ?
+      (
+      <>
       <form className={styles.MainForm} onSubmit={onSubmitHandler}>
         
         <div className={styles.email_box}>
@@ -176,7 +184,13 @@ const UserRegister = () => {
           onClick={onCancelButton}>
         취소</button>
       </form>
-
+      </>
+      )
+      :
+      (
+        <UserRegisterLoader></UserRegisterLoader>
+      )
+      }
     </div>
   );
 };

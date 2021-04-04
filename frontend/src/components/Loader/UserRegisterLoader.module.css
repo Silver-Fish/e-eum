@@ -1,3 +1,4 @@
+
 .loading_box {
   position: relative;
   height: 100%;
@@ -69,24 +70,24 @@
   }
 }
 
+
 .loading {
   color: #8A9C3A;
   position: absolute;
   width: 100%;
   display: block;
-  font-size: 32px;
+  font-size: 24px;
   margin: 350px auto;
-  animation:txtup 3s infinite;
 }
 
 
 .loading span {
   position:relative;
   display: inline-block;
-  animation:txtup 1s infinite;
-  -webkit-animation: txtup 1s infinite; 
-  -ms-animation: txtup 1s infinite;
-  moz-animation: txtup 1s infinite; 
+  animation:txtup 1.5s infinite;
+  -webkit-animation: txtup 1.5s infinite; 
+  -ms-animation: txtup 1.5s infinite;
+  moz-animation: txtup 1.5s infinite; 
 }
 
 
@@ -99,6 +100,8 @@
 .loading span:nth-of-type(8) {animation-delay: 0.7s;}
 .loading span:nth-of-type(9) {animation-delay: 0.8s;}
 .loading span:nth-of-type(10) {animation-delay: 0.9s;}
+.loading span:nth-of-type(11) {animation-delay: 1.0s;}
+.loading span:nth-of-type(12) {animation-delay: 1.1s;}
 
 @keyframes txtup {
   0%{top:0;}
