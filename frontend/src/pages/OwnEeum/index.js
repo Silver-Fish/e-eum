@@ -27,7 +27,6 @@ const OwnEeum = () => {
   let audio = ""
 
   const cardClick = (data) => {
-    console.log(data)
     setSpeechBoxDatas([...speechBoxDatas, 
       [
         data.cardName.cardName, 
@@ -46,8 +45,6 @@ const OwnEeum = () => {
     setSpeechBoxDatas([...speechBoxDatas]);
     speechList.pop();
     setSpeechList([...speechList]);
-    console.log(speechBoxDatas)
-    console.log(speechBoxList)
   };
   useEffect(() => {
     const type = 'own';
@@ -119,7 +116,6 @@ const OwnEeum = () => {
         audioLength += (speechList[j][1]*1000)
       }
       setTimeout(()=> {
-      console.log(audioLength)
       audio = new Audio(speechList[i][0])
       audio.load()
       playAudio()
@@ -155,7 +151,6 @@ const OwnEeum = () => {
               <div className={styles.speech_box}>
                 <>
                 <div className={styles.speech_item_box} onClick={speechClick}>{speechBoxList}</div>
-                {/* <div className={styles.speech_item_box} >{speechBoxList}</div> */}
 
                 <button onClick={deleteClick} className={styles.speech_cancel}>
                   <img src="/images/close.svg" alt="" />

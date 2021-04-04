@@ -9,9 +9,9 @@ const OwnCardComp = (props) => {
   const isEdit = props['isEdit']
   const cardName = props.textValue
   const cardId = props.cardId
-  const voiceUrl = `/data/${props.voiceUrl}`
+  const voiceUrl = process.env.REACT_APP_IMG_PATH+props.voiceUrl
   const voiceLength = props.voiceLength
-  const imgUrl = `/data/${props.imgUrl}`
+  const imgUrl = process.env.REACT_APP_IMG_PATH+props.imgUrl
   let audio = ""
 
   const cardButtonClick = (e) => { 
@@ -21,7 +21,6 @@ const OwnCardComp = (props) => {
       voiceUrl: {voiceUrl},
       voiceLength:{voiceLength}
     })
-    console.log(voiceLength)
     audio = new Audio(voiceUrl)
     audio.load()
     playAudio()   
