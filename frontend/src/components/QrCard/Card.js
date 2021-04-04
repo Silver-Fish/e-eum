@@ -49,7 +49,7 @@ const Card = (props) => {
     { isEdit === false
       ?
     <button className={styles.card} onClick={cardButtonClick}>
-      <img className={styles.card_image} src={cardUrl} alt=""/>
+      <img className={styles.card_image} src={process.env.REACT_APP_IMG_PATH + cardUrl} alt=""/>
         {textValue}
     </button>
     : 
