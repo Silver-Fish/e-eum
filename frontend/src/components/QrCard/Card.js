@@ -6,18 +6,38 @@ import { useHistory } from 'react-router-dom';
   
 const Card = (props) => {
   const history = useHistory();
-  // const [isCardStateEdit, setCardStateEdit] = useState(false)
-  const categoryId = props.categoryId
   const isCardStateEdit = useState(false)[0]
   const isEdit = props.isEdit
   const textValue = props.textValue 
   const cardUrl = process.env.REACT_APP_IMG_PATH + props.cardUrl
+  const voiceUrl = process.env.REACT_APP_IMG_PATH+props.voiceUrl
+  const voiceLength = props.voiceLength
   const cardId = props.id
+  let audio = ""
+
   const cardButtonClick = (e) => {    
     props.cardClick({
       cardName: {textValue}, 
-      cardUrl: {cardUrl}
+      cardUrl: {cardUrl},
+      voiceUrl: {voiceUrl},
+      voiceLength:{voiceLength}
     })
+    audio = new Audio(voiceUrl)
+    audio.load()
+    playAudio()   
+  }
+  const playAudio = () => {
+    const audioPromise = audio.play()
+    if (audioPromise !== undefined) {
+      audioPromise
+        .then(_ => {
+          // autoplay started
+        })
+        .catch(err => {
+          // catch dom exception
+          console.info(err)
+        })
+    }
   }
 
 

@@ -22,6 +22,8 @@ const QrCard = ({ match }) => {
   const [qrCardDatas, setQrCard] = useState([]);
   const [cookies] = useCookies(['cookie']);
   const [token, setToken] = useState(sessionStorage.getItem('jwt'));
+  const [speechList, setSpeechList] = useState([])  
+  let audio = ""
 
   useEffect(() => {
     if (
@@ -45,7 +47,6 @@ const QrCard = ({ match }) => {
         },
       })
       .then((res) => {
-        console.log(res);
         setQrCard(res.data);
       })
       .catch((err) => {
@@ -64,12 +65,25 @@ const QrCard = ({ match }) => {
   const [speechBoxDatas, setSpeechBoxDatas] = useState([]);
 
   const cardClick = (data) => {
-    setSpeechBoxDatas([...speechBoxDatas, [data.cardName['textValue'], data.cardUrl['cardUrl']]]);
+    setSpeechBoxDatas([...speechBoxDatas, 
+      [
+        data.cardName['textValue'], 
+        data.cardUrl['cardUrl'],
+        data.voiceUrl.voiceUrl,
+        data.voiceLength.voiceLength]
+      ]);
+      setSpeechList(speechList => [...speechList,
+        [
+          data.voiceUrl.voiceUrl,
+          data.voiceLength.voiceLength]
+        ])
   };
 
   const deleteClick = () => {
     speechBoxDatas.pop();
     setSpeechBoxDatas([...speechBoxDatas]);
+    speechList.pop();
+    setSpeechList([...speechList]);
   };
 
   const CardStateEdit = (data) => {
@@ -89,6 +103,8 @@ const QrCard = ({ match }) => {
       id={card.id}
       textValue={card.word}
       cardUrl={card.imageUrl}
+      voiceUrl={card.voiceUrl}
+      voiceLength={card.voiceLength}
       isEdit={isEdit}
       cardClick={cardClick}
       CardStateEdit={CardStateEdit}
@@ -99,6 +115,33 @@ const QrCard = ({ match }) => {
     <SpeechBoxCard key={i} textValue={speech[0]} cardUrl={speech[1]}></SpeechBoxCard>
   ));
 
+  const speechClick = () => {
+    for(let i=0; i<speechList.length; i++) {
+      let audioLength = 0
+      for(let j=0; j<i; j++) {
+        audioLength += (speechList[j][1]*1000)
+      }
+      setTimeout(()=> {
+      audio = new Audio(speechList[i][0])
+      audio.load()
+      playAudio()
+    },audioLength)
+    }
+  };
+  const playAudio = () => {
+    const audioPromise = audio.play()
+    if (audioPromise !== undefined) {
+      audioPromise
+        .then(_ => {
+          // autoplay started
+        })
+        .catch(err => {
+          // catch dom exception
+          console.info(err)
+        })
+    }
+  }
+
   return (
     <>
       {(function () {
@@ -107,7 +150,7 @@ const QrCard = ({ match }) => {
             <>
               <HearderComp headertitle="QR 카드" headerColor="yello"></HearderComp>
               <div className={styles.speech_box}>
-                <div className={styles.speech_item_box}>{speechBoxList}</div>
+                <div className={styles.speech_item_box} onClick={speechClick}>{speechBoxList}</div>
 
                 <button onClick={deleteClick} className={styles.speech_cancel}>
                   <img src="/images/close.svg" alt="" />
