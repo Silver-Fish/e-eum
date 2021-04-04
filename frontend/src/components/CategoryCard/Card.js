@@ -19,7 +19,6 @@ const Card = (props) => {
   const cardId = props.id
   let audio = ""
   const cardButtonClick = (e) => {  
-    console.log(e)  
     props.cardClick({
       cardName: {textValue}, 
       cardUrl: {cardUrl},

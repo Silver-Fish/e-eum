@@ -28,7 +28,6 @@ const CategoryCard = (props) => {
     
     axios.get(process.env.REACT_APP_API_URL + '/card/category?typeId=' + categoryId, config)
     .then((res) => {
-      console.log(res.data)
       props.categoryClick({state:false, cardDatas:res.data, categoryId:categoryId, categoryName:categoryName})
     })
     .catch((err) => {
