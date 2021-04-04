@@ -49,7 +49,7 @@ const Card = (props) => {
     { isEdit === false
       ?
     <button className={styles.card} onClick={cardButtonClick}>
-      <img className={styles.card_image} src={cardUrl} alt=""/>
+      <img className={styles.card_image} src={cardUrl} alt="qr 카드"/>
         {textValue}
     </button>
     : 
@@ -58,7 +58,7 @@ const Card = (props) => {
         <div className={styles.card_del_box} >
           <img src="/images/minus.png" alt="" onClick={CardDeleteClick}/>
         </div>
-        <img className={styles.card_image} src={cardUrl} alt=""/>
+        <img className={styles.card_image} src={cardUrl} alt="qr 카드"/>
         {textValue}
       </button>
     </>
