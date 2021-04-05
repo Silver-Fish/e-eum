@@ -9,10 +9,10 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 const QrCard = ({ match }) => {
-  let qrNum = window.location.href.split('/')
-  qrNum = qrNum[qrNum.length-1]
+  let qrId = window.location.href.split('/')
+  qrId = qrId[qrId.length-1]
   const history = useHistory();
-  const qrId = match.params.qrId;
+  // const qrId = match.params.qrId;
   const [isAdd, setAdd] = useState(false);
   const [isEdit, setEdit] = useState(false);
   // const [cardUrl, setCardUrl] = useState('')
@@ -30,7 +30,7 @@ const QrCard = ({ match }) => {
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API_URL + '/card/qr?typeId=' + qrNum, {
+      .get(process.env.REACT_APP_API_URL + '/card/qr?typeId=' + qrId, {
         headers: {
           Authorization: token,
         },
