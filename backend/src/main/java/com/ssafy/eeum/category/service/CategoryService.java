@@ -104,8 +104,16 @@ public class CategoryService {
         Account account = category.getAccount();
         account.deleteCategory(category);
 
+        category.getCards().stream().forEach(card -> {
+            File file = new File(filePath + card.getImageUrl());
+            if (file.exists() && !card.getImageUrl().equals(defaultPath)) {
+                log.info("file exist");
+                log.info(file.delete() ? "success image delete" : "fail image delete");
+            }
+        });
+
         File file = new File(filePath + category.getCategoryImageUrl());
-        if (file.exists()) {
+        if (file.exists() && !category.getCategoryImageUrl().equals(defaultPath)) {
             log.info("file exist");
             log.info(file.delete() ? "success image delete" : "fail image delete");
         } else {
