@@ -48,6 +48,8 @@ public class AccountService {
     private String defaultemail;
     @Value("${file.path}")
     private String filePath;
+    @Value("${file.defaultpath}")
+    private String defaultPath;
 
     private final Long OWN = 0L;
 
@@ -83,6 +85,12 @@ public class AccountService {
         Category category = Category.builder().word(defCategory.getWord()).build();
         account.addCategory(category);
         categoryRepository.save(category);
+
+        if(defCategory.getCategoryImageUrl().equals(defaultPath)) {
+            category.setCategoryImageUrl(defaultPath);
+            return category.getId();
+        }
+
         category.setCategoryImageUrl(account.getId() + "/category/" + category.getId());
         categoryRepository.save(category);
         copyFile("category", defAccount.getId(), defCategory.getId(), account.getId(), category.getId());
@@ -98,6 +106,12 @@ public class AccountService {
             Category category = getCategory(type);
             category.addCategoryCard(CategoryCard.createCategoryCard(category, card));
         }
+
+        if(defCard.getImageUrl().equals(defaultPath)) {
+            card.setImageUrl(defaultPath);
+            return;
+        }
+
         card.setImageUrl(account.getId() + "/card/" + card.getId());
         cardRepository.save(card);
         copyFile("card", defAccount.getId(), defCard.getId(), account.getId(), card.getId());
