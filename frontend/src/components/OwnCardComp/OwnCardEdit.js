@@ -3,6 +3,7 @@ import {useHistory} from 'react-router-dom';
 import styles from './OwnCardEdit.module.css'
 import axios from 'axios'
 import Loader from '../Loader/Loader'
+import SpeechLoader from '../Loader/SpeechLoader'
 const OwnCardEdit = (props) => {
   const history = useHistory();
   const imgUrl = props.imgUrl
@@ -10,6 +11,7 @@ const OwnCardEdit = (props) => {
   let [lenCardName, setlenCardName] = useState(props['cardName'].length)
   const cardId = props.cardId
   const [isLoading, setLoading] = useState(false)
+  const [speechLoading, setSpeechLoading] = useState(false)
   // const voiceUrl = process.env.REACT_APP_IMG_PATH+props.voiceUrl
   const voiceUrl = props.voiceUrl
   console.log(voiceUrl)
@@ -44,62 +46,106 @@ const OwnCardEdit = (props) => {
     })
   }
   const speakClick= () => {
-    console.log('소리쳐')
-    audio = new Audio(voiceUrl)
-    audio.load()
-    playAudio()   
+    setSpeechLoading(!speechLoading)
+    const token = sessionStorage.getItem('jwt')
+    let data = {
+      'word' : cardName
+    }
+    axios.post(process.env.REACT_APP_API_URL + `/voice`, data, {
+      headers: {
+        Authorization: token,
+      },  
+    })
+    .then((res)=> {
+      axios.get(process.env.REACT_APP_API_URL +`/voice/${cardName}`, {
+        headers: {
+          Authorization: token
+        }
+      })
+      .then((res) => {
+        setSpeechLoading(false)
+        audio = new Audio(process.env.REACT_APP_IMG_PATH + res.data)
+        audio.load()
+        playAudio()   
+          
+      })
+      .catch((err) => {
+        alert('미리듣기 오류입니다.. 다음에 시도해주세요')
+        setSpeechLoading(false)
+      })
+
+    })
+    .catch((err) => {
+
+      alert('미리듣기 오류입니다.. 다음에 시도해주세요')
+      setSpeechLoading(false)
+    })
   }
   const playAudio = () => {
     const audioPromise = audio.play()
     if (audioPromise !== undefined) {
       audioPromise
         .then(_ => {
-          // autoplay started
+          setSpeechLoading(false)
         })
         .catch(err => {
-          // catch dom exception
-          console.info(err)
+          alert('미리듣기 오류입니다.. 다음에 시도해주세요')
+          setSpeechLoading(false)
         })
     }
   }
   return(
     <>
-      { isLoading === false
-      ?
-      (
-      <>
-      <div className={styles.edit_box}>
-        <div className={styles.image_box}>
-          <img  src={imgUrl} alt="이미지를 등록해주세요" />
+    {(()=> {
+      if(isLoading !== false)
+        return (
+          <Loader></Loader>
+        );
+      else if(isLoading === false)
+        return (
+          <>
+          { speechLoading 
+            ?
+            (
+              <SpeechLoader></SpeechLoader>
+            )
+            :
+            (
+              ''
+            )
+          }
+        <div className={styles.edit_box}>
+          <div className={styles.image_box}>
+            <img  src={imgUrl} alt="이미지를 등록해주세요" />
+          </div>
+          <div className={styles.card_input_box}>
+            <input 
+              type='text' 
+              className={styles.card_input}
+              defaultValue={cardName}
+              onChange={onInputChange}
+              placeholder='카드 이름'
+              maxLength='10'/>
+            <img onClick={speakClick} src="/images/speaker-filled-audio-tool.svg" alt="대체이미지" /> 
+          </div>
+          <div className={styles.count_Name}>{lenCardName}/10</div>
         </div>
-        
-        <div className={styles.card_input_box}>
-          <input 
-            type='text' 
-            className={styles.card_input}
-            defaultValue={cardName}
-            onChange={onInputChange}
-            placeholder='카드 이름'
-            maxLength='10'/>
-          <img onClick={speakClick} src="/images/speaker-filled-audio-tool.svg" alt="대체이미지" /> 
-        </div>
-        <p>{lenCardName}/10</p>
-      </div>
 
-      <div className={styles.bottom_button}>
-        <div className={styles.button_box}>
-          <button className={styles.close_button} onClick={props.goEditStateChange}>취소</button>
-          <button className={styles.edit_button} onClick={editCard} >등록</button>
-        </div>
-      </div>   
-      </> 
-      )
-      :
-      (
-        <Loader></Loader>
-      )
-      }
-    </>
+        <div className={styles.bottom_button}>
+          <div className={styles.button_box}>
+            <button className={styles.close_button} onClick={props.goEditStateChange}>취소</button>
+            <button className={styles.edit_button} onClick={editCard} >등록</button>
+          </div>
+        </div>   
+
+
+          </>
+        );
+
+
+      })()}
+    </> 
+
   )
 };
 

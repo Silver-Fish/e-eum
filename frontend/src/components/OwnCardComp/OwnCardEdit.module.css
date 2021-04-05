@@ -9,7 +9,8 @@
 }
 .count_Name {
   font-family: inherit;
-  font-size: 20px;
+  font-size: 7vw;
+  margin: 0 3%;
 }
 
 .image_box {
@@ -42,17 +43,7 @@
   border-radius: 30px;
 }
 
-.image_input {
-  width: 100%;
-  display: none;
-}
 
-
-.image_button img {
-  width: 60%;
-  height: 60%;  
-  margin-top: 15%;
-}
 
 
 .card_input {
@@ -61,7 +52,7 @@
   border: 0px;
   border-bottom: 1px solid #000;
   font-family: inherit;
-  font-size: 32px;
+  font-size: 8vw;
 }
 
 .card_input_box {

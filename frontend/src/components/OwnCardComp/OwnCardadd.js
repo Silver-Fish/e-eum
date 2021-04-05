@@ -12,6 +12,7 @@ const OwnCardadd = (props) => {
   const [isLoading, setLoading] = useState(false)
   const [speechLoading, setSpeechLoading] = useState(false)
   const [speechWord, setSpeechWord] =useState('')
+  let [lenCardName, setlenCardName] = useState(0)
   let audio = ''
 
   const onImageChange = function (e) {
@@ -19,7 +20,12 @@ const OwnCardadd = (props) => {
     setImg(URL.createObjectURL(e.target.files[0]))
   }
   const onInputChange = (e) => {
-    setCardName(e.target.value)
+    if (e.target.value.length > 10){
+      alert('카드이름은 10자까지 가능합니다.')
+    } else{
+      setCardName(e.target.value)
+      setlenCardName(e.target.value.length)
+    }
   }
 
   const addCard = () => {
@@ -118,12 +124,12 @@ const OwnCardadd = (props) => {
                 type='text' 
                 className={styles.situation_input}
                 onChange={onInputChange}
-                defalutvalue={cardName}
+                value={cardName}
                 placeholder='카드 이름'
                 maxLength='10'/>
                 <img onClick={speakClick} src="/images/speaker-filled-audio-tool.svg" alt="대체이미지" />
-                {/* <img src="/images/speaker-filled-audio-tool.svg" alt="대체이미지" /> */}
-            </div>
+            </div> 
+            <div className={styles.count_Name}>{lenCardName}/10</div>
           </div>
           
           <div className={styles.bottom_button}>
@@ -162,13 +168,13 @@ const OwnCardadd = (props) => {
                 type='text' 
                 className={styles.situation_input}
                 onChange={onInputChange}
-                // defalutvalue={cardName}
                 value={cardName}
                 placeholder='카드 이름'
                 maxLength='10'/>
                 <img onClick={speakClick} src="/images/speaker-filled-audio-tool.svg" alt="대체이미지" />
-                {/* <img src="/images/speaker-filled-audio-tool.svg" alt="대체이미지" /> */}
             </div>
+            
+            <div className={styles.count_Name}>{lenCardName}/10</div>
           </div>
           
           <div className={styles.bottom_button}>
