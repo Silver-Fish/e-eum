@@ -8,6 +8,7 @@
   height: 30vw;
   margin: 1vh auto;
   font-family: inherit;
+  overflow: hidden;
 }
 
 .card_is_edit {
