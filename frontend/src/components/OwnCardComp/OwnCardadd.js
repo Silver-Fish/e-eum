@@ -64,10 +64,13 @@ const OwnCardadd = (props) => {
       })
       .then((res) => {
         console.log("voice read")
-        // audio = new Audio(process.env.REACT_APP_IMG_PATH+speechWord)
-        // audio.load()
-        // playAudio()   
-        // setSpeechWord(res.data)
+        setSpeechWord(res.data)
+
+        audio = new Audio(process.env.REACT_APP_IMG_PATH + res.data)
+        audio.load()
+        playAudio()   
+        
+
       })
       .catch((err) => {
         // setLoading(!isLoading)
