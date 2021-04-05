@@ -16,7 +16,13 @@ const OwnCardEdit = (props) => {
   let audio = ''
 
   const onInputChange = (e) => {
-    setCardName(e.target.value)
+    
+    if (e.target.value.length > 10){
+      alert('카드이름은 10자까지 가능합니다.')
+    } else{
+      setCardName(e.target.value)
+      setlenCardName(e.target.value.length)
+    }
   }
   const editCard = () => {
     setLoading(!isLoading)

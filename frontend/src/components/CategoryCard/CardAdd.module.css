@@ -68,7 +68,10 @@
 .card_input_box img {
   height: 5vh;
 }
-
+.count_Name {
+  font-family: inherit;
+  font-size: 20px;
+}
 .button_box {
   font-size: 32px;
   box-sizing: border-box;

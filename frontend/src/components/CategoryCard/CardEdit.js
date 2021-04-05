@@ -104,17 +104,7 @@ const CardEdit = (props) => {
       <div className={styles.edit_box}>
         <div className={styles.image_box}>
           <img  src={cardImg} alt="이미지를 등록해주세요" />
-
-          {/* <label  
-            className={styles.image_button}
-            >
-            <img  src='/images/photo-camera.svg' alt="대체이미지" />
-            <input type="file" className={styles.image_input} onChange={onImageChange}/>
-              
-          </label> */}
         </div>
-        
-      
 
       <div className={styles.card_input_box}>
           <input 
@@ -126,7 +116,7 @@ const CardEdit = (props) => {
             maxLength='10'/>
           <img onClick={speakClick} src="/images/speaker-filled-audio-tool.svg" alt="대체이미지" />
         </div>
-        <p>{lenCardName}/10</p>
+        <p className={styles.count_Name}>{lenCardName}/10</p>
       </div>
       <div className={styles.bottom_button}>
         <div className={styles.button_box}>
