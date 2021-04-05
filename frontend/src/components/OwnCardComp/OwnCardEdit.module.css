@@ -1,11 +1,11 @@
-.add_box {
+.edit_box {
   height: 85vh;
   background-color: #fff;
   display: flex;
   flex-wrap: wrap;  
   justify-content: center;
   align-content: flex-start;
-  margin: 0;
+  margin: 0px;
 }
 
 
@@ -52,20 +52,28 @@
 }
 
 
-.situation_input {
+.card_input {
   width: 80vw;
   margin: 0;
   border: 0px;
   border-bottom: 1px solid #000;
+  font-family: inherit;
   font-size: 32px;
 }
 
+.card_input_box {
+  display: flex;
+}
 
+.card_input_box img {
+  height: 5vh;
+}
 
 .button_box {
   font-size: 32px;
   box-sizing: border-box;
   display: flex;
+  margin: 0px;
 }
 
 .bottom_button{
@@ -82,7 +90,7 @@
   border: #8A9C3A solid 1px;
   border-radius: 3px;
 }
-.add_button {
+.edit_button {
   width: 50vw;
   padding: 0;
   color: white;

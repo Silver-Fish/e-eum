@@ -13,7 +13,6 @@ const OwnCardComp = (props) => {
   const voiceLength = props.voiceLength
   const imgUrl = process.env.REACT_APP_IMG_PATH+props.imgUrl
   let audio = ""
-
   const cardButtonClick = (e) => { 
     props.cardClick({
       cardName: {cardName}, 
@@ -57,7 +56,7 @@ const OwnCardComp = (props) => {
     
   }
   const cardEditClick = (e) => {
-    props.OwnGoEdit({state:!goEdit,id:cardId, url:imgUrl, name: {cardName}['cardName']})
+    props.OwnGoEdit({state:!goEdit,id:cardId, url:imgUrl, name: {cardName}['cardName'], voiceUrl:voiceUrl})
   }
   
   return(

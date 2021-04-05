@@ -23,7 +23,8 @@ const OwnEeum = () => {
   const [cardId, setCardId] = useState('');
   const [token, setToken] = useState(sessionStorage.getItem('jwt'));
   const [cookies] = useCookies(['cookie']);
-  const [speechList, setSpeechList] = useState([])  
+  const [speechList, setSpeechList] = useState([])
+  const [cardVoiceUrl, setCardVoiceUrl] = useState('')
   let audio = ""
 
   const cardClick = (data) => {
@@ -74,6 +75,7 @@ const OwnEeum = () => {
     setEdit(!isEdit);
   };
   const OwnGoEdit = (data) => {
+    setCardVoiceUrl(data.voiceUrl)
     setgoEdit(data.state);
     setimgUrl(data.url);
     setCardName(data.name);
@@ -200,6 +202,7 @@ const OwnEeum = () => {
                 cardName={cardName}
                 imgUrl={imgUrl}
                 cardId={cardId}
+                voiceUrl={cardVoiceUrl}
               ></OwnCardEdit>
             </div>
           );
