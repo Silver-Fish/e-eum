@@ -16,7 +16,7 @@ const QrList = (props) => {
   };
 
   const goQrList = () => {
-    history.push(`./qr/${qrId}`);
+    history.push(`./qr/${qrId}`, qrName);
   };
 
   return (

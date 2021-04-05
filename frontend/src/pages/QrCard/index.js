@@ -12,6 +12,8 @@ const QrCard = ({ match }) => {
   let qrId = window.location.href.split('/')
   qrId = qrId[qrId.length-1]
   const history = useHistory();
+  console.log(match.params.qrid)
+  console.log(match.params)
   // const qrId = match.params.qrId;
   const [isAdd, setAdd] = useState(false);
   const [isEdit, setEdit] = useState(false);
