@@ -162,8 +162,8 @@ const CardAdd = (props) => {
 
         <div className={styles.bottom_button}>
           <div className={styles.button_box}>
-            <button className={styles.close_button} onClick={props.goEditStateChange}>취소</button>
-            <button className={styles.add_button} onClick={cardRegisterClick} >등록</button>
+            <button className={styles.close_button} onClick={props.cardAddClick}>취소</button>
+            <button className={styles.register_button} onClick={cardRegisterClick} >등록</button>
           </div>
         </div>           
           </>
