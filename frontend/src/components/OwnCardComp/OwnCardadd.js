@@ -9,6 +9,7 @@ const OwnCardadd = (props) => {
   const [imgFile, setImgFile] = useState()
   const [cardName, setCardName] = useState()
   const [isLoading, setLoading] = useState(false)
+  const [speechLoading, setSpeechLoading] = useState(false)
   const [speechWord, setSpeechWord] =useState('')
   let audio = ''
   const onImageChange = function (e) {
@@ -43,17 +44,14 @@ const OwnCardadd = (props) => {
     })
   }
   const speakClick= () => {
-    console.log('소리쳐')
-    console.log(typeof(cardName))
-    console.log(cardName)
     const token = sessionStorage.getItem('jwt')
-    axios.get(`https://dev.e-eum.kr/api/card/voice/${cardName}`, {
+    axios.get(process.env.REACT_APP_API_URL + `/card/voice/${cardName}`, {
       headers: {
         Authorization: token,
       },  
     })
     .then((res)=> {
-      console.log(res.data)
+      setSpeechWord(!speechLoading)
       setSpeechWord(res.data)
       audio = new Audio(process.env.REACT_APP_IMG_PATH+speechWord)
       audio.load()
@@ -109,11 +107,11 @@ const OwnCardadd = (props) => {
       </div>
       
         <div className={styles.bottom_button}>
-      <div className={styles.button_box}>
-          <button className={styles.close_button} onClick={props.addStateChange}>취소</button>
-          <button className={styles.add_button} onClick={addCard} >등록</button>
+          <div className={styles.button_box}>
+            <button className={styles.close_button} onClick={props.addStateChange}>취소</button>
+            <button className={styles.add_button} onClick={addCard} >등록</button>
+          </div>
         </div>
-      </div>
       </>
       )
       :

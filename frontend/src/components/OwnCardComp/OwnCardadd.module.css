@@ -5,11 +5,9 @@
   flex-wrap: wrap;  
   justify-content: center;
   align-content: flex-start;
-  margin: 0;
+  margin: 0px;
 }
-.card_input_box {
-  display: flex;
-}
+
 
 .image_box {
   width: 55vw;
@@ -63,12 +61,19 @@
   font-size: 32px;
 }
 
+.card_input_box {
+  display: flex;
+}
 
+.card_input_box img {
+  height: 5vh;
+}
 
 .button_box {
+  font-size: 32px;
   box-sizing: border-box;
   display: flex;
-  font-size: 32px;
+  margin: 0px;
 }
 
 .bottom_button{
