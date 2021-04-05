@@ -6,12 +6,19 @@ import { useHistory } from 'react-router-dom';
 const QrRegister = (props) => {
   const history = useHistory();
   const [title, setTitle] = useState('');
+  let [lenQrName, setlenQrName] = useState(0)
   const onTitleHandler = (e) => {
-    setTitle(e.target.value);
+
+    if (e.target.value.length > 10){
+      alert('카드이름은 10자까지 가능합니다.')
+    } else{
+      setTitle(e.target.value)
+      setlenQrName(e.target.value.length)
+    }
   };
   const onRegisterHandler = () => {
     if (title === '') {
-      alert('이름을 입력하세요잇!');
+      alert('QR이름을 입력하세요');
     } else {
       const qrInsertRequest = {
         title: title,
@@ -48,8 +55,12 @@ const QrRegister = (props) => {
           value={title}
           placeholder="QR 이름"
           onChange={onTitleHandler}
+          maxLength='10'
         />
+        <div className={styles.count_Name}>{lenQrName}/10</div>
       </div>
+      
+
       <div className={styles.button_box}>
         <button className={styles.qr_resiter_cancle_button} onClick={props.changeQrResisterState}>
           취소

@@ -8,10 +8,11 @@ div {
   width: 100%;
   margin: 0px auto; 
   box-sizing: border-box;
-    font-family: inherit;
+  font-family: inherit;
 }
  
 .main_login_box {
+  font-family: inherit;
   display: flex;
   flex-direction: row-reverse;
   width: 100%;
@@ -20,7 +21,7 @@ div {
 }
 
 .login_button {
-  font-size: inherit;
+  font-size: 5vw;
   height: 50% ;
   width: 25%;
   margin: auto 0;
@@ -33,7 +34,7 @@ div {
 }
 
 .logout_button {
-  font-size: inherit;
+  font-size: 5vw;
   height: 50% ;
   width: 30%;
   margin: auto 0;
@@ -42,6 +43,7 @@ div {
   background-color: white;
   border: 2px solid #8A9C3A;
   border-radius: 5px;
+  font-family: inherit;
 }
 
 

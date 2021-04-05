@@ -8,6 +8,7 @@
   height: 30vw;
   margin: 1vh auto;
   font-family: inherit;
+  overflow: hidden;
 }
 
 .card_is_edit {
@@ -59,5 +60,10 @@
   height: 70%;
   width: 100%;
   padding: 0px;
-  font-family: inherit;
+  font-family: 'maple';
+}
+
+.qr_card_name {
+  font-size: 4vw;
+  font-family: 'maple';
 }

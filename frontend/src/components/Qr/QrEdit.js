@@ -8,6 +8,8 @@ const QrEdit = (props) => {
   const history = useHistory();
   //바뀔 이름
   const [selectedQrName, setSelectedQrName] = useState(props.selectedQrName);
+  let [lenQrName, setlenQrName] = useState(props.selectedQrName.length)
+
   const onUpdateHandler = () => {
     const data = {
       title: selectedQrName,
@@ -59,7 +61,12 @@ const QrEdit = (props) => {
       });
   };
   const onTitleHandler = (e) => {
-    setSelectedQrName(e.target.value);
+    if (e.target.value.length > 10){
+      alert('카드이름은 10자까지 가능합니다.')
+    } else{
+      setSelectedQrName(e.target.value)
+      setlenQrName(e.target.value.length)
+    }
   };
 
   return (
@@ -73,6 +80,7 @@ const QrEdit = (props) => {
           defaultValue={selectedQrName}
           onChange={onTitleHandler}
         />
+        <div className={styles.count_Name}>{lenQrName}/10</div>
       </div>
       <div className={styles.button_box}>
         <button className={styles.qr_edit_delete_button} onClick={onDeleteHandler}>

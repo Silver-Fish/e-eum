@@ -1,17 +1,24 @@
 .card{
   background-color: white;
   border: 1px solid black;
-  border-radius: 5px;
+  border-radius: 5%;
   width: 20%;
   height: 90%; 
   margin: 1vh 1vw;
+  font-family: inherit;
+  overflow: hidden;
 }
 
 .card_image {
   font-size: inherit;  
   border-bottom: 1px solid black;
-  height: 70%;
+  height: 60%;
   width: 100%;
   padding: 0px;
   display: flex;
+  box-sizing: border-box;
+}
+
+.card span {
+  font-size: 3vw;
 }

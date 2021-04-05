@@ -7,6 +7,7 @@ const QrList = (props) => {
   const history = useHistory();
   const qrName = props.qrName;
   const qrId = props.qrId;
+  
 
   const selectedEditQrName = () => {
     props.changeQrEditState({ qrName: qrName, qrId: qrId });
@@ -23,11 +24,11 @@ const QrList = (props) => {
     <div className={styles.qr_list_box}>
       <div className={styles.qr_name_box}>
         <button className={styles.qr_name} onClick={goQrList}>
-          {qrName}
+          <span>{qrName}</span>
         </button>
       </div>
 
-      <div>
+      <div className={styles.qr_button_box}>
         <button className={styles.qr_edit_button} onClick={selectedEditQrName}>
           QR 수정
         </button>

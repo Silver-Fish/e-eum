@@ -19,6 +19,7 @@
 }
 .qr_view_cancel_button {
   font-size: inherit;
+  font-family: inherit;
   width: 100vw;
   background-color: #f5df4d;
   border: 1px solid #f5df4d;

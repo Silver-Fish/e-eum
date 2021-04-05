@@ -9,7 +9,7 @@ div {
 }
 
 .qr_name_input {
-  font-size: 32px;
+  font-size: 8vw;
   border: 0px;
   border-bottom: 1px solid #000;
   width: 80vw;
@@ -37,4 +37,10 @@ div {
   width: 50vw;
   background-color: #f5df4d;
   border: 1px solid #f5df4d;
+}
+
+.count_Name {
+  font-family: inherit;
+  font-size: 7vw;
+  margin: 0 3%;
 }

@@ -12,8 +12,9 @@ const QrCard = ({ match }) => {
   let qrId = window.location.href.split('/')
   qrId = qrId[qrId.length-1]
   const history = useHistory();
-  console.log(match.params.qrid)
-  console.log(match.params)
+  const [qrName, setQrName] = useState('');
+  // console.log(match.params.qrid)
+  // console.log(match.params)
   // const qrId = match.params.qrId;
   const [isAdd, setAdd] = useState(false);
   const [isEdit, setEdit] = useState(false);
@@ -31,6 +32,20 @@ const QrCard = ({ match }) => {
 
 
   useEffect(() => {
+    axios
+      .get(process.env.REACT_APP_API_URL + '/qr/title/' + qrId, {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then((res) => {
+        console.log(res.data)
+        setQrName(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
     axios
       .get(process.env.REACT_APP_API_URL + '/card/qr?typeId=' + qrId, {
         headers: {
@@ -139,7 +154,7 @@ const QrCard = ({ match }) => {
         if (isAdd === false && isCardStateEdit === false)
           return (
             <div className={styles.qrcard_box}>
-              <HearderComp headertitle="QR 카드" headerColor="yello"></HearderComp>
+              <HearderComp headertitle={qrName} headerColor="yello"></HearderComp>
               <div className={styles.speech_box}>
                 <div className={styles.speech_item_box} onClick={speechClick}>{speechBoxList}</div>
 

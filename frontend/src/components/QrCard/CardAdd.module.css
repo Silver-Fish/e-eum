@@ -103,3 +103,8 @@
   border-radius: 3px;
   font-family: inherit;
 }
+.count_Name {
+  font-family: inherit;
+  font-size: 7vw;
+  margin: 0 3%;
+}

@@ -53,6 +53,7 @@
 
 
 .card_input {
+  font-family: inherit;
   width: 80vw;
   margin: 0;
   border: 0px;
@@ -73,6 +74,7 @@
 }
 
 .button_box {
+  font-family: inherit;
   box-sizing: border-box;
   display: flex;
   margin: 0px;
@@ -82,6 +84,7 @@
 }
 
 .close_button {
+  font-family: inherit;
   width: 50vw;
   padding: 0;
   background-color:  white;
@@ -91,6 +94,7 @@
   border-radius: 3px;
 }
 .add_button {
+  font-family: inherit;
   width: 50vw;
   padding: 0;
   color: white;
@@ -99,4 +103,10 @@
   font-size: inherit;
   border: #F5DF4D solid 1px;
   border-radius: 3px;
+}
+
+.count_Name {
+  font-family: inherit;
+  font-size: 7vw;
+  margin: 0 3%;
 }

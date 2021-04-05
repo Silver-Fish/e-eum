@@ -70,7 +70,8 @@
 }
 .count_Name {
   font-family: inherit;
-  font-size: 20px;
+  font-size: 7vw;
+  margin: 0 3%;
 }
 .button_box {
   font-size: 32px;
