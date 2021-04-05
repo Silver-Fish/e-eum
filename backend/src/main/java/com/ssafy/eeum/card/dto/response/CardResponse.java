@@ -23,7 +23,7 @@ public class CardResponse {
     }
 
     public static CardResponse of(Card card) {
-        return new CardResponse(card.getId(), card.getWord(), card.getImageUrl(), card.getVoiceUrl(), card.getVoiceLength());
+        return new CardResponse(card.getId(), card.getWord(), card.getImageUrl(), card.getVoice().getVoiceUrl(), card.getVoice().getVoiceLength());
     }
 
     public static List<CardResponse> listOf(List<Card> cards) {
