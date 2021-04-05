@@ -59,6 +59,10 @@
   border-bottom: 1px solid #000;
   font-size: 32px;
 }
+.count_Name {
+  font-family: inherit;
+  font-size: 20px;
+}
 
 .card_input_box {
   display: flex;

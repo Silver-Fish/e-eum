@@ -50,6 +50,10 @@
   height: 60%;  
   margin-top: 15%;
 }
+.count_Name {
+  font-family: inherit;
+  font-size: 20px;
+}
 
 
 .card_input {

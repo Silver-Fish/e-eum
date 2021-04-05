@@ -106,7 +106,7 @@ const CardAdd = (props) => {
             <hr/>
           <img onClick={speakClick} src="/images/speaker-filled-audio-tool.svg" alt="대체이미지" />
         </div>
-        <p>{lenCardName}/10</p>
+        <p className={styles.count_Name}>{lenCardName}/10</p>
       </div>
       <div className={styles.bottom_button}>
         <div className={styles.button_box}>

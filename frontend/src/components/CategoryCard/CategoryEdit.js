@@ -78,7 +78,7 @@ const CategoryEdit = (props) => {
           onChange={onInputChange}
           placeholder='상황 이름'
           maxLength='10'/>
-        <p>{lenCategoryName}/10</p>
+       <p className={styles.count_Name}>{lenCategoryName}/10</p>
       </div>
       <div className={styles.bottom_button}>
         <div className={styles.button_box}>

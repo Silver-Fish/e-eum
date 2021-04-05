@@ -60,7 +60,10 @@
   font-family: inherit;
   font-size: 32px;
 }
-
+.count_Name {
+  font-family: inherit;
+  font-size: 20px;
+}
 
 
 .button_box {
