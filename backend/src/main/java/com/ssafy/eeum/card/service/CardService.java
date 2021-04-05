@@ -166,11 +166,11 @@ public class CardService {
 
         // 이미지 삭제
         File file = new File(filePath + card.getImageUrl());
-        if (file.exists()) {
+        if (file.exists() && !card.getImageUrl().equals(defaultPath)) {
             log.info("file exist");
             log.info(file.delete() ? "success image delete" : "fail image delete");
         } else {
-            log.info("file not exist");
+            log.info("file not exist or default image");
         }
         cardRepository.deleteById(id);
     }
