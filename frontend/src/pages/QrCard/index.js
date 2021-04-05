@@ -11,7 +11,6 @@ import { useCookies } from 'react-cookie';
 const QrCard = ({ match }) => {
   let qrNum = window.location.href.split('/')
   qrNum = qrNum[qrNum.length-1]
-  qrNum = 0
   const history = useHistory();
   const qrId = match.params.qrId;
   const [isAdd, setAdd] = useState(false);
@@ -149,14 +148,14 @@ const QrCard = ({ match }) => {
 
               <div className={styles.qr_card_box}>{qrCardList}</div>
 
-              {/* <div className={styles.button_box}>
+              <div className={styles.button_box}>
                 <button className={styles.add_button} onClick={addClick}>
                   추가
                 </button>
                 <button className={styles.update_button} onClick={editClick}>
                   수정
                 </button>
-              </div> */}
+              </div>
             </div>
           );
         if (isAdd === true)
