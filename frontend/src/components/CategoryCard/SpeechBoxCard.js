@@ -7,7 +7,7 @@ const SpeechBox = (props) => {
   return(
     <button className={styles.card}>
       <img className={styles.card_image} src={cardUrl} alt="대체이미지"/>
-        {textValue}
+        <span>{textValue}</span> 
     </button>
   )
 }

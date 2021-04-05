@@ -91,7 +91,9 @@ const Card = (props) => {
       ?
     <button className={styles.card} onClick={cardButtonClick}>
       <img className={styles.card_image} src={cardUrl} alt=""/>
-        {textValue}
+      <span className={styles.card_name}>{textValue}</span>
+        
+        
     </button>
     : 
     <>       
@@ -100,7 +102,7 @@ const Card = (props) => {
           <img src="/images/minus.png" alt="" onClick={CardDeleteClick}/>
         </div>
         <img className={styles.card_image} src={cardUrl} alt=""/>
-        {textValue}
+        <span className={styles.card_name}>{textValue}</span>
       </button>
     </>
 

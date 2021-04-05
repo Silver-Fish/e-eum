@@ -48,7 +48,7 @@ div {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(5, 1fr);
   box-sizing: border-box;
-  height: 65vh;
+  height: 55vh;
   flex-wrap: wrap;
   overflow: scroll;
   margin: 0px;
@@ -61,7 +61,7 @@ div {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(5, 1fr);
   box-sizing: border-box;
-  height: 65vh;
+  height: 55vh;
   flex-wrap: wrap;
   overflow: scroll;
   margin: 0px;

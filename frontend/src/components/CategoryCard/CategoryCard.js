@@ -68,7 +68,7 @@ const CategoryCard = (props) => {
         ?
         <button className={styles.card} onClick={categoryCardClick}>
           <img className={styles.card_image} src={imgUrl} alt=""/>
-            {categoryName}
+          <span className={styles.category_name}>{categoryName}</span>
         </button>
         :
         <>       
@@ -77,7 +77,7 @@ const CategoryCard = (props) => {
               <img src="/images/minus.png" alt="" onClick={categoryDeleteClick}/>
             </div>
             <img className={styles.card_image} src={imgUrl} alt=""/>
-            {categoryName}
+            <span className={styles.category_name}>{categoryName}</span>
           </button>
         </>
       }
