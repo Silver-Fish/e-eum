@@ -29,7 +29,7 @@ public class ImageUtil {
         File file = new File(path);
         log.info(file.createNewFile() ? "success make file" : "fail make file");
         BufferedImage bufferedImage = ImageIO.read(image.getInputStream());
-        ImageIO.write(resize(1, bufferedImage), "jpg", file);
+        ImageIO.write(resize(1, bufferedImage), "png", file);
     }
 
     private static BufferedImage resize(int orientation, BufferedImage image) throws Exception {
@@ -50,8 +50,14 @@ public class ImageUtil {
         // Image.SCALE_AREA_AVERAGING  : 평균 알고리즘 사용
 
         Image resizeImage = image.getScaledInstance(newWidth, newHeigt, Image.SCALE_SMOOTH);
-        BufferedImage newImage = new BufferedImage(newWidth, newHeigt, BufferedImage.TYPE_INT_RGB);
-        Graphics g = newImage.getGraphics();
+        BufferedImage newImage = new BufferedImage(newWidth, newHeigt, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = newImage.createGraphics();
+
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
+        g.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+
         g.drawImage(resizeImage, 0, 0, null);
         g.dispose();
 
