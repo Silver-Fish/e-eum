@@ -82,4 +82,11 @@ public class AccountController {
         accountService.updatePassword(updatePwRequest, account);
         return ResponseEntity.ok().build();
     }
+
+    @ApiOperation(value = "회원 탈퇴")
+    @DeleteMapping
+    public ResponseEntity<Void> deleteAccount(@ApiIgnore @CurrentAccount Account account) {
+        accountService.deleteAccount(account);
+        return ResponseEntity.ok().build();
+    }
 }
