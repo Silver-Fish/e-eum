@@ -56,24 +56,24 @@ const OwnCardadd = (props) => {
     })
     .then((res)=> {
       console.log("voice make end")
-      // setTimeout(() => {
-      //   axios.get(process.env.REACT_APP_API_URL +`/voice/${cardName}`, {
-      //     headers: {
-      //       Authorization: token
-      //     }
-      //   })
-      //   .then((res) => {
-      //     console.log("voice read")
-      //     audio = new Audio(process.env.REACT_APP_IMG_PATH+speechWord)
-      //     audio.load()
-      //     playAudio()   
-      //     setSpeechWord(res.data)
-      //   })
-      //   .catch((err) => {
-      //     // setLoading(!isLoading)
-      //     console.log(err)
-      //   })
-      // }, 500)
+
+      axios.get(process.env.REACT_APP_API_URL +`/voice/${cardName}`, {
+        headers: {
+          Authorization: token
+        }
+      })
+      .then((res) => {
+        console.log("voice read")
+        // audio = new Audio(process.env.REACT_APP_IMG_PATH+speechWord)
+        // audio.load()
+        // playAudio()   
+        // setSpeechWord(res.data)
+      })
+      .catch((err) => {
+        // setLoading(!isLoading)
+        console.log("voice read err")
+        console.log(err)
+      })
 
     })
     .catch((err) => {
