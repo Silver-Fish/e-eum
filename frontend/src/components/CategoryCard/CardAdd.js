@@ -146,6 +146,12 @@ const CardAdd = (props) => {
         <div className={styles.add_box}>
           <div className={styles.image_box}>
             <img  src={cardImg} alt="이미지를 등록해주세요" />
+            <label  
+            className={styles.image_button}
+            >
+            <img  src="/images/photo-camera.svg" alt="대체이미지" />
+            <input type="file" accept="image/*" className={styles.image_input} onChange={onImageChange}/>  
+          </label>
           </div>
           <div className={styles.card_input_box}>
             <input 
