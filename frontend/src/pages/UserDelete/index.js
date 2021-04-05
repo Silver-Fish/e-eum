@@ -1,47 +1,48 @@
-import React, { useEffect } from 'react';
-import HeaderComp from '../../components/HeaderComp/HeaderComp';
-import { useHistory } from 'react-router-dom';
-import axios from 'axios';
-import styles from './index.module.css';
-import { useCookies } from 'react-cookie';
+import React, { useEffect } from "react";
+import HeaderComp from "../../components/HeaderComp/HeaderComp";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
+import styles from "./index.module.css";
+import { useCookies } from "react-cookie";
 const UserDelete = () => {
   const history = useHistory();
-  const [cookies] = useCookies(['cookie']);
+  //const [cookies] = useCookies(["cookie"]);
 
-  useEffect(() => {
-    if (
-      sessionStorage.getItem('jwt') === null &&
-      cookies.cookie !== undefined &&
-      cookies.cookie !== 'undefined'
-    ) {
-      history.push('/');
-    } else if (
-      sessionStorage.getItem('jwt') === null &&
-      (cookies.cookie === undefined || cookies.cookie === 'undefined')
-    ) {
-      history.push('/');
-    }
-  });
+  // useEffect(() => {
+  //   if (
+  //     sessionStorage.getItem("jwt") === null &&
+  //     cookies.cookie !== undefined &&
+  //     cookies.cookie !== "undefined"
+  //   ) {
+  //     history.push("/");
+  //   } else if (
+  //     sessionStorage.getItem("jwt") === null &&
+  //     (cookies.cookie === undefined || cookies.cookie === "undefined")
+  //   ) {
+  //     history.push("/");
+  //   }
+  // });
 
   const onDeleteHandler = (e) => {
     e.preventDefault();
 
     axios
-      .delete(process.env.REACT_APP_API_URL + '/accouts/delete', {
+      .delete(process.env.REACT_APP_API_URL + "/accouts/delete", {
         headers: {
-          Authorization: sessionStorage.getItem('jwt'),
+          Authorization: sessionStorage.getItem("jwt"),
         },
       })
       .then((res) => {
         if (res.data) {
-          sessionStorage.removeItem('jwt');
-          history.push('/login');
+          sessionStorage.removeItem("jwt");
+          history.push("/login");
         } else {
-          alert('탈퇴 실패!');
+          alert("탈퇴 실패!");
         }
       })
       .catch((err) => {
-        alert('오류발생');
+        alert("오류발생");
+        console.log(err);
       });
   };
 
@@ -56,8 +57,8 @@ const UserDelete = () => {
       <button
         className={styles.Button_Cancel}
         onClick={(e) => {
-          console.log('취소');
-          history.push('/');
+          console.log("취소");
+          history.push("/");
         }}
       >
         취소

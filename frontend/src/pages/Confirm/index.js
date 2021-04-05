@@ -1,49 +1,59 @@
-import React, { useState, useEffect } from 'react';
-import HeaderComp from '../../components/HeaderComp/HeaderComp';
-import { useHistory } from 'react-router-dom';
-import axios from 'axios';
-import styles from './index.module.css';
-import { useCookies } from 'react-cookie';
+import React, { useState, useEffect } from "react";
+import HeaderComp from "../../components/HeaderComp/HeaderComp";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
+import styles from "./index.module.css";
+//import { useCookies } from "react-cookie";
 const Confirm = () => {
   const history = useHistory();
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState("");
 
-  const [cookies] = useCookies(['cookie']);
+  //const [cookies] = useCookies(["cookie"]);
 
-  useEffect(() => {
-    if (
-      sessionStorage.getItem('jwt') === null &&
-      cookies.cookie !== undefined &&
-      cookies.cookie !== 'undefined'
-    ) {
-      history.push('/');
-    } else if (
-      sessionStorage.getItem('jwt') === null &&
-      (cookies.cookie === undefined || cookies.cookie === 'undefined')
-    ) {
-      history.push('/');
-    }
-  });
+  // useEffect(() => {
+  //   if (
+  //     sessionStorage.getItem("jwt") === null &&
+  //     cookies.cookie !== undefined &&
+  //     cookies.cookie !== "undefined"
+  //   ) {
+  //     history.push("/");
+  //   } else if (
+  //     sessionStorage.getItem("jwt") === null &&
+  //     (cookies.cookie === undefined || cookies.cookie === "undefined")
+  //   ) {
+  //     history.push("/");
+  //   }
+  // });
 
   const onPasswordHandler = (e) => {
     setPassword(e.currentTarget.value);
   };
   const onSubmitHandler = (e) => {
+    e.preventDefault();
+    const passwordRequest = {
+      password: password,
+    };
     axios
-      .post(process.env.REACT_APP_API_URL + '/accounts/check-pw', password, {
-        headers: {
-          Authorization: sessionStorage.getItem('jwt'),
-        },
-      })
+      .post(
+        process.env.REACT_APP_API_URL + "/accounts/check-pw",
+        passwordRequest,
+        {
+          headers: {
+            Authorization: sessionStorage.getItem("jwt"),
+          },
+        }
+      )
       .then((res) => {
+        console.log(res);
         if (res.data) {
-          history.push('./userDelete');
+          history.push("./userDelete");
         } else {
-          alert('비번 틀림!');
+          alert("비밀번호가 틀렸습니다");
         }
       })
       .catch((err) => {
-        alert('오류발생');
+        alert("오류발생");
+        console.log(err);
       });
   };
 
@@ -68,8 +78,8 @@ const Confirm = () => {
 
         <button
           className={styles.cancel_button}
-          onClick={(e) => {
-            history.push('/mypage');
+          onClick={() => {
+            history.push("/mypage");
           }}
         >
           취소
