@@ -72,6 +72,11 @@ public class QrService {
         return QrResponse.of(qr);
     }
 
+    @Transactional(readOnly = true)
+    public String findTitle(Long id) {
+        QR qr = findQr(id);
+        return qr.getTitle();
+    }
 
     public void updateQr(Long id, QrUpdateRequest qrUpdateRequest) {
         QR qr = findQr(id);

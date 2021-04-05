@@ -53,6 +53,13 @@ public class QrController {
         return ResponseEntity.ok().body(qrResponse);
     }
 
+    @GetMapping("/{id}")
+    @ApiOperation(value = "QR 제목 조회", notes = "QR id를 받아 해당 QR의 제목을 조회한다")
+    public ResponseEntity<String> getQrTitle(@PathVariable @NotNull Long id){
+        String title = qrService.findTitle(id);
+        return ResponseEntity.ok().body(title);
+    }
+
     @PutMapping("/{id}")
     @ApiOperation(value = "QR 제목 수정", notes = "QR id를 받아 해당 QR의 제목을 수정한다")
     public ResponseEntity<Void> updateQr(@PathVariable @NotNull Long id, @RequestBody @Valid QrUpdateRequest qrUpdateRequest) {
