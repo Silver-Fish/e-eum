@@ -25,7 +25,7 @@ const HeaderComp = (props) => {
     }
   };
   const ownEeumClick = (e) => {
-    history.push('/owncard');
+    history.push('/OwnEeum');
   };
   const situationEeumClick = (e) => {
     history.push('/category');

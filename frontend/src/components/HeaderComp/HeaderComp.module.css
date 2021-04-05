@@ -47,6 +47,8 @@
   height: 100vh;
   width: 100vw;
   z-index: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .modal_header_box {
@@ -74,28 +76,32 @@
 
 .modal_main_box {
   margin-top: 5vh;
+  /* white-space:nowrap; */
+
 }
 
 .modal_search {
   width: 80%;
-  height: 5vh;
+  height: 7vh;
   border: 0px;
   border-radius: 20px;
   padding-left: 10px;
   box-shadow: 5px 5px;
   font-family: inherit;
+  font-size: 24px;
  }
 
 .modal_list {
   text-align: left;
   /* margin-top: 5vh; */
-  margin: 5vh;
+  margin: 3vh;
   font-family: inherit;
+  /* list-style:none; */
 }
 
 .modal_list_line {
   border-bottom: 1px solid black;
-  margin-top: 3vh;
+  margin-top: 6vh;
   font-family: inherit;
 }
 
@@ -103,7 +109,7 @@
   border: none;
   /* background-color: white; */
   background: transparent;
-  font-size: inherit;
+  font-size: 30px;
   font-family: inherit;
 }
 
