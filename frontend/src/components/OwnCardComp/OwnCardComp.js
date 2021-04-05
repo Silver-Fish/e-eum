@@ -65,7 +65,7 @@ const OwnCardComp = (props) => {
         ?
         <button className={styles.card} onClick={cardButtonClick}>
           <img className={styles.card_image} src={imgUrl} alt=""/>
-            {cardName}
+            <span className={styles.card_name}>{cardName}</span>
         </button>
         :
         <>       
@@ -74,7 +74,7 @@ const OwnCardComp = (props) => {
               <img src="/images/minus.png" alt="" onClick={cardDeleteClick}/>
             </div>
             <img className={styles.card_image} src={imgUrl} alt=""/>
-            {cardName}
+              <span className={styles.card_name}>{cardName}</span>
           </button>
         </>
       }

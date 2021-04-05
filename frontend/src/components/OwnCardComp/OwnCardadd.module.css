@@ -58,12 +58,13 @@
   border: 0px;
   border-bottom: 1px solid #000;
   font-family: inherit;
-  font-size: 32px;
+  font-size: 8vw;
 }
 
 .count_Name {
   font-family: inherit;
-  font-size: 20px;
+  font-size: 7vw;
+  margin: 0 3%;
 }
 
 .card_input_box {
