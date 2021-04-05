@@ -12,7 +12,6 @@ const OwnCardEdit = (props) => {
   const cardId = props.cardId
   const [isLoading, setLoading] = useState(false)
   const [speechLoading, setSpeechLoading] = useState(false)
-  // const voiceUrl = process.env.REACT_APP_IMG_PATH+props.voiceUrl
   const voiceUrl = props.voiceUrl
   console.log(voiceUrl)
   let audio = ''
