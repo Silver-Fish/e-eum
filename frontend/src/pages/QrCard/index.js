@@ -13,9 +13,7 @@ const QrCard = ({ match }) => {
   qrId = qrId[qrId.length-1]
   const history = useHistory();
   const [qrName, setQrName] = useState('');
-  // console.log(match.params.qrid)
-  // console.log(match.params)
-  // const qrId = match.params.qrId;
+  const checkLogin = sessionStorage.getItem('jwt');
   const [isAdd, setAdd] = useState(false);
   const [isEdit, setEdit] = useState(false);
   // const [cardUrl, setCardUrl] = useState('')
@@ -66,6 +64,11 @@ const QrCard = ({ match }) => {
 
   const editClick = () => {
     setEdit(!isEdit);
+  };
+
+  const noLogin = () => {
+    alert('로그인 해주세요');
+    history.push('/login');
   };
 
   const [speechBoxDatas, setSpeechBoxDatas] = useState([]);
@@ -166,12 +169,25 @@ const QrCard = ({ match }) => {
               <div className={styles.qr_card_box}>{qrCardList}</div>
 
               <div className={styles.button_box}>
+              {checkLogin !== null ? (
+                <>
                 <button className={styles.add_button} onClick={addClick}>
                   추가
                 </button>
                 <button className={styles.update_button} onClick={editClick}>
                   수정
                 </button>
+                </>
+                  ) : (
+                <>
+                <button className={styles.add_button} onClick={noLogin}>
+                  추가
+                </button>
+                <button className={styles.update_button} onClick={noLogin}>
+                  수정
+                </button>
+                </>
+                )}
               </div>
             </div>
           );
