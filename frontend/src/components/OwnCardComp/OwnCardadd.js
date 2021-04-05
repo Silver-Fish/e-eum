@@ -40,11 +40,13 @@ const OwnCardadd = (props) => {
       history.go(0)
     })
     .catch((err) => {
-      console.log(err)
+      setLoading(!isLoading)
+      alert('카드생성 오류입니다.. 다음에 시도해주세요')
+      history.go(0)
     })
   }
   const speakClick= () => {
-    console.log("start")
+    setLoading(!isLoading)
     const token = sessionStorage.getItem('jwt')
     let data = {
       'word' : cardName
@@ -55,32 +57,27 @@ const OwnCardadd = (props) => {
       },  
     })
     .then((res)=> {
-      console.log("voice make end")
-
       axios.get(process.env.REACT_APP_API_URL +`/voice/${cardName}`, {
         headers: {
           Authorization: token
         }
       })
       .then((res) => {
-        console.log("voice read")
         setSpeechWord(res.data)
-
         audio = new Audio(process.env.REACT_APP_IMG_PATH + res.data)
         audio.load()
         playAudio()   
-        
-
+          
       })
       .catch((err) => {
-        // setLoading(!isLoading)
-        console.log("voice read err")
-        console.log(err)
+        setLoading(!isLoading)
+        alert('미리듣기 오류입니다.. 다음에 시도해주세요')
       })
 
     })
     .catch((err) => {
-      console.log(err)
+      setLoading(!isLoading)
+      alert('미리듣기 오류입니다.. 다음에 시도해주세요')
     })
   }
   const playAudio = () => {
@@ -88,13 +85,11 @@ const OwnCardadd = (props) => {
     if (audioPromise !== undefined) {
       audioPromise
         .then(_ => {
-          console.log('playAudio done')
-          // autoplay started
+          setLoading(!isLoading)          
         })
         .catch(err => {
-          // catch dom exception
-          console.log('playAudio err')
-          console.log(err)
+          setLoading(!isLoading)
+          alert('미리듣기 오류입니다.. 다음에 시도해주세요')
         })
     }
   }
@@ -104,7 +99,7 @@ const OwnCardadd = (props) => {
       if(isLoading === false && speechLoading === false)
         return (
           <>
-          {/* <SpeechLoader>  </SpeechLoader> */}
+          <SpeechLoader>  </SpeechLoader>
           <div className={styles.add_box}>
             <div className={styles.image_box}>
               <img  src={situationImg} alt="이미지를 등록해주세요" />
