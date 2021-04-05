@@ -2,11 +2,11 @@ import React from 'react';
 import { useState } from 'react';
 import styles from './Card.module.css';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 
   
 const Card = (props) => {
-  const history = useHistory();
+  // const history = useHistory();
   // const [isCardStateEdit, setCardStateEdit] = useState(false)
   const categoryId = props.categoryId
   const isCardStateEdit = useState(false)[0]
@@ -59,6 +59,7 @@ const Card = (props) => {
       .then((res) => {
         // props.cardDelete(!isCardEdit)
         props.cardDataReset(res.data)
+        // history.go(0)
       })
       .catch((err) => {
         console.log(err)

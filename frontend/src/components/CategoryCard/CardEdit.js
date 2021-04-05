@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import styles from './CardEdit.module.css'
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import Loader from '../Loader/Loader'
 
 const CardEdit = (props) => {
-  console.log(props)
-  const history = useHistory();
-  const [cardImg, setCardImg] = useState(props['cardUrl'])
+  // const history = useHistory();
+  const cardImg = useState(props['cardUrl'])[0]
+  // const [cardImg, setCardImg] = useState(props['cardUrl'])
   const [cardName, setCardName] = useState(props['cardName'])
   const cardId = props['cardId']
   const voiceUrl = props.voiceUrl
-  console.log(voiceUrl)
   let [lenCardName, setlenCardName] = useState(props['cardName'].length)
   const [isLoading, setLoading] = useState(false)
   const categoryId = props.categoryId
@@ -20,12 +19,12 @@ const CardEdit = (props) => {
 
 
 
-  const onImageChange = function (e) {
+  // const onImageChange = function (e) {
     
-    setCardImg(e.target.value)
-    setCardImg(URL.createObjectURL(e.target.files[0]))
+  //   setCardImg(e.target.value)
+  //   setCardImg(URL.createObjectURL(e.target.files[0]))
 
-  }
+  // }
 
   const onInputChange = (e) => {
     if (e.target.value.length > 10){

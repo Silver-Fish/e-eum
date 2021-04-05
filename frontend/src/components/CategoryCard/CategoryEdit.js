@@ -5,16 +5,19 @@ import { useHistory } from 'react-router-dom';
 import Loader from '../Loader/Loader'
 const CategoryEdit = (props) => {
   const history = useHistory();
-  const [situationImg, setImg] = useState(props['categoryUrl'])
+  // const [situationImg, setImg] = useState(props['categoryUrl'])
+  const situationImg = useState(props['categoryUrl'])[0]
   const [categoryName, setCategoryName] = useState(props['categoryName'])
   const categoryId = useState(props['categoryId'])[0]
-  const [imgFile, setImgFile] = useState()
+  // const [imgFile, setImgFile] = useState()
   const [isLoading, setLoading] = useState(false)
   let [lenCategoryName, setlenCategoryName] = useState(props['categoryName'].length)
-  const onImageChange = function (e) {
-    setImg(URL.createObjectURL(e.target.files[0]))
-    setImgFile(e.target.files[0])
-  }
+  
+  // const onImageChange = function (e) {
+  //   setImg(URL.createObjectURL(e.target.files[0]))
+  //   setImgFile(e.target.files[0])
+  // }
+
   const onInputChange = (e) => {
     if (e.target.value.length > 10){
       alert('상황이름은 10자까지 가능합니다.')

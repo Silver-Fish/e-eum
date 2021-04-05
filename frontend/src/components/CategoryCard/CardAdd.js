@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styles from './CardAdd.module.css';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Loader from '../Loader/Loader'
 const CardAdd = (props) => {
-  const history = useHistory();
+  // const history = useHistory();
   const [imgFile, setImgFile] = useState()
   const [cardImg, setImg] = useState()
   const [cardName, setCardName] = useState()
