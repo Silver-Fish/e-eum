@@ -80,7 +80,7 @@ const Card = (props) => {
 
   const CardEditClick = (e) => {
     
-    props.CardStateEdit({state:!isCardStateEdit, url:cardUrl, name: textValue, cardId: cardId})
+    props.CardStateEdit({state:!isCardStateEdit, url:cardUrl, name: textValue, cardId: cardId, voiceUrl:voiceUrl,voiceLength:voiceLength})
   }
 
 

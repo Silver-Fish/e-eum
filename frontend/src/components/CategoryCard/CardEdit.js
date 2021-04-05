@@ -5,13 +5,18 @@ import { useHistory } from 'react-router-dom';
 import Loader from '../Loader/Loader'
 
 const CardEdit = (props) => {
+  console.log(props)
   const history = useHistory();
   const [cardImg, setCardImg] = useState(props['cardUrl'])
   const [cardName, setCardName] = useState(props['cardName'])
   const cardId = props['cardId']
+  const voiceUrl = props.voiceUrl
+  console.log(voiceUrl)
   let [lenCardName, setlenCardName] = useState(props['cardName'].length)
   const [isLoading, setLoading] = useState(false)
   const categoryId = props.categoryId
+  let audio = ""
+
 
 
 
@@ -72,6 +77,22 @@ const CardEdit = (props) => {
 
   const speakClick= () => {
     console.log('소리쳐')
+    audio = new Audio(voiceUrl)
+    audio.load()
+    playAudio()   
+  }
+  const playAudio = () => {
+    const audioPromise = audio.play()
+    if (audioPromise !== undefined) {
+      audioPromise
+        .then(_ => {
+          // autoplay started
+        })
+        .catch(err => {
+          // catch dom exception
+          console.info(err)
+        })
+    }
   }
 
   return(
