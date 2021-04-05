@@ -11,10 +11,13 @@ import com.ssafy.eeum.card.repository.CardRepository;
 import com.ssafy.eeum.category.domain.Category;
 import com.ssafy.eeum.category.domain.CategoryCard;
 import com.ssafy.eeum.category.repository.CategoryRepository;
+import com.ssafy.eeum.category.service.CategoryService;
 import com.ssafy.eeum.common.exception.CustomFileException;
 import com.ssafy.eeum.common.exception.ErrorCode;
 import com.ssafy.eeum.common.exception.NotFoundException;
 import com.ssafy.eeum.common.exception.NotMatchException;
+import com.ssafy.eeum.common.util.ImageUtil;
+import com.ssafy.eeum.qr.service.QrService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -43,6 +46,8 @@ public class AccountService {
     private final CardRepository cardRepository;
     private final CategoryRepository categoryRepository;
     private final PasswordEncoder passwordEncoder;
+    private final QrService qrService;
+    private final CategoryService categoryService;
 
     @Value("${eeum.defaultemail}")
     private String defaultemail;
@@ -167,6 +172,26 @@ public class AccountService {
         accountRepository.save(account);
     }
 
+    public void deleteAccount(Account account) {
+        account = getAccount(account.getEmail());
+        account.getAccountCards().stream().forEach(accountCard -> {
+            ImageUtil.deleteFile(filePath, accountCard.getCard().getImageUrl());
+        });
+        account.getCategories().stream().forEach(category -> {
+            ImageUtil.deleteFile(filePath, category.getCategoryImageUrl());
+            category.getCards().stream().forEach(card -> {
+                ImageUtil.deleteFile(filePath, card.getImageUrl());
+            });
+        });
+        account.getQrs().stream().forEach(qr -> {
+            qr.getCards().stream().forEach(card -> {
+                ImageUtil.deleteFile(filePath, card.getImageUrl());
+            });
+        });
+
+        accountRepository.delete(account);
+    }
+
     private Account getAccount(String email) {
         Account account = accountRepository.findByEmail(email).orElseThrow(
                 () -> {
@@ -182,4 +207,5 @@ public class AccountService {
                     return new NotFoundException(ErrorCode.CATEGORY_NOT_FOUND);
                 });
     }
+
 }

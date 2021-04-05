@@ -10,6 +10,7 @@ import com.ssafy.eeum.category.dto.response.CategoryResponse;
 import com.ssafy.eeum.category.repository.CategoryRepository;
 import com.ssafy.eeum.common.exception.ErrorCode;
 import com.ssafy.eeum.common.exception.NotFoundException;
+import com.ssafy.eeum.common.util.ImageUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,8 +46,6 @@ public class CategoryService {
         account = findAccount(account.getEmail());
         Category category = Category.builder().word(word).account(account).build();
         categoryRepository.save(category);
-
-
 
         if (image != null && !image.isEmpty()) {
             String imageUrl = account.getId() + "/category/" + category.getId();
@@ -105,20 +104,10 @@ public class CategoryService {
         account.deleteCategory(category);
 
         category.getCards().stream().forEach(card -> {
-            File file = new File(filePath + card.getImageUrl());
-            if (file.exists() && !card.getImageUrl().equals(defaultPath)) {
-                log.info("file exist");
-                log.info(file.delete() ? "success image delete" : "fail image delete");
-            }
+            ImageUtil.deleteFile(filePath, card.getImageUrl());
         });
+        ImageUtil.deleteFile(filePath, category.getCategoryImageUrl());
 
-        File file = new File(filePath + category.getCategoryImageUrl());
-        if (file.exists() && !category.getCategoryImageUrl().equals(defaultPath)) {
-            log.info("file exist");
-            log.info(file.delete() ? "success image delete" : "fail image delete");
-        } else {
-            log.info("file not exist");
-        }
         categoryRepository.deleteById(id);
     }
 

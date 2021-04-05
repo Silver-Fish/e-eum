@@ -3,6 +3,7 @@ import styles from './CardAdd.module.css';
 // import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Loader from '../Loader/Loader'
+import SpeechLoader from '../Loader/SpeechLoader'
 const CardAdd = (props) => {
   // const history = useHistory();
   const [imgFile, setImgFile] = useState()
@@ -10,6 +11,8 @@ const CardAdd = (props) => {
   const [cardName, setCardName] = useState()
   let [lenCardName, setlenCardName] = useState(0)
   const [isLoading, setLoading] = useState(false)
+  const [speechLoading, setSpeechLoading] = useState(false)
+  let audio = ''
 
   const onImageChange = function (e) {
     setImgFile(e.target.files[0])
@@ -29,7 +32,53 @@ const CardAdd = (props) => {
   const categoryId = props.categoryId  
   
   const speakClick= () => {
-    console.log('소리쳐')
+    setSpeechLoading(!speechLoading)
+    const token = sessionStorage.getItem('jwt')
+    let data = {
+      'word' : cardName
+    }
+    axios.post(process.env.REACT_APP_API_URL + `/voice`, data, {
+      headers: {
+        Authorization: token,
+      },  
+    })
+    .then((res) => {
+      axios.get(process.env.REACT_APP_API_URL +`/voice/${cardName}`, {
+        headers: {
+          Authorization: token
+        }
+      })
+      .then((res) => {
+        setSpeechLoading(false)
+        audio = new Audio(process.env.REACT_APP_IMG_PATH + res.data)
+        audio.load()
+        playAudio()   
+          
+      })
+      .catch((err) => {
+        alert('미리듣기 오류입니다.. 다음에 시도해주세요')
+        setSpeechLoading(false)
+      })
+
+    })
+    .catch((err) => {
+
+      alert('미리듣기 오류입니다.. 다음에 시도해주세요')
+      setSpeechLoading(false)
+    })
+  }
+  const playAudio = () => {
+    const audioPromise = audio.play()
+    if (audioPromise !== undefined) {
+      audioPromise
+        .then(_ => {
+          setSpeechLoading(false)
+        })
+        .catch(err => {
+          alert('미리듣기 오류입니다.. 다음에 시도해주세요')
+          setSpeechLoading(false)
+        })
+    }
   }
   const cardRegisterClick= () => {
     setLoading(!isLoading)
@@ -76,53 +125,51 @@ const CardAdd = (props) => {
 
   return(
     <>
-      { isLoading === false
-      ?
-      (
-      <>
-      <div className={styles.add_box}>
-        <div className={styles.image_box}>
-          <img  src={cardImg} alt="이미지를 등록해주세요" />
-
-          <label  
-            className={styles.image_button}
-            >
-            <img  src="/images/photo-camera.svg" alt="대체이미지" />
-            <input type="file" accept="image/*" className={styles.image_input} onChange={onImageChange}/>
-            
-              
-          </label>
+    {(()=> {
+      if(isLoading !== false)
+        return (
+          <Loader></Loader>
+        );
+      else if(isLoading === false)
+        return (
+          <>
+          {speechLoading
+            ?
+            (
+              <SpeechLoader></SpeechLoader>
+            )
+            :
+            (
+              ''
+            )
+          }
+        <div className={styles.add_box}>
+          <div className={styles.image_box}>
+            <img  src={cardImg} alt="이미지를 등록해주세요" />
+          </div>
+          <div className={styles.card_input_box}>
+            <input 
+              type='text' 
+              className={styles.card_input}
+              defaultValue={cardName}
+              onChange={onInputChange}
+              placeholder='카드 이름'
+              maxLength='10'/>
+            <img onClick={speakClick} src="/images/speaker-filled-audio-tool.svg" alt="대체이미지" /> 
+          </div>
+          <div className={styles.count_Name}>{lenCardName}/10</div>
         </div>
 
-        <div className={styles.card_input_box}>
-          <input 
-            type='text' 
-            className={styles.card_input}
-            onChange={onInputChange}
-            defalutvalue={cardName}
-            placeholder='카드 이름'
-            maxLength='10'
-            />
-            <hr/>
-          <img onClick={speakClick} src="/images/speaker-filled-audio-tool.svg" alt="대체이미지" />
-        </div>
-        <p className={styles.count_Name}>{lenCardName}/10</p>
-      </div>
-      <div className={styles.bottom_button}>
-        <div className={styles.button_box}>
-            <button className={styles.close_button} onClick={props.cardAddClick}>취소</button>
-            <button id='registerButton' className={styles.register_button} onClick={cardRegisterClick} >등록</button>
-        </div>
-      </div>
-      </>
-      )
-      :
-      (
-        <Loader></Loader>
-      )
-      }
+        <div className={styles.bottom_button}>
+          <div className={styles.button_box}>
+            <button className={styles.close_button} onClick={props.goEditStateChange}>취소</button>
+            <button className={styles.add_button} onClick={cardRegisterClick} >등록</button>
+          </div>
+        </div>           
+          </>
+        );
+    })()}
     </>
   )
-}
-
+  };
 export default CardAdd;
