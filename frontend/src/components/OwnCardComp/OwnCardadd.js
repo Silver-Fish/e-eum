@@ -46,41 +46,59 @@ const OwnCardadd = (props) => {
     })
   }
   const speakClick= () => {
-    setSpeechLoading(!speechLoading)
-    console.log(isLoading)
     console.log(speechLoading)
     const token = sessionStorage.getItem('jwt')
-    axios.get(process.env.REACT_APP_API_URL + `/card/voice/${cardName}`, {
+    console.log(cardName)
+    let data = {
+      'word' : cardName
+    }
+    console.log(data)
+    axios.post(process.env.REACT_APP_API_URL + `/voice`, data, {
       headers: {
         Authorization: token,
       },  
     })
     .then((res)=> {
       setSpeechLoading(!speechLoading)
-      setSpeechWord(res.data)
-      console.log(isLoading)
       console.log(speechLoading)
-      // audio = new Audio(process.env.REACT_APP_IMG_PATH+speechWord)
-      // audio.load()
-      // playAudio()   
+      console.log(res)
+      axios.get(process.env.REACT_APP_API_URL +`/voice/${cardName}`, {
+        headers: {
+          Authorization: token
+        }
+      })
+      .then((res) => {
+        setSpeechLoading(!speechLoading)
+        setSpeechWord(res.data)
+        console.log(res.data)
+        console.log(isLoading)
+        console.log(speechLoading)
+        audio = new Audio(process.env.REACT_APP_IMG_PATH+speechWord)
+        audio.load()
+        playAudio()   
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+
     })
     .catch((err) => {
       console.log(err)
     })
   }
-  // const playAudio = () => {
-  //   const audioPromise = audio.play()
-  //   if (audioPromise !== undefined) {
-  //     audioPromise
-  //       .then(_ => {
-  //         // autoplay started
-  //       })
-  //       .catch(err => {
-  //         // catch dom exception
-  //         console.info(err)
-  //       })
-  //   }
-  // }
+  const playAudio = () => {
+    const audioPromise = audio.play()
+    if (audioPromise !== undefined) {
+      audioPromise
+        .then(_ => {
+          // autoplay started
+        })
+        .catch(err => {
+          // catch dom exception
+          console.info(err)
+        })
+    }
+  }
   return(
     <>
     {(()=> {
