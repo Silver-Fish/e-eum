@@ -10,7 +10,7 @@ const EeumButtonComp = (props) => {
   
   const handleClick = (e) => {    
     console.log(props.handleClickPath)
-    if (props.handleClickPath == '/login'){
+    if (props.handleClickPath === '/login'){
       alert('로그인 해주세요')
     }
     history.push(props.handleClickPath) 

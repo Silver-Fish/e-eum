@@ -39,11 +39,13 @@ function App() {
         <Route path="/help" component={Help} />
       {/* <Route path="/qrlist/:qrId" component={QrCard} /> */}
       {/* <Route path="/qrlist" component={QrCard} /> */}
-        <Route path="/prac" component={QrCard} />
+        
         
 
         <Route exact path="/qr" component={Qr} />
-        <Route path="/qr/:qrId" component={QrCard} />
+        <Route path="/qr/:qrid" component={QrCard} />
+        
+        
         
 
       </Switch>

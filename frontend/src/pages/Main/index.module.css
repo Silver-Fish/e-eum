@@ -1,6 +1,5 @@
 div {
   font-size: 18px;
-
 }
 
 .mainbox {
@@ -16,7 +15,7 @@ div {
   display: flex;
   flex-direction: row-reverse;
   width: 100%;
-  height: 10%;
+  height: 10vh;
   margin: 0px;
 }
 

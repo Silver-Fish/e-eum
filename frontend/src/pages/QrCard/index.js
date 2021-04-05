@@ -149,14 +149,14 @@ const QrCard = ({ match }) => {
 
               <div className={styles.qr_card_box}>{qrCardList}</div>
 
-              <div className={styles.button_box}>
+              {/* <div className={styles.button_box}>
                 <button className={styles.add_button} onClick={addClick}>
                   추가
                 </button>
                 <button className={styles.update_button} onClick={editClick}>
                   수정
                 </button>
-              </div>
+              </div> */}
             </div>
           );
         if (isAdd === true)
