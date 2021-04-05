@@ -12,10 +12,11 @@
 .card_image {
   font-size: inherit;  
   border-bottom: 1px solid black;
-  height: 70%;
+  height: 60%;
   width: 100%;
   padding: 0px;
   display: flex;
+  box-sizing: border-box;
 }
 
 .card span {
