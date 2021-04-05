@@ -65,7 +65,7 @@ public class CardController {
 
     @GetMapping("/voice/{word}")
     @ApiOperation(value = "미리듣기 음성 조회, http://localhost:8080/api/voice/{word:단어}", notes = "단어를 받아 음성을 반환한다.")
-    public ResponseEntity<String> getVoice(@ApiIgnore @CurrentAccount Account account, @RequestParam @NotNull String word) throws Exception{
+    public ResponseEntity<String> getVoice(@ApiIgnore @CurrentAccount Account account, @PathVariable @NotNull String word) throws Exception{
         String tempVoice = cardService.findVoice(account, word);
         return ResponseEntity.ok().body(tempVoice);
     }
