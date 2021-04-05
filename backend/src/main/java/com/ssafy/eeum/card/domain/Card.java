@@ -60,8 +60,9 @@ public class Card {
     private List<QrCard> qrCards = new ArrayList<>();
 
     @Builder
-    public Card(String word) {
+    public Card(String word, Float voiceLength) {
         this.word = word;
+        this.voiceLength = voiceLength;
     }
 
     public void setImageUrl(String imageUrl){
