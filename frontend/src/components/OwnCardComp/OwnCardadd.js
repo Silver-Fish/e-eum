@@ -62,24 +62,26 @@ const OwnCardadd = (props) => {
       setSpeechLoading(!speechLoading)
       console.log(speechLoading)
       console.log(res)
-      axios.get(process.env.REACT_APP_API_URL +`/voice/${cardName}`, {
-        headers: {
-          Authorization: token
-        }
-      })
-      .then((res) => {
-        setSpeechLoading(!speechLoading)
-        setSpeechWord(res.data)
-        console.log(res.data)
-        console.log(isLoading)
-        console.log(speechLoading)
-        audio = new Audio(process.env.REACT_APP_IMG_PATH+speechWord)
-        audio.load()
-        playAudio()   
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+      setTimeout(() => {
+        axios.get(process.env.REACT_APP_API_URL +`/voice/${cardName}`, {
+          headers: {
+            Authorization: token
+          }
+        })
+        .then((res) => {
+          setSpeechLoading(!speechLoading)
+          setSpeechWord(res.data)
+          console.log(res.data)
+          console.log(isLoading)
+          console.log(speechLoading)
+          audio = new Audio(process.env.REACT_APP_IMG_PATH+speechWord)
+          audio.load()
+          playAudio()   
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+      }, 5000)
 
     })
     .catch((err) => {
