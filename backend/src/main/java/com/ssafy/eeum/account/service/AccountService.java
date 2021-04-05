@@ -90,7 +90,7 @@ public class AccountService {
     }
 
     private void saveCard(Account account, Account defAccount, Card defCard, Long type) {
-        Card card = Card.builder().word(defCard.getWord()).voiceLength(defCard.getVoiceLength()).build();
+        Card card = Card.builder().word(defCard.getWord()).voice(defCard.getVoice()).build();
         cardRepository.save(card);
         if (type == OWN) {
             account.addAccountCard(AccountCard.createAccountCard(account, card));
@@ -99,18 +99,16 @@ public class AccountService {
             category.addCategoryCard(CategoryCard.createCategoryCard(category, card));
         }
         card.setImageUrl(account.getId() + "/card/" + card.getId());
-        card.setVoiceUrl(account.getId() + "/voice/" + card.getId()+".wav");
         cardRepository.save(card);
         copyFile("card", defAccount.getId(), defCard.getId(), account.getId(), card.getId());
-        copyFile("voice", defAccount.getId(), defCard.getId(), account.getId(), card.getId());
     }
 
     public void copyFile(String type, Long inAccountId, Long inFileId, Long outAccountId, Long outFileId) {
         File forder = new File(filePath + outAccountId + "/" + type);
         forder.mkdirs();
 
-        File in = new File(filePath + inAccountId + "/" + type + "/" + inFileId + (type.equals("voice") ? ".wav" : ""));
-        File out = new File(filePath + outAccountId + "/" + type + "/" + outFileId + (type.equals("voice") ? ".wav" : ""));
+        File in = new File(filePath + inAccountId + "/" + type + "/" + inFileId);
+        File out = new File(filePath + outAccountId + "/" + type + "/" + outFileId);
         try {
             FileCopyUtils.copy(in, out);
         } catch (IOException e) {

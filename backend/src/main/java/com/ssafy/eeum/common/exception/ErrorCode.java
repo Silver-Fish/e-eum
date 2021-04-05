@@ -15,12 +15,15 @@ public enum ErrorCode {
     NOT_MATCH_PW(400, "AU_006", "잘못된 패스워드입니다."),
 
     DEFAULT_DATA_COPY(400,"FL_001","기본 데이터 복사하는 중 오류가 발생했습니다"),
+    VOICE_FILE_NOT_SAVE(400,"FL_002","음성 파일 저장 중 오류가 발생했습니다."),
 
     CARD_NOT_FOUND(400,"CD_001","해당 카드를 찾을 수 없습니다."),
 
     CATEGORY_NOT_FOUND(400,"CT_001","해당 카테고리를 찾을 수 없습니다."),
 
-    QR_NOT_FOUND(400,"QR_001","해당 QR을 찾을 수 없습니다.");
+    QR_NOT_FOUND(400,"QR_001","해당 QR을 찾을 수 없습니다."),
+
+    VOICE_NOT_FOUND(400,"VC_001","해당 음성 파일을 찾을 수 없습니다.");
 
     private final String code;
     private final String message;

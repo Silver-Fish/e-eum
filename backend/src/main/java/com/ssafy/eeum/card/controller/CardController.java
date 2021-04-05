@@ -8,11 +8,9 @@ import com.ssafy.eeum.common.annotation.CurrentAccount;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.validator.constraints.Length;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
@@ -20,7 +18,6 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -63,13 +60,6 @@ public class CardController {
         return ResponseEntity.ok().body(cardResponses);
     }
 
-    @GetMapping("/voice/{word}")
-    @ApiOperation(value = "미리듣기 음성 조회, http://localhost:8080/api/voice/{word:단어}", notes = "단어를 받아 음성을 반환한다.")
-    public ResponseEntity<String> getVoice(@ApiIgnore @CurrentAccount Account account, @PathVariable @NotNull String word) throws Exception{
-        String tempVoice = cardService.findVoice(account, word);
-        return ResponseEntity.ok().body(tempVoice);
-    }
-
     @PutMapping("/{id}")
     @ApiOperation(value = "카드 수정, http://localhost:8080/api/card/{id:카드아이디}, data={word:단어}", notes = "카드 id를 받아 카드리스트를 수정한다.")
     public ResponseEntity<Void> updateCard(@PathVariable @NotNull Long id, @RequestBody @Valid CardUpdateRequest cardUpdateRequest) throws Exception{
@@ -86,7 +76,7 @@ public class CardController {
 
     @GetMapping("/search/{keyword}")
     @ApiOperation(value = "카드 검색, http://localhost:8080/api/card/search/{keyword:검색할 키워드}", notes = "keyword를 받아 나만의 이음과 상황별 이음에 있는 카드를 검색하여 반환한다.")
-    public ResponseEntity<List<CardResponse>> searchByKeyword(@ApiIgnore @CurrentAccount Account account, @PathVariable @NotBlank String keyword) {
+    public ResponseEntity<List<CardResponse>> searchByKeyword(@ApiIgnore @CurrentAccount Account account, @PathVariable @NotNull String keyword) {
         List<CardResponse> cardResponses = cardService.searchCardByKeyword(account, keyword);
         return ResponseEntity.ok().body(cardResponses);
     }
