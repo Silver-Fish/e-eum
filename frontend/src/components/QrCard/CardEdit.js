@@ -3,6 +3,7 @@ import styles from './CardEdit.module.css';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import Loader from '../Loader/Loader'
+import SpeechLoader from '../Loader/SpeechLoader'
 
 const CardEdit = (props) => {
   const history = useHistory();
@@ -11,7 +12,8 @@ const CardEdit = (props) => {
   const cardId = props['cardId'];
   let [lenCardName, setlenCardName] = useState(props['cardName'].length)
   const [isLoading, setLoading] = useState(false)
-
+  const [speechLoading, setSpeechLoading] = useState(false)
+  let audio = ''
   const onImageChange = function (e) {
     setCardImg(e.target.value);
     setCardImg(URL.createObjectURL(e.target.files[0]));
@@ -50,16 +52,77 @@ const CardEdit = (props) => {
       });
   };
 
-  const speakClick = () => {
-    console.log('소리쳐');
-  };
+  const speakClick= () => {
+    setSpeechLoading(!speechLoading)
+    const token = sessionStorage.getItem('jwt')
+    let data = {
+      'word' : cardName
+    }
+    axios.post(process.env.REACT_APP_API_URL + `/voice`, data, {
+      headers: {
+        Authorization: token,
+      },  
+    })
+    .then((res)=> {
+      axios.get(process.env.REACT_APP_API_URL +`/voice/${cardName}`, {
+        headers: {
+          Authorization: token
+        }
+      })
+      .then((res) => {
+        setSpeechLoading(false)
+        audio = new Audio(process.env.REACT_APP_IMG_PATH + res.data)
+        audio.load()
+        playAudio()   
+          
+      })
+      .catch((err) => {
+        alert('미리듣기 오류입니다.. 다음에 시도해주세요')
+        setSpeechLoading(false)
+      })
+
+    })
+    .catch((err) => {
+
+      alert('미리듣기 오류입니다.. 다음에 시도해주세요')
+      setSpeechLoading(false)
+    })
+  }
+
+  const playAudio = () => {
+    const audioPromise = audio.play()
+    if (audioPromise !== undefined) {
+      audioPromise
+        .then(_ => {
+          setSpeechLoading(false)
+        })
+        .catch(err => {
+          alert('미리듣기 오류입니다.. 다음에 시도해주세요')
+          setSpeechLoading(false)
+        })
+    }
+  }
 
   return (
     <>
-      { isLoading === false
-      ?
-      (
-      <>
+    {(()=> {
+      if(isLoading !== false)
+        return (
+          <Loader></Loader>
+        );
+      else if(isLoading === false)
+        return (
+          <>
+          {speechLoading
+            ?
+            (
+              <SpeechLoader></SpeechLoader>
+            )
+            :
+            (
+              ''
+            )
+          }
       <div className={styles.add_box}>
         <div className={styles.image_box}>
           <img src={cardImg} alt="이미지를 등록해주세요" />
@@ -74,7 +137,7 @@ const CardEdit = (props) => {
           <input
             type="text"
             className={styles.card_input}
-            defaultValue={cardName}
+            value={cardName}
             onChange={onInputChange}
             placeholder="카드 이름"
             maxLength='10'
@@ -93,14 +156,10 @@ const CardEdit = (props) => {
         </button>
       </div>
       </>
-      )
-      :
-      (
-        <Loader></Loader>
-      )
-      }
+        );
+    })()}
     </>
-  );
+  )
 };
 
 export default CardEdit;

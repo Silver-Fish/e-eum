@@ -40,3 +40,9 @@ div {
   background-color: #f5df4d;
   border: 1px solid #f5df4d;
 }
+
+.count_Name {
+  font-family: inherit;
+  font-size: 7vw;
+  margin: 0 3%;
+}

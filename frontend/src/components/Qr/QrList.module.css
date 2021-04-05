@@ -13,6 +13,7 @@ div {
 .qr_name_box {
   font-size: 24px;
   margin: auto 0;
+  width: 50vw;
 }
 
 
@@ -23,22 +24,36 @@ div {
   font-family: inherit;
 }
 
+.qr_button_box  {
+  width: 50vw;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+
 .qr_edit_button {
-  font-size: 16px;
+  font-size: 5vw;
   background-color: #F5DF4D;
   color: #000;
   border: 0px;
   border-radius: 2vw;
   margin: 1vh 1vw;
   font-family: inherit;
+  width: 100%;
 }
 
 .qr_button {
-  font-size: 16px;
+  font-size: 5vw;
   background-color: #FFF;
   color: #F5DF4D;
   border: 1px solid #F5DF4D;
   border-radius: 2vw;
   margin: 1vh 1vw;
   font-family: inherit;
+  width: 100%;
+}
+
+.qr_name span {
+  font-size: 5vw;
 }

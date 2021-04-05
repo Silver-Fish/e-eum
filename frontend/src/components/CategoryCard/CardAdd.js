@@ -151,7 +151,7 @@ const CardAdd = (props) => {
             <input 
               type='text' 
               className={styles.card_input}
-              defaultValue={cardName}
+              value={cardName}
               onChange={onInputChange}
               placeholder='카드 이름'
               maxLength='10'/>
