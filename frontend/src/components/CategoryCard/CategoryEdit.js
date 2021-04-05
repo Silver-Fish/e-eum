@@ -44,7 +44,8 @@ const CategoryEdit = (props) => {
       history.go(0)
     })
     .catch((err) => {
-      console.log(err)
+      alert('상황수정 도중 오류가 발생했습니다. 다시 한번 시도해주세요.')
+      setLoading(!isLoading)
     })
   }
 

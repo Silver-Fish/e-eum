@@ -31,7 +31,7 @@ const CategoryCard = (props) => {
       props.categoryClick({state:false, cardDatas:res.data, categoryId:categoryId, categoryName:categoryName})
     })
     .catch((err) => {
-      console.log(err)
+      alert('카드를 받아오는 도중 오류가 발생했습니다. 다시 한번 시도해주세요.')
     })
     
   }

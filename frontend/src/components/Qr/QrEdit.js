@@ -13,7 +13,7 @@ const QrEdit = (props) => {
       title: selectedQrName,
     };
     if (selectedQrName === '') {
-      alert('이름 입력해잇!');
+      alert('QR이름을 입력해주세요');
     } else {
       axios
         .put(process.env.REACT_APP_API_URL + '/qr/' + qrId, data, {
@@ -24,17 +24,15 @@ const QrEdit = (props) => {
         .then((res) => {
           console.log(res);
           if (res.status === 204) {
-            alert('수정 성공잇');
             history.go(0);
           } else {
-            alert('수정 실패잇');
+            alert('QR수정 도중 오류가 발생했습니다. 다시 한번 시도해주세요.')
             history.go(0);
-            console.log('QrList U : status가 200아님');
           }
         })
         .catch((err) => {
-          console.log('QrList U : err났어잇');
-          console.log(err);
+          alert('QR수정 도중 오류가 발생했습니다. 다시 한번 시도해주세요.')
+          history.go(0);
         });
     }
   };
@@ -49,17 +47,15 @@ const QrEdit = (props) => {
       .then((res) => {
         console.log(res);
         if (res.status === 204) {
-          alert('삭제 성공잇');
           history.go(0);
         } else {
-          alert('삭제 실패잇');
-          console.log('QrList D : status가 200아님');
+          alert('QR삭제 도중 오류가 발생했습니다. 다시 한번 시도해주세요.')
           history.go(0);
         }
       })
       .catch((err) => {
-        console.log('QrList D : err났어잇');
-        console.log(err);
+        alert('QR삭제 도중 오류가 발생했습니다. 다시 한번 시도해주세요.')
+        history.go(0);
       });
   };
   const onTitleHandler = (e) => {

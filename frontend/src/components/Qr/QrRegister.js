@@ -25,14 +25,15 @@ const QrRegister = (props) => {
         .then((res) => {
           console.log(res);
           if (res.status === 200) {
-            alert('등록 성공 , 카드 리스트 추가해잇!');
             history.go(0);
           } else {
-            console.log('QrList C: status가 200이아님');
+            alert('QR등록 도중 오류가 발생했습니다. 다시 한번 시도해주세요.')
+            
           }
         })
         .catch((err) => {
-          console.log(err);
+          alert('QR등록 도중 오류가 발생했습니다. 다시 한번 시도해주세요.')
+          
         });
     }
   };
