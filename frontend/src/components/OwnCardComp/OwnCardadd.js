@@ -46,7 +46,7 @@ const OwnCardadd = (props) => {
     })
   }
   const speakClick= () => {
-    setLoading(!isLoading)
+    setSpeechLoading(!speechLoading)
     const token = sessionStorage.getItem('jwt')
     let data = {
       'word' : cardName
@@ -63,21 +63,22 @@ const OwnCardadd = (props) => {
         }
       })
       .then((res) => {
-        setSpeechWord(res.data)
+        setSpeechLoading(false)
         audio = new Audio(process.env.REACT_APP_IMG_PATH + res.data)
         audio.load()
         playAudio()   
           
       })
       .catch((err) => {
-        setLoading(!isLoading)
         alert('미리듣기 오류입니다.. 다음에 시도해주세요')
+        setSpeechLoading(false)
       })
 
     })
     .catch((err) => {
-      setLoading(!isLoading)
+
       alert('미리듣기 오류입니다.. 다음에 시도해주세요')
+      setSpeechLoading(false)
     })
   }
   const playAudio = () => {
@@ -85,11 +86,11 @@ const OwnCardadd = (props) => {
     if (audioPromise !== undefined) {
       audioPromise
         .then(_ => {
-          setLoading(!isLoading)          
+          setSpeechLoading(false)
         })
         .catch(err => {
-          setLoading(!isLoading)
           alert('미리듣기 오류입니다.. 다음에 시도해주세요')
+          setSpeechLoading(false)
         })
     }
   }
@@ -99,7 +100,7 @@ const OwnCardadd = (props) => {
       if(isLoading === false && speechLoading === false)
         return (
           <>
-          <SpeechLoader>  </SpeechLoader>
+          
           <div className={styles.add_box}>
             <div className={styles.image_box}>
               <img  src={situationImg} alt="이미지를 등록해주세요" />
@@ -143,6 +144,7 @@ const OwnCardadd = (props) => {
         return (
           <>
           <SpeechLoader>  </SpeechLoader>
+          
           <div className={styles.add_box}>
             <div className={styles.image_box}>
               <img  src={situationImg} alt="이미지를 등록해주세요" />
@@ -160,7 +162,8 @@ const OwnCardadd = (props) => {
                 type='text' 
                 className={styles.situation_input}
                 onChange={onInputChange}
-                defalutvalue={cardName}
+                // defalutvalue={cardName}
+                value={cardName}
                 placeholder='카드 이름'
                 maxLength='10'/>
                 <img onClick={speakClick} src="/images/speaker-filled-audio-tool.svg" alt="대체이미지" />
