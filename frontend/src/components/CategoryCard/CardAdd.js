@@ -87,7 +87,7 @@ const CardAdd = (props) => {
             className={styles.image_button}
             >
             <img  src="/images/photo-camera.svg" alt="대체이미지" />
-            <input type="file" className={styles.image_input} onChange={onImageChange}/>
+            <input type="file" accept="image/*" className={styles.image_input} onChange={onImageChange}/>
             
               
           </label>

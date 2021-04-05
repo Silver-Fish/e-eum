@@ -13,6 +13,7 @@ const Card = (props) => {
   const voiceUrl = process.env.REACT_APP_IMG_PATH+props.voiceUrl
   const voiceLength = props.voiceLength
   const cardId = props.id
+  console.log(cardUrl)
   let audio = ""
 
   const cardButtonClick = (e) => {    
@@ -79,7 +80,7 @@ const Card = (props) => {
           <img src="/images/minus.png" alt="" onClick={CardDeleteClick}/>
         </div>
         <img className={styles.card_image} src={cardUrl} alt="qr 카드"/>
-        {textValue}
+          {textValue}
       </button>
     </>
 

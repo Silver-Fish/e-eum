@@ -11,8 +11,10 @@ const CategoryAdd = (props) => {
   const [isLoading, setLoading] = useState(false)
   let [lenCategoryName, setlenCategoryName] = useState(0)
   const onImageChange = (e) => {
-    setImgFile(e.target.files[0])
-    setImg(URL.createObjectURL(e.target.files[0]))
+    console.log(e.target.files[0].size)
+
+    // setImgFile(e.target.files[0])
+    // setImg(URL.createObjectURL(e.target.files[0]))
   }
 
   const onInputChange = (e) => {
@@ -50,10 +52,12 @@ const CategoryAdd = (props) => {
 
   return(
     <>
+    
       { isLoading === false
       ?
       (
       <>
+      
       <div className={styles.add_box}>
         <div className={styles.image_box}>
           <img  src={situationImg} alt="이미지를 등록해주세요" />
@@ -62,11 +66,10 @@ const CategoryAdd = (props) => {
             className={styles.image_button}
             >
             <img  src="/images/photo-camera.svg" alt="대체이미지" />
-            <input type="file" className={styles.image_input} onChange={onImageChange}/>
+            <input type="file" accept="image/*" className={styles.image_input} onChange={onImageChange}/>
               
           </label>
         </div>
-        
         <input 
           type='text' 
           className={styles.situation_input}
