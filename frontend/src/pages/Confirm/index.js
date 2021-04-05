@@ -3,27 +3,27 @@ import HeaderComp from "../../components/HeaderComp/HeaderComp";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import styles from "./index.module.css";
-//import { useCookies } from "react-cookie";
+import { useCookies } from "react-cookie";
 const Confirm = () => {
   const history = useHistory();
   const [password, setPassword] = useState("");
 
-  //const [cookies] = useCookies(["cookie"]);
+  const [cookies] = useCookies(["cookie"]);
 
-  // useEffect(() => {
-  //   if (
-  //     sessionStorage.getItem("jwt") === null &&
-  //     cookies.cookie !== undefined &&
-  //     cookies.cookie !== "undefined"
-  //   ) {
-  //     history.push("/");
-  //   } else if (
-  //     sessionStorage.getItem("jwt") === null &&
-  //     (cookies.cookie === undefined || cookies.cookie === "undefined")
-  //   ) {
-  //     history.push("/");
-  //   }
-  // });
+  useEffect(() => {
+    if (
+      sessionStorage.getItem("jwt") === null &&
+      cookies.cookie !== undefined &&
+      cookies.cookie !== "undefined"
+    ) {
+      history.push("/");
+    } else if (
+      sessionStorage.getItem("jwt") === null &&
+      (cookies.cookie === undefined || cookies.cookie === "undefined")
+    ) {
+      history.push("/");
+    }
+  });
 
   const onPasswordHandler = (e) => {
     setPassword(e.currentTarget.value);
