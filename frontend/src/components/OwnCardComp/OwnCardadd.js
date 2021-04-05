@@ -20,8 +20,6 @@ const OwnCardadd = (props) => {
   }
   const onInputChange = (e) => {
     setCardName(e.target.value)
-    console.log(cardName)
-    console.log(e.target.value)
   }
 
   const addCard = () => {
@@ -46,22 +44,18 @@ const OwnCardadd = (props) => {
     })
   }
   const speakClick= () => {
-    console.log(speechLoading)
+    console.log("start")
     const token = sessionStorage.getItem('jwt')
-    console.log(cardName)
     let data = {
       'word' : cardName
     }
-    console.log(data)
     axios.post(process.env.REACT_APP_API_URL + `/voice`, data, {
       headers: {
         Authorization: token,
       },  
     })
     .then((res)=> {
-      setSpeechLoading(!speechLoading)
-      console.log(speechLoading)
-      console.log(res)
+      console.log("voice make end")
       setTimeout(() => {
         axios.get(process.env.REACT_APP_API_URL +`/voice/${cardName}`, {
           headers: {
@@ -69,19 +63,17 @@ const OwnCardadd = (props) => {
           }
         })
         .then((res) => {
-          setSpeechLoading(!speechLoading)
-          setSpeechWord(res.data)
-          console.log(res.data)
-          console.log(isLoading)
-          console.log(speechLoading)
+          console.log("voice read")
           audio = new Audio(process.env.REACT_APP_IMG_PATH+speechWord)
           audio.load()
           playAudio()   
+          setSpeechWord(res.data)
         })
         .catch((err) => {
+          // setLoading(!isLoading)
           console.log(err)
         })
-      }, 5000)
+      }, 500)
 
     })
     .catch((err) => {
@@ -93,11 +85,13 @@ const OwnCardadd = (props) => {
     if (audioPromise !== undefined) {
       audioPromise
         .then(_ => {
+          console.log('playAudio done')
           // autoplay started
         })
         .catch(err => {
           // catch dom exception
-          console.info(err)
+          console.log('playAudio err')
+          console.log(err)
         })
     }
   }
