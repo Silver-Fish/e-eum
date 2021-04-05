@@ -42,16 +42,10 @@ const HeaderComp = (props) => {
   const settingClick = (e) => {
     history.push('/setting');
   };
-  const onSearch = (e) => {
-    setSearchKeyword(e.target.value)
-  }
-  useEffect(() => {
-    console.log(searchFlag)
-    
-  },[searchkeyword])
 
-  const searchCard = () => {
-    const keyword = searchkeyword
+  const onSearch = (e) => {
+    const keyword = e.target.value
+    if (keyword !== ''){
     const token = sessionStorage.getItem('jwt')
     axios.get(process.env.REACT_APP_API_URL+`/card/search/${keyword}`,{
       headers: {
@@ -74,6 +68,11 @@ const HeaderComp = (props) => {
     .catch((err) => {
       console.log(err)
     })
+    } else
+    {
+      setSearchFlag(false)
+      setSearchCardDatas([])
+    }
   }
   const searchCardList = searchCardDatas.map(
     (searchcard,i) => (
@@ -140,7 +139,7 @@ const HeaderComp = (props) => {
           {searchFlag===true
           ?(
             <div className={styles.modal_main_box}>
-              <input className={styles.modal_search} type="text" onChange={onSearch} placeholder="검색" onKeyPress={searchCard}/>
+              <input className={styles.modal_search} type="text" onChange={onSearch} placeholder="검색"  />
               <div className={styles.search_card_list_box}>
                 {searchCardList}
               </div>
@@ -174,7 +173,7 @@ const HeaderComp = (props) => {
             </div>
           ):(
             <div className={styles.modal_main_box}>
-            <input className={styles.modal_search} type="text" onChange={onSearch} placeholder="검색" onKeyPress={searchCard}/>
+            <input className={styles.modal_search} type="text" onChange={onSearch} placeholder="검색" />
             <ul className={styles.modal_list}>
               <li className={styles.modal_list_line}>
                 <button className={styles.modal_button} onClick={mypageClick}>
