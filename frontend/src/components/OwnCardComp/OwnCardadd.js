@@ -9,12 +9,16 @@ const OwnCardadd = (props) => {
   const [imgFile, setImgFile] = useState()
   const [cardName, setCardName] = useState()
   const [isLoading, setLoading] = useState(false)
+  const [speechWord, setSpeechWord] =useState('')
+  let audio = ''
   const onImageChange = function (e) {
     setImgFile(e.target.files[0])
     setImg(URL.createObjectURL(e.target.files[0]))
   }
   const onInputChange = (e) => {
     setCardName(e.target.value)
+    console.log(cardName)
+    console.log(e.target.value)
   }
 
   const addCard = () => {
@@ -38,6 +42,40 @@ const OwnCardadd = (props) => {
       console.log(err)
     })
   }
+  const speakClick= () => {
+    console.log('소리쳐')
+    console.log(typeof(cardName))
+    console.log(cardName)
+    const token = sessionStorage.getItem('jwt')
+    axios.get(`https://dev.e-eum.kr/api/card/voice/${cardName}`, {
+      headers: {
+        Authorization: token,
+      },  
+    })
+    .then((res)=> {
+      console.log(res.data)
+      setSpeechWord(res.data)
+      audio = new Audio(process.env.REACT_APP_IMG_PATH+speechWord)
+      audio.load()
+      playAudio()   
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+  const playAudio = () => {
+    const audioPromise = audio.play()
+    if (audioPromise !== undefined) {
+      audioPromise
+        .then(_ => {
+          // autoplay started
+        })
+        .catch(err => {
+          // catch dom exception
+          console.info(err)
+        })
+    }
+  }
   return(
     <>
       { isLoading === false
@@ -57,14 +95,19 @@ const OwnCardadd = (props) => {
           </label>
         </div>
         
-        <input 
-          type='text' 
-          className={styles.situation_input}
-          onChange={onInputChange}
-          defalutvalue={cardName}
-          placeholder='카드 이름'/>
+        <div className={styles.card_input_box}>
+          <input 
+            type='text' 
+            className={styles.situation_input}
+            onChange={onInputChange}
+            defalutvalue={cardName}
+            placeholder='카드 이름'
+            maxLength='10'/>
+            <img onClick={speakClick} src="/images/speaker-filled-audio-tool.svg" alt="대체이미지" />
+            {/* <img src="/images/speaker-filled-audio-tool.svg" alt="대체이미지" /> */}
+        </div>
       </div>
-
+      
         <div className={styles.bottom_button}>
       <div className={styles.button_box}>
           <button className={styles.close_button} onClick={props.addStateChange}>취소</button>

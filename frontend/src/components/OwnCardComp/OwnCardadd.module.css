@@ -7,7 +7,9 @@
   align-content: flex-start;
   margin: 0;
 }
-
+.card_input_box {
+  display: flex;
+}
 
 .image_box {
   width: 55vw;

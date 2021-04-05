@@ -30,6 +30,7 @@ const Category = () => {
   const [isCardAdd, setCardAdd] = useState(false);
   const [isCardEdit, setCardEdit] = useState(false);
   const [isCardStateEdit, setCardStateEdit] = useState(false);
+  const [cardVoiceUrl, setCardVoiceUrl] = useState('');
   const [cardUrl, setCardUrl] = useState('');
   const [cardName, setCardName] = useState('');
   const [cardId, setCardId] = useState('');
@@ -112,10 +113,12 @@ const Category = () => {
   };
 
   const CardStateEdit = (data) => {
+    console.log(data)
     setCardStateEdit(data['state']);
     setCardName(data['name']);
     setCardUrl(data['url']);
     setCardId(data['cardId']);
+    setCardVoiceUrl(data['voiceUrl'])
   };
 
   const cardDelete = (e) => {
@@ -352,6 +355,7 @@ const Category = () => {
                     cardName={cardName}
                     cardUrl={cardUrl}
                     cardId={cardId}
+                    voiceUrl={cardVoiceUrl}
                     isCardEdit={isCardEdit}
                     categoryId={categoryId}
                     cardEdit={cardEdit}
