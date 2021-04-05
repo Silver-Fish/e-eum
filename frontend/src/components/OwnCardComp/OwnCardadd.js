@@ -47,10 +47,10 @@ const OwnCardadd = (props) => {
     console.log(typeof(cardName))
     console.log(cardName)
     const token = sessionStorage.getItem('jwt')
-    axios.get(`https://dev.e-eum.kr/api/card/voice/${cardName}`,{
+    axios.get(`https://dev.e-eum.kr/api/card/voice/${cardName}`, {
       headers: {
-        'Authorization': token
-        }      
+        Authorization: token,
+      },  
     })
     .then((res)=> {
       console.log(res.data)
