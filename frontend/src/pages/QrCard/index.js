@@ -9,6 +9,9 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 const QrCard = ({ match }) => {
+  let qrNum = window.location.href.split('/')
+  qrNum = qrNum[qrNum.length-1]
+  qrNum = 0
   const history = useHistory();
   const qrId = match.params.qrId;
   const [isAdd, setAdd] = useState(false);
@@ -25,23 +28,10 @@ const QrCard = ({ match }) => {
   const [speechList, setSpeechList] = useState([])  
   let audio = ""
 
-  useEffect(() => {
-    if (
-      sessionStorage.getItem('jwt') === null &&
-      cookies.cookie !== undefined &&
-      cookies.cookie !== 'undefined'
-    ) {
-      sessionStorage.setItem('jwt', cookies.cookie);
-      setToken(sessionStorage.getItem('jwt'));
-    } else if (
-      sessionStorage.getItem('jwt') === null &&
-      (cookies.cookie === undefined || cookies.cookie === 'undefined')
-    ) {
-      history.push('/login');
-    }
 
+  useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API_URL + '/card/qr?typeId=' + qrId, {
+      .get(process.env.REACT_APP_API_URL + '/card/qr?typeId=' + qrNum, {
         headers: {
           Authorization: token,
         },
@@ -52,7 +42,7 @@ const QrCard = ({ match }) => {
       .catch((err) => {
         console.log(err);
       });
-  }, [token, history, cookies.cookie, qrId]);
+  }, []);
 
   const addClick = () => {
     setAdd(!isAdd);
@@ -147,7 +137,7 @@ const QrCard = ({ match }) => {
       {(function () {
         if (isAdd === false && isCardStateEdit === false)
           return (
-            <>
+            <div className={styles.qrcard_box}>
               <HearderComp headertitle="QR 카드" headerColor="yello"></HearderComp>
               <div className={styles.speech_box}>
                 <div className={styles.speech_item_box} onClick={speechClick}>{speechBoxList}</div>
@@ -167,18 +157,18 @@ const QrCard = ({ match }) => {
                   수정
                 </button>
               </div>
-            </>
+            </div>
           );
         if (isAdd === true)
           return (
-            <>
+            <div className={styles.qrcard_box}>
               <HearderComp headertitle="카드 등록" headerColor="yellow"></HearderComp>
               <CardAdd qrId={qrId} addClick={addClick}></CardAdd>
-            </>
+            </div>
           );
         if (isCardStateEdit === true)
           return (
-            <>
+            <div className={styles.qrcard_box}>
               <HearderComp headertitle="카드 수정" headerColor="yellow"></HearderComp>
               <CardEdit
                 cardEditStateChange={cardEditStateChange}
@@ -186,7 +176,7 @@ const QrCard = ({ match }) => {
                 cardUrl={cardUrl}
                 cardId={cardId}
               ></CardEdit>
-            </>
+            </div>
           );
       })()}
     </>

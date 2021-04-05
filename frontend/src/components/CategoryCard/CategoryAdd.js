@@ -13,8 +13,8 @@ const CategoryAdd = (props) => {
   const onImageChange = (e) => {
     console.log(e.target.files[0].size)
 
-    // setImgFile(e.target.files[0])
-    // setImg(URL.createObjectURL(e.target.files[0]))
+    setImgFile(e.target.files[0])
+    setImg(URL.createObjectURL(e.target.files[0]))
   }
 
   const onInputChange = (e) => {

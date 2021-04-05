@@ -76,7 +76,7 @@ const Login = () => {
           id="check"
         />
 
-        <label for="check">자동로그인</label>
+        <label htmlFor="check">자동로그인</label>
         <div className={styles.labelForm}>
           <LabelComp textValue="회원가입" handleClickPath="./userRegister" />
           <LabelComp textValue="비밀번호 찾기" handleClickPath="./findPassword" />
