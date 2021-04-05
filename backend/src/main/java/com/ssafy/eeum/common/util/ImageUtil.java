@@ -63,4 +63,13 @@ public class ImageUtil {
 
         return newImage;
     }
+
+    public static void deleteFile(String path, String url) {
+        File file = new File(path + url);
+        if (file.exists() && !url.equals("0/default.svg")) {
+            file.delete();
+        } else {
+            log.info("file not exist or default image");
+        }
+    }
 }

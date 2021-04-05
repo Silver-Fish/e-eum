@@ -5,6 +5,7 @@ import com.ssafy.eeum.account.domain.Account;
 import com.ssafy.eeum.account.repository.AccountRepository;
 import com.ssafy.eeum.common.exception.ErrorCode;
 import com.ssafy.eeum.common.exception.NotFoundException;
+import com.ssafy.eeum.common.util.ImageUtil;
 import com.ssafy.eeum.qr.domain.QR;
 import com.ssafy.eeum.qr.dto.request.QrUpdateRequest;
 import com.ssafy.eeum.qr.dto.response.QrResponse;
@@ -20,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +34,9 @@ public class QrService {
 
     @Value("${file.path}")
     private String filePath;
+
+    @Value("${file.defaultpath}")
+    private String defaultPath;
 
     @Value("${apiId}")
     private String id;
@@ -91,6 +96,10 @@ public class QrService {
 
         Account account = qr.getAccount();
         account.deleteQR(qr);
+
+        qr.getCards().stream().forEach(card -> {
+            ImageUtil.deleteFile(filePath, card.getImageUrl());
+        });
 
         qrRepository.deleteById(id);
     }
