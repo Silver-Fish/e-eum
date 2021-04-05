@@ -33,7 +33,6 @@ const UserRegister = () => {
   };
 
   const onSubmitHandler = (e) => {
-    setLoading(!isLoading);
     e.preventDefault();
 
     if (
@@ -48,8 +47,7 @@ const UserRegister = () => {
         password: password,
         name: name,
       };
-
-      console.log(userData);
+      setLoading(!isLoading);
 
       axios
         .post(process.env.REACT_APP_API_URL + "/accounts", userData)
