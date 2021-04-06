@@ -14,17 +14,25 @@ import com.ssafy.eeum.category.repository.CategoryCardRepository;
 import com.ssafy.eeum.category.repository.CategoryRepository;
 import com.ssafy.eeum.common.exception.ErrorCode;
 import com.ssafy.eeum.common.exception.NotFoundException;
-import com.sun.xml.bind.v2.TODO;
+import com.ssafy.eeum.common.util.ImageUtil;
+import com.ssafy.eeum.qr.domain.QR;
+import com.ssafy.eeum.qr.domain.QrCard;
+import com.ssafy.eeum.qr.repository.QrCardRepository;
+import com.ssafy.eeum.qr.repository.QrRepository;
+import com.ssafy.eeum.voice.service.VoiceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * com.ssafy.eeum.card.service
@@ -38,17 +46,29 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CardService {
+
     @Value("${file.path}")
     private String filePath;
+
+    @Value("${file.defaultpath}")
+    private String defaultPath;
+
+    @Value("${eeum.defaultemail}")
+    private String defaultEmail;
+
+    private final RestTemplate restTemplate;
 
     private final CardRepository cardRepository;
     private final CategoryRepository categoryRepository;
     private final AccountRepository accountRepository;
     private final AccountCardRepository accountCardRepository;
     private final CategoryCardRepository categoryCardRepository;
+    private final QrRepository qrRepository;
+    private final QrCardRepository qrCardRepository;
+    private final VoiceService voiceService;
 
-    @Transactional
     public Long save(Account account, String type, Long typeId, String word, MultipartFile image) throws Exception {
         Card card = Card.builder().word(word).build();
         cardRepository.save(card);
@@ -62,22 +82,23 @@ public class CardService {
                 category.addCategoryCard(CategoryCard.createCategoryCard(category, card));
                 break;
             case "qr":
+                QR qr = findQR(typeId);
+                qr.addQRCard(QrCard.createQRCard(qr, card));
                 break;
         }
 
-        if (image != null) {
+        card.setVoice(voiceService.findAndSave(word));
+
+        if (image != null && !image.isEmpty()) {
             String imageUrl = account.getId() + "/card/" + card.getId();
             card.setImageUrl(imageUrl);
-            cardRepository.save(card);
 
             File folder = new File(filePath + account.getId() + "/card");
-            log.info(folder.mkdirs() ? "success make dir" : "fail make dir");
+            log.info(folder.mkdirs() ? "success make image dir" : "fail make image dir");
 
-            File file = new File(filePath + imageUrl);
-            log.info(file.createNewFile() ? "success make file" : "fail make file");
-            FileOutputStream fos = new FileOutputStream(file);
-            fos.write(image.getBytes());
-            fos.close();
+            ImageUtil.save(filePath + imageUrl, image);
+        } else {
+            card.setImageUrl(defaultPath);
         }
 
         return card.getId();
@@ -88,7 +109,7 @@ public class CardService {
         List<Card> cards = null;
         switch (type) {
             case "own":
-                account = findAccount(account.getEmail());
+                account = findAccount(account == null ? defaultEmail : account.getEmail());
                 cards = account.getCards();
                 break;
             case "category":
@@ -96,6 +117,8 @@ public class CardService {
                 cards = category.getCards();
                 break;
             case "qr":
+                QR qr = findQR(typeId);
+                cards = qr.getCards();
                 break;
         }
         return CardResponse.listOf(cards);
@@ -107,18 +130,18 @@ public class CardService {
         return CardResponse.of(card);
     }
 
-    @Transactional
-    public void updateCard(Long id, CardUpdateRequest cardUpdateRequest) {
+    public void updateCard(Long id, CardUpdateRequest cardUpdateRequest) throws Exception {
         Card card = findCard(id);
         Card requestCard = cardUpdateRequest.toCard();
         card.update(requestCard);
+        card.setVoice(voiceService.findAndSave(card.getWord()));
     }
 
-    @Transactional
     public void deleteCard(Long id) {
         //TODO:계정 확인 로직 구현?
         List<AccountCard> accountCards = accountCardRepository.findByCardId(id);
         List<CategoryCard> categoryCards = categoryCardRepository.findByCardId(id);
+        List<QrCard> qrCards = qrCardRepository.findByCardId(id);
         if (accountCards.size() != 0) {
             for (AccountCard accountCard : accountCards) {
                 accountCard.setCard(null);
@@ -131,16 +154,38 @@ public class CardService {
                 categoryCard.getCategory().deleteCategoryCard(categoryCard);
                 log.info("category card delete");
             }
+        } else if (qrCards.size() != 0) {
+            for (QrCard qrCard : qrCards) {
+                qrCard.setCard(null);
+                qrCard.getQr().deleteQrCard(qrCard);
+                log.info("qr card delete");
+            }
         }
+
         Card card = findCard(id);
-        File file = new File(filePath + card.getImageUrl());
-        if(file.exists()) {
-            log.info("file exist");
-            log.info(file.delete() ? "success image delete" : "fail image delete");
-        }else{
-            log.info("file not exist");
-        }
+
+        // 이미지 삭제
+        ImageUtil.deleteFile(filePath, card.getImageUrl());
         cardRepository.deleteById(id);
+    }
+
+    public List<CardResponse> searchCardByKeyword(Account account, String keyword) {
+        account = findAccount(account == null ? defaultEmail : account.getEmail());
+        List<Card> cards = new ArrayList<>();
+        Set<String> words = new HashSet<>();
+        accountCardRepository.findByKeyword(keyword, account).stream().filter(accountCard ->
+                !words.contains(accountCard.getCard().getWord()) && cards.size() < 4
+        ).forEach(accountCard -> {
+            words.add(accountCard.getCard().getWord());
+            cards.add(accountCard.getCard());
+        });
+        categoryCardRepository.findByKeyword(keyword, account).stream().filter(categoryCard ->
+                !words.contains(categoryCard.getCard().getWord()) && cards.size() < 4
+        ).forEach(categoryCard -> {
+            words.add(categoryCard.getCard().getWord());
+            cards.add(categoryCard.getCard());
+        });
+        return CardResponse.listOf(cards);
     }
 
     private Card findCard(Long id) {
@@ -161,6 +206,13 @@ public class CardService {
         return accountRepository.findByEmail(email)
                 .orElseThrow(() -> {
                     return new NotFoundException(ErrorCode.USER_NOT_FOUND);
+                });
+    }
+
+    private QR findQR(Long typeId) {
+        return qrRepository.findById(typeId)
+                .orElseThrow(() -> {
+                    return new NotFoundException(ErrorCode.QR_NOT_FOUND);
                 });
     }
 }

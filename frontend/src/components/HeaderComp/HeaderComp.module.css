@@ -1,4 +1,5 @@
 .header_box {
+  font-size: 24px;
   display: flex;
   justify-content: space-between;
   height: 10vh;
@@ -10,24 +11,24 @@
 
 
 .header_image {
-  margin-left: 10px;
-  margin-top: 10px;
-  width: 6vh;
-  height: 6vh;
+  margin: auto 0;
+  margin-left: 5%;
+  width: 15%;
+  height: 60%;
 }
 
 .header_title {
-  font-size: inherit;
+  font-size: 5vw;
   font-weight: bold;
   text-align: center;
   margin: auto;
 }
 
 .header_button {
-  margin-right: 10px;
-  margin-top: 10px;
-  width: 6vh;
-  height: 6vh;
+  margin: auto 0;
+  margin-right: 5%;
+  width: 15%;
+  height: 60%;
   border: none;
   background: transparent;
 }
@@ -46,13 +47,16 @@
   height: 100vh;
   width: 100vw;
   z-index: 1;
-  
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .modal_header_box {
   display: flex;
   justify-content: space-between;
   margin: 0 10px;
+
+
 }
 
 .modal_header_button {
@@ -61,6 +65,7 @@
   height: 6vh;
   border: none;
   background: transparent;
+  font-family: inherit;
 }
 
 .modal_header_button_image {
@@ -71,35 +76,76 @@
 
 .modal_main_box {
   margin-top: 5vh;
+  /* white-space:nowrap; */
+
 }
 
 .modal_search {
   width: 80%;
-  height: 5vh;
+  height: 7vh;
   border: 0px;
   border-radius: 20px;
   padding-left: 10px;
   box-shadow: 5px 5px;
+  font-family: inherit;
+  font-size: 24px;
  }
 
 .modal_list {
   text-align: left;
   /* margin-top: 5vh; */
-  margin: 5vh;
+  margin: 3vh;
+  font-family: inherit;
+  /* list-style:none; */
 }
 
 .modal_list_line {
   border-bottom: 1px solid black;
-  margin-top: 3vh;
+  margin-top: 6vh;
+  font-family: inherit;
 }
 
 .modal_button {
   border: none;
   /* background-color: white; */
   background: transparent;
-  font-size: inherit;
+  font-size: 30px;
+  font-family: inherit;
 }
 
 .yellow {
   background-color: #F5DF4D;
 }
+.search_card_list_box {
+  width: 80vw;
+  height: 70vw;
+  border-radius: 5px;
+  background-color: #fff;
+  margin: 5vh auto;
+  position: relative;
+  border: 1px solid #000;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  overflow: scroll;
+  font-family: inherit;
+}
+/* .con {
+  width: 180px;
+  position: relative;
+  border: 1px solid
+ #ccc;
+}
+.con_input {
+  margin: 0 0 0 4px;
+  border: 0;
+}
+.con img {
+  display: block;
+  position: absolute;
+  top: 4px;
+  left: 164px;
+  cursor: pointer;
+} */

@@ -1,43 +1,46 @@
-import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import styles from './index.module.css';
-import Imgbox from '../../components/Image/Imgbox';
-import EeumButtonComp from '../../components/ButtonComp/EeumButtonComp';
-import MainFooterButtonComp from '../../components/ButtonComp/MainFooterButtonComp';
-import { useCookies } from 'react-cookie';
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import styles from "./index.module.css";
+import Imgbox from "../../components/Image/Imgbox";
+import EeumButtonComp from "../../components/ButtonComp/EeumButtonComp";
+import MainFooterButtonComp from "../../components/ButtonComp/MainFooterButtonComp";
+import { useCookies } from "react-cookie";
 const Main = () => {
   const history = useHistory();
-  const [cookies, removeCookie] = useCookies(['cookie']);
+  const [checkLogin, setCheckLogin] = useState(sessionStorage.getItem("jwt"));
+  const [cookies, removeCookie] = useCookies(["cookie"]);
   const handleInClick = (e) => {
-    history.push('./login');
+    history.push("./login");
   };
   const handleOutClick = (e) => {
-    sessionStorage.removeItem('jwt');
-    removeCookie('cookie');
-    alert('로그아웃 완료');
-    history.push('./');
+    sessionStorage.removeItem("jwt");
+    removeCookie("cookie");
+    alert("로그아웃 완료");
+    history.push("./");
   };
 
   useEffect(() => {
     if (
-      sessionStorage.getItem('jwt') === null &&
-      cookies.cookie !== 'undefined' &&
-      cookies.cookie !== undefined
+      sessionStorage.getItem("jwt") === null &&
+      cookies.cookie !== undefined &&
+      cookies.cookie !== "undefined"
     ) {
-      sessionStorage.setItem('jwt', cookies.cookie);
+      sessionStorage.setItem("jwt", cookies.cookie);
+      setCheckLogin(sessionStorage.getItem("jwt"));
+      console.log(sessionStorage.getItem("jwt"));
     }
-  });
+  }, [checkLogin, cookies.cookie]);
 
   return (
     <div className={styles.mainbox}>
       <div className={styles.main_login_box}>
-        {(cookies.cookie === 'undefined' || cookies.cookie === undefined) &&
-        sessionStorage.getItem('jwt') === null ? (
+        {(cookies.cookie === "undefined" || cookies.cookie === undefined) &&
+        sessionStorage.getItem("jwt") === null ? (
           <button className={styles.login_button} onClick={handleInClick}>
             로그인
           </button>
         ) : (
-          <button className={styles.login_button} onClick={handleOutClick}>
+          <button className={styles.logout_button} onClick={handleOutClick}>
             로그아웃
           </button>
         )}
@@ -56,11 +59,19 @@ const Main = () => {
           buttonImg="/images/folder.png"
           handleClickPath="/category"
         ></EeumButtonComp>
-        <EeumButtonComp
-          textValue="QR로 이동"
-          buttonImg="/images/qr.png"
-          handleClickPath="/qr"
-        ></EeumButtonComp>
+        {checkLogin !== null ? (
+          <EeumButtonComp
+            textValue="QR로 이동"
+            buttonImg="/images/qr.png"
+            handleClickPath="/qr"
+          ></EeumButtonComp>
+        ) : (
+          <EeumButtonComp
+            textValue="QR로 이동"
+            buttonImg="/images/qr.png"
+            handleClickPath="/login"
+          ></EeumButtonComp>
+        )}
       </div>
 
       <div className={styles.footer_button_box}>
@@ -74,11 +85,23 @@ const Main = () => {
           buttonImg="/images/setting.png"
           handleClickPath="/setting"
         ></MainFooterButtonComp>
-        <MainFooterButtonComp
-          textValue="내정보"
-          buttonImg="/images/fish.png"
-          handleClickPath="/mypage"
-        ></MainFooterButtonComp>
+        {checkLogin !== null ? (
+          <>
+            <MainFooterButtonComp
+              textValue="내정보"
+              buttonImg="/images/fish.png"
+              handleClickPath="/mypage"
+            ></MainFooterButtonComp>
+          </>
+        ) : (
+          <>
+            <MainFooterButtonComp
+              textValue="내정보"
+              buttonImg="/images/fish.png"
+              handleClickPath="/login"
+            ></MainFooterButtonComp>
+          </>
+        )}
       </div>
     </div>
   );

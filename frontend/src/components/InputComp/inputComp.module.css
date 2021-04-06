@@ -1,6 +1,14 @@
-div {
-  font-size: 18px;
+.input_box {
+  font-size: 32px;
+  margin: 0 auto 5%;
+  width: 90%;
+  padding: 0;
+  /* text-align: center; */
 }
-form input {
+
+.input_comp {
+  width: 100%;
   font-size: inherit;
+  font-family: inherit;
+  box-sizing: border-box;
 }

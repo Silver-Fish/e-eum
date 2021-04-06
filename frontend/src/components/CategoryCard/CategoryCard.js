@@ -7,14 +7,12 @@ import { useHistory } from 'react-router-dom';
 
   
 const CategoryCard = (props) => {
-  // const [isCategoryCardEdit, setCategoryCardEdit] = useState(false)
   const history = useHistory();
   const isCategoryCardEdit = useState(false)[0]
   const isCategoryEdit = props['isCategoryEdit']
   const categoryName = props.textValue
-  const imgUrl = props.categoryUrl
+  const imgUrl = process.env.REACT_APP_IMG_PATH+props.categoryUrl
   const categoryId = props['id']
-  
   const categoryCardClick = (e) => {    
     props.categoryTitle({categoryName}['categoryName'])
     
@@ -33,7 +31,7 @@ const CategoryCard = (props) => {
       props.categoryClick({state:false, cardDatas:res.data, categoryId:categoryId, categoryName:categoryName})
     })
     .catch((err) => {
-      console.log(err)
+      alert('카드를 받아오는 도중 오류가 발생했습니다. 다시 한번 시도해주세요.')
     })
     
   }
@@ -70,7 +68,7 @@ const CategoryCard = (props) => {
         ?
         <button className={styles.card} onClick={categoryCardClick}>
           <img className={styles.card_image} src={imgUrl} alt=""/>
-            {categoryName}
+          <span className={styles.category_name}>{categoryName}</span>
         </button>
         :
         <>       
@@ -79,7 +77,7 @@ const CategoryCard = (props) => {
               <img src="/images/minus.png" alt="" onClick={categoryDeleteClick}/>
             </div>
             <img className={styles.card_image} src={imgUrl} alt=""/>
-            {categoryName}
+            <span className={styles.category_name}>{categoryName}</span>
           </button>
         </>
       }

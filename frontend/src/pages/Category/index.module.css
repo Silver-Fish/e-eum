@@ -28,12 +28,13 @@ div {
   border: 0px;
   background-color: transparent; 
   padding: 0;
+  height: 5vh;
 }
 
 .control_box img {
   padding: 5% 0;
-  width: 100%;
-  height: 100%;
+  width: 5vh;
+  height: 5vh;
   box-sizing: border-box;
   
 }
@@ -47,7 +48,7 @@ div {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(5, 1fr);
   box-sizing: border-box;
-  height: 65vh;
+  height: 55vh;
   flex-wrap: wrap;
   overflow: scroll;
   margin: 0px;
@@ -60,17 +61,22 @@ div {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(5, 1fr);
   box-sizing: border-box;
-  height: 65vh;
+  height: 55vh;
   flex-wrap: wrap;
   overflow: scroll;
   margin: 0px;
 }
 
 .button_box {
-  height: 5vh;
+  font-size: 32px;
   box-sizing: border-box;
   display: flex;
   margin: 0px;
+}
+
+.bottom_button{
+  position: fixed;
+  bottom: 0px;
 }
 
 .add_button {
@@ -81,6 +87,7 @@ div {
   font-size: inherit;
   border: #8A9C3A solid 1px;
   border-radius: 3px;
+  font-family: inherit;
 }
 .update_button {
   width: 50vw;
@@ -91,7 +98,9 @@ div {
   font-size: inherit;
   border: #8A9C3A solid 1px;
   border-radius: 3px;
+  font-family: inherit;
 }
+
 
 
 

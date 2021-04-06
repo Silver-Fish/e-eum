@@ -1,18 +1,21 @@
 div {
   font-size: 18px;
 }
+
+.owncard_box{
+  width: 100%;
+  height: 100%;
+}
+
 .speech_box {
   background-color: white;
   border-bottom: 1px solid black;
-  /* border-radius: 10px; */
   width: 100%;
   height: 15vh;
   margin: 0;
   box-sizing: border-box;
-  /* white-space:nowrap;
-  overflow-x: scroll;
-  overflow-y: hidden; */
   display: flex;
+  font-family: inherit;
 }
 
 
@@ -23,6 +26,8 @@ div {
   white-space:nowrap;
   overflow-x: scroll;
   overflow-y: hidden;
+  background-color: white;
+  border: 0;
 }
 
 .speech_cancel {
@@ -33,7 +38,6 @@ div {
   margin: 0;
   flex-basis: 0;
   flex-grow: 0.1;
-
 }
 
 .speech_cancel img {
@@ -45,20 +49,23 @@ div {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(5, 1fr);
   box-sizing: border-box;
-  height: 70vh;
+  height: 55vh;
   margin: 0;
   flex-wrap: wrap;
   overflow: scroll;
+  font-family: inherit;
 }
 
-/* .owneeum_card_box .item {
-  flex-grow: 1;
-} */
 
 .button_box{
-  height: 5vh;
   box-sizing: border-box;
   display: flex;
+  font-size: 32px;
+}
+
+.bottom_button{
+  position: fixed;
+  bottom: 0px;
 }
 
 .add_button {
@@ -69,6 +76,7 @@ div {
   font-size: inherit;
   border: #8A9C3A solid 1px;
   border-radius: 3px;
+  font-family: inherit;
 }
 .update_button {
   width: 50vw;
@@ -79,6 +87,9 @@ div {
   font-size: inherit;
   border: #8A9C3A solid 1px;
   border-radius: 3px;
+  font-family: inherit;
 }
+
+
 
 

@@ -9,6 +9,10 @@ const EeumButtonComp = (props) => {
   const buttonImg = props.buttonImg;
   
   const handleClick = (e) => {    
+    console.log(props.handleClickPath)
+    if (props.handleClickPath === '/login'){
+      alert('로그인 해주세요')
+    }
     history.push(props.handleClickPath) 
   }
   return(
@@ -19,8 +23,7 @@ const EeumButtonComp = (props) => {
       { buttonImg !== undefined ?
         <img className={styles.image} src= {buttonImg} alt="이미지"/>
         : "" }
-
-      { buttonTextValue } 
+      <span>{ buttonTextValue } </span>
     </button>
   )
 }

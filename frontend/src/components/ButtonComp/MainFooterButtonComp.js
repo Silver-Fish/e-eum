@@ -9,6 +9,9 @@ const MainFooterButton = (props) => {
   const textValue = props.textValue
   
   const handleClick = (e) => {    
+    if (props.handleClickPath === '/login'){
+      alert('로그인 해주세요')
+    }
     history.push(props.handleClickPath) 
   }
 

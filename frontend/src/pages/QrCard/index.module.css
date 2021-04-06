@@ -1,6 +1,14 @@
 div {
   font-size: 18px;
+  font-family: "maple";
 }
+
+.qrcard_box {
+  width: 100%;
+  height: 100%;
+  /* height: 100vh; */
+}
+
 .speech_box {
   background-color: white;
   border-bottom: 1px solid black;
@@ -9,6 +17,7 @@ div {
   margin: 0;
   box-sizing: border-box;
   display: flex;
+  font-family: inherit;
 }
 
 
@@ -19,6 +28,8 @@ div {
   white-space:nowrap;
   overflow-x: scroll;
   overflow-y: hidden;
+  font-family: inherit;
+  border: 0;
 }
 
 .speech_cancel {
@@ -29,27 +40,34 @@ div {
   margin: 0;
   flex-basis: 0;
   flex-grow: 0.1;
-
 }
 
 
+.speech_cancel img {
+  width: 100%;
+  height: 100%;
+}
 .qr_card_box {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(5, 1fr);
   box-sizing: border-box;
-  height: 70vh;
+  height: 55vh;
   margin: 0;
   flex-wrap: wrap;
   overflow: scroll;
+  font-family: inherit;
 }
 
 
 
 .button_box{
-  height: 5vh;
   box-sizing: border-box;
   display: flex;
+  position: fixed;
+  bottom: 0;
+  font-size: 32px;
+  font-family: inherit;
 }
 
 .add_button {
@@ -60,6 +78,7 @@ div {
   font-size: inherit;
   border: #F5DF4D solid 1px;
   border-radius: 3px;
+  font-family: inherit;
 }
 .update_button {
   width: 50vw;
@@ -70,6 +89,7 @@ div {
   font-size: inherit;
   border: #F5DF4D solid 1px;
   border-radius: 3px;
+  font-family: inherit;
 }
 
 

@@ -5,7 +5,7 @@
   flex-wrap: wrap;  
   justify-content: center;
   align-content: flex-start;
-  margin: 0;
+  margin: 0px;
 }
 
 
@@ -53,18 +53,38 @@
 
 
 .situation_input {
-  width: 55vw;
+  width: 80vw;
   margin: 0;
   border: 0px;
   border-bottom: 1px solid #000;
+  font-family: inherit;
+  font-size: 8vw;
 }
 
+.count_Name {
+  font-family: inherit;
+  font-size: 7vw;
+  margin: 0 3%;
+}
 
+.card_input_box {
+  display: flex;
+}
+
+.card_input_box img {
+  height: 5vh;
+}
 
 .button_box {
-  height: 5vh;
+  font-size: 32px;
   box-sizing: border-box;
   display: flex;
+  margin: 0px;
+}
+
+.bottom_button{
+  position: fixed;
+  bottom: 0px;
 }
 
 .close_button {

@@ -1,39 +1,72 @@
 import React from 'react';
 import { useState } from 'react';
-import styles from './CategoryCard.module.css';
+import styles from './Card.module.css';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 
   
 const Card = (props) => {
-  const history = useHistory();
+  // const history = useHistory();
   // const [isCardStateEdit, setCardStateEdit] = useState(false)
   const categoryId = props.categoryId
   const isCardStateEdit = useState(false)[0]
-  const isCardEdit = props.isCardEdit
+  // const [isCardEdit, setCardEdit] = useState(props.isCardEdit)
+  let isCardEdit = props.isCardEdit
   const textValue = props.textValue 
-  const cardUrl = props.cardUrl
+  const voiceUrl = process.env.REACT_APP_IMG_PATH+props.voiceUrl
+  const voiceLength = props.voiceLength 
+  const cardUrl = process.env.REACT_APP_IMG_PATH+props.cardUrl
   const cardId = props.id
-
-  const cardButtonClick = (e) => {    
+  let audio = ""
+  const cardButtonClick = (e) => {  
     props.cardClick({
       cardName: {textValue}, 
-      cardUrl: {cardUrl}
+      cardUrl: {cardUrl},
+      voiceUrl: {voiceUrl},
+      voiceLength:{voiceLength}
     })
+    audio = new Audio(voiceUrl)
+    audio.load()
+    playAudio()   
+  }
+  const playAudio = () => {
+    const audioPromise = audio.play()
+    if (audioPromise !== undefined) {
+      audioPromise
+        .then(_ => {
+          // autoplay started
+        })
+        .catch(err => {
+          // catch dom exception
+          console.info(err)
+        })
+    }
   }
 
 
   
   const CardDeleteClick = (e) => {    
     e.stopPropagation();
-    const token = sessionStorage.getItem('jwt')   
-    axios.delete(process.env.REACT_APP_API_URL + '/card/'+ cardId, {
+    const token = sessionStorage.getItem('jwt')
+    const config = {
       headers: {
         'Authorization': token
-        }
-    })
+      }
+    }   
+    axios.delete(process.env.REACT_APP_API_URL + '/card/'+ cardId, config)
     .then(()=> {
-      history.go(0)
+      axios.get(process.env.REACT_APP_API_URL + '/card/category?typeId=' + categoryId, config)
+      .then((res) => {
+        // props.cardDelete(!isCardEdit)
+        props.cardDataReset(res.data)
+        // history.go(0)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+
+
+      // history.go(0)
     })
     .catch((err) => {
       console.log(err)
@@ -48,17 +81,19 @@ const Card = (props) => {
 
   const CardEditClick = (e) => {
     
-    props.CardStateEdit({state:!isCardStateEdit, url:cardUrl, name: textValue, cardId: cardId})
+    props.CardStateEdit({state:!isCardStateEdit, url:cardUrl, name: textValue, cardId: cardId, voiceUrl:voiceUrl,voiceLength:voiceLength})
   }
 
 
   return(
-    <>
+    <> 
     { isCardEdit === false
       ?
     <button className={styles.card} onClick={cardButtonClick}>
       <img className={styles.card_image} src={cardUrl} alt=""/>
-        {textValue}
+      <span className={styles.card_name}>{textValue}</span>
+        
+        
     </button>
     : 
     <>       
@@ -67,7 +102,7 @@ const Card = (props) => {
           <img src="/images/minus.png" alt="" onClick={CardDeleteClick}/>
         </div>
         <img className={styles.card_image} src={cardUrl} alt=""/>
-        {textValue}
+        <span className={styles.card_name}>{textValue}</span>
       </button>
     </>
 

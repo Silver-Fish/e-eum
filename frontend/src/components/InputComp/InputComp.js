@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styles from './inputComp.module.css'
 
 const InputComp = (props) => {
   const [value, setValue] = useState('');
@@ -11,8 +12,8 @@ const InputComp = (props) => {
   };
 
   return (
-    <div>
-      <input value={value} placeholder={placeholder} type={type} onChange={valueHandler}></input>
+    <div className={styles.input_box}>
+      <input className={styles.input_comp} value={value} placeholder={placeholder} type={type} onChange={valueHandler}></input>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-.add_box {
+.edit_box {
   height: 85vh;
   background-color: #fff;
   display: flex;
@@ -50,13 +50,20 @@
   height: 60%;  
   margin-top: 15%;
 }
+.count_Name {
+  font-family: inherit;
+  font-size: 7vw;
+  margin: 0 3%;
+}
 
 
 .card_input {
-  width: 55vw;
+  width: 80vw;
   margin: 0;
   border: 0px;
   border-bottom: 1px solid #000;
+  font-family: inherit;
+  font-size: 32px;
 }
 
 .card_input_box {
@@ -68,10 +75,15 @@
 }
 
 .button_box {
-  height: 5vh;
+  font-size: 32px;
   box-sizing: border-box;
   display: flex;
   margin: 0px;
+}
+
+.bottom_button{
+  position: fixed;
+  bottom: 0px;
 }
 
 .close_button {
@@ -83,7 +95,7 @@
   border: #8A9C3A solid 1px;
   border-radius: 3px;
 }
-.add_button {
+.edit_button {
   width: 50vw;
   padding: 0;
   color: white;

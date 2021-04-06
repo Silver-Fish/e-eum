@@ -1,19 +1,16 @@
 package com.ssafy.eeum.account.controller;
 
 import com.ssafy.eeum.account.domain.Account;
-import com.ssafy.eeum.account.domain.UserAccount;
 import com.ssafy.eeum.account.dto.reponse.AccountSimpleResponse;
 import com.ssafy.eeum.account.dto.request.*;
 import com.ssafy.eeum.account.service.AccountService;
 import com.ssafy.eeum.common.annotation.CurrentAccount;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 
@@ -44,7 +41,7 @@ public class AccountController {
 
     @ApiOperation(value = "사용자 정보 조회")
     @GetMapping
-    public ResponseEntity<AccountSimpleResponse> getAccount(@CurrentAccount Account account) {
+    public ResponseEntity<AccountSimpleResponse> getAccount(@ApiIgnore @CurrentAccount Account account) {
         AccountSimpleResponse accountSimpleResponse =  accountService.findAccount(account);
         return new ResponseEntity<AccountSimpleResponse>(accountSimpleResponse, HttpStatus.OK);
     }
@@ -59,7 +56,7 @@ public class AccountController {
     @ApiOperation(value = "현재 로그인한 회원의 비밀번호 확인")
     @PostMapping("/check-pw")
     public ResponseEntity<Boolean> checkPassword(@RequestBody PasswordRequest passwordRequest,
-                                                 @CurrentAccount Account account) {
+                                                 @ApiIgnore @CurrentAccount Account account) {
         boolean result = accountService.checkPassword(passwordRequest, account);
         return new ResponseEntity<Boolean>(result, HttpStatus.OK);
     }
@@ -81,8 +78,15 @@ public class AccountController {
     @ApiOperation(value = "로그인 후 비밀번호 변경")
     @PutMapping("/update-pw")
     public ResponseEntity<Void> updatePassword(@RequestBody UpdatePwRequest updatePwRequest,
-                                               @CurrentAccount Account account) {
+                                               @ApiIgnore @CurrentAccount Account account) {
         accountService.updatePassword(updatePwRequest, account);
+        return ResponseEntity.ok().build();
+    }
+
+    @ApiOperation(value = "회원 탈퇴")
+    @DeleteMapping
+    public ResponseEntity<Void> deleteAccount(@ApiIgnore @CurrentAccount Account account) {
+        accountService.deleteAccount(account);
         return ResponseEntity.ok().build();
     }
 }

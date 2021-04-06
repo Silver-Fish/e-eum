@@ -1,8 +1,8 @@
 package com.ssafy.eeum.card.domain;
 
-import com.ssafy.eeum.account.domain.Account;
-import com.ssafy.eeum.category.domain.Category;
 import com.ssafy.eeum.category.domain.CategoryCard;
+import com.ssafy.eeum.qr.domain.QrCard;
+import com.ssafy.eeum.voice.domain.Voice;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,9 +18,9 @@ import java.util.List;
 /**
  * com.ssafy.eeum.card.domain
  * Card.java
- * @date    2021-03-18 오후 3:05
- * @author  이아영
  *
+ * @author 이아영
+ * @date 2021-03-18 오후 3:05
  * @변경이력
  **/
 
@@ -28,11 +28,11 @@ import java.util.List;
 @Getter
 @ToString
 @NoArgsConstructor
-@Table(name="card")
+@Table(name = "card")
 public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="card_id")
+    @Column(name = "card_id")
     private Long id;
 
     private String word;
@@ -40,26 +40,37 @@ public class Card {
     @Lob
     private String imageUrl;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "voice_id")
+    private Voice voice;
+
     @CreationTimestamp
     private LocalDateTime createDate;
 
     @UpdateTimestamp
     private LocalDateTime updateDate;
 
-    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval=true)
+    @OneToMany(mappedBy = "card")
     private List<AccountCard> accountCards = new ArrayList<>();
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval=true)
+    @OneToMany(mappedBy = "card")
     private List<CategoryCard> categoryCards = new ArrayList<>();
 
+    @OneToMany(mappedBy = "card")
+    private List<QrCard> qrCards = new ArrayList<>();
 
     @Builder
-    public Card(String word) {
+    public Card(String word, Voice voice) {
         this.word = word;
+        this.voice = voice;
     }
 
-    public void setImageUrl(String imageUrl){
+    public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public void setVoice(Voice voice) {
+        this.voice = voice;
     }
 
     public void update(Card requestCard) {

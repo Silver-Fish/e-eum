@@ -1,44 +1,71 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
+import { useHistory } from 'react-router-dom';
 import styles from './OwnCardComp.module.css'
+import axios from 'axios'
 
 const OwnCardComp = (props) => {
+  const history = useHistory();
+  const goEdit = useState(false)[0]
   const isEdit = props['isEdit']
-  const textValue = props.textValue
-  const imgUrl = `/data/${props.imgUrl}`
-  // const imgUrl = `/images/cat.PNG`
-  console.log(imgUrl)
-  // const [imgFile, setImgFile] = useState()
-  const cardButtonClick = (e) => {    
+  const cardName = props.textValue
+  const cardId = props.cardId
+  const voiceUrl = process.env.REACT_APP_IMG_PATH+props.voiceUrl
+  const voiceLength = props.voiceLength
+  const imgUrl = process.env.REACT_APP_IMG_PATH+props.imgUrl
+  let audio = ""
+  const cardButtonClick = (e) => { 
     props.cardClick({
-      cardName: {textValue}, 
-      imgUrl: {imgUrl}
+      cardName: {cardName}, 
+      imgUrl: {imgUrl},
+      voiceUrl: {voiceUrl},
+      voiceLength:{voiceLength}
     })
+    audio = new Audio(voiceUrl)
+    audio.load()
+    playAudio()   
   }
-  const CardClick = (e) => {    
-    // props.categoryState(false)
-    console.log('백이랑 통신이 필요함');
+  const playAudio = () => {
+    const audioPromise = audio.play()
+    if (audioPromise !== undefined) {
+      audioPromise
+        .then(_ => {
+          // autoplay started
+        })
+        .catch(err => {
+          // catch dom exception
+          console.info(err)
+        })
+    }
   }
   
   const cardDeleteClick = (e) => {    
     e.stopPropagation();
-    console.log('서버와 삭제 통신해야함')
+    const token = sessionStorage.getItem('jwt')
+    const config = {
+      headers: {
+        'Authorization': token
+      }
+    }
+    axios.delete(`https://dev.e-eum.kr/api/card/${cardId}`,config)
+    .then((res)=> {
+      history.go(0)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+    
   }
   const cardEditClick = (e) => {
-    
-    // props.categoryCardEdit({state:!isEdit, url:imgUrl, name: {cardName}['cardName']})
-    
-    
-    // console.log(URL.createOb.buttonjectURL(e.target.src))
+    props.OwnGoEdit({state:!goEdit,id:cardId, url:imgUrl, name: {cardName}['cardName'], voiceUrl:voiceUrl})
   }
   
   return(
     <>
-      { isEdit === false
+      {isEdit === false
         ?
         <button className={styles.card} onClick={cardButtonClick}>
           <img className={styles.card_image} src={imgUrl} alt=""/>
-          {/* <img className={styles.card_image} src={imgFile} alt=""/> */}
-            {textValue}
+            <span className={styles.card_name}>{cardName}</span>
         </button>
         :
         <>       
@@ -47,7 +74,7 @@ const OwnCardComp = (props) => {
               <img src="/images/minus.png" alt="" onClick={cardDeleteClick}/>
             </div>
             <img className={styles.card_image} src={imgUrl} alt=""/>
-            {textValue}
+              <span className={styles.card_name}>{cardName}</span>
           </button>
         </>
       }

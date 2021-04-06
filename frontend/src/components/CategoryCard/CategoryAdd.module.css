@@ -53,18 +53,29 @@
 
 
 .situation_input {
-  width: 55vw;
+  width: 90%;
   margin: 0;
   border: 0px;
   border-bottom: 1px solid #000;
+  font-family: inherit;
+  font-size: 8vw;
+}
+.count_Name {
+  font-family: inherit;
+  font-size: 7vw;
+  margin: 0 3%;
 }
 
 
-
 .button_box {
-  height: 5vh;
+  font-size: 32px;
   box-sizing: border-box;
   display: flex;
+}
+
+.bottom_button{
+  position: fixed;
+  bottom: 0px;
 }
 
 .close_button {
@@ -75,6 +86,7 @@
   font-size: inherit;
   border: #8A9C3A solid 1px;
   border-radius: 3px;
+  font-family: inherit;
 }
 .add_button {
   width: 50vw;
@@ -85,4 +97,6 @@
   font-size: inherit;
   border: #8A9C3A solid 1px;
   border-radius: 3px;
+  font-family: inherit;
 }
+

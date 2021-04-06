@@ -1,14 +1,18 @@
 div {
   font-size: 18px;
 }
+
 .mainbox {
   text-align: center;
+  height: 100%;
   width: 100%;
   margin: 0px auto; 
   box-sizing: border-box;
+  font-family: inherit;
 }
  
 .main_login_box {
+  font-family: inherit;
   display: flex;
   flex-direction: row-reverse;
   width: 100%;
@@ -17,15 +21,31 @@ div {
 }
 
 .login_button {
-  font-size: inherit;
-  height: 40% ;
-  margin-right: 10px;
-  margin-top: 10px;
+  font-size: 5vw;
+  height: 50% ;
+  width: 25%;
+  margin: auto 0;
+  margin-right: 5%;
   color: #8A9C3A;
   background-color: white;
   border: 2px solid #8A9C3A;
   border-radius: 5px;
+  font-family: inherit;
 }
+
+.logout_button {
+  font-size: 5vw;
+  height: 50% ;
+  width: 30%;
+  margin: auto 0;
+  margin-right: 5%;
+  color: #8A9C3A;
+  background-color: white;
+  border: 2px solid #8A9C3A;
+  border-radius: 5px;
+  font-family: inherit;
+}
+
 
 .eeum_button_box {
   margin: auto;
@@ -37,5 +57,6 @@ div {
   margin: auto;
   display: flex;
   justify-content: center;
-  width: 50%;
+  width: 60%;
 }
+
