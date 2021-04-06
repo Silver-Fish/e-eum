@@ -3,13 +3,15 @@ package com.ssafy.eeum.qr.service;
 
 import com.ssafy.eeum.account.domain.Account;
 import com.ssafy.eeum.account.repository.AccountRepository;
+import com.ssafy.eeum.card.domain.Card;
+import com.ssafy.eeum.card.repository.CardRepository;
 import com.ssafy.eeum.common.exception.ErrorCode;
 import com.ssafy.eeum.common.exception.NotFoundException;
 import com.ssafy.eeum.common.util.ImageUtil;
 import com.ssafy.eeum.qr.domain.QR;
+import com.ssafy.eeum.qr.domain.QrCard;
 import com.ssafy.eeum.qr.dto.request.QrUpdateRequest;
 import com.ssafy.eeum.qr.dto.response.QrResponse;
-import com.ssafy.eeum.qr.repository.QrCardRepository;
 import com.ssafy.eeum.qr.repository.QrRepository;
 import com.ssafy.eeum.common.util.naverApiUtil;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +23,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +48,7 @@ public class QrService {
 
     private final QrRepository qrRepository;
     private final AccountRepository accountRepository;
-    private final QrCardRepository qrCardRepository;
+    private final CardRepository cardRepository;
 
     // QR 생성
     public Long save(Account account, String title) {
@@ -90,7 +91,6 @@ public class QrService {
     }
 
     // QR 삭제
-    @Transactional
     public void deleteQr(Long id) {
         QR qr = findQr(id);
 
@@ -102,6 +102,34 @@ public class QrService {
         });
 
         qrRepository.deleteById(id);
+    }
+
+    // QR 복사
+    public Long copyQr(Account account, Long id) {
+        QR originQr = findQr(id);
+        account = findAccount(account.getEmail());
+
+        Long copiedQrId = save(account, originQr.getTitle());
+        QR copiedQr = findQr(copiedQrId);
+
+        originQr.getCards().stream().forEach(originCard -> {
+            Card card = Card.builder().word(originCard.getWord()).voice(originCard.getVoice()).build();
+            copiedQr.addQRCard(QrCard.createQRCard(copiedQr, card));
+            cardRepository.save(card);
+
+            if (originCard.getImageUrl().equals(defaultPath)) {
+                card.setImageUrl(defaultPath);
+                return;
+            }
+
+            boolean copyResult = ImageUtil.copyFile(filePath + originCard.getImageUrl(), filePath + copiedQr.getAccount().getId() + "/card", card.getId().toString());
+            if (!copyResult)
+                card.setImageUrl(defaultPath);
+            else
+                card.setImageUrl(copiedQr.getAccount().getId() + "/card/" + card.getId());
+        });
+
+        return copiedQr.getId();
     }
 
     private String getQr(Long userId, Long qrId) {

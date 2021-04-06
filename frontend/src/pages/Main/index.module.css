@@ -17,7 +17,7 @@ div {
   flex-direction: row-reverse;
   width: 100%;
   height: 10vh;
-  margin: 0px;
+  margin-bottom: 6%;
 }
 
 .login_button {
@@ -49,6 +49,7 @@ div {
 
 .eeum_button_box {
   margin: auto;
+  margin-top: 9%;
   text-align: center;
   width: 70%;
 }

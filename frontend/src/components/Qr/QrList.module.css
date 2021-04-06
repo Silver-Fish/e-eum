@@ -34,9 +34,10 @@ div {
 
 .qr_edit_button {
   font-size: 5vw;
-  background-color: #F5DF4D;
+  height: 25px;
+  background-color: rgba(245, 223, 77,0.5);
   color: #000;
-  border: 0px;
+  border: 2px solid #000;
   border-radius: 2vw;
   margin: 1vh 1vw;
   font-family: inherit;
@@ -45,9 +46,9 @@ div {
 
 .qr_button {
   font-size: 5vw;
-  background-color: #FFF;
-  color: #F5DF4D;
-  border: 1px solid #F5DF4D;
+  background-color: #F5DF4D;
+  color: #000;
+  border: 2px solid #000;
   border-radius: 2vw;
   margin: 1vh 1vw;
   font-family: inherit;
