@@ -1,16 +1,16 @@
 package com.ssafy.eeum.common.util;
 
+import com.ssafy.eeum.common.exception.CustomFileException;
+import com.ssafy.eeum.common.exception.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.boot.Metadata;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * com.ssafy.eeum.common.util
@@ -62,6 +62,24 @@ public class ImageUtil {
         g.dispose();
 
         return newImage;
+    }
+
+    public static boolean copyFile(String inPath, String outFolder, String outFile){
+        File folder = new File(outFolder);
+        folder.mkdirs();
+
+        File in = new File(inPath);
+        File out = new File(outFolder+"/"+outFile);
+
+        if(!in.exists())
+            return false;
+        try {
+            FileCopyUtils.copy(in, out);
+        } catch (IOException e) {
+            throw new CustomFileException(ErrorCode.DEFAULT_DATA_COPY);
+        }
+
+        return true;
     }
 
     public static void deleteFile(String path, String url) {

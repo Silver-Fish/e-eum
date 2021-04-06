@@ -9,7 +9,7 @@ import com.ssafy.eeum.qr.service.QrService;
 import com.sun.istack.NotNull;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.Response;
+
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,5 +72,12 @@ public class QrController {
     public ResponseEntity<Void> deleteQr(@PathVariable @NotNull Long id) {
         qrService.deleteQr(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/copy/{id}")
+    @ApiOperation(value = "QR 복사", notes = "QR id를 받아 내 QR 목록으로 복사")
+    public ResponseEntity<Long> copyQr(@ApiIgnore @CurrentAccount Account account, @PathVariable @NotNull Long id){
+        long result = qrService.copyQr(account, id);
+        return ResponseEntity.ok().body(result);
     }
 }
