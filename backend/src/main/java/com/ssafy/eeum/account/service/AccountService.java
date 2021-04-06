@@ -12,7 +12,6 @@ import com.ssafy.eeum.category.domain.Category;
 import com.ssafy.eeum.category.domain.CategoryCard;
 import com.ssafy.eeum.category.repository.CategoryRepository;
 import com.ssafy.eeum.category.service.CategoryService;
-import com.ssafy.eeum.common.exception.CustomFileException;
 import com.ssafy.eeum.common.exception.ErrorCode;
 import com.ssafy.eeum.common.exception.NotFoundException;
 import com.ssafy.eeum.common.exception.NotMatchException;
@@ -23,10 +22,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.FileCopyUtils;
-
-import java.io.File;
-import java.io.IOException;
 
 /**
  * com.ssafy.eeum.account.service
@@ -91,14 +86,20 @@ public class AccountService {
         account.addCategory(category);
         categoryRepository.save(category);
 
-        if(defCategory.getCategoryImageUrl().equals(defaultPath)) {
+        if (defCategory.getCategoryImageUrl().equals(defaultPath)) {
             category.setCategoryImageUrl(defaultPath);
             return category.getId();
         }
 
-        category.setCategoryImageUrl(account.getId() + "/category/" + category.getId());
+
         categoryRepository.save(category);
-        copyFile("category", defAccount.getId(), defCategory.getId(), account.getId(), category.getId());
+        boolean copyResult = ImageUtil.copyFile(filePath + defCategory.getCategoryImageUrl(),
+                filePath + account.getId() + "/category", category.getId().toString());
+        if (!copyResult)
+            category.setCategoryImageUrl(defaultPath);
+        else
+            category.setCategoryImageUrl(account.getId() + "/category/" + category.getId());
+
         return category.getId();
     }
 
@@ -112,27 +113,18 @@ public class AccountService {
             category.addCategoryCard(CategoryCard.createCategoryCard(category, card));
         }
 
-        if(defCard.getImageUrl().equals(defaultPath)) {
+        if (defCard.getImageUrl().equals(defaultPath)) {
             card.setImageUrl(defaultPath);
             return;
         }
 
-        card.setImageUrl(account.getId() + "/card/" + card.getId());
         cardRepository.save(card);
-        copyFile("card", defAccount.getId(), defCard.getId(), account.getId(), card.getId());
-    }
-
-    public void copyFile(String type, Long inAccountId, Long inFileId, Long outAccountId, Long outFileId) {
-        File forder = new File(filePath + outAccountId + "/" + type);
-        forder.mkdirs();
-
-        File in = new File(filePath + inAccountId + "/" + type + "/" + inFileId);
-        File out = new File(filePath + outAccountId + "/" + type + "/" + outFileId);
-        try {
-            FileCopyUtils.copy(in, out);
-        } catch (IOException e) {
-            throw new CustomFileException(ErrorCode.DEFAULT_DATA_COPY);
-        }
+        boolean copyResult = ImageUtil.copyFile(filePath + defCard.getImageUrl(),
+                filePath + account.getId() + "/card", card.getId().toString());
+        if (!copyResult)
+            card.setImageUrl(defaultPath);
+        else
+            card.setImageUrl(account.getId() + "/card/" + card.getId());
     }
 
     @Transactional(readOnly = true)
