@@ -107,7 +107,7 @@ const HeaderComp = (props) => {
           </button>
         </div>
       ) : (
-        <div className={styles.modal_box + " " + (headerColor === undefined ? '' : styles.yellow)}>
+        <div className={styles.modal_box + " " + (headerColor === undefined ? '' : styles.dimyellow)}>
           <div className={styles.modal_header_box}>
             <button 
               className={styles.modal_header_button} 

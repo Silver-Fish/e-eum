@@ -8,17 +8,6 @@ const Help = () => {
         <div className={styles.help_box}>
           <HeaderComp headertitle='도움말'></HeaderComp>
           <div className={styles.feature_box}>
-          <p className={styles.subtitle}>일반</p>
-          <ul className={styles.qna}>
-            <li>
-                <input type="checkbox" id="common-1"/>
-                <label for="common-1">이음을 탈퇴하고 싶어요.</label>
-                <div>
-                    <p>아래 경로를 통해 회원 탈퇴를 직접 진행하실 수 있습니다.</p>
-                    <p>우측 상단의 버튼(☰)> 마이 페이지> 회원 탈퇴</p>
-                </div>
-            </li>
-          </ul>
           <p className={styles.subtitle}>나만의 이음 (카드)</p>
           <ul className={styles.qna}>
             <li>
@@ -43,7 +32,7 @@ const Help = () => {
                 <input type="checkbox" id="card-3"/>
                 <label for="card-3">선택한 카드의 음성을 한번에 재생할 수 있나요?</label>
                 <div>
-                    <p>나만의 이음 페이지 상단에 보이는 ...</p>
+                    <p>나만의 이음 페이지 상단 </p>
                 </div>
             </li>
         </ul>
@@ -82,7 +71,18 @@ const Help = () => {
                 </div>
             </li>
         </ul>
-          </div>
+        <p className={styles.subtitle}>일반</p>
+        <ul className={styles.qna}>
+          <li>
+              <input type="checkbox" id="common-1"/>
+              <label for="common-1">이음을 탈퇴하고 싶어요.</label>
+              <div>
+                  <p>아래 경로를 통해 회원 탈퇴를 직접 진행하실 수 있습니다.</p>
+                  <p>우측 상단의 버튼(☰)> 마이 페이지> 회원 탈퇴</p>
+              </div>
+          </li>
+        </ul>
+        </div>
         </div>
     )
 }

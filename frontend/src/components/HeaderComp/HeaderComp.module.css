@@ -13,8 +13,8 @@
 .header_image {
   margin: auto 0;
   margin-left: 5%;
-  width: 15%;
-  height: 60%;
+  width: 46px;
+  height: 40px;
 }
 
 .header_title {
@@ -43,7 +43,7 @@
 .modal_box {
   position: fixed;
   top: 0px;
-  background-color: #8A9C3A;
+  background-color: rgb(185,197,137);
   height: 100vh;
   width: 100vw;
   z-index: 1;
@@ -86,7 +86,8 @@
   border: 0px;
   border-radius: 20px;
   padding-left: 10px;
-  box-shadow: 5px 5px;
+  box-shadow: 4px 5px 5px rgba(0,0,0,0.6);
+  font-size: 18px;
   font-family: inherit;
   font-size: 24px;
  }
@@ -95,6 +96,7 @@
   text-align: left;
   /* margin-top: 5vh; */
   margin: 3vh;
+  padding-left: 25px;
   font-family: inherit;
   /* list-style:none; */
 }
@@ -108,19 +110,23 @@
 .modal_button {
   border: none;
   /* background-color: white; */
+  margin: 3px 0;
   background: transparent;
-  font-size: 30px;
+  font-size: 24px;
   font-family: inherit;
 }
 
 .yellow {
   background-color: #F5DF4D;
 }
+.dimyellow {
+  background-color: rgb(250,239,166);
+}
 .search_card_list_box {
   width: 80vw;
   height: 70vw;
   border-radius: 5px;
-  background-color: #fff;
+  background-color: rgba(255,255,255,0.35);
   margin: 5vh auto;
   position: relative;
   border: 1px solid #000;
