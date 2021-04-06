@@ -27,6 +27,7 @@ div {
   font-size: 32px;
 }
 .qr_edit_delete_button {
+  font-family: inherit;
   font-size: inherit;
   width: 50vw;
   color: #f5df4d;
@@ -35,6 +36,7 @@ div {
 }
 
 .qr_edit_button {
+  font-family: inherit;
   font-size: inherit;
   width: 50vw;
   background-color: #f5df4d;

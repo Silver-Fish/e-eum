@@ -51,7 +51,7 @@ const Login = () => {
           if (autoLogin) {
             setCookieFunc();
           }
-          history.push("/");
+          history.go(-1);
         } else {
           alert("ID와 PW가 일치하지 않습니다.^0^");
         }

@@ -94,4 +94,13 @@ div {
   font-family: inherit;
 }
 
-
+.eeum_button {
+  width: 100vw;
+  padding: 0;
+  background-color:  white;
+  box-sizing: border-box;
+  font-size: inherit;
+  border: #F5DF4D solid 3px;
+  border-radius: 3px;
+  font-family: inherit;
+}

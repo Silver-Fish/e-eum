@@ -14,9 +14,13 @@ const Setting = () => {
                         서비스 준비중 입니다.
                 </h2>
 
-                <h1>
-                    <p  className={styles.red}>Comming Soon</p>
-                    2021-05-05</h1>
+                
+                <h2  className={styles.red}>Comming Soon</h2>
+                <h3 className={styles.red}>음성속도</h3>
+                  ~2021-05-05
+                <h3 className={styles.red}>음성합성</h3>
+                ~2021-05-17
+
             </div>
         </div>
     )
