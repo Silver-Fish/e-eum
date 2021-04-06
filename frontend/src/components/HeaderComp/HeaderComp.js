@@ -42,6 +42,9 @@ const HeaderComp = (props) => {
   const settingClick = (e) => {
     history.push('/setting');
   };
+  const helpClick = (e) => {
+    history.push('/help');
+  };
 
   const onSearch = (e) => {
     const keyword = e.target.value
@@ -165,6 +168,11 @@ const HeaderComp = (props) => {
                     설정
                   </button>
                 </li>
+                <li className={styles.modal_list_line}>
+                  <button className={styles.modal_button} onClick={helpClick}>
+                    도움말
+                  </button>
+                </li>
               </ul>
             </div>
           ):(
@@ -194,6 +202,11 @@ const HeaderComp = (props) => {
               <li className={styles.modal_list_line}>
                 <button className={styles.modal_button} onClick={settingClick}>
                   설정
+                </button>
+              </li>
+              <li className={styles.modal_list_line}>
+                <button className={styles.modal_button} onClick={helpClick}>
+                  도움말
                 </button>
               </li>
             </ul>
