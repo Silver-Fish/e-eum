@@ -9,10 +9,9 @@ const QrEdit = (props) => {
   const qrId = props.selectedQrId;
   const history = useHistory();
   //바뀔 이름
-  const [token, setToken] = useState(sessionStorage.getItem('jwt'));
+  const token = useState(sessionStorage.getItem('jwt'))[0];
   const [selectedQrName, setSelectedQrName] = useState(props.selectedQrName);
   let [lenQrName, setlenQrName] = useState(props.selectedQrName.length)
-  const [speechList, setSpeechList] = useState([])  
   const [isEeumLoading, setEeumLoading] = useState(false);
   const onUpdateHandler = () => {
     const data = {

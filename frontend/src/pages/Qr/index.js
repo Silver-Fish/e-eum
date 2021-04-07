@@ -43,12 +43,13 @@ const Qr = () => {
         if (res.status === 200) {
           setQrs(res.data);
         } else {
-          console.log('QrList R : status가 200아님');
+          console.log('QR 리스트 불러오기를 실패했습니다. 다시 시도해 주세요.');
+          history.go(0)
         }
       })
       .catch((err) => {
-        console.log('QrList R : err났어잇');
-        console.log(err);
+        console.log('QR 리스트 불러오기를 실패했습니다. 다시 시도해 주세요.');
+        history.go(0)
       });
   }, [token, history, cookies.cookie]);
 

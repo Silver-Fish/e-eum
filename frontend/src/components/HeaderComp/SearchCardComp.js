@@ -5,7 +5,6 @@ const SearchCardComp = (props) => {
   const textValue = props.textValue
   const imgUrl = process.env.REACT_APP_IMG_PATH+props.imgUrl
   const voiceUrl = process.env.REACT_APP_IMG_PATH+props.voiceUrl
-  const voiceLength = props.voiceLength
   let audio = ""
 
   const cardButtonClick = (e) => {

@@ -18,8 +18,6 @@ const QrCard = ({ match }) => {
   const checkLogin = sessionStorage.getItem('jwt');
   const [isAdd, setAdd] = useState(false);
   const [isEdit, setEdit] = useState(false);
-  // const [cardUrl, setCardUrl] = useState('')
-  // const cardUrl = useState([0])
   const [cardName, setCardName] = useState(false);
   const [cardId, setCardId] = useState(false);
   const [isCardStateEdit, setCardStateEdit] = useState(false);
@@ -38,6 +36,19 @@ const QrCard = ({ match }) => {
   
 
   useEffect(() => {
+    if (
+      sessionStorage.getItem('jwt') === null &&
+      cookies.cookie !== undefined &&
+      cookies.cookie !== 'undefined'
+    ) {
+      sessionStorage.setItem('jwt', cookies.cookie);
+      setToken(sessionStorage.getItem('jwt'));
+    } else if (
+      sessionStorage.getItem('jwt') === null &&
+      (cookies.cookie === undefined || cookies.cookie === 'undefined')
+    ) {
+    }
+
     axios
       .get(process.env.REACT_APP_API_URL + '/qr/info/' + qrId, {
         headers: {
@@ -54,7 +65,7 @@ const QrCard = ({ match }) => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        alert('QR 카드를 불러오기를 실패했습니다. 다시 시도해 주세요.');
       });
 
     axios
@@ -67,10 +78,11 @@ const QrCard = ({ match }) => {
         setQrCard(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        alert('QR 카드를 불러오기를 실패했습니다. 다시 시도해 주세요.');
+        history.go(0)
       });
-    let sameUser = true
-  }, []);
+      
+  }, [qrId, token, cookies]);
 
   const addClick = () => {
     setAdd(!isAdd);

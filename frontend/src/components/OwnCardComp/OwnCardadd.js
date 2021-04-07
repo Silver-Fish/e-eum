@@ -11,7 +11,6 @@ const OwnCardadd = (props) => {
   const [cardName, setCardName] = useState();
   const [isLoading, setLoading] = useState(false);
   const [speechLoading, setSpeechLoading] = useState(false);
-  const [speechWord, setSpeechWord] = useState("");
   const special_pattern = /[`~!@#$%^&*,|\\\'\";:\/]/gi;
   const special_pattern2 = /([^가-힣\x20])/i;
 

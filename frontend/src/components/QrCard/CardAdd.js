@@ -32,7 +32,6 @@ const CardAdd = (props) => {
 
   };
 
-  const categoryId = props.categoryId;
 
   const speakClick= () => {
     setSpeechLoading(!speechLoading)
