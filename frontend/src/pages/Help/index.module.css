@@ -73,3 +73,18 @@ transition: max-height 0.4s;
 .qna input:checked + label + div {
 display: block;
 }
+
+.footer {
+  margin-top: 20px;
+  font-weight: lighter;
+  font-size: small;
+  line-height: 20px;
+  color: #888;
+  font-family: sans-serif;
+  font-size: 12px;
+  text-align: left;
+}
+
+.footer p {
+  margin-left: 20px;
+}
