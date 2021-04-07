@@ -52,7 +52,7 @@ const Confirm = () => {
         }
       })
       .catch((err) => {
-        alert("오류발생");
+        alert("오류가 발생했습니다. 잠시 후에 다시 시도해주세요.");
         console.log(err);
       });
   };

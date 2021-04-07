@@ -45,8 +45,6 @@ const Login = () => {
 
       .then((res) => {
         if (res.status === 200) {
-          // localStorage.setItem('email', res.data.data.email);
-          // localStorage.setItem('name', res.data.data.name);
           sessionStorage.setItem("jwt", res.headers.authorization);
           if (autoLogin) {
             setCookieFunc();
@@ -57,7 +55,8 @@ const Login = () => {
         }
       })
       .catch((err) => {
-        alert("이메일과 비밀번호가 일치하지 않습니다. 다시 시도해 주세요.");
+        console.log(err);
+        alert("오류가 발생했습니다. 잠시 후에 다시 시도해주세요.");
       });
   };
 
@@ -78,15 +77,15 @@ const Login = () => {
         />
 
         <div className={styles.input_check_box}>
-        <input
-          className={styles.input_check}
-          type="checkbox"
-          checked={autoLogin}
-          onChange={onAutoLogin}
-          id="check"
-        />
+          <input
+            className={styles.input_check}
+            type="checkbox"
+            checked={autoLogin}
+            onChange={onAutoLogin}
+            id="check"
+          />
 
-        <label htmlFor="check">자동로그인</label>
+          <label htmlFor="check">자동로그인</label>
         </div>
         <button className={styles.login_button} type="submit">
           로그인
@@ -99,7 +98,6 @@ const Login = () => {
             handleClickPath="./findPassword"
           />
         </div>
-
       </form>
     </div>
   );

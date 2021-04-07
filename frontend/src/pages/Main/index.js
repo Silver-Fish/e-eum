@@ -15,7 +15,7 @@ const Main = () => {
   const handleOutClick = (e) => {
     sessionStorage.removeItem("jwt");
     removeCookie("cookie");
-    alert("로그아웃 완료");
+    alert("로그아웃이 완료되었습니다.");
     history.push("./");
   };
 

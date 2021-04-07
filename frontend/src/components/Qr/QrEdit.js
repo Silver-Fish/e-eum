@@ -4,6 +4,7 @@ import HearderComp from '../HeaderComp/HeaderComp';
 import styles from './QrEdit.module.css';
 import { useHistory } from 'react-router-dom';
 import QrEeumLoader from '../../components/Loader/QrEeumLoader';
+import DelModal from './DelModal';
 
 const QrEdit = (props) => {
   const qrId = props.selectedQrId;
@@ -13,6 +14,7 @@ const QrEdit = (props) => {
   const [selectedQrName, setSelectedQrName] = useState(props.selectedQrName);
   let [lenQrName, setlenQrName] = useState(props.selectedQrName.length)
   const [isEeumLoading, setEeumLoading] = useState(false);
+  const [isDelModal, setDelModal] = useState(false)  
   const onUpdateHandler = () => {
     const data = {
       title: selectedQrName,
@@ -70,25 +72,7 @@ const QrEdit = (props) => {
   }
 
   const onDeleteHandler = () => {
-    axios
-      .delete(process.env.REACT_APP_API_URL + '/qr/' + qrId, {
-        headers: {
-          Authorization: sessionStorage.getItem('jwt'),
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        if (res.status === 204) {
-          history.go(0);
-        } else {
-          alert('QR삭제 도중 오류가 발생했습니다. 다시 한번 시도해주세요.')
-          history.go(0);
-        }
-      })
-      .catch((err) => {
-        alert('QR삭제 도중 오류가 발생했습니다. 다시 한번 시도해주세요.')
-        history.go(0);
-      });
+    setDelModal(!isDelModal)
   };
   const onTitleHandler = (e) => {
     if (e.target.value.length > 10){
@@ -101,8 +85,19 @@ const QrEdit = (props) => {
 
   return (
     <>
+      { isDelModal == true 
+      ?(<DelModal 
+        onDeleteHandler={onDeleteHandler}
+        qrId={qrId}
+        ></DelModal>)
+      :('')
+      }
+      
       { isEeumLoading === true 
-      ? (<QrEeumLoader></QrEeumLoader>)
+      ? 
+      (
+        <QrEeumLoader></QrEeumLoader>
+      )
       : ''}
       <>
       <HearderComp headertitle="QR 설정" headerColor="yellow"></HearderComp>

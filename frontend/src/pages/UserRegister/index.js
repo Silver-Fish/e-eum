@@ -56,11 +56,12 @@ const UserRegister = () => {
           if (res.data === "Created") {
             history.push("./userRegisterSuccess");
           } else {
-            alert("회원가입실패");
+            alert("회원가입에 실패하였습니다.");
           }
         })
         .catch((err) => {
           console.log(err);
+          alert("오류가 발생했습니다. 잠시 후에 다시 시도해주세요.");
         });
     } else if (password !== passwordcheck) {
       alert("비밀번호를 확인해주세요.");
@@ -89,8 +90,6 @@ const UserRegister = () => {
 
   const onEmailCheck = (e) => {
     e.preventDefault();
-
-    console.log("중복체크");
     if (email !== "") {
       axios
         .get(
@@ -106,7 +105,7 @@ const UserRegister = () => {
           }
         })
         .catch((err) => {
-          alert("중복에러");
+          alert("오류가 발생했습니다. 잠시 후에 다시 시도해주세요.");
           console.log(err.response);
         });
     }
