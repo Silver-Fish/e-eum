@@ -121,17 +121,10 @@ const OwnEeum = () => {
         
   //     }
   //     setTimeout(()=> {
-  //       console.log(i)
-  //       console.log('red')
-  //       console.log(audioLength)
   //       target[i].style.borderColor="red"
   //       audio = new Audio(speechList[i][0])
   //       audio.load()
   //       playAudio()
-  //       // setTimeout(()=> {
-  //       //   console.log('black')
-  //       //   target[i].style.borderColor="black"
-  //       // },audioLength)
   //   },audioLength)
       
   //   }
@@ -153,14 +146,17 @@ const OwnEeum = () => {
       setTimeout(()=> {
         if (0 < i  && i<speechList.length){
           target[i-1].style.borderColor="black"
+          target[i-1].style.borderWidth="1px"
         }     
         if (i === speechList.length-1){
           console.log(i)
           setTimeout(()=> {
             target[i].style.borderColor="black"
+            target[i].style.borderWidth="1px"
           }, audioLength[speechList.length]-audioLength[speechList.length-1])
         }
-        target[i].style.borderColor="red"
+        target[i].style.borderColor="#8A9C3A"
+        target[i].style.borderWidth="3px"
         audio = new Audio(speechList[i][0])
         audio.load()
         playAudio()
