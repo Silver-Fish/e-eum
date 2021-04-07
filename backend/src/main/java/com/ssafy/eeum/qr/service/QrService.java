@@ -11,6 +11,7 @@ import com.ssafy.eeum.common.util.ImageUtil;
 import com.ssafy.eeum.qr.domain.QR;
 import com.ssafy.eeum.qr.domain.QrCard;
 import com.ssafy.eeum.qr.dto.request.QrUpdateRequest;
+import com.ssafy.eeum.qr.dto.response.QrInfoResponse;
 import com.ssafy.eeum.qr.dto.response.QrResponse;
 import com.ssafy.eeum.qr.repository.QrRepository;
 import com.ssafy.eeum.common.util.naverApiUtil;
@@ -79,9 +80,9 @@ public class QrService {
     }
 
     @Transactional(readOnly = true)
-    public String findTitle(Long id) {
+    public QrInfoResponse findInfo(Account account, Long id) {
         QR qr = findQr(id);
-        return qr.getTitle();
+        return new QrInfoResponse(qr.getTitle(), account != null ? qr.getAccount().getId() == account.getId() : false);
     }
 
     public void updateQr(Long id, QrUpdateRequest qrUpdateRequest) {
@@ -142,7 +143,7 @@ public class QrService {
         Map<String, String> requestHeaders = new HashMap<>();
         requestHeaders.put("X-Naver-Client-Id", clientId);
         requestHeaders.put("X-Naver-Client-Secret", clientSecret);
-        String responseBody = naverApiUtil.get(apiURL,requestHeaders);
+        String responseBody = naverApiUtil.get(apiURL, requestHeaders);
 
         JSONParser parser = new JSONParser();
         Object obj = null;
