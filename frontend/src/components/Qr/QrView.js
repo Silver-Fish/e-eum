@@ -38,7 +38,7 @@ const QrView = (props) => {
       <HearderComp headertitle={qrName} headerColor="yellow"></HearderComp>
 
       <div className={styles.qr_box}>
-        <img className={styles.qr_img} src={qrUrl}></img>
+        <img className={styles.qr_img} src={qrUrl} alt='QR 이미지'></img>
       </div>
 
       <div className={styles.button_box}>

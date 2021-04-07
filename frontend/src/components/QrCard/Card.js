@@ -13,7 +13,6 @@ const Card = (props) => {
   const voiceUrl = process.env.REACT_APP_IMG_PATH + props.voiceUrl;
   const voiceLength = props.voiceLength;
   const cardId = props.id;
-  console.log(cardUrl);
   let audio = "";
 
   const cardButtonClick = (e) => {
