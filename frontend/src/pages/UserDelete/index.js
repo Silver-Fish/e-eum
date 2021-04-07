@@ -39,12 +39,12 @@ const UserDelete = () => {
           alert("탈퇴가 완료되었습니다.");
           history.push("/login");
         } else {
-          alert("탈퇴가 실패되었습니다!");
+          alert("탈퇴에 실패했습니다.");
         }
       })
       .catch((err) => {
-        alert("오류 발생");
         console.log(err);
+        alert("오류가 발생했습니다. 잠시 후에 다시 시도해주세요.");
       });
   };
 
@@ -52,7 +52,7 @@ const UserDelete = () => {
     <div>
       <HeaderComp headertitle="회원 탈퇴" />
       <h1>회원 탈퇴</h1>
-      <p>진짜 삭제??</p>
+      <p>정말 탈퇴하시겠습니까?</p>
       <button className={styles.Button_Ok} onClick={onDeleteHandler}>
         탈퇴
       </button>
