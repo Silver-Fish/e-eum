@@ -7,21 +7,28 @@ import { useHistory } from 'react-router-dom'
 const DelModal= (props) => {
   const history = useHistory();
   const cancelClick = () => {
-    props.categoryForModalCancel()
+    props.onDeleteHandler()
   }
   const delClick = () => {
-    const token = sessionStorage.getItem('jwt')
-    axios.delete(process.env.REACT_APP_API_URL + '/category/'+ props.categoryId, {
-      headers: {
-        'Authorization': token
+    axios
+      .delete(process.env.REACT_APP_API_URL + '/qr/' + props.qrId, {
+        headers: {
+          Authorization: sessionStorage.getItem('jwt'),
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.status === 204) {
+          history.go(0);
+        } else {
+          alert('QR삭제 도중 오류가 발생했습니다. 다시 한번 시도해주세요.')
+          history.go(0);
         }
-    })
-    .then(()=> {
-      history.go(0)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+      })
+      .catch((err) => {
+        alert('QR삭제 도중 오류가 발생했습니다. 다시 한번 시도해주세요.')
+        history.go(0);
+      });
 
   }
 
@@ -32,7 +39,7 @@ const DelModal= (props) => {
         
         <div className={styles.del_content}>
           정말로<span> 삭제 </span>하시겠습니까?
-          <p>삭제시 상황 내의 모든 카드가 삭제하고 다시는 복구할 수 없습니다.</p>
+          <p>삭제시 QR 내의 모든 카드가 삭제하고 다시는 복구할 수 없습니다.</p>
         </div>
         
 
