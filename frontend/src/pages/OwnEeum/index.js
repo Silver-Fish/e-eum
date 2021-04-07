@@ -111,19 +111,66 @@ const OwnEeum = () => {
   const addCard = () => {
     setAdd(!isAdd);
   };
+  // const speechClick = () => {
+  //   const target = document.querySelectorAll("#speechCard")
+  //   for(let i=0; i<speechList.length; i++) {
+      
+  //     let audioLength = 0
+  //     for(let j=0; j<i; j++) {
+  //       audioLength += (speechList[j][1]*1000)
+        
+  //     }
+  //     setTimeout(()=> {
+  //       console.log(i)
+  //       console.log('red')
+  //       console.log(audioLength)
+  //       target[i].style.borderColor="red"
+  //       audio = new Audio(speechList[i][0])
+  //       audio.load()
+  //       playAudio()
+  //       // setTimeout(()=> {
+  //       //   console.log('black')
+  //       //   target[i].style.borderColor="black"
+  //       // },audioLength)
+  //   },audioLength)
+      
+  //   }
+  // };
+
+
   const speechClick = () => {
+    let audioLength = [0]
+    const target = document.querySelectorAll("#speechCard")
     for(let i=0; i<speechList.length; i++) {
-      let audioLength = 0
-      for(let j=0; j<i; j++) {
-        audioLength += (speechList[j][1]*1000)
+      
+      let tempLength = 0
+      for(let j=0; j<=i; j++) {        
+        tempLength += (speechList[j][1]*1000) 
       }
-      setTimeout(()=> {
-      audio = new Audio(speechList[i][0])
-      audio.load()
-      playAudio()
-    },audioLength)
+      audioLength.push(tempLength)
     }
+    for(let i=0; i<speechList.length; i++) {
+      setTimeout(()=> {
+        if (0 < i  && i<speechList.length){
+          target[i-1].style.borderColor="black"
+        }     
+        if (i === speechList.length-1){
+          console.log(i)
+          setTimeout(()=> {
+            target[i].style.borderColor="black"
+          }, audioLength[speechList.length]-audioLength[speechList.length-1])
+        }
+        target[i].style.borderColor="red"
+        audio = new Audio(speechList[i][0])
+        audio.load()
+        playAudio()
+      }, audioLength[i])
+    }
+    
+    
   };
+
+
   const playAudio = () => {
     const audioPromise = audio.play()
     if (audioPromise !== undefined) {
