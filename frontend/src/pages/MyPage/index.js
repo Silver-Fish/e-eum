@@ -61,14 +61,16 @@ const MyPage = () => {
           </div>
         </div>
 
+        <div className={styles.button_box}>
+          <UserButtonComp textValue="확인" handleClick="ok"></UserButtonComp>
+        </div>
+
         <div className={styles.label_box}>
           <LabelComp textValue="회원탈퇴" handleClickPath="./confirm" />
           <LabelComp textValue="비밀번호 변경" handleClickPath="./userUpdate" />
         </div>
 
-        <div className={styles.button_box}>
-          <UserButtonComp textValue="확인" handleClick="ok"></UserButtonComp>
-        </div>
+
       </div>
     </div>
   );

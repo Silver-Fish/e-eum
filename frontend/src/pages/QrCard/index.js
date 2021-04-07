@@ -29,15 +29,29 @@ const QrCard = ({ match }) => {
   const [token, setToken] = useState(sessionStorage.getItem('jwt'));
   const [speechList, setSpeechList] = useState([])  
   const [isEeumLoading, setEeumLoading] = useState(false);
+  const [sameUser, setSameUser] = useState(false);
+  const [pageColor, setPageColor] = useState();
   let audio = ""
+  
 
+
+  
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API_URL + '/qr/title/' + qrId)
+      .get(process.env.REACT_APP_API_URL + '/qr/info/' + qrId, {
+        headers: {
+          Authorization: token,
+        },
+      })
       .then((res) => {
-        console.log(res.data)
-        setQrName(res.data);
+        setQrName(res.data.title);
+        setSameUser(res.data.owner);
+        if (res.data.owner === true){
+          setPageColor('yellow')
+        } else {
+          setPageColor('')
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -55,6 +69,7 @@ const QrCard = ({ match }) => {
       .catch((err) => {
         console.log(err);
       });
+    let sameUser = true
   }, []);
 
   const addClick = () => {
@@ -66,12 +81,12 @@ const QrCard = ({ match }) => {
   };
 
   const eeumClick = () => {
-    console.log(token)
-    console.log(process.env.REACT_APP_API_URL + '/qr/copy/'+ qrId)
     setEeumLoading(!isEeumLoading)
+    const data = 0
     axios
-    .post(process.env.REACT_APP_API_URL + '/qr/copy/'+ qrId, {
+    .post(process.env.REACT_APP_API_URL + '/qr/copy/'+ qrId, data,{
       headers: {
+        // contentType: "application/json",
         Authorization: token
       }
     })
@@ -183,7 +198,7 @@ const QrCard = ({ match }) => {
             ? (<QrEeumLoader></QrEeumLoader>)
             : ''}
             <div className={styles.qrcard_box}>
-              <HearderComp headertitle={qrName} headerColor="yello"></HearderComp>
+              <HearderComp headertitle={qrName} headerColor={pageColor}></HearderComp>
               <div className={styles.speech_box}>
                 <div className={styles.speech_item_box} onClick={speechClick}>{speechBoxList}</div>
 
@@ -197,15 +212,25 @@ const QrCard = ({ match }) => {
               <div className={styles.button_box}>
               {checkLogin !== null ? (
                 <>
-                {/* <button className={styles.add_button} onClick={addClick}>
-                  추가
-                </button>
-                <button className={styles.update_button} onClick={editClick}>
-                  수정
-                </button> */}
-                <button className={styles.eeum_button} onClick={eeumClick}>
-                  QR 이음하기
-                </button>
+                {sameUser === true
+                ?
+                  (
+                    <>
+                      <button className={styles.add_button} onClick={addClick}>
+                        추가
+                      </button>
+                      <button className={styles.update_button} onClick={editClick}>
+                        수정
+                      </button>
+                    </>
+                  )
+                  :
+                  (
+                    <button className={styles.eeum_button} onClick={eeumClick}>
+                      QR 이음하기
+                    </button>
+                  )
+                }
                 </>
                   ) : (
                 <>

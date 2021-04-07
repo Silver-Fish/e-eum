@@ -4,24 +4,19 @@ div {
 
 .qr_list_box {
   height: 80vh;
-  overflow-x: scroll;
-  overflow-y: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
   margin: 0px;
 }
 
 .qr_register_box {
   display: block;
-  font-size: 28px;
+  font-size: 32px;
   width: 100vw;
-  height: 38px;
   background-color: #F5DF4D;
-  border: 0px;
   margin: 0px;
   font-family: inherit;
   position: fixed;
   bottom: 0px;
+  border: #F5DF4D solid 3px;
 }
-
-/* .bottom_button{
-
-} */
