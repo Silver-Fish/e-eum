@@ -1,8 +1,6 @@
 package com.ssafy.eeum.qr.dto.response;
 
-import com.ssafy.eeum.account.domain.Account;
 import com.ssafy.eeum.qr.domain.QR;
-import com.ssafy.eeum.qr.repository.QrRepository;
 import lombok.Getter;
 
 import java.util.ArrayList;
