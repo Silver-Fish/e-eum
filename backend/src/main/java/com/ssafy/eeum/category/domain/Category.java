@@ -12,6 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * com.ssafy.eeum.category.domain
+ * Category.java
+ * @date    2021-04-07 오후 5:06
+ * @author  차수연
+ *
+ * @변경이력
+ **/
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

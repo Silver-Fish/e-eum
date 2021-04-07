@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
 import styles from './CardEdit.module.css'
 import axios from 'axios';
-// import { useHistory } from 'react-router-dom';
 import Loader from '../Loader/Loader'
 import SpeechLoader from '../Loader/SpeechLoader';
 
 const CardEdit = (props) => {
-  // const history = useHistory();
   const cardImg = useState(props['cardUrl'])[0]
-  // const [cardImg, setCardImg] = useState(props['cardUrl'])
   const [cardName, setCardName] = useState(props['cardName'])
   const cardId = props['cardId']
-  const voiceUrl = props.voiceUrl
   let [lenCardName, setlenCardName] = useState(props['cardName'].length)
   const [isLoading, setLoading] = useState(false)
   const [speechLoading, setSpeechLoading] = useState(false)

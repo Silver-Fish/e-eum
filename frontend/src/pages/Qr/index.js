@@ -43,12 +43,13 @@ const Qr = () => {
         if (res.status === 200) {
           setQrs(res.data);
         } else {
-          console.log('QrList R : status가 200아님');
+          console.log('QR 리스트 불러오기를 실패했습니다. 다시 시도해 주세요.');
+          history.go(0)
         }
       })
       .catch((err) => {
-        console.log('QrList R : err났어잇');
-        console.log(err);
+        console.log('QR 리스트 불러오기를 실패했습니다. 다시 시도해 주세요.');
+        history.go(0)
       });
   }, [token, history, cookies.cookie]);
 
@@ -63,15 +64,14 @@ const Qr = () => {
   };
 
   const changeQrViewState = (data) => {
-    console.log(data);
     setSelectedQrName(data.qrName);
     setSelectedQrId(data.qrId);
     setQrView(!isQrView);
   };
 
-  // const selectedEditQrName = (data) => {
-  //   setSlectedQrName(data)
-  // }
+  const changeQrEditforcancel = () => {
+    setQrEdit(!isQrEdit);
+  }
 
   const qrLists = qrs.map((qr, i) => (
     <QrList
@@ -89,7 +89,7 @@ const Qr = () => {
         if (isQrResister !== true && isQrEdit !== true && isQrView !== true)
           return (
             <>
-              <HearderComp headertitle="QR로 이음" headerColor="yello"></HearderComp>
+              <HearderComp headertitle="QR로 이음" headerColor="yellow"></HearderComp>
               <div className={styles.qr_list_box}>{qrLists}</div>
 
               <button className={styles.qr_register_box} onClick={changeQrResisterState}>
@@ -100,7 +100,13 @@ const Qr = () => {
         if (isQrResister === true)
           return <QrRegister changeQrResisterState={changeQrResisterState}></QrRegister>;
         if (isQrEdit === true)
-          return <QrEdit selectedQrId={selectedQrId} selectedQrName={selectedQrName}></QrEdit>;
+          return (
+            <QrEdit 
+              selectedQrId={selectedQrId} 
+              selectedQrName={selectedQrName}
+              changeQrEditforcancel = {changeQrEditforcancel}
+            ></QrEdit>
+          );
         if (isQrView === true)
           return (
             <QrView

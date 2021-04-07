@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import styles from './OwnCardadd.module.css';
-import axios from 'axios';
-import Loader from '../Loader/Loader';
-import SpeechLoader from '../Loader/SpeechLoader';
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import styles from "./OwnCardadd.module.css";
+import axios from "axios";
+import Loader from "../Loader/Loader";
+import SpeechLoader from "../Loader/SpeechLoader";
 const OwnCardadd = (props) => {
   const history = useHistory();
   const [situationImg, setImg] = useState();
@@ -11,9 +11,11 @@ const OwnCardadd = (props) => {
   const [cardName, setCardName] = useState();
   const [isLoading, setLoading] = useState(false);
   const [speechLoading, setSpeechLoading] = useState(false);
-  const [speechWord, setSpeechWord] = useState('');
+  const special_pattern = /[`~!@#$%^&*,|\\\'\";:\/]/gi;
+  const special_pattern2 = /([^가-힣\x20])/i;
+
   let [lenCardName, setlenCardName] = useState(0);
-  let audio = '';
+  let audio = "";
 
   const onImageChange = function (e) {
     setImgFile(e.target.files[0]);
@@ -21,7 +23,7 @@ const OwnCardadd = (props) => {
   };
   const onInputChange = (e) => {
     if (e.target.value.length > 10) {
-      alert('카드이름은 10자까지 가능합니다.');
+      alert("카드이름은 10자까지 가능합니다.");
     } else {
       setCardName(e.target.value);
       setlenCardName(e.target.value.length);
@@ -29,32 +31,38 @@ const OwnCardadd = (props) => {
   };
 
   const addCard = () => {
-    setLoading(!isLoading);
-    const token = sessionStorage.getItem('jwt');
-    let data = new FormData();
-    data.append('file', imgFile);
-    data.append('word', cardName);
-    data.append('type', 'own');
-    axios
-      .post(process.env.REACT_APP_API_URL + '/card', data, {
-        headers: {
-          'Content-type': 'multipart/form-data',
-          Authorization: token,
-        },
-      })
-      .then((res) => {
-        setLoading(!isLoading);
-        history.go(0);
-      })
-      .catch((err) => {
-        setLoading(!isLoading);
-        alert('카드생성 오류입니다.. 다음에 시도해주세요');
-        history.go(0);
-      });
+    const token = sessionStorage.getItem("jwt");
+    if (special_pattern.test(cardName)) {
+      alert("?와 . 를 제외한 특수문자는 사용할 수 없습니다.");
+    } else if (special_pattern2.test(cardName)) {
+      alert("자음, 모음만 있는 한글 또는 알파벳은 사용할 수 없습니다.");
+    } else {
+      setLoading(!isLoading);
+      let data = new FormData();
+      data.append("file", imgFile);
+      data.append("word", cardName);
+      data.append("type", "own");
+      axios
+        .post(process.env.REACT_APP_API_URL + "/card", data, {
+          headers: {
+            "Content-type": "multipart/form-data",
+            Authorization: token,
+          },
+        })
+        .then((res) => {
+          setLoading(!isLoading);
+          history.go(0);
+        })
+        .catch((err) => {
+          setLoading(!isLoading);
+          alert("카드생성 오류입니다.. 다음에 시도해주세요");
+          history.go(0);
+        });
+    }
   };
   const speakClick = () => {
     setSpeechLoading(!speechLoading);
-    const token = sessionStorage.getItem('jwt');
+    const token = sessionStorage.getItem("jwt");
     let data = {
       word: cardName,
     };
@@ -78,12 +86,12 @@ const OwnCardadd = (props) => {
             playAudio();
           })
           .catch((err) => {
-            alert('미리듣기 오류입니다.. 다음에 시도해주세요');
+            alert("미리듣기 오류입니다.. 다음에 시도해주세요");
             setSpeechLoading(false);
           });
       })
       .catch((err) => {
-        alert('미리듣기 오류입니다.. 다음에 시도해주세요');
+        alert("미리듣기 오류입니다.. 다음에 시도해주세요");
         setSpeechLoading(false);
       });
   };
@@ -95,7 +103,7 @@ const OwnCardadd = (props) => {
           setSpeechLoading(false);
         })
         .catch((err) => {
-          alert('미리듣기 오류입니다.. 다음에 시도해주세요');
+          alert("미리듣기 오류입니다.. 다음에 시도해주세요");
           setSpeechLoading(false);
         });
     }
@@ -111,7 +119,11 @@ const OwnCardadd = (props) => {
                   <img src={situationImg} alt="이미지를 등록해주세요" />
                   <label className={styles.image_button}>
                     <img src="/images/photo-camera.svg" alt="대체이미지" />
-                    <input type="file" className={styles.image_input} onChange={onImageChange} />
+                    <input
+                      type="file"
+                      className={styles.image_input}
+                      onChange={onImageChange}
+                    />
                   </label>
                 </div>
 
@@ -135,7 +147,10 @@ const OwnCardadd = (props) => {
 
               <div className={styles.bottom_button}>
                 <div className={styles.button_box}>
-                  <button className={styles.close_button} onClick={props.addStateChange}>
+                  <button
+                    className={styles.close_button}
+                    onClick={props.addStateChange}
+                  >
                     취소
                   </button>
                   <button className={styles.add_button} onClick={addCard}>
@@ -161,7 +176,11 @@ const OwnCardadd = (props) => {
                   <img src={situationImg} alt="이미지를 등록해주세요" />
                   <label className={styles.image_button}>
                     <img src="/images/photo-camera.svg" alt="대체이미지" />
-                    <input type="file" className={styles.image_input} onChange={onImageChange} />
+                    <input
+                      type="file"
+                      className={styles.image_input}
+                      onChange={onImageChange}
+                    />
                   </label>
                 </div>
 
@@ -186,7 +205,10 @@ const OwnCardadd = (props) => {
 
               <div className={styles.bottom_button}>
                 <div className={styles.button_box}>
-                  <button className={styles.close_button} onClick={props.addStateChange}>
+                  <button
+                    className={styles.close_button}
+                    onClick={props.addStateChange}
+                  >
                     취소
                   </button>
                   <button className={styles.add_button} onClick={addCard}>

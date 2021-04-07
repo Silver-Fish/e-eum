@@ -4,6 +4,7 @@ import com.ssafy.eeum.account.domain.Account;
 import com.ssafy.eeum.common.annotation.CurrentAccount;
 import com.ssafy.eeum.qr.dto.request.QrInsertRequest;
 import com.ssafy.eeum.qr.dto.request.QrUpdateRequest;
+import com.ssafy.eeum.qr.dto.response.QrInfoResponse;
 import com.ssafy.eeum.qr.dto.response.QrResponse;
 import com.ssafy.eeum.qr.service.QrService;
 import com.sun.istack.NotNull;
@@ -20,6 +21,15 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
+
+/**
+ * com.ssafy.eeum.qr.controller
+ * QrController.java
+ * @date    2021-04-07 오후 5:07
+ * @author  차수연
+ *
+ * @변경이력
+ **/
 
 @Api(tags = {"4. QR"})
 @RestController
@@ -53,11 +63,11 @@ public class QrController {
         return ResponseEntity.ok().body(qrResponse);
     }
 
-    @GetMapping("/title/{id}")
-    @ApiOperation(value = "QR 제목 조회", notes = "QR id를 받아 해당 QR의 제목을 조회한다")
-    public ResponseEntity<String> getQrTitle(@PathVariable @NotNull Long id){
-        String title = qrService.findTitle(id);
-        return ResponseEntity.ok().body(title);
+    @GetMapping("/info/{id}")
+    @ApiOperation(value = "QR 정보 조회", notes = "계정정보를 받아 해당 QR의 주인인지 여부를 반환하고, QR id를 받아 해당 QR의 제목을 조회한다")
+    public ResponseEntity<QrInfoResponse> getQrInfo(@ApiIgnore @CurrentAccount Account account, @PathVariable @NotNull Long id){
+        QrInfoResponse qrInfoResponse = qrService.findInfo(account, id);
+        return ResponseEntity.ok().body(qrInfoResponse);
     }
 
     @PutMapping("/{id}")

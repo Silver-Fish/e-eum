@@ -89,7 +89,7 @@ const HeaderComp = (props) => {
   return (
     <>
       {isModal !== true ? (
-        <div className={styles.header_box + " " + (headerColor === undefined ? '' : styles.yellow)}>
+        <div className={styles.header_box + " " + (headerColor === 'yellow' ? styles.yellow : '')}>
           <img
             className={styles.header_image}
             src="/favicon.png"
@@ -173,6 +173,10 @@ const HeaderComp = (props) => {
                     도움말
                   </button>
                 </li>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
               </ul>
             </div>
           ):(
@@ -209,6 +213,10 @@ const HeaderComp = (props) => {
                   도움말
                 </button>
               </li>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
             </ul>
           </div>
           )}

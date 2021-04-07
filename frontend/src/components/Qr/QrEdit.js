@@ -3,13 +3,16 @@ import React, { useState } from 'react';
 import HearderComp from '../HeaderComp/HeaderComp';
 import styles from './QrEdit.module.css';
 import { useHistory } from 'react-router-dom';
+import QrEeumLoader from '../../components/Loader/QrEeumLoader';
+
 const QrEdit = (props) => {
   const qrId = props.selectedQrId;
   const history = useHistory();
   //바뀔 이름
+  const token = useState(sessionStorage.getItem('jwt'))[0];
   const [selectedQrName, setSelectedQrName] = useState(props.selectedQrName);
   let [lenQrName, setlenQrName] = useState(props.selectedQrName.length)
-
+  const [isEeumLoading, setEeumLoading] = useState(false);
   const onUpdateHandler = () => {
     const data = {
       title: selectedQrName,
@@ -38,6 +41,33 @@ const QrEdit = (props) => {
         });
     }
   };
+
+  const eeumClick = () => {
+    setEeumLoading(!isEeumLoading)
+    const data = 0
+    axios
+    .post(process.env.REACT_APP_API_URL + '/qr/copy/'+ qrId, data,{
+      headers: {
+        // contentType: "application/json",
+        Authorization: token
+      }
+    })
+    .then((res) => {
+      console.log(res.data)
+      setEeumLoading(!isEeumLoading)
+      history.go(0)
+    })
+    .catch((err) => {
+      console.log(err);
+      setEeumLoading(!isEeumLoading)
+      alert('Qr복사에 실패하셨습니다. 다시 시도해 주세요')
+      history.go(0)
+    });
+  }
+
+  const onCancelHandler = () => {
+    props.changeQrEditforcancel()
+  }
 
   const onDeleteHandler = () => {
     axios
@@ -71,26 +101,42 @@ const QrEdit = (props) => {
 
   return (
     <>
-      <HearderComp headertitle="QR 수정" headerColor="yellow"></HearderComp>
+      { isEeumLoading === true 
+      ? (<QrEeumLoader></QrEeumLoader>)
+      : ''}
+      <>
+      <HearderComp headertitle="QR 설정" headerColor="yellow"></HearderComp>
       <div className={styles.qr_name_input_box}>
         <input
           className={styles.qr_name_input}
           type="text"
-          placeholder="Qr 이름"
+          placeholder="QR 이름"
           defaultValue={selectedQrName}
           onChange={onTitleHandler}
         />
         <div className={styles.count_Name}>{lenQrName}/10</div>
-      </div>
-      <div className={styles.button_box}>
+        
+      <button className={styles.qr_eeum_button} onClick={eeumClick}>
+          QR 복사
+      </button>
         <button className={styles.qr_edit_delete_button} onClick={onDeleteHandler}>
           삭제
+        </button>
+      </div>
+      
+      <div className={styles.button_box}>
+
+        
+
+        <button className={styles.qr_cancel_button} onClick={onCancelHandler}>
+          취소
         </button>
 
         <button className={styles.qr_edit_button} onClick={onUpdateHandler}>
           수정
         </button>
       </div>
+      </>
     </>
   );
 };

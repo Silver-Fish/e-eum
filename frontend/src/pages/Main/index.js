@@ -61,13 +61,13 @@ const Main = () => {
         ></EeumButtonComp>
         {checkLogin !== null ? (
           <EeumButtonComp
-            textValue="QR로 이동"
+            textValue="QR로 이음"
             buttonImg="/images/qr.png"
             handleClickPath="/qr"
           ></EeumButtonComp>
         ) : (
           <EeumButtonComp
-            textValue="QR로 이동"
+            textValue="QR로 이음"
             buttonImg="/images/qr.png"
             handleClickPath="/login"
           ></EeumButtonComp>
@@ -89,7 +89,7 @@ const Main = () => {
           <>
             <MainFooterButtonComp
               textValue="내정보"
-              buttonImg="/images/fish.png"
+              buttonImg="/images/silverfish"
               handleClickPath="/mypage"
             ></MainFooterButtonComp>
           </>
@@ -97,7 +97,7 @@ const Main = () => {
           <>
             <MainFooterButtonComp
               textValue="내정보"
-              buttonImg="/images/fish.png"
+              buttonImg="/images/silverfish"
               handleClickPath="/login"
             ></MainFooterButtonComp>
           </>

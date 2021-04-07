@@ -8,6 +8,8 @@ import SpeechBoxCard from '../../components/QrCard/SpeechBoxCard';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import QrEeumLoader from '../../components/Loader/QrEeumLoader';
+
 const QrCard = ({ match }) => {
   let qrId = window.location.href.split('/')
   qrId = qrId[qrId.length-1]
@@ -16,8 +18,6 @@ const QrCard = ({ match }) => {
   const checkLogin = sessionStorage.getItem('jwt');
   const [isAdd, setAdd] = useState(false);
   const [isEdit, setEdit] = useState(false);
-  // const [cardUrl, setCardUrl] = useState('')
-  // const cardUrl = useState([0])
   const [cardName, setCardName] = useState(false);
   const [cardId, setCardId] = useState(false);
   const [isCardStateEdit, setCardStateEdit] = useState(false);
@@ -26,22 +26,46 @@ const QrCard = ({ match }) => {
   const [cookies] = useCookies(['cookie']);
   const [token, setToken] = useState(sessionStorage.getItem('jwt'));
   const [speechList, setSpeechList] = useState([])  
+  const [isEeumLoading, setEeumLoading] = useState(false);
+  const [sameUser, setSameUser] = useState(false);
+  const [pageColor, setPageColor] = useState();
   let audio = ""
+  
 
+
+  
 
   useEffect(() => {
+    if (
+      sessionStorage.getItem('jwt') === null &&
+      cookies.cookie !== undefined &&
+      cookies.cookie !== 'undefined'
+    ) {
+      sessionStorage.setItem('jwt', cookies.cookie);
+      setToken(sessionStorage.getItem('jwt'));
+    } else if (
+      sessionStorage.getItem('jwt') === null &&
+      (cookies.cookie === undefined || cookies.cookie === 'undefined')
+    ) {
+    }
+
     axios
-      .get(process.env.REACT_APP_API_URL + '/qr/title/' + qrId, {
+      .get(process.env.REACT_APP_API_URL + '/qr/info/' + qrId, {
         headers: {
           Authorization: token,
         },
       })
       .then((res) => {
-        console.log(res.data)
-        setQrName(res.data);
+        setQrName(res.data.title);
+        setSameUser(res.data.owner);
+        if (res.data.owner === true){
+          setPageColor('yellow')
+        } else {
+          setPageColor('')
+        }
       })
       .catch((err) => {
-        console.log(err);
+        alert('QR 카드를 불러오기를 실패했습니다. 다시 시도해 주세요.');
       });
 
     axios
@@ -54,9 +78,11 @@ const QrCard = ({ match }) => {
         setQrCard(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        alert('QR 카드를 불러오기를 실패했습니다. 다시 시도해 주세요.');
+        history.go(0)
       });
-  }, []);
+      
+  }, [qrId, token, cookies]);
 
   const addClick = () => {
     setAdd(!isAdd);
@@ -66,6 +92,29 @@ const QrCard = ({ match }) => {
     setEdit(!isEdit);
   };
 
+  const eeumClick = () => {
+    setEeumLoading(!isEeumLoading)
+    const data = 0
+    axios
+    .post(process.env.REACT_APP_API_URL + '/qr/copy/'+ qrId, data,{
+      headers: {
+        // contentType: "application/json",
+        Authorization: token
+      }
+    })
+    .then((res) => {
+      console.log(res.data)
+      setEeumLoading(!isEeumLoading)
+      history.go(0)
+    })
+    .catch((err) => {
+      console.log(err);
+      setEeumLoading(!isEeumLoading)
+      alert('Qr이음에 실패하셨습니다. 다시 시도해 주세요')
+      history.go(0)
+     
+    });
+  }
   const noLogin = () => {
     alert('로그인 해주세요');
     history.push('/login');
@@ -156,8 +205,12 @@ const QrCard = ({ match }) => {
       {(function () {
         if (isAdd === false && isCardStateEdit === false)
           return (
+            <>
+            { isEeumLoading === true 
+            ? (<QrEeumLoader></QrEeumLoader>)
+            : ''}
             <div className={styles.qrcard_box}>
-              <HearderComp headertitle={qrName} headerColor="yello"></HearderComp>
+              <HearderComp headertitle={qrName} headerColor={pageColor}></HearderComp>
               <div className={styles.speech_box}>
                 <div className={styles.speech_item_box} onClick={speechClick}>{speechBoxList}</div>
 
@@ -171,25 +224,36 @@ const QrCard = ({ match }) => {
               <div className={styles.button_box}>
               {checkLogin !== null ? (
                 <>
-                <button className={styles.add_button} onClick={addClick}>
-                  추가
-                </button>
-                <button className={styles.update_button} onClick={editClick}>
-                  수정
-                </button>
+                {sameUser === true
+                ?
+                  (
+                    <>
+                      <button className={styles.add_button} onClick={addClick}>
+                        추가
+                      </button>
+                      <button className={styles.update_button} onClick={editClick}>
+                        수정
+                      </button>
+                    </>
+                  )
+                  :
+                  (
+                    <button className={styles.eeum_button} onClick={eeumClick}>
+                      QR 이음하기
+                    </button>
+                  )
+                }
                 </>
                   ) : (
                 <>
-                <button className={styles.add_button} onClick={noLogin}>
-                  추가
-                </button>
-                <button className={styles.update_button} onClick={noLogin}>
-                  수정
+                <button className={styles.eeum_button} onClick={noLogin}>
+                  QR 이음하기
                 </button>
                 </>
                 )}
               </div>
             </div>
+            </>
           );
         if (isAdd === true)
           return (
