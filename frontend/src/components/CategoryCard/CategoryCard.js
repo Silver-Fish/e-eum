@@ -13,6 +13,7 @@ const CategoryCard = (props) => {
   const categoryName = props.textValue
   const imgUrl = process.env.REACT_APP_IMG_PATH+props.categoryUrl
   const categoryId = props['id']
+  // const isDelModal = props.isDelModal
   const categoryCardClick = (e) => {    
     props.categoryTitle({categoryName}['categoryName'])
     
@@ -38,24 +39,7 @@ const CategoryCard = (props) => {
   
   const categoryDeleteClick = (e) => {    
     e.stopPropagation();
-    const token = sessionStorage.getItem('jwt')
-
-    
-    axios.delete(process.env.REACT_APP_API_URL + '/category/'+ props.id, {
-      headers: {
-        'Authorization': token
-        }
-    })
-    .then(()=> {
-      history.go(0)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-
-
-
-
+    props.categoryDel({categoryId:props.id})
   }
   const categoryCardEditClick = (e) => {
     
