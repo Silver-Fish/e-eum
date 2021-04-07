@@ -14,6 +14,7 @@ const OwnCardadd = (props) => {
   const [speechWord, setSpeechWord] = useState("");
   const special_pattern = /[`~!@#$%^&*,|\\\'\";:\/]/gi;
   const special_pattern2 = /([^가-힣\x20])/i;
+
   let [lenCardName, setlenCardName] = useState(0);
   let audio = "";
 
@@ -35,7 +36,7 @@ const OwnCardadd = (props) => {
     if (special_pattern.test(cardName)) {
       alert("?와 . 를 제외한 특수문자는 사용할 수 없습니다.");
     } else if (special_pattern2.test(cardName)) {
-      alert("자음, 모음만 있는 한글은 처리하지 않습니다.");
+      alert("자음, 모음만 있는 한글 또는 알파벳은 사용할 수 없습니다.");
     } else {
       setLoading(!isLoading);
       let data = new FormData();
