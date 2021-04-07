@@ -12,6 +12,8 @@ import CardEdit from '../../components/CategoryCard/CardEdit';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import DelModal from '../../components/CategoryCard/DelModal';
+
 const Category = () => {
   const history = useHistory();
 
@@ -40,6 +42,8 @@ const Category = () => {
   const [cardDatas, setCard] = useState([]);
   const [speechBoxDatas, setSpeechBoxDatas] = useState([]);
   const [speechList, setSpeechList] = useState([])  
+
+  const [isDelModal, setDelModal] = useState(false)  
   let audio = ""
 
   useEffect(() => {
@@ -150,6 +154,7 @@ const Category = () => {
   };
 
   const cardAddClick = (data) => {
+    
     setCardAdd(!isCardAdd);
   };
 
@@ -161,6 +166,15 @@ const Category = () => {
     setCardStateEdit(!isCardStateEdit);
   };
 
+  const categoryDel = (data) => {
+    setCategoryId(data.categoryId)
+    setDelModal(!isDelModal)
+  }
+
+  const categoryForModalCancel = () => {
+    setDelModal(!isDelModal)
+  }
+
   const categoryList = categoryDatas.map((category, i) => (
     <CategoryCard
       key={i}
@@ -171,7 +185,7 @@ const Category = () => {
       isCategoryEdit={isCategoryEdit}
       categoryTitle={categoryTitle}
       categoryCardEdit={categoryCardEdit}
-
+      categoryDel={categoryDel}
     ></CategoryCard>
   ));
 
@@ -229,12 +243,23 @@ const Category = () => {
 
   return (
     <>
+      
       {isCategory === true ? (
         <>
           {(function () {
             if (isCategoryAdd !== true && isCategoryCardEdit !== true)
               return (
                 <>
+                  {isDelModal === true
+                  ? 
+                  (
+                  <DelModal 
+                    categoryForModalCancel={categoryForModalCancel}
+                    categoryId={categoryId}
+                  ></DelModal>
+                  )
+                  : ('')
+                  }
                   <HeaderComp headertitle={headTitle}></HeaderComp>
                   <div className={styles.speech_box}>{speechBoxList}</div>
 
