@@ -91,6 +91,10 @@ const Category = () => {
         data.voiceUrl.voiceUrl,
         data.voiceLength.voiceLength]
       ])
+    setTimeout(()=>{
+      const targetSpeechItemBox = document.querySelector('#speechItemBox')
+      targetSpeechItemBox.scrollLeft += 9999999999999999
+    }, 50)
   };
 
   const deleteClick = () => {
@@ -295,7 +299,7 @@ const Category = () => {
                   : ('')
                   }
                   <HeaderComp headertitle={headTitle}></HeaderComp>
-                  <div className={styles.speech_box}>{speechBoxList}</div>
+                  <div id='speechItemBox' className={styles.speech_box}>{speechBoxList}</div>
 
                   <div className={styles.control_box}>
                     <button disabled>
@@ -365,7 +369,7 @@ const Category = () => {
                 <>
                   <HeaderComp headertitle={headTitle}></HeaderComp>
 
-                  <div className={styles.speech_box}>{speechBoxList}</div>
+                  <div id='speechItemBox' className={styles.speech_box}>{speechBoxList}</div>
 
                   <div className={styles.control_box}>
                     <button onClick={undo}>

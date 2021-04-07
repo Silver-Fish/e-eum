@@ -55,7 +55,7 @@ const Login = () => {
         }
       })
       .catch((err) => {
-        
+        console.log(err)
         if (email === '' && password === ''){
           alert("이메일과 비밀번호를 입력해 주세요."); 
         }

@@ -40,6 +40,14 @@ const OwnEeum = () => {
         data.voiceUrl.voiceUrl,
         data.voiceLength.voiceLength]
       ])
+    
+    setTimeout(()=>{
+      const targetSpeechItemBox = document.querySelector('#speechItemBox')
+      targetSpeechItemBox.scrollLeft += 9999999999999999
+    }, 50)
+      
+
+
   };
   const deleteClick = () => {
     speechBoxDatas.pop();
@@ -195,7 +203,7 @@ const OwnEeum = () => {
               <HeaderComp headertitle="나만의 이음"></HeaderComp>
               <div className={styles.speech_box}>
                 <>
-                <div className={styles.speech_item_box} onClick={speechClick}>{speechBoxList}</div>
+                <div id='speechItemBox' className={styles.speech_item_box} onClick={speechClick}>{speechBoxList}</div>
 
                 <button onClick={deleteClick} className={styles.speech_cancel}>
                   <img src="/images/close.svg" alt="" />
