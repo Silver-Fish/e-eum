@@ -67,8 +67,6 @@ div {
   position: fixed;
   bottom: 0;
   font-size: 32px;
-  font-size: 28px;
-  height: 38px;
   font-family: inherit;
 }
 
@@ -90,17 +88,15 @@ div {
   box-sizing: border-box;
   font-size: inherit;
   border: #F5DF4D solid 3px;
-  border-radius: 3px;
   font-family: inherit;
 }
 
 .eeum_button {
   width: 100vw;
   padding: 0;
-  background-color:  white;
+  background-color:  #8A9C3A;
   box-sizing: border-box;
   font-size: inherit;
-  border: #F5DF4D solid 3px;
-  border-radius: 3px;
+  border: #8A9C3A solid 3px;
   font-family: inherit;
 }

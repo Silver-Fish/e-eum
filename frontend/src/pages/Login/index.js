@@ -53,12 +53,11 @@ const Login = () => {
           }
           history.go(-1);
         } else {
-          alert("ID와 PW가 일치하지 않습니다.^0^");
+          alert("이메일과 비밀번호가 일치하지 않습니다. 다시 시도해 주세요.");
         }
       })
       .catch((err) => {
-        console.log(err);
-        alert("다시해^0^");
+        alert("이메일과 비밀번호가 일치하지 않습니다. 다시 시도해 주세요.");
       });
   };
 
@@ -78,6 +77,7 @@ const Login = () => {
           InputChange={onPasswordHandler}
         />
 
+        <div className={styles.input_check_box}>
         <input
           className={styles.input_check}
           type="checkbox"
@@ -87,6 +87,11 @@ const Login = () => {
         />
 
         <label htmlFor="check">자동로그인</label>
+        </div>
+        <button className={styles.login_button} type="submit">
+          로그인
+        </button>
+
         <div className={styles.labelForm}>
           <LabelComp textValue="회원가입" handleClickPath="./userRegister" />
           <LabelComp
@@ -94,9 +99,7 @@ const Login = () => {
             handleClickPath="./findPassword"
           />
         </div>
-        <button className={styles.login_button} type="submit">
-          로그인
-        </button>
+
       </form>
     </div>
   );

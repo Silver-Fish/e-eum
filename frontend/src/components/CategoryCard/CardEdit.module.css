@@ -92,8 +92,7 @@
   background-color:  white;
   box-sizing: border-box;
   font-size: inherit;
-  border: #8A9C3A solid 1px;
-  border-radius: 3px;
+  border: #8A9C3A solid 2px;
 }
 .edit_button {
   width: 50vw;
@@ -102,6 +101,5 @@
   background-color:  #8A9C3A;
   box-sizing: border-box;
   font-size: inherit;
-  border: #8A9C3A solid 1px;
-  border-radius: 3px;
+  border: #8A9C3A solid 2px;
 }

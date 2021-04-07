@@ -8,6 +8,13 @@ div {
   width: 100%;
 }
 
+.success_box_img {
+  margin-top: 5%;
+  width: 60vw;
+  height: 60vw;
+}
+
+
 .success_title {
   margin: 20% auto;
   height: 15%;

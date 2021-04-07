@@ -60,7 +60,7 @@ div {
 .button_box{
   box-sizing: border-box;
   display: flex;
-  font-size: 28px;
+  font-size: 32px;
 }
 
 .bottom_button{
@@ -69,7 +69,6 @@ div {
 }
 
 .add_button {
-  height: 38px;
   width: 50vw;
   padding: 0;
   background-color:  white;
@@ -85,7 +84,7 @@ div {
   background-color:  #8A9C3A;
   box-sizing: border-box;
   font-size: inherit;
-  border: #8A9C3A solid 1px;
+  border: #8A9C3A solid 2px;
   font-family: inherit;
 }
 

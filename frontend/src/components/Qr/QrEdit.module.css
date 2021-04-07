@@ -5,7 +5,7 @@ div {
 .qr_name_input_box {
   width: 100vw;
   height: 85vh;
-  margin: 0px;
+  margin: 0;
 }
 
 .qr_name_input {
@@ -18,6 +18,7 @@ div {
   font-size: 32px;
 }
 
+
 .button_box {
   position: fixed;
   bottom: 0px;
@@ -26,21 +27,49 @@ div {
   margin: 0px;
   font-size: 32px;
 }
+
+
+.qr_eeum_button {
+  font-size: 32px;
+  background-color: #F5DF4D;
+  color: #000;
+  border: 0;
+  font-family: inherit;
+  width: 80%;
+  margin-top: 5%;
+}
+
+
 .qr_edit_delete_button {
+  font-size: 32px;
+  background-color: rgb(200, 20, 20);
+  color: #fff;
+  border: 0;
+  font-family: inherit;
+  width: 80%;
+  margin-top: 5%;
+}
+
+.qr_edit_delete_button::before{
+  content: '';
+}
+
+.qr_cancel_button {
   font-family: inherit;
   font-size: inherit;
   width: 50vw;
-  color: #f5df4d;
+  color: #000;
   background-color: #fff;
-  border: 1px solid #f5df4d;
+  border: 3px solid #f5df4d;
 }
+
 
 .qr_edit_button {
   font-family: inherit;
   font-size: inherit;
   width: 50vw;
   background-color: #f5df4d;
-  border: 1px solid #f5df4d;
+  border: 3px solid #f5df4d;
 }
 
 .count_Name {

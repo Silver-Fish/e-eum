@@ -30,10 +30,7 @@ const QrList = (props) => {
 
       <div className={styles.qr_button_box}>
         <button className={styles.qr_edit_button} onClick={selectedEditQrName}>
-          QR 수정
-        </button>
-        <button className={styles.qr_eeum_button} onClick={selectedEditQrName}>
-          QR 이음
+          QR 설정
         </button>
         <button className={styles.qr_button} onClick={selectedViewQr}>
           QR 보기

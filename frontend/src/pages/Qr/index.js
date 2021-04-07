@@ -63,15 +63,14 @@ const Qr = () => {
   };
 
   const changeQrViewState = (data) => {
-    console.log(data);
     setSelectedQrName(data.qrName);
     setSelectedQrId(data.qrId);
     setQrView(!isQrView);
   };
 
-  // const selectedEditQrName = (data) => {
-  //   setSlectedQrName(data)
-  // }
+  const changeQrEditforcancel = () => {
+    setQrEdit(!isQrEdit);
+  }
 
   const qrLists = qrs.map((qr, i) => (
     <QrList
@@ -89,7 +88,7 @@ const Qr = () => {
         if (isQrResister !== true && isQrEdit !== true && isQrView !== true)
           return (
             <>
-              <HearderComp headertitle="QR로 이음" headerColor="yello"></HearderComp>
+              <HearderComp headertitle="QR로 이음" headerColor="yellow"></HearderComp>
               <div className={styles.qr_list_box}>{qrLists}</div>
 
               <button className={styles.qr_register_box} onClick={changeQrResisterState}>
@@ -100,7 +99,13 @@ const Qr = () => {
         if (isQrResister === true)
           return <QrRegister changeQrResisterState={changeQrResisterState}></QrRegister>;
         if (isQrEdit === true)
-          return <QrEdit selectedQrId={selectedQrId} selectedQrName={selectedQrName}></QrEdit>;
+          return (
+            <QrEdit 
+              selectedQrId={selectedQrId} 
+              selectedQrName={selectedQrName}
+              changeQrEditforcancel = {changeQrEditforcancel}
+            ></QrEdit>
+          );
         if (isQrView === true)
           return (
             <QrView

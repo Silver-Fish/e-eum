@@ -29,9 +29,9 @@ div {
   font-size: inherit;
   font-family: inherit;
   width: 50vw;
-  color: #f5df4d;
+  color: #000;
   background-color: #fff;
-  border: 1px solid #f5df4d;
+  border: 3px solid #f5df4d;
 }
 
 .qr_resiter_button {
@@ -39,7 +39,7 @@ div {
   font-family: inherit;
   width: 50vw;
   background-color: #f5df4d;
-  border: 1px solid #f5df4d;
+  border: 3px solid #f5df4d;
 }
 
 .count_Name {

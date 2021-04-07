@@ -88,19 +88,17 @@
   background-color:  white;
   box-sizing: border-box;
   font-size: inherit;
-  border: #F5DF4D solid 1px;
-  border-radius: 3px;
+  border: #F5DF4D solid 3px;
   font-family: inherit;
 }
 .add_button {
   width: 50vw;
   padding: 0;
-  color: white;
+  color: #000;
   background-color:  #F5DF4D;
   box-sizing: border-box;
   font-size: inherit;
-  border: #F5DF4D solid 1px;
-  border-radius: 3px;
+  border: #F5DF4D solid 3px;
   font-family: inherit;
 }
 .count_Name {
