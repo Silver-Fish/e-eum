@@ -18,18 +18,14 @@ const QrView = (props) => {
         },
       })
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
-          console.log('url가져왓음');
           setQrUrl(res.data.qr_url);
         } else {
-          alert('조회실패');
-          console.log('200이 아님');
+          alert('QR조회를 실패하셨습니다. 다시 시도해 주세요.');
         }
       })
       .catch((err) => {
-        console.log('QrView R');
-        console.log(err);
+
       });
   });
 
