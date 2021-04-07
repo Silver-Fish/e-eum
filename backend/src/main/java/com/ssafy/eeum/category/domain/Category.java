@@ -12,11 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * com.ssafy.eeum.category.domain
+ * Category.java
+ * @date    2021-04-07 오후 4:45
+ * @author  차수연
+ *
+ * @변경이력
+ **/
 @Entity
 @Getter
-//@ToString
-//@NoArgsConstructor(access = AccessLevel.PROTECTED)
-//@Table(name="category")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

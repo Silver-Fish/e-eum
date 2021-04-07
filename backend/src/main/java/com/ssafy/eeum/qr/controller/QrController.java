@@ -21,6 +21,14 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
+/**
+ * com.ssafy.eeum.qr.controller
+ * QrController.java
+ * @date    2021-04-07 오후 4:48
+ * @author  차수연
+ *
+ * @변경이력
+ **/
 @Api(tags = {"4. QR"})
 @RestController
 @RequiredArgsConstructor

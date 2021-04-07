@@ -10,7 +10,6 @@ import com.ssafy.eeum.category.dto.response.CategoryResponse;
 import com.ssafy.eeum.category.repository.CategoryRepository;
 import com.ssafy.eeum.common.exception.ErrorCode;
 import com.ssafy.eeum.common.exception.NotFoundException;
-import com.ssafy.eeum.qr.domain.QR;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +21,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
 
+/**
+ * com.ssafy.eeum.category.service
+ * CategoryService.java
+ * @date    2021-04-07 오후 4:47
+ * @author  차수연
+ *
+ * @변경이력
+ **/
 @Slf4j
 @Service
 @RequiredArgsConstructor

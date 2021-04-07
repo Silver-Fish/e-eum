@@ -1,13 +1,19 @@
 package com.ssafy.eeum.qr.dto.response;
 
-import com.ssafy.eeum.account.domain.Account;
 import com.ssafy.eeum.qr.domain.QR;
-import com.ssafy.eeum.qr.repository.QrRepository;
 import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * com.ssafy.eeum.qr.dto.response
+ * QrResponse.java
+ * @date    2021-04-07 오후 4:47
+ * @author  차수연
+ *
+ * @변경이력
+ **/
 @Getter
 public class QrResponse {
     private Long id;

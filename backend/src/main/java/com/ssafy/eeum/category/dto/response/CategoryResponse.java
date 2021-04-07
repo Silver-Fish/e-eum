@@ -6,6 +6,14 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * com.ssafy.eeum.category.dto.response
+ * CategoryResponse.java
+ * @date    2021-04-07 오후 4:47
+ * @author  차수연
+ *
+ * @변경이력
+ **/
 @Getter
 public class CategoryResponse {
     private Long id;

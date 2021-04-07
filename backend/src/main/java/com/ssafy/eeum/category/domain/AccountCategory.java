@@ -5,6 +5,14 @@ import lombok.Getter;
 
 import javax.persistence.*;
 
+/**
+ * com.ssafy.eeum.category.domain
+ * AccountCategory.java
+ * @date    2021-04-07 오후 4:45
+ * @author  차수연
+ *
+ * @변경이력
+ **/
 @Entity
 @Getter
 public class AccountCategory {

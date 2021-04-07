@@ -19,6 +19,14 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * com.ssafy.eeum.category.controller
+ * CategoryController.java
+ * @date    2021-04-07 오후 4:43
+ * @author  차수연
+ *
+ * @변경이력
+ **/
 @Api(tags = {"3. Category"})
 @RestController
 @RequestMapping("category")

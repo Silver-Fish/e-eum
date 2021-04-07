@@ -5,6 +5,14 @@ import lombok.Getter;
 
 import javax.persistence.*;
 
+/**
+ * com.ssafy.eeum.qr.domain
+ * AccountQr.java
+ * @date    2021-04-07 오후 4:47
+ * @author  차수연
+ *
+ * @변경이력
+ **/
 @Entity
 @Getter
 public class AccountQr {

@@ -7,6 +7,14 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
+/**
+ * com.ssafy.eeum.category.repository
+ * CategoryCardRepository.java
+ * @date    2021-04-07 오후 4:47
+ * @author  차수연
+ *
+ * @변경이력
+ **/
 public interface CategoryCardRepository extends JpaRepository<CategoryCard,Long> {
     List<CategoryCard> findByCardId(Long id);
 

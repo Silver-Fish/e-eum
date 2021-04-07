@@ -9,6 +9,14 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 
+/**
+ * com.ssafy.eeum.qr.dto.request
+ * QrUpdateRequest.java
+ * @date    2021-04-07 오후 4:48
+ * @author  차수연
+ *
+ * @변경이력
+ **/
 @NoArgsConstructor
 @Getter
 @ApiModel(description = "QR 수정 모델")

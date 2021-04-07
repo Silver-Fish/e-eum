@@ -1,11 +1,7 @@
 package com.ssafy.eeum.qr.service;
 
-
 import com.ssafy.eeum.account.domain.Account;
 import com.ssafy.eeum.account.repository.AccountRepository;
-import com.ssafy.eeum.card.domain.AccountCard;
-import com.ssafy.eeum.card.domain.Card;
-import com.ssafy.eeum.category.domain.CategoryCard;
 import com.ssafy.eeum.common.exception.ErrorCode;
 import com.ssafy.eeum.common.exception.NotFoundException;
 import com.ssafy.eeum.qr.domain.AccountQr;
@@ -26,11 +22,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * com.ssafy.eeum.qr.service
+ * QrService.java
+ * @date    2021-04-07 오후 4:48
+ * @author  차수연
+ *
+ * @변경이력
+ **/
 @Slf4j
 @Service
 @RequiredArgsConstructor
