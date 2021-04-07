@@ -1,6 +1,5 @@
 package com.ssafy.eeum.qr.service;
 
-
 import com.ssafy.eeum.account.domain.Account;
 import com.ssafy.eeum.account.repository.AccountRepository;
 import com.ssafy.eeum.card.domain.Card;
@@ -27,6 +26,15 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+/**
+ * com.ssafy.eeum.qr.service
+ * QrService.java
+ * @date    2021-04-07 오후 5:11
+ * @author  차수연
+ *
+ * @변경이력
+ **/
 
 @Slf4j
 @Service
