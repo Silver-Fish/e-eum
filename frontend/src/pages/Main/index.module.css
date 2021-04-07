@@ -22,7 +22,7 @@ div {
 
 .login_button {
   font-size: 5vw;
-  height: 50% ;
+  /* height: 50% ; */
   width: 25%;
   margin: auto 0;
   margin-right: 5%;
@@ -35,7 +35,7 @@ div {
 
 .logout_button {
   font-size: 5vw;
-  height: 50% ;
+  /* height: 50% ; */
   width: 30%;
   margin: auto 0;
   margin-right: 5%;
