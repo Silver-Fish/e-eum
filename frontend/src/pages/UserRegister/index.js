@@ -119,8 +119,10 @@ const UserRegister = () => {
 
   const onCancelButton = (e) => {
     e.preventDefault();
-    console.log("취소");
-    history.push("./login");
+    history.push({
+      pathname: '/login',
+      state: { isBack: false }
+    })
   };
 
   return (

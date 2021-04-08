@@ -8,7 +8,9 @@ import InputComp from "../../components/InputComp/InputComp";
 import styles from "./index.module.css";
 import { useCookies } from "react-cookie";
 
-const Login = () => {
+const Login = (props) => {
+  const isBack = props.location.state.isBack
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [autoLogin, setAutoLogin] = useState("");
@@ -49,23 +51,35 @@ const Login = () => {
           if (autoLogin) {
             setCookieFunc();
           }
-          history.go(-1);
-        } else {
-          if (email === "" && password === "") {
-            alert("이메일과 비밀번호를 입력해 주세요.");
-          } else if (email === "") {
-            alert("이메일을 입력해 주세요.");
-          } else if (password === "") {
-            alert("비밀번호를 입력해 주세요.");
-          } else {
-            alert(
-              "입력한 이메일과 비밀번호가 일치하지 않습니다. 이메일 또는 비밀번호를 다시 한번 입력해 주세요."
-            );
+          
+          if (isBack === true){
+            history.go(-1);
           }
+          else {
+            history.push({
+              pathname: '/',
+            })
+          }
+          
+          
+        } else {
+          alert(
+            "로그인 중에 오류가 발생했습니다. 잠시 후에 다시 시도해주세요."
+          );
         }
       })
       .catch((err) => {
-        alert("로그인 중에 오류가 발생했습니다. 잠시 후에 다시 시도해주세요.");
+        if (email === "" && password === "") {
+          alert("이메일과 비밀번호를 입력해 주세요.");
+        } else if (email === "") {
+          alert("이메일을 입력해 주세요.");
+        } else if (password === "") {
+          alert("비밀번호를 입력해 주세요.");
+        } else {
+          alert(
+            "입력한 이메일과 비밀번호가 일치하지 않습니다. 이메일 또는 비밀번호를 다시 한번 입력해 주세요."
+          );
+        }
       });
   };
 

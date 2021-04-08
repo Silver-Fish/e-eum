@@ -218,7 +218,10 @@ const Category = () => {
 
   const noLogin = () => {
     alert("로그인 해주세요");
-    history.push("./login");
+    history.push({
+      pathname: '/login',
+      state: { isBack: false }
+    })
   };
   const speechClick = () => {
     let audioLength = [0];

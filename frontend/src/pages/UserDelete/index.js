@@ -33,11 +33,13 @@ const UserDelete = () => {
         },
       })
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           sessionStorage.removeItem("jwt");
           alert("탈퇴가 완료되었습니다.");
-          history.push("/login");
+          history.push({
+            pathname: '/login',
+            state: { isBack: false }
+          })
         } else {
           alert("탈퇴에 실패했습니다.");
         }
@@ -60,7 +62,6 @@ const UserDelete = () => {
       <button
         className={styles.Button_Cancel}
         onClick={(e) => {
-          console.log("취소");
           history.push("/");
         }}
       >

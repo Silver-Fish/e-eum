@@ -22,6 +22,10 @@ const HeaderComp = (props) => {
     {
       alert('로그인을 해주세요')
       setModal(false);
+      history.push({
+        pathname: '/login',
+        state: { isBack: false }
+      })
     }
   };
   const ownEeumClick = (e) => {
@@ -37,6 +41,10 @@ const HeaderComp = (props) => {
     {
       alert('로그인을 해주세요')
       setModal(false);
+      history.push({
+        pathname: '/login',
+        state: { isBack: false }
+      })
     }
   };
   const settingClick = (e) => {

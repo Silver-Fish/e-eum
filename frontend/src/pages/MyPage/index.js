@@ -25,7 +25,10 @@ const MyPage = () => {
       sessionStorage.getItem("jwt") === null &&
       (cookies.cookie === undefined || cookies.cookie === "undefined")
     ) {
-      history.push("/login");
+      history.push({
+        pathname: '/login',
+        state: { isBack: false }
+      })
     }
 
     axios
