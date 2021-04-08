@@ -19,7 +19,7 @@ const Main = () => {
     sessionStorage.removeItem("jwt");
     removeCookie("cookie");
     alert("로그아웃이 완료되었습니다.");
-    history.push("./");
+    history.go(0);
   };
 
   useEffect(() => {
