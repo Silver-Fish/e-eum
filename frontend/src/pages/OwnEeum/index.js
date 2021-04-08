@@ -76,7 +76,7 @@ const OwnEeum = () => {
         setOwncardDatas(res.data);
       })
       .catch((err) => {
-        console.log(err);
+
       });
   }, [cookies.cookie, token]);
   const editCard = () => {
@@ -119,25 +119,6 @@ const OwnEeum = () => {
   const addCard = () => {
     setAdd(!isAdd);
   };
-  // const speechClick = () => {
-  //   const target = document.querySelectorAll("#speechCard")
-  //   for(let i=0; i<speechList.length; i++) {
-      
-  //     let audioLength = 0
-  //     for(let j=0; j<i; j++) {
-  //       audioLength += (speechList[j][1]*1000)
-        
-  //     }
-  //     setTimeout(()=> {
-  //       target[i].style.borderColor="red"
-  //       audio = new Audio(speechList[i][0])
-  //       audio.load()
-  //       playAudio()
-  //   },audioLength)
-      
-  //   }
-  // };
-
 
   const speechClick = () => {
     let audioLength = [0]
@@ -191,7 +172,10 @@ const OwnEeum = () => {
 
   const noLogin = () => {
     alert('로그인 해주세요');
-    history.push('./login');
+    history.push({
+      pathname: '/login',
+      state: { isBack: true }
+    })
   };
 
   return (

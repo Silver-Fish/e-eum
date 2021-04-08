@@ -8,7 +8,9 @@ import InputComp from "../../components/InputComp/InputComp";
 import styles from "./index.module.css";
 import { useCookies } from "react-cookie";
 
-const Login = () => {
+const Login = (props) => {
+  const isBack = props.location.state.isBack
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [autoLogin, setAutoLogin] = useState("");
@@ -49,7 +51,17 @@ const Login = () => {
           if (autoLogin) {
             setCookieFunc();
           }
-          history.go(-1);
+          
+          if (isBack === true){
+            history.go(-1);
+          }
+          else {
+            history.push({
+              pathname: '/',
+            })
+          }
+          
+          
         } else {
           if (email === "" && password === "") {
             alert("이메일과 비밀번호를 입력해 주세요.");

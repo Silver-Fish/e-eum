@@ -106,7 +106,10 @@ const FindPassword = () => {
             <button
               className={styles.cancel_button}
               onClick={(e) => {
-                history.push("/login");
+                history.push({
+                  pathname: '/login',
+                  state: { isBack: false }
+                })
               }}
             >
               취소

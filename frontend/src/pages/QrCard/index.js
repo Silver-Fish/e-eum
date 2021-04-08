@@ -79,7 +79,6 @@ const QrCard = ({ match }) => {
       })
       .catch((err) => {
         alert('QR 카드를 불러오기를 실패했습니다. 다시 시도해 주세요.');
-        history.go(0)
       });
       
   }, [qrId, token, cookies]);
@@ -117,7 +116,10 @@ const QrCard = ({ match }) => {
   }
   const noLogin = () => {
     alert('로그인 해주세요');
-    history.push('/login');
+    history.push({
+      pathname: '/login',
+      state: { isBack: true }
+    })
   };
 
   const [speechBoxDatas, setSpeechBoxDatas] = useState([]);

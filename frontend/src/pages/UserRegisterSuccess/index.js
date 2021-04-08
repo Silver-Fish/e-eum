@@ -8,16 +8,20 @@ const UserRegisterSuccess = () => {
   const history = useHistory();
   useEffect(() => {
     setTimeout(function () {
-      history.push('/login');
+      history.push({
+        pathname: '/login',
+        state: { isBack: false }
+      })
     }, 3000);
   });
+
   return (
     <div className={styles.success_box}>
       <HeaderComp headertitle="회원가입 완료" />
       {/* <div className={styles.success_title}>회원가입 완료</div> */}
       <img className={styles.success_box_img} src="/images/moca" alt=""/>
       <div className={styles.go_login_box}>
-        <UserButtonComp textValue="로그인 하러가기" handleClick="login"></UserButtonComp>
+        <p>3초 후 로그인페이지로 이동합니다.</p>
       </div>
     </div>
   );
