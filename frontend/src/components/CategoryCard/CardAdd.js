@@ -128,7 +128,9 @@ const CardAdd = (props) => {
             });
         })
         .catch((err) => {
-          console.log(err);
+          alert(
+            "카드생성 도중 오류가 발생했습니다. 다시 한번 시도해주세요."
+          );
         });
     }
   };

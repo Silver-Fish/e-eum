@@ -71,7 +71,9 @@ const CardEdit = (props) => {
             });
         })
         .catch((err) => {
-          console.log(err);
+          alert(
+            "카드수정 도중 오류가 발생했습니다. 다시 한번 시도해주세요."
+          );
         });
     }
   };
@@ -120,7 +122,7 @@ const CardEdit = (props) => {
         })
         .catch((err) => {
           // catch dom exception
-          console.info(err);
+          alert('오디오 재생에 실패하였습니다.')
         });
     }
   };
