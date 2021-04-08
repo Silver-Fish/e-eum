@@ -18,6 +18,7 @@ const HeaderComp = (props) => {
   const mypageClick = (e) => {
     if (sessionStorage.getItem('jwt') !== null){ 
       history.push('/myPage')
+      setModal(!isModal)
     }else 
     {
       alert('로그인을 해주세요')
@@ -30,13 +31,16 @@ const HeaderComp = (props) => {
   };
   const ownEeumClick = (e) => {
     history.push('/OwnEeum');
+    setModal(!isModal)
   };
   const situationEeumClick = (e) => {
     history.push('/category');
+    setModal(!isModal)
   };
   const qrEeumClick = (e) => {
     if (sessionStorage.getItem('jwt') !== null) {
       history.push('/qr');
+      setModal(!isModal)
     }else 
     {
       alert('로그인을 해주세요')
@@ -49,9 +53,11 @@ const HeaderComp = (props) => {
   };
   const settingClick = (e) => {
     history.push('/setting');
+    setModal(false);
   };
   const helpClick = (e) => {
     history.push('/help');
+    setModal(false);
   };
 
   const onSearch = (e) => {

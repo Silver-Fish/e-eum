@@ -32,7 +32,7 @@ const CardEdit = (props) => {
 
   const editCard = () => {
     if (special_pattern.test(cardName)) {
-      alert("?와 . 를 제외한 특수문자는 사용할 수 없습니다.");
+      alert("?를 제외한 특수문자는 사용할 수 없습니다.");
     } else if (special_pattern2.test(cardName)) {
       alert("자음 또는 모음만 있는 문장은 사용할 수 없습니다.");
     } else if (
@@ -58,7 +58,6 @@ const CardEdit = (props) => {
         .catch((err) => {
           alert("카드수정 도중 오류가 발생했습니다. 다시 한번 시도해주세요.");
           setLoading(!isLoading);
-          
         });
     }
   };
