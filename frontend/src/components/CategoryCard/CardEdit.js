@@ -14,7 +14,7 @@ const CardEdit = (props) => {
   const categoryId = props.categoryId;
   let audio = "";
   const special_pattern = /[`~!@#$%^&*,|\\\'\";:\/]/gi;
-  const special_pattern2 = /([^가-힣0-9a-zA-Z\x20])/i;
+  const special_pattern2 = /([^가-힣0-9a-zA-Z?\x20])/i;
 
   const onInputChange = (e) => {
     if (e.target.value.length > 10) {
