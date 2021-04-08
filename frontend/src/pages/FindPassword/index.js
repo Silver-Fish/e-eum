@@ -60,7 +60,10 @@ const FindPassword = () => {
           if (res.status === 200) {
             alert("비밀번호 변경이 완료되었습니다.");
             setTimeout(function () {
-              history.push("/login");
+              history.push({
+                pathname: '/login',
+                state: { isBack: false }
+              })
             }, 1000);
           }
         })
