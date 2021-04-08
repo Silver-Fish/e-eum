@@ -15,8 +15,8 @@ const CardAdd = (props) => {
   const [isLoading, setLoading] = useState(false);
   const [speechLoading, setSpeechLoading] = useState(false);
   let audio = "";
-  const special_pattern = /[`~!@#$%^&*,|\\\'\";:\/]/gi;
-  const special_pattern2 = /([^가-힣0-9a-zA-Z\x20])/i;
+  const special_pattern = /[`~!@#$%^&*,|\\\'\";:\/.]/gi;
+  const special_pattern2 = /([^가-힣0-9a-zA-Z?\x20])/i;
   const onImageChange = function (e) {
     setImgFile(e.target.files[0]);
     setImg(URL.createObjectURL(e.target.files[0]));

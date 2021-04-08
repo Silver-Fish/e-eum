@@ -30,7 +30,6 @@ const Main = () => {
     ) {
       sessionStorage.setItem("jwt", cookies.cookie);
       setCheckLogin(sessionStorage.getItem("jwt"));
-      console.log(sessionStorage.getItem("jwt"));
     }
   }, [checkLogin, cookies.cookie]);
 
