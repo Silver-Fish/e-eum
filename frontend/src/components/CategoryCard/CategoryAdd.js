@@ -26,17 +26,6 @@ const CategoryAdd = (props) => {
     }
   }
   
-  // const checkInput = (e) => {
-  //   const soloChar = /[ㄱ-ㅎㅏ-ㅣㆍ ᆢ]/g
-  //   const reg = /[\{\}\[\]\/,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi
-  //   const korea = /[ㄱ-ㅎㅏ-ㅣ가-힇ㆍ ᆢ]/g
-  //   // const pattern = e.target.value.match(korea);
-  //   // console.log(pattern)
-    
-  //   console.log(e.target.value[e.target.value.length-1])
-  //   // console.log(soloChar.test(e.target.value)) // 단일 글자만 있는지 판단
-  //   // console.log(reg.test(e.target.value))
-  // }
 
   const addCategory = () => {
     setLoading(!isLoading)
@@ -89,7 +78,6 @@ const CategoryAdd = (props) => {
           onChange={onInputChange}
           defalutvalue={categoryName}
           placeholder='상황 이름'
-          // onKeyUp={checkInput}
           maxLength='10'/>
         <p className={styles.count_Name}>{lenCategoryName}/10</p>
       </div>

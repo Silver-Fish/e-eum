@@ -79,7 +79,6 @@ const QrCard = ({ match }) => {
       })
       .catch((err) => {
         alert('QR 카드를 불러오기를 실패했습니다. 다시 시도해 주세요.');
-        history.go(0)
       });
       
   }, [qrId, token, cookies]);
@@ -117,7 +116,10 @@ const QrCard = ({ match }) => {
   }
   const noLogin = () => {
     alert('로그인 해주세요');
-    history.push('/login');
+    history.push({
+      pathname: '/login',
+      state: { isBack: true }
+    })
   };
 
   const [speechBoxDatas, setSpeechBoxDatas] = useState([]);
@@ -135,6 +137,10 @@ const QrCard = ({ match }) => {
           data.voiceUrl.voiceUrl,
           data.voiceLength.voiceLength]
         ])
+      setTimeout(()=>{
+        const targetSpeechItemBox = document.querySelector('#speechItemBox')
+        targetSpeechItemBox.scrollLeft += 9999999999999999
+      }, 50)
   };
 
   const deleteClick = () => {
@@ -173,19 +179,52 @@ const QrCard = ({ match }) => {
     <SpeechBoxCard key={i} textValue={speech[0]} cardUrl={speech[1]}></SpeechBoxCard>
   ));
 
+  // const speechClick = () => {
+  //   for(let i=0; i<speechList.length; i++) {
+  //     let audioLength = 0
+  //     for(let j=0; j<i; j++) {
+  //       audioLength += (speechList[j][1]*1000)
+  //     }
+  //     setTimeout(()=> {
+  //     audio = new Audio(speechList[i][0])
+  //     audio.load()
+  //     playAudio()
+  //   },audioLength)
+  //   }
+  // };
   const speechClick = () => {
+    let audioLength = [0]
+    const target = document.querySelectorAll("#speechCard")
     for(let i=0; i<speechList.length; i++) {
-      let audioLength = 0
-      for(let j=0; j<i; j++) {
-        audioLength += (speechList[j][1]*1000)
+      
+      let tempLength = 0
+      for(let j=0; j<=i; j++) {        
+        tempLength += (speechList[j][1]*1000) 
       }
-      setTimeout(()=> {
-      audio = new Audio(speechList[i][0])
-      audio.load()
-      playAudio()
-    },audioLength)
+      audioLength.push(tempLength)
     }
-  };
+    for(let i=0; i<speechList.length; i++) {
+      setTimeout(()=> {
+        if (0 < i  && i<speechList.length){
+          target[i-1].style.borderColor="black"
+          target[i-1].style.borderWidth="1px"
+        }     
+        if (i === speechList.length-1){
+          console.log(i)
+          setTimeout(()=> {
+            target[i].style.borderColor="black"
+            target[i].style.borderWidth="1px"
+          }, audioLength[speechList.length]-audioLength[speechList.length-1])
+        }
+        target[i].style.borderColor="#8A9C3A"
+        target[i].style.borderWidth="3px"
+        audio = new Audio(speechList[i][0])
+        audio.load()
+        playAudio()
+      }, audioLength[i])
+    }
+  }
+
   const playAudio = () => {
     const audioPromise = audio.play()
     if (audioPromise !== undefined) {
@@ -212,7 +251,7 @@ const QrCard = ({ match }) => {
             <div className={styles.qrcard_box}>
               <HearderComp headertitle={qrName} headerColor={pageColor}></HearderComp>
               <div className={styles.speech_box}>
-                <div className={styles.speech_item_box} onClick={speechClick}>{speechBoxList}</div>
+                <div id="speechItemBox" className={styles.speech_item_box} onClick={speechClick}>{speechBoxList}</div>
 
                 <button onClick={deleteClick} className={styles.speech_cancel}>
                   <img src="/images/close.svg" alt="" />

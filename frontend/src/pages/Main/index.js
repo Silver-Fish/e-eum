@@ -10,13 +10,16 @@ const Main = () => {
   const [checkLogin, setCheckLogin] = useState(sessionStorage.getItem("jwt"));
   const [cookies, removeCookie] = useCookies(["cookie"]);
   const handleInClick = (e) => {
-    history.push("./login");
+    history.push({
+      pathname: '/login',
+      state: { isBack: false }
+    })
   };
   const handleOutClick = (e) => {
     sessionStorage.removeItem("jwt");
     removeCookie("cookie");
-    alert("로그아웃 완료");
-    history.push("./");
+    alert("로그아웃이 완료되었습니다.");
+    history.go(0);
   };
 
   useEffect(() => {
@@ -27,7 +30,6 @@ const Main = () => {
     ) {
       sessionStorage.setItem("jwt", cookies.cookie);
       setCheckLogin(sessionStorage.getItem("jwt"));
-      console.log(sessionStorage.getItem("jwt"));
     }
   }, [checkLogin, cookies.cookie]);
 

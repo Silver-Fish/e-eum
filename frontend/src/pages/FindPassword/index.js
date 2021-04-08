@@ -32,11 +32,11 @@ const FindPassword = () => {
         if (res.status === 200) {
           setModal(true);
         } else {
-          alert("이메일 또는 이름 오류");
+          alert("이메일 또는 이름이 틀렸습니다.");
         }
       })
       .catch((err) => {
-        alert("오류발생");
+        alert("유저정보 확인 실패했습니다. 다시 시도해주세요.");
       });
   };
   const onPasswordHandler = (e) => {
@@ -58,14 +58,19 @@ const FindPassword = () => {
         .put(process.env.REACT_APP_API_URL + "/accounts/reset-pw", userData)
         .then((res) => {
           if (res.status === 200) {
-            alert("변경완료");
+            alert("비밀번호 변경이 완료되었습니다.");
             setTimeout(function () {
-              history.push("/login");
+              history.push({
+                pathname: '/login',
+                state: { isBack: false }
+              })
             }, 1000);
           }
         })
         .catch((err) => {
-          alert("변경실패");
+          alert(
+            "비밀번호 변경 중에 오류가 발생했습니다. 잠시 후에 다시 시도해주세요."
+          );
         });
     }
   };
@@ -102,16 +107,17 @@ const FindPassword = () => {
             </button>
 
             <button
-            className={styles.cancel_button}
-            onClick={(e) => {
-              history.push("/login");
-            }}
-          >
-            취소
-          </button>
-
+              className={styles.cancel_button}
+              onClick={(e) => {
+                history.push({
+                  pathname: '/login',
+                  state: { isBack: false }
+                })
+              }}
+            >
+              취소
+            </button>
           </form>
-
         </>
       ) : (
         <>

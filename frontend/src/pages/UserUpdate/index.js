@@ -1,16 +1,16 @@
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import HeaderComp from '../../components/HeaderComp/HeaderComp';
-import styles from './index.module.css';
-import { useCookies } from 'react-cookie';
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import HeaderComp from "../../components/HeaderComp/HeaderComp";
+import styles from "./index.module.css";
+import { useCookies } from "react-cookie";
 const UserUpdate = () => {
   const history = useHistory();
-  const [cookies] = useCookies(['cookie']);
-  const [password, setPassword] = useState('');
-  const [newpassword, setNewPassword] = useState('');
-  const [passwordcheck, setPasswordCheck] = useState('');
-  const [message, setMessage] = useState('');
+  const [cookies] = useCookies(["cookie"]);
+  const [password, setPassword] = useState("");
+  const [newpassword, setNewPassword] = useState("");
+  const [passwordcheck, setPasswordCheck] = useState("");
+  const [message, setMessage] = useState("");
 
   const onNewPasswordHandler = (e) => {
     setNewPassword(e.currentTarget.value);
@@ -26,53 +26,55 @@ const UserUpdate = () => {
 
   useEffect(() => {
     if (
-      sessionStorage.getItem('jwt') === null &&
+      sessionStorage.getItem("jwt") === null &&
       cookies.cookie !== undefined &&
-      cookies.cookie !== 'undefined'
+      cookies.cookie !== "undefined"
     ) {
-      history.push('/');
+      history.push("/");
     } else if (
-      sessionStorage.getItem('jwt') === null &&
-      (cookies.cookie === undefined || cookies.cookie === 'undefined')
+      sessionStorage.getItem("jwt") === null &&
+      (cookies.cookie === undefined || cookies.cookie === "undefined")
     ) {
-      history.push('/');
+      history.push("/");
     }
 
-    if (newpassword === '' && passwordcheck === '') setMessage('');
+    if (newpassword === "" && passwordcheck === "") setMessage("");
     else if (
-      (passwordcheck !== '' && newpassword === '') ||
-      (passwordcheck === '' && newpassword !== '')
+      (passwordcheck !== "" && newpassword === "") ||
+      (passwordcheck === "" && newpassword !== "")
     )
-      setMessage('비밀번호를 입력해주세요');
-    else if (passwordcheck === newpassword) setMessage('비밀번호가 일치합니다.');
-    else if (passwordcheck !== newpassword) setMessage('비밀번호가 일치하지 않습니다.');
+      setMessage("비밀번호를 입력해주세요");
+    else if (passwordcheck === newpassword)
+      setMessage("비밀번호가 일치합니다.");
+    else if (passwordcheck !== newpassword)
+      setMessage("비밀번호가 일치하지 않습니다.");
   }, [newpassword, passwordcheck, cookies.cookie, history]);
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    if (newpassword === passwordcheck && newpassword !== '') {
+    if (newpassword === passwordcheck && newpassword !== "") {
       const userData = {
         currentPw: password,
         newPw: newpassword,
       };
       axios
-        .put(process.env.REACT_APP_API_URL + '/accounts/update-pw', userData, {
+        .put(process.env.REACT_APP_API_URL + "/accounts/update-pw", userData, {
           headers: {
-            Authorization: sessionStorage.getItem('jwt'),
+            Authorization: sessionStorage.getItem("jwt"),
           },
         })
         .then((suc) => {
           if (suc.status === 200) {
-            alert('비밀번호변경 성공');
-            history.push('/myPage');
+            alert("비밀번호 변경이 완료되었습니다.");
+            history.push("/myPage");
           } else {
-            alert('비밀번호 변경 실패');
-            console.log('Password U  : status가 200아님');
+            alert("비밀번호 변경을 실패했습니다.");
           }
         })
         .catch((err) => {
-          console.log('Password U : err났어잇');
-          console.log(err);
+          alert(
+            "비밀번호 변경 중에 오류가 발생했습니다. 잠시 후에 다시 시도해주세요."
+          );
         });
     }
   };
@@ -120,7 +122,7 @@ const UserUpdate = () => {
         <button
           className={styles.cancel_button}
           onClick={(e) => {
-            history.push('/myPage');
+            history.push("/myPage");
           }}
         >
           취소

@@ -4,6 +4,8 @@ import HearderComp from '../HeaderComp/HeaderComp';
 import styles from './QrEdit.module.css';
 import { useHistory } from 'react-router-dom';
 import QrEeumLoader from '../../components/Loader/QrEeumLoader';
+import DelModal from './DelModal';
+import Loader from '../Loader/Loader'
 
 const QrEdit = (props) => {
   const qrId = props.selectedQrId;
@@ -13,12 +15,16 @@ const QrEdit = (props) => {
   const [selectedQrName, setSelectedQrName] = useState(props.selectedQrName);
   let [lenQrName, setlenQrName] = useState(props.selectedQrName.length)
   const [isEeumLoading, setEeumLoading] = useState(false);
+  const [isDelModal, setDelModal] = useState(false)  
+  const [isLoading, setLoading] = useState(false);
   const onUpdateHandler = () => {
+    setLoading(!isLoading)
     const data = {
       title: selectedQrName,
     };
     if (selectedQrName === '') {
       alert('QR이름을 입력해주세요');
+      setLoading(!isLoading)
     } else {
       axios
         .put(process.env.REACT_APP_API_URL + '/qr/' + qrId, data, {
@@ -27,17 +33,19 @@ const QrEdit = (props) => {
           },
         })
         .then((res) => {
-          console.log(res);
+          
           if (res.status === 204) {
+            setLoading(!isLoading)
             history.go(0);
           } else {
             alert('QR수정 도중 오류가 발생했습니다. 다시 한번 시도해주세요.')
-            history.go(0);
+            setLoading(!isLoading)
+            
           }
         })
         .catch((err) => {
           alert('QR수정 도중 오류가 발생했습니다. 다시 한번 시도해주세요.')
-          history.go(0);
+          setLoading(!isLoading)
         });
     }
   };
@@ -70,25 +78,7 @@ const QrEdit = (props) => {
   }
 
   const onDeleteHandler = () => {
-    axios
-      .delete(process.env.REACT_APP_API_URL + '/qr/' + qrId, {
-        headers: {
-          Authorization: sessionStorage.getItem('jwt'),
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        if (res.status === 204) {
-          history.go(0);
-        } else {
-          alert('QR삭제 도중 오류가 발생했습니다. 다시 한번 시도해주세요.')
-          history.go(0);
-        }
-      })
-      .catch((err) => {
-        alert('QR삭제 도중 오류가 발생했습니다. 다시 한번 시도해주세요.')
-        history.go(0);
-      });
+    setDelModal(!isDelModal)
   };
   const onTitleHandler = (e) => {
     if (e.target.value.length > 10){
@@ -101,11 +91,26 @@ const QrEdit = (props) => {
 
   return (
     <>
+      { isDelModal == true 
+      ?(<DelModal 
+        onDeleteHandler={onDeleteHandler}
+        qrId={qrId}
+        ></DelModal>)
+      :('')
+      }
+      
       { isEeumLoading === true 
-      ? (<QrEeumLoader></QrEeumLoader>)
+      ? 
+      (
+        <QrEeumLoader></QrEeumLoader>
+      )
       : ''}
       <>
       <HearderComp headertitle="QR 설정" headerColor="yellow"></HearderComp>
+      { isLoading === true 
+      ?(<Loader></Loader>)
+      :( 
+      <>
       <div className={styles.qr_name_input_box}>
         <input
           className={styles.qr_name_input}
@@ -136,6 +141,9 @@ const QrEdit = (props) => {
           수정
         </button>
       </div>
+      </>
+      )
+      }
       </>
     </>
   );

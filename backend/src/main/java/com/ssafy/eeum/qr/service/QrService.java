@@ -54,6 +54,8 @@ public class QrService {
     @Value("${apiPassword}")
     private String password;
 
+    @Value("${eeum.serverUrl}")
+    private String serverUrl;
 
     private final QrRepository qrRepository;
     private final AccountRepository accountRepository;
@@ -145,7 +147,7 @@ public class QrService {
         String clientId = id;
         String clientSecret = password;
 
-        String originalURL = "https://dev.e-eum.kr/qr/" + qrId;
+        String originalURL = serverUrl+ qrId;
         String apiURL = "https://openapi.naver.com/v1/util/shorturl?url=" + originalURL;
 
         Map<String, String> requestHeaders = new HashMap<>();

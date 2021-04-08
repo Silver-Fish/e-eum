@@ -15,8 +15,10 @@ const UserRegister = () => {
   const [check, isCheck] = useState(false);
   const history = useHistory();
   const [isLoading, setLoading] = useState(false);
+  const regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
   const onEmailHandler = (e) => {
+    isCheck(false);
     setEmail(e.currentTarget.value);
   };
 
@@ -56,11 +58,13 @@ const UserRegister = () => {
           if (res.data === "Created") {
             history.push("./userRegisterSuccess");
           } else {
-            alert("회원가입실패");
+            alert("회원가입에 실패하였습니다.");
           }
         })
         .catch((err) => {
-          console.log(err);
+          alert(
+            "회원 가입 중에 오류가 발생했습니다. 잠시 후에 다시 시도해주세요."
+          );
         });
     } else if (password !== passwordcheck) {
       alert("비밀번호를 확인해주세요.");
@@ -89,9 +93,9 @@ const UserRegister = () => {
 
   const onEmailCheck = (e) => {
     e.preventDefault();
-
-    console.log("중복체크");
-    if (email !== "") {
+    if (!regExp.test(email)) {
+      alert("이메일 형식이 아닙니다");
+    } else {
       axios
         .get(
           process.env.REACT_APP_API_URL + "/accounts/check-dup?email=" + email
@@ -106,16 +110,19 @@ const UserRegister = () => {
           }
         })
         .catch((err) => {
-          alert("중복에러");
-          console.log(err.response);
+          alert(
+            "이메일 중복 확인 중에 발생했습니다. 잠시 후에 다시 시도해주세요."
+          );
         });
     }
   };
 
   const onCancelButton = (e) => {
     e.preventDefault();
-    console.log("취소");
-    history.push("./login");
+    history.push({
+      pathname: '/login',
+      state: { isBack: false }
+    })
   };
 
   return (

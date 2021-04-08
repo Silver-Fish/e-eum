@@ -3,7 +3,6 @@ import styles from './QrList.module.css';
 import { useHistory } from 'react-router-dom';
 
 const QrList = (props) => {
-  console.log(props);
   const history = useHistory();
   const qrName = props.qrName;
   const qrId = props.qrId;
