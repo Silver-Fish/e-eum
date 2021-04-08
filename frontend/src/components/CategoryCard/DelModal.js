@@ -20,7 +20,7 @@ const DelModal= (props) => {
       history.go(0)
     })
     .catch((err) => {
-      console.log(err)
+      alert('삭제에 실패하였습니다. 잠시 후에 시도해주세요...')
     })
 
   }
