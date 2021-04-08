@@ -52,9 +52,8 @@ const Category = () => {
       cookies.cookie !== undefined &&
       cookies.cookie !== "undefined"
     ) {
-      console.log("힝");
-      sessionStorage.setItem("jwt", cookies.cookie);
-      setToken(sessionStorage.getItem("jwt"));
+      sessionStorage.setItem('jwt', cookies.cookie);
+      setToken(sessionStorage.getItem('jwt'));
     }
 
     axios
@@ -67,7 +66,7 @@ const Category = () => {
         setCategoryDatas(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        alert("상황들을 불러오지 못하였습니다.");
       });
   }, [cookies.cookie, token]);
 
@@ -221,19 +220,6 @@ const Category = () => {
     alert("로그인 해주세요");
     history.push("./login");
   };
-  // const speechClick = () => {
-  //   for(let i=0; i<speechList.length; i++) {
-  //     let audioLength = 0
-  //     for(let j=0; j<i; j++) {
-  //       audioLength += (speechList[j][1]*1000)
-  //     }
-  //     setTimeout(()=> {
-  //     audio = new Audio(speechList[i][0])
-  //     audio.load()
-  //     playAudio()
-  //   },audioLength)
-  //   }
-  // };
   const speechClick = () => {
     let audioLength = [0];
     const target = document.querySelectorAll("#speechCard");
@@ -275,8 +261,8 @@ const Category = () => {
         })
         .catch((err) => {
           // catch dom exception
-          console.info(err);
-        });
+          alert('오디오 재생에 실패하였습니다.')
+        })
     }
   };
 
