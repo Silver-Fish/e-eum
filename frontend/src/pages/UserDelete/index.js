@@ -43,8 +43,9 @@ const UserDelete = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
-        alert("오류가 발생했습니다. 잠시 후에 다시 시도해주세요.");
+        alert(
+          "회원 탈퇴 중에오류가 발생했습니다. 잠시 후에 다시 시도해주세요."
+        );
       });
   };
 

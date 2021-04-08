@@ -36,8 +36,9 @@ const FindPassword = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
-        alert("오류가 발생했습니다. 잠시 후에 다시 시도해주세요.");
+        alert(
+          "유저정보 확인 중에 오류가 발생했습니다. 잠시 후에 다시 시도해주세요."
+        );
       });
   };
   const onPasswordHandler = (e) => {
@@ -66,8 +67,9 @@ const FindPassword = () => {
           }
         })
         .catch((err) => {
-          console.log(err);
-          alert("오류가 발생했습니다. 잠시 후에 다시 시도해주세요.");
+          alert(
+            "비밀번호 변경 중에 오류가 발생했습니다. 잠시 후에 다시 시도해주세요."
+          );
         });
     }
   };

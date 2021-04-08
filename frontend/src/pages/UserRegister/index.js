@@ -62,8 +62,9 @@ const UserRegister = () => {
           }
         })
         .catch((err) => {
-          console.log(err);
-          alert("오류가 발생했습니다. 잠시 후에 다시 시도해주세요.");
+          alert(
+            "회원 가입 중에 오류가 발생했습니다. 잠시 후에 다시 시도해주세요."
+          );
         });
     } else if (password !== passwordcheck) {
       alert("비밀번호를 확인해주세요.");
@@ -109,8 +110,9 @@ const UserRegister = () => {
           }
         })
         .catch((err) => {
-          alert("오류가 발생했습니다. 잠시 후에 다시 시도해주세요.");
-          console.log(err.response);
+          alert(
+            "이메일 중복 확인 중에 발생했습니다. 잠시 후에 다시 시도해주세요."
+          );
         });
     }
   };
