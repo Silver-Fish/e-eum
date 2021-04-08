@@ -36,9 +36,7 @@ const FindPassword = () => {
         }
       })
       .catch((err) => {
-        alert(
-          "유저정보 확인 중에 오류가 발생했습니다. 잠시 후에 다시 시도해주세요."
-        );
+        alert("유저정보 확인 실패했습니다. 다시 시도해주세요.");
       });
   };
   const onPasswordHandler = (e) => {
