@@ -3,10 +3,13 @@ import HearderComp from '../HeaderComp/HeaderComp';
 import styles from './QrRegister.module.css';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import Loader from '../Loader/Loader'
+
 const QrRegister = (props) => {
   const history = useHistory();
   const [title, setTitle] = useState('');
   let [lenQrName, setlenQrName] = useState(0)
+  const [isLoading, setLoading] = useState(false);
   const onTitleHandler = (e) => {
 
     if (e.target.value.length > 10){
@@ -17,8 +20,10 @@ const QrRegister = (props) => {
     }
   };
   const onRegisterHandler = () => {
+    setLoading(!isLoading)
     if (title === '') {
       alert('QR이름을 입력하세요');
+      setLoading(!isLoading)
     } else {
       const qrInsertRequest = {
         title: title,
@@ -30,24 +35,31 @@ const QrRegister = (props) => {
           },
         })
         .then((res) => {
-          console.log(res);
+          
           if (res.status === 200) {
+            setLoading(!isLoading)
             history.go(0);
           } else {
             alert('QR등록 도중 오류가 발생했습니다. 다시 한번 시도해주세요.')
-            
+            setLoading(!isLoading)
           }
         })
         .catch((err) => {
           alert('QR등록 도중 오류가 발생했습니다. 다시 한번 시도해주세요.')
-          
+          setLoading(!isLoading)
         });
     }
   };
 
   return (
     <>
+
       <HearderComp headertitle="QR 등록" headerColor="yellow"></HearderComp>
+      { isLoading === true
+      ?(<Loader></Loader>)
+      :
+      (
+      <>
       <div className={styles.qr_name_input_box}>
         <input
           className={styles.qr_name_input}
@@ -70,6 +82,9 @@ const QrRegister = (props) => {
           등록
         </button>
       </div>
+      </>
+      )
+      }
     </>
   );
 };
