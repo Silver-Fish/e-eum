@@ -40,6 +40,14 @@ const OwnEeum = () => {
         data.voiceUrl.voiceUrl,
         data.voiceLength.voiceLength]
       ])
+    
+    setTimeout(()=>{
+      const targetSpeechItemBox = document.querySelector('#speechItemBox')
+      targetSpeechItemBox.scrollLeft += 9999999999999999
+    }, 50)
+      
+
+
   };
   const deleteClick = () => {
     speechBoxDatas.pop();
@@ -111,19 +119,62 @@ const OwnEeum = () => {
   const addCard = () => {
     setAdd(!isAdd);
   };
+  // const speechClick = () => {
+  //   const target = document.querySelectorAll("#speechCard")
+  //   for(let i=0; i<speechList.length; i++) {
+      
+  //     let audioLength = 0
+  //     for(let j=0; j<i; j++) {
+  //       audioLength += (speechList[j][1]*1000)
+        
+  //     }
+  //     setTimeout(()=> {
+  //       target[i].style.borderColor="red"
+  //       audio = new Audio(speechList[i][0])
+  //       audio.load()
+  //       playAudio()
+  //   },audioLength)
+      
+  //   }
+  // };
+
+
   const speechClick = () => {
+    let audioLength = [0]
+    const target = document.querySelectorAll("#speechCard")
     for(let i=0; i<speechList.length; i++) {
-      let audioLength = 0
-      for(let j=0; j<i; j++) {
-        audioLength += (speechList[j][1]*1000)
+      
+      let tempLength = 0
+      for(let j=0; j<=i; j++) {        
+        tempLength += (speechList[j][1]*1000) 
       }
-      setTimeout(()=> {
-      audio = new Audio(speechList[i][0])
-      audio.load()
-      playAudio()
-    },audioLength)
+      audioLength.push(tempLength)
     }
+    for(let i=0; i<speechList.length; i++) {
+      setTimeout(()=> {
+        if (0 < i  && i<speechList.length){
+          target[i-1].style.borderColor="black"
+          target[i-1].style.borderWidth="1px"
+        }     
+        if (i === speechList.length-1){
+          console.log(i)
+          setTimeout(()=> {
+            target[i].style.borderColor="black"
+            target[i].style.borderWidth="1px"
+          }, audioLength[speechList.length]-audioLength[speechList.length-1])
+        }
+        target[i].style.borderColor="#8A9C3A"
+        target[i].style.borderWidth="3px"
+        audio = new Audio(speechList[i][0])
+        audio.load()
+        playAudio()
+      }, audioLength[i])
+    }
+    
+    
   };
+
+
   const playAudio = () => {
     const audioPromise = audio.play()
     if (audioPromise !== undefined) {
@@ -152,7 +203,7 @@ const OwnEeum = () => {
               <HeaderComp headertitle="나만의 이음"></HeaderComp>
               <div className={styles.speech_box}>
                 <>
-                <div className={styles.speech_item_box} onClick={speechClick}>{speechBoxList}</div>
+                <div id='speechItemBox' className={styles.speech_item_box} onClick={speechClick}>{speechBoxList}</div>
 
                 <button onClick={deleteClick} className={styles.speech_cancel}>
                   <img src="/images/close.svg" alt="" />

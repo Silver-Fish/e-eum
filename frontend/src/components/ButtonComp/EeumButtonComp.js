@@ -9,7 +9,6 @@ const EeumButtonComp = (props) => {
   const buttonImg = props.buttonImg;
   
   const handleClick = (e) => {    
-    console.log(props.handleClickPath)
     if (props.handleClickPath === '/login'){
       alert('로그인 해주세요')
     }
