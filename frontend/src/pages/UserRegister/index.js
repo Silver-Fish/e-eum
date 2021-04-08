@@ -15,8 +15,10 @@ const UserRegister = () => {
   const [check, isCheck] = useState(false);
   const history = useHistory();
   const [isLoading, setLoading] = useState(false);
+  const regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
   const onEmailHandler = (e) => {
+    isCheck(false);
     setEmail(e.currentTarget.value);
   };
 
@@ -90,7 +92,9 @@ const UserRegister = () => {
 
   const onEmailCheck = (e) => {
     e.preventDefault();
-    if (email !== "") {
+    if (!regExp.test(email)) {
+      alert("이메일 형식이 아닙니다");
+    } else {
       axios
         .get(
           process.env.REACT_APP_API_URL + "/accounts/check-dup?email=" + email
