@@ -14,6 +14,14 @@
 - https://www.kaggle.com/bryanpark/korean-single-speaker-speech-dataset
 
 
+#### 서버 포트 열기
+
+app.py
+```python
+app.run(debug=True, host=[원하는 IP주소], port=[원하는 포트번호])
+```
+
+
 
 #### 서버 실행
 
