@@ -38,7 +38,7 @@ const Card = (props) => {
         })
         .catch(err => {
           // catch dom exception
-          console.info(err)
+          alert('오디오 재생에 실패하였습니다.')
         })
     }
   }

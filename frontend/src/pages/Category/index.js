@@ -1,64 +1,63 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import styles from './index.module.css';
-import HeaderComp from '../../components/HeaderComp/HeaderComp';
-import CategoryCard from '../../components/CategoryCard/CategoryCard';
-import Card from '../../components/CategoryCard/Card';
-import SpeechBoxCard from '../../components/CategoryCard/SpeechBoxCard';
-import CategoryAdd from '../../components/CategoryCard/CategoryAdd';
-import CategoryEdit from '../../components/CategoryCard/CategoryEdit';
-import CardAdd from '../../components/CategoryCard/CardAdd';
-import CardEdit from '../../components/CategoryCard/CardEdit';
-import axios from 'axios';
-import { useHistory } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
-import DelModal from '../../components/CategoryCard/DelModal';
+import styles from "./index.module.css";
+import HeaderComp from "../../components/HeaderComp/HeaderComp";
+import CategoryCard from "../../components/CategoryCard/CategoryCard";
+import Card from "../../components/CategoryCard/Card";
+import SpeechBoxCard from "../../components/CategoryCard/SpeechBoxCard";
+import CategoryAdd from "../../components/CategoryCard/CategoryAdd";
+import CategoryEdit from "../../components/CategoryCard/CategoryEdit";
+import CardAdd from "../../components/CategoryCard/CardAdd";
+import CardEdit from "../../components/CategoryCard/CardEdit";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import DelModal from "../../components/CategoryCard/DelModal";
 
 const Category = () => {
   const history = useHistory();
 
-  const [token, setToken] = useState(sessionStorage.getItem('jwt'));
-  const [cookies] = useCookies(['cookie']);
-  const [headTitle, setheadTitle] = useState('상황별 이음');
+  const [token, setToken] = useState(sessionStorage.getItem("jwt"));
+  const [cookies] = useCookies(["cookie"]);
+  const [headTitle, setheadTitle] = useState("상황별 이음");
   const [isCategory, setCategory] = useState(true);
 
   const [isCategoryAdd, setCategoryAdd] = useState(false);
   const [isCategoryEdit, setCategoryEdit] = useState(false);
   const [isCategoryCardEdit, setCategoryCardEdit] = useState(false);
-  const [categoryUrl, setCategoryUrl] = useState('');
-  const [categoryName, setCategoryName] = useState('');
-  const [categoryId, setCategoryId] = useState('');
+  const [categoryUrl, setCategoryUrl] = useState("");
+  const [categoryName, setCategoryName] = useState("");
+  const [categoryId, setCategoryId] = useState("");
 
   const [isCardAdd, setCardAdd] = useState(false);
   const [isCardEdit, setCardEdit] = useState(false);
   const [isCardStateEdit, setCardStateEdit] = useState(false);
-  const [cardVoiceUrl, setCardVoiceUrl] = useState('');
-  const [cardUrl, setCardUrl] = useState('');
-  const [cardName, setCardName] = useState('');
-  const [cardId, setCardId] = useState('');
+  const [cardVoiceUrl, setCardVoiceUrl] = useState("");
+  const [cardUrl, setCardUrl] = useState("");
+  const [cardName, setCardName] = useState("");
+  const [cardId, setCardId] = useState("");
 
   const [categoryDatas, setCategoryDatas] = useState([]);
 
   const [cardDatas, setCard] = useState([]);
   const [speechBoxDatas, setSpeechBoxDatas] = useState([]);
-  const [speechList, setSpeechList] = useState([])  
+  const [speechList, setSpeechList] = useState([]);
 
-  const [isDelModal, setDelModal] = useState(false)  
-  let audio = ""
+  const [isDelModal, setDelModal] = useState(false);
+  let audio = "";
 
   useEffect(() => {
     if (
-      sessionStorage.getItem('jwt') === null &&
+      sessionStorage.getItem("jwt") === null &&
       cookies.cookie !== undefined &&
-      cookies.cookie !== 'undefined'
+      cookies.cookie !== "undefined"
     ) {
-      console.log('힝');
       sessionStorage.setItem('jwt', cookies.cookie);
       setToken(sessionStorage.getItem('jwt'));
     }
 
     axios
-      .get(process.env.REACT_APP_API_URL + '/category', {
+      .get(process.env.REACT_APP_API_URL + "/category", {
         headers: {
           Authorization: token,
         },
@@ -67,7 +66,7 @@ const Category = () => {
         setCategoryDatas(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        alert("상황들을 불러오지 못하였습니다.");
       });
   }, [cookies.cookie, token]);
 
@@ -79,22 +78,23 @@ const Category = () => {
   };
 
   const cardClick = (data) => {
-    setSpeechBoxDatas([...speechBoxDatas, 
+    setSpeechBoxDatas([
+      ...speechBoxDatas,
       [
-        data.cardName['textValue'], 
-        data.cardUrl['cardUrl'],
+        data.cardName["textValue"],
+        data.cardUrl["cardUrl"],
         data.voiceUrl.voiceUrl,
-        data.voiceLength.voiceLength]      
-      ]);
-    setSpeechList(speechList => [...speechList,
-      [
-        data.voiceUrl.voiceUrl,
-        data.voiceLength.voiceLength]
-      ])
-    setTimeout(()=>{
-      const targetSpeechItemBox = document.querySelector('#speechItemBox')
-      targetSpeechItemBox.scrollLeft += 9999999999999999
-    }, 50)
+        data.voiceLength.voiceLength,
+      ],
+    ]);
+    setSpeechList((speechList) => [
+      ...speechList,
+      [data.voiceUrl.voiceUrl, data.voiceLength.voiceLength],
+    ]);
+    setTimeout(() => {
+      const targetSpeechItemBox = document.querySelector("#speechItemBox");
+      targetSpeechItemBox.scrollLeft += 9999999999999999;
+    }, 50);
   };
 
   const deleteClick = () => {
@@ -106,7 +106,7 @@ const Category = () => {
 
   const undo = () => {
     setCategory(!isCategory);
-    setheadTitle('상황별 이음');
+    setheadTitle("상황별 이음");
   };
 
   const categoryTitle = (data) => {
@@ -121,29 +121,28 @@ const Category = () => {
   };
 
   const CardStateEdit = (data) => {
-    console.log(data)
-    setCardStateEdit(data['state']);
-    setCardName(data['name']);
-    setCardUrl(data['url']);
-    setCardId(data['cardId']);
-    setCardVoiceUrl(data['voiceUrl'])
+    console.log(data);
+    setCardStateEdit(data["state"]);
+    setCardName(data["name"]);
+    setCardUrl(data["url"]);
+    setCardId(data["cardId"]);
+    setCardVoiceUrl(data["voiceUrl"]);
   };
 
   const cardDelete = (e) => {
-    setCardEdit(e)
-  }
+    setCardEdit(e);
+  };
 
   const cardAdd = (e) => {
-    setCardAdd(e)
-  }
+    setCardAdd(e);
+  };
   const cardEdit = (e) => {
-    setCardEdit(e)
-  }
+    setCardEdit(e);
+  };
 
   const cardDataReset = (e) => {
-    setCard(e)
-  }
-
+    setCard(e);
+  };
 
   const addStateChange = () => {
     setCategoryAdd(!isCategoryAdd);
@@ -158,7 +157,6 @@ const Category = () => {
   };
 
   const cardAddClick = (data) => {
-    
     setCardAdd(!isCardAdd);
   };
 
@@ -171,13 +169,13 @@ const Category = () => {
   };
 
   const categoryDel = (data) => {
-    setCategoryId(data.categoryId)
-    setDelModal(!isDelModal)
-  }
+    setCategoryId(data.categoryId);
+    setDelModal(!isDelModal);
+  };
 
   const categoryForModalCancel = () => {
-    setDelModal(!isDelModal)
-  }
+    setDelModal(!isDelModal);
+  };
 
   const categoryList = categoryDatas.map((category, i) => (
     <CategoryCard
@@ -211,95 +209,83 @@ const Category = () => {
   ));
 
   const speechBoxList = speechBoxDatas.map((speech, i) => (
-    <SpeechBoxCard key={i} textValue={speech[0]} cardUrl={speech[1]}></SpeechBoxCard>
+    <SpeechBoxCard
+      key={i}
+      textValue={speech[0]}
+      cardUrl={speech[1]}
+    ></SpeechBoxCard>
   ));
 
   const noLogin = () => {
-    alert('로그인 해주세요');
-    history.push('./login');
+    alert("로그인 해주세요");
+    history.push("./login");
   };
-  // const speechClick = () => {
-  //   for(let i=0; i<speechList.length; i++) {
-  //     let audioLength = 0
-  //     for(let j=0; j<i; j++) {
-  //       audioLength += (speechList[j][1]*1000)
-  //     }
-  //     setTimeout(()=> {
-  //     audio = new Audio(speechList[i][0])
-  //     audio.load()
-  //     playAudio()
-  //   },audioLength)
-  //   }
-  // };
   const speechClick = () => {
-    let audioLength = [0]
-    const target = document.querySelectorAll("#speechCard")
-    for(let i=0; i<speechList.length; i++) {
-      
-      let tempLength = 0
-      for(let j=0; j<=i; j++) {        
-        tempLength += (speechList[j][1]*1000) 
+    let audioLength = [0];
+    const target = document.querySelectorAll("#speechCard");
+    for (let i = 0; i < speechList.length; i++) {
+      let tempLength = 0;
+      for (let j = 0; j <= i; j++) {
+        tempLength += speechList[j][1] * 1000;
       }
-      audioLength.push(tempLength)
+      audioLength.push(tempLength);
     }
-    for(let i=0; i<speechList.length; i++) {
-      setTimeout(()=> {
-        if (0 < i  && i<speechList.length){
-          target[i-1].style.borderColor="black"
-          target[i-1].style.borderWidth="1px"
-        }     
-        if (i === speechList.length-1){
-          console.log(i)
-          setTimeout(()=> {
-            target[i].style.borderColor="black"
-            target[i].style.borderWidth="1px"
-          }, audioLength[speechList.length]-audioLength[speechList.length-1])
+    for (let i = 0; i < speechList.length; i++) {
+      setTimeout(() => {
+        if (0 < i && i < speechList.length) {
+          target[i - 1].style.borderColor = "black";
+          target[i - 1].style.borderWidth = "1px";
         }
-        target[i].style.borderColor="#8A9C3A"
-        target[i].style.borderWidth="3px"
-        audio = new Audio(speechList[i][0])
-        audio.load()
-        playAudio()
-      }, audioLength[i])
+        if (i === speechList.length - 1) {
+          console.log(i);
+          setTimeout(() => {
+            target[i].style.borderColor = "black";
+            target[i].style.borderWidth = "1px";
+          }, audioLength[speechList.length] - audioLength[speechList.length - 1]);
+        }
+        target[i].style.borderColor = "#8A9C3A";
+        target[i].style.borderWidth = "3px";
+        audio = new Audio(speechList[i][0]);
+        audio.load();
+        playAudio();
+      }, audioLength[i]);
     }
-  }
-
+  };
 
   const playAudio = () => {
-    const audioPromise = audio.play()
+    const audioPromise = audio.play();
     if (audioPromise !== undefined) {
       audioPromise
-        .then(_ => {
+        .then((_) => {
           // autoplay started
         })
-        .catch(err => {
+        .catch((err) => {
           // catch dom exception
-          console.info(err)
+          alert('오디오 재생에 실패하였습니다.')
         })
     }
-  }
+  };
 
   return (
     <>
-      
       {isCategory === true ? (
         <>
           {(function () {
             if (isCategoryAdd !== true && isCategoryCardEdit !== true)
               return (
                 <>
-                  {isDelModal === true
-                  ? 
-                  (
-                  <DelModal 
-                    categoryForModalCancel={categoryForModalCancel}
-                    categoryId={categoryId}
-                  ></DelModal>
-                  )
-                  : ('')
-                  }
+                  {isDelModal === true ? (
+                    <DelModal
+                      categoryForModalCancel={categoryForModalCancel}
+                      categoryId={categoryId}
+                    ></DelModal>
+                  ) : (
+                    ""
+                  )}
                   <HeaderComp headertitle={headTitle}></HeaderComp>
-                  <div id='speechItemBox' className={styles.speech_box}>{speechBoxList}</div>
+                  <div id="speechItemBox" className={styles.speech_box}>
+                    {speechBoxList}
+                  </div>
 
                   <div className={styles.control_box}>
                     <button disabled>
@@ -318,19 +304,31 @@ const Category = () => {
                     <div className={styles.button_box}>
                       {token !== null ? (
                         <>
-                          <button className={styles.add_button} onClick={addStateChange}>
+                          <button
+                            className={styles.add_button}
+                            onClick={addStateChange}
+                          >
                             추가
                           </button>
-                          <button className={styles.update_button} onClick={categoryEditClick}>
+                          <button
+                            className={styles.update_button}
+                            onClick={categoryEditClick}
+                          >
                             수정
                           </button>
                         </>
                       ) : (
                         <>
-                          <button className={styles.add_button} onClick={noLogin}>
+                          <button
+                            className={styles.add_button}
+                            onClick={noLogin}
+                          >
                             추가
                           </button>
-                          <button className={styles.update_button} onClick={noLogin}>
+                          <button
+                            className={styles.update_button}
+                            onClick={noLogin}
+                          >
                             수정
                           </button>
                         </>
@@ -369,7 +367,9 @@ const Category = () => {
                 <>
                   <HeaderComp headertitle={headTitle}></HeaderComp>
 
-                  <div id='speechItemBox' className={styles.speech_box}>{speechBoxList}</div>
+                  <div id="speechItemBox" className={styles.speech_box}>
+                    {speechBoxList}
+                  </div>
 
                   <div className={styles.control_box}>
                     <button onClick={undo}>
@@ -388,19 +388,31 @@ const Category = () => {
                     <div className={styles.button_box}>
                       {token !== null ? (
                         <>
-                          <button className={styles.add_button} onClick={cardAddClick}>
+                          <button
+                            className={styles.add_button}
+                            onClick={cardAddClick}
+                          >
                             추가
                           </button>
-                          <button className={styles.update_button} onClick={cardEditClick}>
+                          <button
+                            className={styles.update_button}
+                            onClick={cardEditClick}
+                          >
                             수정
                           </button>
                         </>
                       ) : (
                         <>
-                          <button className={styles.add_button} onClick={noLogin}>
+                          <button
+                            className={styles.add_button}
+                            onClick={noLogin}
+                          >
                             추가
                           </button>
-                          <button className={styles.update_button} onClick={noLogin}>
+                          <button
+                            className={styles.update_button}
+                            onClick={noLogin}
+                          >
                             수정
                           </button>
                         </>
