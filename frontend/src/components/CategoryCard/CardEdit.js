@@ -13,7 +13,7 @@ const CardEdit = (props) => {
   const [speechLoading, setSpeechLoading] = useState(false);
   const categoryId = props.categoryId;
   let audio = "";
-  const special_pattern = /[`~!@#$%^&*,|\\\'\";:\/]/gi;
+  const special_pattern = /[`~!@#$%^&*,|\\\'\";:\/.]/gi;
   const special_pattern2 = /([^가-힣0-9a-zA-Z?\x20])/i;
 
   const onInputChange = (e) => {
