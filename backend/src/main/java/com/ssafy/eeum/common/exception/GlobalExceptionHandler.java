@@ -55,6 +55,15 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(errorCode.getStatus()));
     }
 
+    @ExceptionHandler(NotCreateException.class)
+    public ResponseEntity<ErrorResponse> handleNotCreateException(NotCreateException e){
+        ErrorCode errorCode = e.getErrorCode();
+        String message = errorCode.getMessage();
+        String code = errorCode.getCode();
+        ErrorResponse errorResponse = new ErrorResponse(message, code);
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(errorCode.getStatus()));
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e){
         String message = e.getAllErrors().get(0).getDefaultMessage();
