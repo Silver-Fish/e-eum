@@ -6,10 +6,13 @@ import com.ssafy.eeum.category.domain.Category;
 import com.ssafy.eeum.qr.domain.QR;
 import lombok.Builder;
 import lombok.Getter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,6 +45,12 @@ public class Account {
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private UserRole role = UserRole.ROLE_GUEST;
+
+    @CreationTimestamp
+    private LocalDateTime createDate;
+
+    @UpdateTimestamp
+    private LocalDateTime updateDate;
 
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL,orphanRemoval=true)
     private List<AccountCard> accountCards = new ArrayList<>();

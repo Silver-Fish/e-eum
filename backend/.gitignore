@@ -1,4 +1,3 @@
-**/application.properties
 HELP.md
 .gradle
 build/
@@ -36,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### project
+**/application.properties
+/src/main/resources/eeum_tts_api_key.json
