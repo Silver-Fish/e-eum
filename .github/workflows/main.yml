@@ -38,7 +38,7 @@ jobs:
         run: chmod +x ./backend/gradlew
         
       - name: Build with Gradle
-        run: ~/backend/gradlew build
+        run: ./backend/gradlew build
 
       - name: Get Current Time
         uses: 1466587594/get-current-time@v2
