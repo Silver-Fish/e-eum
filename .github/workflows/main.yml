@@ -1,7 +1,7 @@
 # This is a basic workflow to help you get started with Actions
 
 # Repo Action에 나타날 이름
-name: e-eum Product CI/CD
+name: e-eum Product CI
 
 # Controls when the workflow will run
 on:
@@ -19,9 +19,14 @@ on:
 # workflow 실행은 순차적으로 또는 병렬로 실행할 수 있는 하나 이상의 작업으로 구성
 jobs:
   # workflow는 하나의 빌드를 포함
-  build:
+  backend:
+    name: CI with Gradle
     # 실행 환경 지정
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./backend
 
     # steps는 작업의 일부로 실행될 작업들의 흐름
     steps:
@@ -35,10 +40,10 @@ jobs:
           distribution: 'adopt'
           
       - name: Grant execute permission for gradlew
-        run: chmod +x ./backend/gradlew
+        run: chmod +x ./gradlew
         
       - name: Build with Gradle
-        run: ./backend/gradlew build
+        run: ./gradlew build
 
       - name: Get Current Time
         uses: 1466587594/get-current-time@v2
@@ -50,3 +55,32 @@ jobs:
       - name: Print Current Time
         run: echo "Current Time=${{steps.current-time.outputs.formattedTime}}" # current-time 에서 지정한 포맷대로 현재 시간 출력
         shell: bash
+        
+  frontend:
+    name: CI with Node.js
+    # 실행 환경 지정
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./frontend
+        
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - name: Checkout Github-Action
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: npm 설치
+        run: npm install
+
+      - name: npm 빌드
+        run: npm run build
