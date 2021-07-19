@@ -42,7 +42,8 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
       
-      - uses: actions/cache@v2
+      - name: Cache gradle
+        uses: actions/cache@v2
         with:
           path: |
             ~/.gradle/caches
@@ -86,7 +87,14 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node--
 
       - name: Install npm pkg
         run: npm install
