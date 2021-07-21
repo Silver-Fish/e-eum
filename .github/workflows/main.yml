@@ -60,11 +60,7 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{'{{' }} secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{'{{' }} secrets.AWS_SECRET_ACCESS_KEY }}
-        run: |
-          aws s3 cp \
-          --region ap-northeast-2 \
-          --acl private \ 
-	  ./build/libs/*.jar s3://${{ secrets.AWS_S3_BUCKET_NAME }}/
+        run: aws s3 cp --region ap-northeast-2 --acl private ./build-be.zip s3://${{ secrets.AWS_S3_BUCKET_NAME }}/
 
       - name: Get Current Time
         uses: 1466587594/get-current-time@v2
@@ -120,13 +116,9 @@ jobs:
       # S3 Bucket으로 copy
       - name: Deliver to AWS S3
         env:
-          AWS_ACCESS_KEY_ID: ${{'{{' }} secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{'{{' }} secrets.AWS_SECRET_ACCESS_KEY }}
-        run: |
-          aws s3 cp \
-          --region ap-northeast-2 \
-          --acl private \ 
-	  ./build-fe.zip s3://${{ secrets.AWS_S3_BUCKET_NAME }}/
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: aws s3 cp --region ap-northeast-2 --acl private ./build-fe.zip s3://${{ secrets.AWS_S3_BUCKET_NAME }}/
       
       - name: Get Current Time
         uses: 1466587594/get-current-time@v2
