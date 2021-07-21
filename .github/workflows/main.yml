@@ -109,7 +109,7 @@ jobs:
       - name: Build with npm
         run: npm build
         
-      - # 압축파일 형태로 전달하기 위해 압축
+      # 압축파일 형태로 전달하기 위해 압축
       - name: Make zip file
         run: zip -qq -r ./build-fe.zip .
 
