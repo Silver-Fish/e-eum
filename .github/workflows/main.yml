@@ -64,7 +64,7 @@ jobs:
           aws s3 cp \
           --region ap-northeast-2 \
           --acl private \ 
-	    ./build/libs/*.jar s3://${{ secrets.AWS_S3_BUCKET_NAME }}/
+	  ./build/libs/*.jar s3://${{ secrets.AWS_S3_BUCKET_NAME }}/
 
       - name: Get Current Time
         uses: 1466587594/get-current-time@v2
@@ -126,7 +126,7 @@ jobs:
           aws s3 cp \
           --region ap-northeast-2 \
           --acl private \ 
-	    ./build-fe.zip s3://${{ secrets.AWS_S3_BUCKET_NAME }}/
+	  ./build-fe.zip s3://${{ secrets.AWS_S3_BUCKET_NAME }}/
       
       - name: Get Current Time
         uses: 1466587594/get-current-time@v2
