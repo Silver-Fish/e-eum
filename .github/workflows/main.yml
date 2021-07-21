@@ -1,7 +1,7 @@
 # This is a basic workflow to help you get started with Actions
 
 # Repo Action에 나타날 이름
-name: e-eum Product CI
+name: e-eum Product CI/CD
 
 # Controls when the workflow will run
 on:
@@ -55,6 +55,17 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
+      # S3 Bucket으로 copy
+      - name: Deliver to AWS S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{'{{' }} secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{'{{' }} secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws s3 cp \
+          --region ap-northeast-2 \
+          --acl private \ 
+	    ./build/libs/*.jar s3://${{ secrets.AWS_S3_BUCKET_NAME }}/
+
       - name: Get Current Time
         uses: 1466587594/get-current-time@v2
         id: current-time
@@ -101,3 +112,29 @@ jobs:
 
       - name: Build with npm
         run: npm build
+        
+      - # 압축파일 형태로 전달하기 위해 압축
+      - name: Make zip file
+        run: zip -qq -r ./build-fe.zip .
+
+      # S3 Bucket으로 copy
+      - name: Deliver to AWS S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{'{{' }} secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{'{{' }} secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws s3 cp \
+          --region ap-northeast-2 \
+          --acl private \ 
+	    ./build-fe.zip s3://${{ secrets.AWS_S3_BUCKET_NAME }}/
+      
+      - name: Get Current Time
+        uses: 1466587594/get-current-time@v2
+        id: current-time
+        with:
+          format: YYYY-MM-DDTHH:mm:ss
+          utcOffset: "+09:00" # 기준이 UTC이기 때문에 한국시간인 KST를 맞추기 위해 +9시간 추가
+
+      - name: Print Current Time
+        run: echo "Current Time=${{steps.current-time.outputs.formattedTime}}" # current-time 에서 지정한 포맷대로 현재 시간 출력
+        shell: bash
