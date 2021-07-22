@@ -37,5 +37,4 @@ out/
 .vscode/
 
 ### project
-**/application.properties
-/src/main/resources/eeum_tts_api_key.json
+/src/main/resources/
