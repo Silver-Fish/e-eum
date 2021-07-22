@@ -59,6 +59,14 @@ jobs:
         run: |
           mv ./build/libs/eeum-*.jar ./build/libs/eeum-0.0.${{ github.run_number }}.jar
           echo ./build/libs/eeum-*.jar
+          
+      # appspec.yml Copy
+      - name: Copy appspec
+        run: cp ./appspec.yml ./build/libs/
+
+      # script file Copy
+      - name: Copy shell
+        run: cp ./scripts/* ./build/libs/
         
       - name: Make zip file
         run: zip -qq -r ./build-be.zip ./build/libs/
@@ -111,13 +119,13 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           
-      - name: Cache node modules
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node--
+#       - name: Cache node modules
+#         uses: actions/cache@v2
+#         with:
+#           path: ~/.npm
+#           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+#           restore-keys: |
+#             ${{ runner.os }}-node--
 
       - name: Install npm pkg
         run: npm install
