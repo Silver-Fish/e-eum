@@ -72,7 +72,7 @@ jobs:
 
       # S3 Bucket으로 copy
       - name: Deliver to AWS S3
-        run: aws s3 cp --region ap-northeast-2 --acl private ./build/libs/*.jar s3://${{ secrets.AWS_S3_BUCKET_NAME }}/
+        run: aws s3 cp --region ap-northeast-2 --acl private ./build-be.zip s3://${{ secrets.AWS_S3_BUCKET_NAME }}/
         
       # S3 Bucket에서 AWE EC2로 
       - name: Code Deploy
@@ -123,7 +123,7 @@ jobs:
         run: npm install
 
       - name: Build with npm
-        run: npm build-prod
+        run: npm run build-prod
         
       # 압축파일 형태로 전달하기 위해 압축
       - name: Make zip file
