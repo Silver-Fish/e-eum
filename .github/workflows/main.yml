@@ -20,7 +20,7 @@ on:
 jobs:
   # workflow는 하나의 빌드를 포함
   backend:
-    name: CI with Gradle
+    name: CI/CD with Gradle
     # 실행 환경 지정
     runs-on: ubuntu-latest
     defaults:
@@ -54,13 +54,29 @@ jobs:
         
       - name: Build with Gradle
         run: ./gradlew build
+        
+      - name: JAR file rename
+        run: |
+          mv ./build/libs/eeum-*.jar ./build/libs/eeum-0.0.${{ github.run_number }}.jar
+          echo ./build/libs/eeum-*.jar
+        
+      - name: Make zip file
+        run: zip -qq -r ./build-be.zip ./build/libs/
+        
+      - name: AWS 설정
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
 
       # S3 Bucket으로 copy
       - name: Deliver to AWS S3
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: aws s3 cp --region ap-northeast-2 --acl private ./build/libs/*.jar s3://${{ secrets.AWS_S3_BUCKET_NAME }}/
+        
+      # S3 Bucket에서 AWE EC2로 
+      - name: Code Deploy
+        run: aws deploy create-deployment --application-name eeum-code-deploy --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name eeum --file-exists-behavior OVERWRITE --s3-location bucket=eeum-deploy,bundleType=zip,key=build-be.zip --region ap-northeast-2
 
       - name: Get Current Time
         uses: 1466587594/get-current-time@v2
@@ -74,7 +90,7 @@ jobs:
         shell: bash
         
   frontend:
-    name: CI with Node.js
+    name: CI/CD with Node.js
     # 실행 환경 지정
     runs-on: ubuntu-latest
     defaults:
@@ -107,18 +123,26 @@ jobs:
         run: npm install
 
       - name: Build with npm
-        run: npm build
+        run: npm build-prod
         
       # 압축파일 형태로 전달하기 위해 압축
       - name: Make zip file
         run: zip -qq -r ./build-fe.zip .
+        
+      - name: AWS 설정
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
 
       # S3 Bucket으로 copy
       - name: Deliver to AWS S3
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: aws s3 cp --region ap-northeast-2 --acl private ./build-fe.zip s3://${{ secrets.AWS_S3_BUCKET_NAME }}/
+        
+      # S3 Bucket에서 AWE EC2로 
+      - name: Code Deploy
+        run: aws deploy create-deployment --application-name eeum-code-deploy --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name eeum --file-exists-behavior OVERWRITE --s3-location bucket=eeum-deploy,bundleType=zip,key=build-fe.zip --region ap-northeast-2
       
       - name: Get Current Time
         uses: 1466587594/get-current-time@v2
