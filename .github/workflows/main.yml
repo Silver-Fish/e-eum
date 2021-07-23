@@ -66,7 +66,7 @@ jobs:
 
       # script file Copy
       - name: Copy shell
-        run: cp ./scripts ./build/libs/
+        run: cp -r ./scripts ./build/libs/
         
       - name: Make zip file
         run: zip -qq -r -j ./build-be.zip ./build/libs/
@@ -119,13 +119,13 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           
-#       - name: Cache node modules
-#         uses: actions/cache@v2
-#         with:
-#           path: ~/.npm
-#           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-#           restore-keys: |
-#             ${{ runner.os }}-node--
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node--
 
       - name: Install npm pkg
         run: npm install
