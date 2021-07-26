@@ -71,7 +71,7 @@ jobs:
       - name: Make zip file
         run: zip -qq -r -j ./build-be.zip ./build/libs/
         
-      - name: AWS 설정
+      - name: AWS Setting
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -122,7 +122,7 @@ jobs:
       - name: Make zip file
         run: zip -qq -r ./build-fe.zip ./build/
         
-      - name: AWS 설정
+      - name: AWS Setting
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -139,6 +139,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: [backend-CI, frontend-CI]
     steps:
+      - name: AWS Setting
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+          
       # S3 Bucket에서 AWE EC2로 배포
       - name: Backend Code Deploy
         run: aws deploy create-deployment --application-name eeum-code-deploy --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name eeum --file-exists-behavior OVERWRITE --s3-location bucket=eeum-deploy,bundleType=zip,key=build-be.zip --region ap-northeast-2
