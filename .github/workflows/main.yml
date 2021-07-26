@@ -18,6 +18,57 @@ on:
 
 # workflow 실행은 순차적으로 또는 병렬로 실행할 수 있는 하나 이상의 작업으로 구성
 jobs:
+  frontend-CI:
+    name: CI with Node.js
+    # 실행 환경 지정
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./frontend
+        
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - name: Checkout Github-Action
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node--
+
+      - name: Install npm pkg
+        run: npm install
+
+      - name: Build with npm
+        run: sudo npm run build-prod
+        
+      # 압축파일 형태로 전달하기 위해 압축
+      - name: Make zip file
+        run: zip -qq -r ./build-fe.zip ./build/
+        
+      - name: AWS Setting
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+
+      # S3 Bucket으로 copy
+      - name: Deliver to AWS S3
+        run: aws s3 cp --region ap-northeast-2 --acl private ./build-fe.zip s3://${{ secrets.AWS_S3_BUCKET_NAME }}/
+  
   # workflow는 하나의 빌드를 포함
   backend-CI:
     name: CI with Gradle
@@ -81,57 +132,6 @@ jobs:
       # S3 Bucket으로 copy
       - name: Deliver to AWS S3
         run: aws s3 cp --region ap-northeast-2 --acl private ./build-be.zip s3://${{ secrets.AWS_S3_BUCKET_NAME }}/
-         
-  frontend-CI:
-    name: CI with Node.js
-    # 실행 환경 지정
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-        working-directory: ./frontend
-        
-    strategy:
-      matrix:
-        node-version: [14.x]
-
-    steps:
-      - name: Checkout Github-Action
-        uses: actions/checkout@v2
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-          
-      - name: Cache node modules
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node--
-
-      - name: Install npm pkg
-        run: npm install
-
-      - name: Build with npm
-        run: sudo npm run build-prod
-        
-      # 압축파일 형태로 전달하기 위해 압축
-      - name: Make zip file
-        run: zip -qq -r ./build-fe.zip ./build/
-        
-      - name: AWS Setting
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-northeast-2
-
-      # S3 Bucket으로 copy
-      - name: Deliver to AWS S3
-        run: aws s3 cp --region ap-northeast-2 --acl private ./build-fe.zip s3://${{ secrets.AWS_S3_BUCKET_NAME }}/
         
   CD:
     name: CD with CodeDeploy
@@ -145,14 +145,14 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-2
-          
+        
+      # S3 Bucket에서 AWE EC2로 배포
+      - name: Frontend Code Deploy
+        run: aws deploy create-deployment --application-name eeum-code-deploy --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name eeum --file-exists-behavior OVERWRITE --s3-location bucket=eeum-deploy,bundleType=zip,key=build-fe.zip --region ap-northeast-2  
+        
       # S3 Bucket에서 AWE EC2로 배포
       - name: Backend Code Deploy
         run: aws deploy create-deployment --application-name eeum-code-deploy --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name eeum --file-exists-behavior OVERWRITE --s3-location bucket=eeum-deploy,bundleType=zip,key=build-be.zip --region ap-northeast-2
-       
-      # S3 Bucket에서 AWE EC2로 배포
-      - name: Frontend Code Deploy
-        run: aws deploy create-deployment --application-name eeum-code-deploy --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name eeum --file-exists-behavior OVERWRITE --s3-location bucket=eeum-deploy,bundleType=zip,key=build-fe.zip --region ap-northeast-2
       
       - name: Get Current Time
         uses: 1466587594/get-current-time@v2
