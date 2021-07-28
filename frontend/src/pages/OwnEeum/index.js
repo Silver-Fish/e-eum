@@ -25,6 +25,7 @@ const OwnEeum = () => {
   const [cookies] = useCookies(['cookie']);
   const [speechList, setSpeechList] = useState([])
   const [cardVoiceUrl, setCardVoiceUrl] = useState('')
+  const cardColumn = 2
   let audio = ""
 
   const cardClick = (data) => {
@@ -194,8 +195,15 @@ const OwnEeum = () => {
                 </button>
                 </>
               </div>
-
-              <div className={styles.owneeum_card_box}>{owncardList}</div>
+              <>
+                {  
+                  cardColumn === 2 ? (<div className={styles.owneeum_card_box_two}>{owncardList}</div>)
+                  : (cardColumn === 3 
+                    ? (<div className={styles.owneeum_card_box_three}>{owncardList}</div>)
+                    : (<div className={styles.owneeum_card_box_four}>{owncardList}</div>)
+                    )
+                }
+              </>
               <div className={styles.bottom_button}>
                 <div className={styles.button_box}>
                   {checkLogin !== null ? (
