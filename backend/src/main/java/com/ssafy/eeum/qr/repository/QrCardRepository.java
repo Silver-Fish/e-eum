@@ -15,5 +15,5 @@ import java.util.List;
  **/
 
 public interface QrCardRepository extends JpaRepository<QrCard,Long> {
-    List<QrCard> findByCardId(long id);
+    QrCard findByCardId(long id);
 }

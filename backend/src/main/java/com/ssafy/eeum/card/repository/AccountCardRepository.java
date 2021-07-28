@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface AccountCardRepository extends JpaRepository<AccountCard,Long> {
-    List<AccountCard> findByCardId(Long id);
+    AccountCard findByCardId(Long id);
 
     @Query("SELECT ac FROM AccountCard ac WHERE ac.account = :account AND ac.card.word LIKE %:keyword%")
     List<AccountCard> findByKeyword(String keyword, Account account);
