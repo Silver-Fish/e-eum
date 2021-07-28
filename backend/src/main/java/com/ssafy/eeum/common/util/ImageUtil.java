@@ -64,14 +64,14 @@ public class ImageUtil {
         return newImage;
     }
 
-    public static boolean copyFile(String inPath, String outFolder, String outFile){
+    public static boolean copyFile(String inPath, String outFolder, String outFile) {
         File folder = new File(outFolder);
         folder.mkdirs();
 
         File in = new File(inPath);
-        File out = new File(outFolder+"/"+outFile);
+        File out = new File(outFolder + "/" + outFile);
 
-        if(!in.exists())
+        if (!in.exists())
             return false;
         try {
             FileCopyUtils.copy(in, out);
@@ -84,7 +84,7 @@ public class ImageUtil {
 
     public static void deleteFile(String path, String url) {
         File file = new File(path + url);
-        if (file.exists() && !url.equals("0/default.svg")) {
+        if (file.exists() && !url.equals("0/default.svg") && !url.split("/")[0].equals("1")) {
             file.delete();
         } else {
             log.info("file not exist or default image");
