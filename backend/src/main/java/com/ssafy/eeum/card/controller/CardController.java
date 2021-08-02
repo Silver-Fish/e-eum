@@ -62,15 +62,15 @@ public class CardController {
 
     @PutMapping("/{id}")
     @ApiOperation(value = "카드 수정, http://localhost:8080/api/card/{id:카드아이디}, data={word:단어}", notes = "카드 id를 받아 카드리스트를 수정한다.")
-    public ResponseEntity<Void> updateCard(@PathVariable @NotNull Long id, @RequestBody @Valid CardUpdateRequest cardUpdateRequest) throws Exception{
+    public ResponseEntity<Void> updateCard(@PathVariable @NotNull Long id, @RequestBody @Valid CardUpdateRequest cardUpdateRequest) throws Exception {
         cardService.updateCard(id, cardUpdateRequest);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "카드 삭제, http://localhost:8080/api/card/{id:카드아이디}", notes = "카드 id를 받아 카드리스트를 삭제한다.")
-    public ResponseEntity<Void> deleteCard(@PathVariable @NotNull Long id) {
-        cardService.deleteCard(id);
+    public ResponseEntity<Void> deleteCard(@ApiIgnore @CurrentAccount Account account, @PathVariable @NotNull Long id) {
+        cardService.deleteCard(account, id);
         return ResponseEntity.noContent().build();
     }
 
