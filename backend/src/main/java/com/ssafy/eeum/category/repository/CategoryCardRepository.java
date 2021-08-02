@@ -17,7 +17,7 @@ import java.util.List;
  **/
 
 public interface CategoryCardRepository extends JpaRepository<CategoryCard,Long> {
-    List<CategoryCard> findByCardId(Long id);
+    CategoryCard findByCardId(Long id);
 
     @Query("SELECT cc FROM CategoryCard cc WHERE cc.category.account = :account AND cc.card.word LIKE %:keyword%")
     List<CategoryCard> findByKeyword(String keyword, Account account);
